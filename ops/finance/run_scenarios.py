@@ -12,6 +12,8 @@ from pathlib import Path
 
 DEFAULT_INPUT = Path("private/finance/scenarios.json")
 DEFAULT_OUTPUT = Path("private/_local/finance/scenario-output.json")
+DEFAULT_SUMMARY_OUTPUT = Path("private/finance/scenario-results.md")
+REQUIRED_SCENARIOS = {"conservative", "base", "upside", "stress", "lifestyle_upgrade"}
 
 
 def target_multiple(nominal_return: float, inflation: float, years: int) -> float:
@@ -96,7 +98,7 @@ def run(config: dict) -> dict:
             total_savings, monthly_savings, nominal_return, target_date_months
         )
 
-        results.append(
+        result = (
             {
                 "name": scenario["name"],
                 "description": scenario.get("description", ""),
@@ -121,27 +123,146 @@ def run(config: dict) -> dict:
                 "include_social_security": include_ss,
             }
         )
+        result["risk_flags"] = risk_flags(
+            result=result,
+            target_date_months=target_date_months,
+            emergency_months=float(globals_.get("emergency_runway_months", 12)),
+        )
+        results.append(result)
 
     return {
         "version": config["version"],
         "as_of": config["as_of"],
         "currency": config.get("currency", "USD"),
+        "validation": validate_config(config),
+        "summary": summarize_results(results),
         "results": results,
     }
 
 
-def main() -> None:
+def risk_flags(result: dict, target_date_months: int, emergency_months: float) -> list[str]:
+    flags = []
+    if result["months_to_target"] is None:
+        flags.append("target_not_reached_within_model_window")
+    elif result["months_to_target"] > target_date_months:
+        flags.append("target_after_target_date")
+    if result["surplus_or_gap_at_target_date"] < 0:
+        flags.append("negative_gap_at_target_date")
+    if result["liquid_runway_months"] < emergency_months:
+        flags.append("liquid_runway_below_emergency_target")
+    if result["include_social_security"]:
+        flags.append("depends_on_social_security_offset")
+    return flags
+
+
+def validate_config(config: dict) -> dict:
+    names = {scenario["name"] for scenario in config.get("scenarios", [])}
+    missing = sorted(REQUIRED_SCENARIOS - names)
+    present = sorted(names)
+    return {
+        "required_scenarios": sorted(REQUIRED_SCENARIOS),
+        "present_scenarios": present,
+        "missing_required_scenarios": missing,
+        "status": "ok" if not missing else "missing_required_scenarios",
+    }
+
+
+def summarize_results(results: list[dict]) -> dict:
+    if not results:
+        return {
+            "scenario_count": 0,
+            "earliest_target_scenario": None,
+            "latest_target_scenario": None,
+            "highest_target_number_scenario": None,
+            "negative_gap_scenarios": [],
+            "flagged_scenarios": [],
+        }
+
+    reached = [result for result in results if result["months_to_target"] is not None]
+    earliest = min(reached, key=lambda result: result["months_to_target"]) if reached else None
+    latest = max(reached, key=lambda result: result["months_to_target"]) if reached else None
+    highest = max(results, key=lambda result: result["target_number"])
+    return {
+        "scenario_count": len(results),
+        "earliest_target_scenario": earliest["name"] if earliest else None,
+        "latest_target_scenario": latest["name"] if latest else None,
+        "highest_target_number_scenario": highest["name"],
+        "negative_gap_scenarios": [
+            result["name"] for result in results if result["surplus_or_gap_at_target_date"] < 0
+        ],
+        "flagged_scenarios": [
+            {"name": result["name"], "risk_flags": result["risk_flags"]}
+            for result in results
+            if result["risk_flags"]
+        ],
+    }
+
+
+def format_markdown_summary(output: dict) -> str:
+    lines = [
+        f"# Finance Scenario Results: {output['as_of']}",
+        "",
+        "Status: Local private output",
+        "",
+        "## Validation",
+        "",
+        f"- Status: {output['validation']['status']}",
+        f"- Missing required scenarios: {', '.join(output['validation']['missing_required_scenarios']) or 'none'}",
+        "",
+        "## Summary",
+        "",
+        f"- Scenario count: {output['summary']['scenario_count']}",
+        f"- Earliest target scenario: {output['summary']['earliest_target_scenario'] or 'none'}",
+        f"- Latest target scenario: {output['summary']['latest_target_scenario'] or 'none'}",
+        f"- Highest target number scenario: {output['summary']['highest_target_number_scenario'] or 'none'}",
+        f"- Negative gap scenarios: {', '.join(output['summary']['negative_gap_scenarios']) or 'none'}",
+        "",
+        "## Scenario Risk Flags",
+        "",
+    ]
+    for result in output["results"]:
+        flags = ", ".join(result["risk_flags"]) or "none"
+        lines.append(f"- {result['name']}: {flags}")
+    lines.extend(
+        [
+            "",
+            "## Privacy Note",
+            "",
+            "This file is local-only and may contain private financial model outputs if expanded.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    args = parser.parse_args()
+    parser.add_argument("--summary-output", type=Path, default=DEFAULT_SUMMARY_OUTPUT)
+    parser.add_argument("--write-summary", action="store_true")
+    parser.add_argument("--print", action="store_true", help="print private scenario output to stdout")
+    return parser
+
+
+def main_with_args(argv: list[str] | None = None) -> None:
+    parser = build_parser()
+    args = parser.parse_args(argv)
 
     config = json.loads(args.input.read_text())
     output = run(config)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2) + "\n")
-    print(json.dumps(output, indent=2))
+    if args.write_summary:
+        args.summary_output.parent.mkdir(parents=True, exist_ok=True)
+        args.summary_output.write_text(format_markdown_summary(output))
+    if args.print:
+        print(json.dumps(output, indent=2))
+    else:
+        print(f"wrote: {args.output}")
+        if args.write_summary:
+            print(f"wrote: {args.summary_output}")
 
 
 if __name__ == "__main__":
-    main()
+    main_with_args()

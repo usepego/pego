@@ -72,6 +72,7 @@ REQUIRED_FILES = [
     "ops/governance/test_directive_preflight.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
+    "ops/finance/test_run_scenarios.py",
     "ops/pego_registry.py",
 ]
 
@@ -190,6 +191,7 @@ def check_python_syntax(errors: list[str]) -> None:
         "ops/governance/test_directive_preflight.py",
         "ops/governance/generate_compliance_review.py",
         "ops/finance/run_scenarios.py",
+        "ops/finance/test_run_scenarios.py",
         "ops/pego_registry.py",
         "ops/pego_doctor.py",
     ]

@@ -62,6 +62,8 @@ The PEGO finance model estimates when a person can stop relying on regular salar
 - Gap versus target date
 - Scenario comparison
 - Sensitivity analysis
+- Scenario validation
+- Risk flags and governance triggers
 
 ## Executable Engine
 
@@ -72,6 +74,8 @@ ops/finance/run_scenarios.py
 ```
 
 It reads private scenario assumptions and writes generated outputs to ignored local files.
+
+By default, finance runners should not print private financial results to stdout. Console output should be limited to file paths or safe-derived status unless an explicit print flag is used.
 
 ## Required Scenario Set
 
@@ -109,3 +113,13 @@ The Finance Agent should use this model before making directives involving:
 - Emergency fund sizing
 
 For high-impact decisions, the Finance Agent should produce an escalation packet with assumptions, scenarios, risks, dissent, and reversibility.
+
+## Governance Triggers
+
+Finance outputs should create governance flags when:
+
+- The target is reached after the target date.
+- The target date has a negative surplus/gap.
+- Liquid runway is below the emergency target.
+- The scenario depends on Social Security, pension, sale proceeds, private-company equity, or speculative upside.
+- Stress scenarios materially contradict base-case confidence.

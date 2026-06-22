@@ -19,6 +19,8 @@ or local script should all be able to produce and consume these contracts.
   Level 4 decisions.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
+- `outcome-review.schema.json`: learning decision produced from directive
+  outcome evidence.
 - `directive-preflight.schema.json`: lightweight governance classification for
   a proposed directive before adoption.
 - `directive-queue.schema.json`: live intra-day queue for active, deferred,

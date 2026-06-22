@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/outcome-review.schema.json",
+  "title": "PEGO Outcome Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_outcome",
+    "directive",
+    "completion_class",
+    "evidence_summary",
+    "friction_summary",
+    "benefit_summary",
+    "cost_summary",
+    "learning_decision",
+    "queue_implication",
+    "context_update_recommendation",
+    "agent_routing",
+    "governance_status",
+    "next_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "outcome_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "directive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completion_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "friction_summary": {
+      "type": "string"
+    },
+    "benefit_summary": {
+      "type": "string"
+    },
+    "cost_summary": {
+      "type": "string"
+    },
+    "learning_decision": {
+      "enum": [
+        "Repeat",
+        "Reduce",
+        "Split",
+        "Block pending dependency",
+        "Reschedule with smaller scope",
+        "Stop or defer",
+        "Escalate",
+        "Gather more information"
+      ]
+    },
+    "queue_implication": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context_update_recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_routing": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governance_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_review": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

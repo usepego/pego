@@ -2,6 +2,9 @@
 
 Use this packet to convert a directive outcome into a learning decision.
 
+Structured implementations should emit
+`pego/schemas/outcome-review.schema.json`.
+
 ## Date
 
 Date.

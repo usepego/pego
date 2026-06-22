@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from datetime import date
 from pathlib import Path
@@ -30,6 +31,48 @@ def parse_sections(text: str) -> dict[str, str]:
         if current:
             sections[current].append(line)
     return {key: "\n".join(value).strip() for key, value in sections.items()}
+
+
+def read_outcome_sections(outcome_path: Path) -> dict[str, str]:
+    text = outcome_path.read_text()
+    if outcome_path.suffix == ".json":
+        data = json.loads(text)
+        if data.get("artifact_type") != "directive_outcome":
+            raise SystemExit("json outcome must have artifact_type directive_outcome")
+        return sections_from_json_outcome(data)
+    return parse_sections(text)
+
+
+def sections_from_json_outcome(data: dict[str, object]) -> dict[str, str]:
+    def text_field(name: str, fallback: str = "") -> str:
+        value = data.get(name, fallback)
+        return str(value) if value is not None else fallback
+
+    def list_field(name: str) -> str:
+        value = data.get(name, [])
+        if isinstance(value, list):
+            return "\n".join(str(item) for item in value) or "None recorded."
+        return str(value)
+
+    completion = text_field("completion", "unknown").replace("_", " ").title()
+    return {
+        "Date": text_field("date"),
+        "Source Directive": text_field("source_directive"),
+        "Directive Summary": text_field("directive_summary"),
+        "Completion": completion,
+        "What Happened": text_field("what_happened", "Not supplied."),
+        "Evidence": list_field("evidence"),
+        "Friction": list_field("friction"),
+        "Benefit": text_field("benefit", "None recorded."),
+        "Cost": text_field("cost", "None recorded."),
+        "Protected-Time Impact": text_field("protected_time_impact", "none").title(),
+        "Stakeholder Impact": text_field("stakeholder_impact", "None recorded."),
+        "Environment Impact": text_field("environment_impact", "None recorded."),
+        "Follow-Up Directive Candidates": list_field("follow_up_directive_candidates"),
+        "Agent Updates": list_field("agent_updates"),
+        "Governance Notes": text_field("governance_notes", "None recorded."),
+        "Next Review": text_field("next_review", "Next weekly review."),
+    }
 
 
 def first_line(value: str, fallback: str = "Not supplied.") -> str:
@@ -155,72 +198,94 @@ def governance_status(sections: dict[str, str]) -> str:
     return "Level 1 learning review; no authority increase approved."
 
 
-def build_review(outcome_path: Path, review_date: str) -> str:
-    sections = parse_sections(outcome_path.read_text())
+def build_review_artifact(outcome_path: Path, review_date: str) -> dict[str, object]:
+    sections = read_outcome_sections(outcome_path)
     directive = first_line(sections.get("Directive Summary", ""), outcome_path.stem)
     completion = first_line(sections.get("Completion", ""), "Unknown")
     decision = learning_decision(sections)
     evidence = first_line(sections.get("Evidence", ""), "Human report.")
     happened = first_line(sections.get("What Happened", ""), "Not supplied.")
+    return {
+        "artifact_type": "outcome_review",
+        "schema_version": 1,
+        "date": review_date,
+        "source_outcome": str(outcome_path),
+        "directive": directive,
+        "completion_class": completion,
+        "evidence_summary": f"{happened} Evidence: {evidence}",
+        "friction_summary": sections.get("Friction", "None recorded.") or "None recorded.",
+        "benefit_summary": sections.get("Benefit", "None recorded.") or "None recorded.",
+        "cost_summary": sections.get("Cost", "None recorded.") or "None recorded.",
+        "learning_decision": decision,
+        "queue_implication": queue_implication(decision),
+        "context_update_recommendation": context_recommendation(decision, sections),
+        "agent_routing": agent_routing(sections),
+        "governance_status": governance_status(sections),
+        "next_review": first_line(sections.get("Next Review", ""), "Next weekly review."),
+    }
+
+
+def build_review(outcome_path: Path, review_date: str) -> str:
+    artifact = build_review_artifact(outcome_path, review_date)
     return "\n".join(
         [
-            f"# Outcome Review: {review_date} - {directive}",
+            f"# Outcome Review: {review_date} - {artifact['directive']}",
             "",
             "## Date",
             "",
-            review_date,
+            str(artifact["date"]),
             "",
             "## Source Outcome",
             "",
-            str(outcome_path),
+            str(artifact["source_outcome"]),
             "",
             "## Directive",
             "",
-            directive,
+            str(artifact["directive"]),
             "",
             "## Completion Class",
             "",
-            completion,
+            str(artifact["completion_class"]),
             "",
             "## Evidence Summary",
             "",
-            f"{happened} Evidence: {evidence}",
+            str(artifact["evidence_summary"]),
             "",
             "## Friction Summary",
             "",
-            sections.get("Friction", "None recorded.") or "None recorded.",
+            str(artifact["friction_summary"]),
             "",
             "## Benefit Summary",
             "",
-            sections.get("Benefit", "None recorded.") or "None recorded.",
+            str(artifact["benefit_summary"]),
             "",
             "## Cost Summary",
             "",
-            sections.get("Cost", "None recorded.") or "None recorded.",
+            str(artifact["cost_summary"]),
             "",
             "## Learning Decision",
             "",
-            decision,
+            str(artifact["learning_decision"]),
             "",
             "## Queue Implication",
             "",
-            queue_implication(decision),
+            str(artifact["queue_implication"]),
             "",
             "## Context Update Recommendation",
             "",
-            context_recommendation(decision, sections),
+            str(artifact["context_update_recommendation"]),
             "",
             "## Agent Routing",
             "",
-            agent_routing(sections),
+            str(artifact["agent_routing"]),
             "",
             "## Governance Status",
             "",
-            governance_status(sections),
+            str(artifact["governance_status"]),
             "",
             "## Next Review",
             "",
-            first_line(sections.get("Next Review", ""), "Next weekly review."),
+            str(artifact["next_review"]),
             "",
         ]
     )
@@ -231,8 +296,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--outcome", type=Path, required=True)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
+
+
+def write_output(path: Path, content: str, force: bool) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists() and not force:
+        raise SystemExit(f"refusing to overwrite existing file: {path}")
+    path.write_text(content)
 
 
 def main_with_args(argv: list[str] | None = None) -> Path:
@@ -243,11 +316,17 @@ def main_with_args(argv: list[str] | None = None) -> Path:
     output = args.output or (
         PRIVATE / "reviews" / "outcomes" / f"{args.date}-{slugify(args.outcome.stem)}.md"
     )
-    output.parent.mkdir(parents=True, exist_ok=True)
-    if output.exists() and not args.force:
-        raise SystemExit(f"refusing to overwrite existing file: {output}")
-    output.write_text(build_review(args.outcome, args.date))
+    write_output(output, build_review(args.outcome, args.date), args.force)
+    if args.json_output:
+        artifact = build_review_artifact(args.outcome, args.date)
+        write_output(
+            args.json_output,
+            json.dumps(artifact, indent=2, sort_keys=True) + "\n",
+            args.force,
+        )
     print(f"wrote: {output}")
+    if args.json_output:
+        print(f"wrote: {args.json_output}")
     return output
 
 

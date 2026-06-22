@@ -92,6 +92,15 @@ It writes protected private review packets under:
 private/reviews/outcomes/
 ```
 
+To emit a structured runtime-neutral review artifact as well:
+
+```sh
+python3 ops/review/review_outcome.py --outcome private/outcomes/directives/YYYY-MM-DD-directive.json --json-output private/reviews/outcomes/YYYY-MM-DD-directive-review.json
+```
+
+Structured review artifacts must conform to
+`pego/schemas/outcome-review.schema.json`.
+
 Outcome records should feed:
 
 - `pego/operations/daily-loop.md`

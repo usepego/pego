@@ -30,7 +30,7 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 
 ## Monthly Strategy Questions
 
-- Is PEGO making the desired life more real?
+- Is PEGO moving current conditions toward the stated desired outcomes?
 - Which goals advanced?
 - Which goals stalled?
 - Which assumptions were wrong?

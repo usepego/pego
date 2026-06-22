@@ -46,7 +46,7 @@ Learning, curiosity, travel, craft, taste, and optionality.
 
 ### Happiness
 
-Whether PEGO is making the desired life more real.
+Whether PEGO is moving current conditions toward the stated desired outcomes.
 
 ### Operations
 

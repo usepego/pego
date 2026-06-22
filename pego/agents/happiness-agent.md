@@ -100,4 +100,4 @@ The Happiness Agent must not:
 
 ## Operating Principle
 
-Happiness is the aim, not a reward after the plan succeeds. PEGO should preserve the ingredients of a good life while building toward larger outcomes.
+Happiness is the aim, not a reward after the plan succeeds. PEGO should preserve the required conditions for the stated life outcomes while building toward larger goals.

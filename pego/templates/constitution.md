@@ -12,7 +12,7 @@ State the reason for delegated governance in plain language.
 
 Useful prompt:
 
-- What does the person want PEGO to decide, protect, or make possible that ordinary self-management has not reliably achieved?
+- What does the person want PEGO to decide, protect, or make possible that the current operating pattern has not reliably achieved?
 
 ## 2. Governed Subject
 

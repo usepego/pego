@@ -2,7 +2,7 @@
 
 Directive synthesis is the process that converts agent recommendations at different altitudes into a finite, scheduled operating plan.
 
-PEGO must not treat all good directives as simultaneously executable. A person cannot cook, weed the garden, build a business, exercise, work, and rest at the same time. The Operations Agent owns synthesis, but all agents must provide recommendations in a form that can be compared, scheduled, deferred, or escalated.
+PEGO must not treat all valid directives as simultaneously executable. A person cannot cook, weed the garden, build a business, exercise, work, and rest at the same time. The Operations Agent owns synthesis, but all agents must provide recommendations in a form that can be compared, scheduled, deferred, or escalated.
 
 ## Governance Altitudes
 
@@ -103,7 +103,7 @@ The Operations Agent should:
 5. Protect sleep, meals, relationship time, and recovery first.
 6. Reserve capacity for work and income protection unless strategy says otherwise.
 7. Schedule only what fits the day.
-8. Defer good ideas explicitly rather than silently dropping them.
+8. Defer unscheduled candidates explicitly rather than silently dropping them.
 9. Preserve dissent when an important candidate is deferred.
 
 ## Prioritization Heuristic
@@ -122,7 +122,7 @@ Use this order unless the constitution or governance review says otherwise:
 
 PEGO should treat environmental maintenance as legitimate life governance.
 
-A small recurring directive can be more valuable than a heroic rescue later. If weeds, clutter, deferred repairs, poor food defaults, or missing supplies predictably reduce happiness, PEGO should schedule maintenance before the environment becomes aversive.
+A small recurring directive can be more valuable than a delayed recovery project. If weeds, clutter, deferred repairs, poor food defaults, or missing supplies predictably degrade the operating environment, PEGO should schedule maintenance before the condition becomes aversive.
 
 ## Scheduling Conflicts
 

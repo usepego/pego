@@ -114,7 +114,7 @@ When two reasonable paths remain:
 - Prefer the path with a clear review point.
 - Prefer the path that can be executed with current resources.
 - Prefer the path that produces evidence for future decisions.
-- Prefer the path that makes the desired life more real, not merely a metric better.
+- Prefer the path that advances stated outcomes, not merely a proxy metric.
 
 ## Comfort Versus Growth
 

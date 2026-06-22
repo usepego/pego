@@ -49,3 +49,26 @@ private/health/check-ins/health-check-in.md
 The check-in asks only targeted questions needed to select or revise health
 directives. It should not create broad reflection prompts or new biomarker
 tracking unless the measurement changes a decision.
+
+## Decide Meal
+
+```sh
+python3 ops/health/decide_meal.py --option private/health/food-options/options.json
+```
+
+Default output:
+
+```text
+private/health/meal-decisions/meal-decision.md
+```
+
+The meal decision runner compares protected food options and emits a meal
+decision plus a health directive candidate. It supports multiple nutrition
+strategies, including weight loss, weight gain, maintenance, muscle gain,
+performance, metabolic stability, appetite recovery, and balanced eating.
+
+Food option inputs should follow:
+
+```text
+pego/schemas/food-option.schema.json
+```

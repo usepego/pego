@@ -47,6 +47,7 @@ REQUIRED_FILES = [
     "pego/governance/private-data-policy.md",
     "pego/governance/repository-access-policy.md",
     "pego/finance/engine-contract.md",
+    "pego/health/food-environment-spec.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",
     "pego/operations/monthly-loop.md",
@@ -83,6 +84,8 @@ REQUIRED_FILES = [
     "pego/schemas/health-baseline.schema.json",
     "pego/schemas/health-check-in.schema.json",
     "pego/schemas/voice-and-taste-model.schema.json",
+    "pego/schemas/food-option.schema.json",
+    "pego/schemas/meal-decision.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -106,6 +109,8 @@ REQUIRED_FILES = [
     "pego/templates/health-check-in.md",
     "pego/templates/voice-and-taste-model.md",
     "pego/templates/public-writing-brief.md",
+    "pego/templates/food-option.md",
+    "pego/templates/meal-decision.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -147,6 +152,8 @@ REQUIRED_FILES = [
     "ops/health/test_generate_candidates.py",
     "ops/health/generate_check_in.py",
     "ops/health/test_generate_check_in.py",
+    "ops/health/decide_meal.py",
+    "ops/health/test_decide_meal.py",
     "ops/home/generate_candidates.py",
     "ops/home/test_generate_candidates.py",
     "ops/private/check_readiness.py",
@@ -178,6 +185,8 @@ SCHEMA_FILES = [
     "pego/schemas/health-baseline.schema.json",
     "pego/schemas/health-check-in.schema.json",
     "pego/schemas/voice-and-taste-model.schema.json",
+    "pego/schemas/food-option.schema.json",
+    "pego/schemas/meal-decision.schema.json",
 ]
 
 

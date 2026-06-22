@@ -163,6 +163,7 @@ PEGO must not:
 
 - Daily movement directive.
 - Daily food directive.
+- Meal decision.
 - Sleep directive.
 - Directive candidate table for synthesis.
 - Weekly review.
@@ -187,6 +188,20 @@ ops/health/generate_check_in.py
 ```
 
 It reads the same protected health baseline and writes a targeted check-in packet for sleep, food availability, hunger/cravings, movement completion, symptoms/constraints, and decision-relevant optional metrics.
+
+The reference local meal decision runner lives at:
+
+```text
+ops/health/decide_meal.py
+```
+
+It reads protected food options and writes a meal decision plus a health directive candidate. It should use the current private nutrition strategy rather than assuming every person has a weight-loss goal.
+
+Food environment, restaurant, grocery, menu, map, and nutrition adapters should follow:
+
+```text
+pego/health/food-environment-spec.md
+```
 
 The protected baseline should follow:
 

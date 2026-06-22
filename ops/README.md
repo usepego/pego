@@ -35,4 +35,5 @@ Useful tools:
 - `finance/run_scenarios.py`: run private finance scenarios from local assumptions.
 - `finance/review_scenarios.py`: convert scenario output into protected governance-ready finance review.
 - `health/generate_candidates.py`: convert a protected health baseline into low-risk directive candidates.
+- `health/decide_meal.py`: select a protected meal directive from structured food options.
 - `home/generate_candidates.py`: convert operating-register home entries into environment directive candidates.

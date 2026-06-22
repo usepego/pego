@@ -49,6 +49,10 @@ or local script should all be able to produce and consume these contracts.
   gather only the state needed for directive selection or review.
 - `voice-and-taste-model.schema.json`: protected private model for writing
   voice, humor, taste, influences, public positioning, and drafting rules.
+- `food-option.schema.json`: protected food option from manual, grocery,
+  restaurant, menu, nutrition, map, delivery, or agent-estimate sources.
+- `meal-decision.schema.json`: protected meal decision comparing available
+  food options and producing a concrete food directive.
 
 ## Rules
 

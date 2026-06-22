@@ -43,6 +43,8 @@ def populate_ready_instance(root: Path) -> None:
         "writing/samples",
         "writing/drafts",
         "writing/briefs",
+        "health/food-options",
+        "health/meal-decisions",
     ]:
         mkdir(root / relative)
 

@@ -108,6 +108,14 @@ Local private career and work strategy.
 
 Local private health baseline, directives, and reviews.
 """,
+    "health/food-options/README.md": """# Food Options
+
+Local private food options from manual inputs, home inventory, restaurants, grocery sources, nutrition lookups, or agent estimates.
+""",
+    "health/meal-decisions/README.md": """# Meal Decisions
+
+Local private meal decisions and food directives.
+""",
     "telemetry/README.md": """# Telemetry
 
 Local private telemetry sources and summaries.

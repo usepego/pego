@@ -26,6 +26,8 @@ REQUIRED_FILES = [
     "pego/agents/governance-agent.md",
     "pego/agents/health-agent.md",
     "pego/agents/career-agent.md",
+    "pego/agents/relationships-agent.md",
+    "pego/agents/exploration-agent.md",
     "pego/agents/happiness-agent.md",
     "pego/agents/operations-agent.md",
     "pego/governance/authority-levels.md",

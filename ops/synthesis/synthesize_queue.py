@@ -83,6 +83,112 @@ def candidate_from_mapping(mapped: dict[str, str], source: str) -> Candidate | N
     )
 
 
+def display_domain(value: object) -> str:
+    raw = str(value or "Operations").strip()
+    return {
+        "finance": "Finance",
+        "health": "Health",
+        "career": "Career",
+        "venture": "Venture",
+        "home_environment": "Home and Environment",
+        "relationships": "Relationships",
+        "exploration": "Exploration",
+        "happiness": "Happiness",
+        "operations": "Operations",
+        "governance": "Governance",
+    }.get(raw, raw or "Operations")
+
+
+def display_energy(value: object) -> str:
+    raw = str(value or "Medium").strip().lower()
+    return {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+    }.get(raw, str(value or "Medium"))
+
+
+def display_location(value: object) -> str:
+    raw = str(value or "Home").strip().lower()
+    return {
+        "home": "Home",
+        "office": "Office",
+        "outside": "Outside",
+        "errand": "Errand",
+        "phone": "Phone",
+        "computer": "Computer",
+        "other": "Other",
+    }.get(raw, str(value or "Home"))
+
+
+def display_authority(value: object) -> str:
+    raw = str(value or "level_1_recommend").strip().lower()
+    return {
+        "level_0_observe": "Level 0",
+        "level_1_recommend": "Level 1",
+        "level_2_direct": "Level 2",
+        "level_3_execute": "Level 3",
+        "level_4_escalate": "Level 4",
+    }.get(raw, str(value or "Level 1"))
+
+
+def display_status(value: object) -> str:
+    raw = str(value or "draft").strip().lower()
+    return {
+        "draft": "Draft",
+        "reviewed": "Reviewed",
+        "approved_with_constraints": "Approved with constraints",
+        "escalated": "Escalated",
+        "blocked": "Blocked",
+    }.get(raw, str(value or "Draft"))
+
+
+def display_impact(value: object) -> str:
+    raw = str(value or "none").strip().lower()
+    return {
+        "none": "None",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+    }.get(raw, str(value or "None"))
+
+
+def parse_json_candidates(text: str, source: str) -> list[Candidate]:
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError:
+        return []
+    items = data if isinstance(data, list) else [data]
+    candidates: list[Candidate] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        if item.get("artifact_type") != "directive_candidate":
+            continue
+        name = str(item.get("candidate") or item.get("proposed_action") or "").strip()
+        if not name:
+            continue
+        dependencies = item.get("dependencies", [])
+        dependency_text = ", ".join(str(value) for value in dependencies if str(value).strip())
+        candidates.append(
+            Candidate(
+                name=name,
+                domain=display_domain(item.get("domain")),
+                duration=str(item.get("duration") or "Unknown"),
+                energy=display_energy(item.get("energy_required")),
+                location=display_location(item.get("location_required")),
+                deadline=str(item.get("timing") or "Today"),
+                authority=display_authority(item.get("authority_level")),
+                status=display_status(item.get("governance_status")),
+                benefit=str(item.get("expected_benefit") or ""),
+                deferral=str(item.get("consequence_of_deferral") or ""),
+                protected_time=display_impact(item.get("protected_time_impact")),
+                source=source + (f" dependencies: {dependency_text}" if dependency_text else ""),
+            )
+        )
+    return candidates
+
+
 def parse_candidates_table(text: str, source: str) -> list[Candidate]:
     candidates: list[Candidate] = []
     headers: list[str] | None = None
@@ -148,7 +254,9 @@ def read_candidates(paths: list[Path]) -> list[Candidate]:
     candidates: list[Candidate] = []
     for path in paths:
         text = path.read_text()
-        parsed = parse_candidates_table(text, str(path))
+        parsed = parse_json_candidates(text, str(path))
+        if not parsed:
+            parsed = parse_candidates_table(text, str(path))
         if not parsed:
             single = parse_single_candidate(text, str(path))
             parsed = [single] if single else []

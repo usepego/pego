@@ -186,6 +186,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "synthesize_directive_queue",
+      "runner": "ops/synthesis/synthesize_queue.py",
+      "procedure": "pego/operations/directive-synthesis.md",
+      "writes_to": "private/directives/queues/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "generate_compliance_review",
       "runner": "ops/governance/generate_compliance_review.py",
       "procedure": "pego/operations/compliance-review-runner.md",
@@ -323,6 +330,8 @@
     "ops/anticipation/test_generate_scan.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
+    "ops/synthesis/synthesize_queue.py",
+    "ops/synthesis/test_synthesize_queue.py",
     "ops/private/bootstrap_private_instance.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",

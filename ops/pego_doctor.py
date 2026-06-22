@@ -73,6 +73,8 @@ REQUIRED_FILES = [
     "ops/anticipation/test_generate_scan.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
+    "ops/synthesis/synthesize_queue.py",
+    "ops/synthesis/test_synthesize_queue.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",

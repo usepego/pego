@@ -1,0 +1,339 @@
+#!/usr/bin/env python3
+"""Synthesize protected PEGO directive candidates into one active queue."""
+
+from __future__ import annotations
+
+import argparse
+import re
+from dataclasses import dataclass
+from datetime import date
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+PRIVATE = ROOT / "private"
+
+
+@dataclass(frozen=True)
+class Candidate:
+    name: str
+    domain: str
+    duration: str
+    energy: str
+    location: str
+    deadline: str
+    authority: str
+    status: str
+    benefit: str
+    deferral: str
+    protected_time: str
+    source: str
+
+
+def parse_table_cells(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def normalize_header(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
+def is_table_data(line: str) -> bool:
+    return line.startswith("|") and "---" not in line
+
+
+def map_row(headers: list[str], cells: list[str]) -> dict[str, str]:
+    mapped: dict[str, str] = {}
+    for index, header in enumerate(headers):
+        mapped[normalize_header(header)] = cells[index] if index < len(cells) else ""
+    return mapped
+
+
+def candidate_from_mapping(mapped: dict[str, str], source: str) -> Candidate | None:
+    name = (
+        mapped.get("candidate")
+        or mapped.get("name")
+        or mapped.get("proposed-action")
+        or mapped.get("directive")
+        or ""
+    )
+    if not name or name == "TBD":
+        return None
+    return Candidate(
+        name=name,
+        domain=mapped.get("domain", "Operations") or "Operations",
+        duration=mapped.get("duration", mapped.get("time", "Unknown")) or "Unknown",
+        energy=mapped.get("energy", mapped.get("energy-required", "Medium")) or "Medium",
+        location=mapped.get("location", mapped.get("location-required", "Home")) or "Home",
+        deadline=mapped.get("deadline", mapped.get("timing", "Today")) or "Today",
+        authority=mapped.get("authority", mapped.get("authority-level", "Level 1")) or "Level 1",
+        status=mapped.get("status", mapped.get("governance-status", "Draft")) or "Draft",
+        benefit=mapped.get("expected-benefit", mapped.get("benefit", "")),
+        deferral=mapped.get("consequence-of-deferral", mapped.get("deferral", "")),
+        protected_time=mapped.get("protected-time-impact", "None") or "None",
+        source=source,
+    )
+
+
+def parse_candidates_table(text: str, source: str) -> list[Candidate]:
+    candidates: list[Candidate] = []
+    headers: list[str] | None = None
+    for line in text.splitlines():
+        if not is_table_data(line):
+            continue
+        cells = parse_table_cells(line)
+        if not cells:
+            continue
+        normalized = [normalize_header(cell) for cell in cells]
+        if any(key in normalized for key in {"candidate", "proposed-action", "directive"}):
+            headers = cells
+            continue
+        if headers is None:
+            continue
+        candidate = candidate_from_mapping(map_row(headers, cells), source)
+        if candidate:
+            candidates.append(candidate)
+    return candidates
+
+
+def parse_heading_sections(text: str) -> dict[str, str]:
+    sections: dict[str, list[str]] = {}
+    current = ""
+    for line in text.splitlines():
+        if line.startswith("## "):
+            current = line.removeprefix("## ").strip()
+            sections[current] = []
+            continue
+        if current:
+            sections[current].append(line)
+    return {key: "\n".join(value).strip() for key, value in sections.items()}
+
+
+def parse_single_candidate(text: str, source: str) -> Candidate | None:
+    sections = parse_heading_sections(text)
+    name = (
+        sections.get("Candidate")
+        or sections.get("Candidate Directive")
+        or sections.get("Proposed Action")
+        or ""
+    ).splitlines()[0:1]
+    if not name:
+        return None
+    status = sections.get("Governance Status", "Draft").splitlines()[0]
+    return Candidate(
+        name=name[0],
+        domain=(sections.get("Domain", "Operations").splitlines() or ["Operations"])[0],
+        duration=(sections.get("Duration", "Unknown").splitlines() or ["Unknown"])[0],
+        energy=(sections.get("Energy Required", "Medium").splitlines() or ["Medium"])[0],
+        location=(sections.get("Location Required", "Home").splitlines() or ["Home"])[0],
+        deadline=(sections.get("Timing", sections.get("Lead Time", "Today")).splitlines() or ["Today"])[0],
+        authority=(sections.get("Authority Level", "Level 1").splitlines() or ["Level 1"])[0],
+        status=status,
+        benefit=sections.get("Expected Benefit", ""),
+        deferral=sections.get("Consequence of Deferral", ""),
+        protected_time=(sections.get("Protected-Time Impact", "None").splitlines() or ["None"])[0],
+        source=source,
+    )
+
+
+def read_candidates(paths: list[Path]) -> list[Candidate]:
+    candidates: list[Candidate] = []
+    for path in paths:
+        text = path.read_text()
+        parsed = parse_candidates_table(text, str(path))
+        if not parsed:
+            single = parse_single_candidate(text, str(path))
+            parsed = [single] if single else []
+        candidates.extend(parsed)
+    return candidates
+
+
+def minutes_from_duration(duration: str) -> int:
+    numbers = [int(match) for match in re.findall(r"\d+", duration)]
+    if not numbers:
+        return 30
+    return min(numbers)
+
+
+def risk_flags(candidate: Candidate) -> list[str]:
+    flags: list[str] = []
+    text = " ".join(
+        [
+            candidate.name,
+            candidate.domain,
+            candidate.authority,
+            candidate.status,
+            candidate.protected_time,
+        ]
+    ).lower()
+    if "level 2" in text or "level 3" in text or "level 4" in text:
+        flags.append("authority")
+    if "escalat" in text or "blocked" in text:
+        flags.append("governance")
+    if "medium" in candidate.protected_time.lower() or "high" in candidate.protected_time.lower():
+        flags.append("protected time")
+    if any(word in text for word in ["medical", "legal", "tax", "quit", "relocation", "housing"]):
+        flags.append("high impact")
+    return flags
+
+
+def candidate_score(candidate: Candidate) -> tuple[int, int, int]:
+    flags = risk_flags(candidate)
+    if flags:
+        return (9, minutes_from_duration(candidate.duration), len(flags))
+    domain_order = {
+        "Health": 0,
+        "Relationships": 1,
+        "Home and Environment": 2,
+        "Home": 2,
+        "Venture": 3,
+        "Career": 4,
+        "Finance": 5,
+        "Operations": 6,
+        "Exploration": 7,
+        "Happiness": 8,
+    }
+    consequence = candidate.deferral.lower()
+    urgency = 0 if any(word in consequence for word in ["urgent", "scrambling", "delay", "friction"]) else 1
+    return (urgency, domain_order.get(candidate.domain, 6), minutes_from_duration(candidate.duration))
+
+
+def is_active(candidate: Candidate, available_minutes: int | None) -> bool:
+    if risk_flags(candidate):
+        return False
+    if available_minutes is not None and minutes_from_duration(candidate.duration) > available_minutes:
+        return False
+    return True
+
+
+def build_queue(
+    candidates: list[Candidate],
+    args: argparse.Namespace,
+) -> str:
+    active: list[Candidate] = []
+    deferred: list[tuple[Candidate, str]] = []
+
+    for candidate in sorted(candidates, key=candidate_score):
+        flags = risk_flags(candidate)
+        if flags:
+            deferred.append((candidate, "Needs governance review: " + ", ".join(flags)))
+            continue
+        if args.available is not None and minutes_from_duration(candidate.duration) > args.available:
+            deferred.append((candidate, f"Does not fit available window of {args.available} minutes"))
+            continue
+        active.append(candidate)
+
+    active_rows = []
+    for rank, candidate in enumerate(active, start=1):
+        active_rows.append(
+            f"| {rank} | {candidate.name} | {candidate.domain} | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | {candidate.authority} | Ready |"
+        )
+    if not active_rows:
+        active_rows.append("| 1 | Answer targeted operating question | Operations | 5 min | Low | Home | Now | Level 1 | Ready |")
+
+    deferred_rows = [
+        f"| {candidate.name} | {reason} | Next synthesis |" for candidate, reason in deferred
+    ]
+    if not deferred_rows:
+        deferred_rows.append("| None | No deferred candidates | Next synthesis |")
+
+    state_lines = [
+        f"- Time: {args.time or 'Unknown'}",
+        f"- Location: {args.location or 'Unknown'}",
+        f"- Energy: {args.energy or 'Unknown'}",
+        f"- Weather/environment: {args.environment or 'Unknown'}",
+        f"- Active obligations: {args.obligations or 'Unknown'}",
+        f"- Known constraints: {args.constraints or 'Unknown'}",
+    ]
+
+    return "\n".join(
+        [
+            f"# Directive Queue: {args.date}",
+            "",
+            "## Date or Session",
+            "",
+            args.date,
+            "",
+            "## Operating Frame",
+            "",
+            args.frame,
+            "",
+            "## Protected Time",
+            "",
+            args.protected_time or "Unknown.",
+            "",
+            "## Current State",
+            "",
+            *state_lines,
+            "",
+            "## Completed",
+            "",
+            "| Time | Directive | Outcome |",
+            "| --- | --- | --- |",
+            "| TBD | TBD | TBD |",
+            "",
+            "## Active Candidates",
+            "",
+            "| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            *active_rows,
+            "",
+            "## Deferred",
+            "",
+            "| Candidate | Reason Deferred | Next Review |",
+            "| --- | --- | --- |",
+            *deferred_rows,
+            "",
+            "## Blocked",
+            "",
+            "| Candidate | Blocker | Required Change |",
+            "| --- | --- | --- |",
+            "| None | None | None |",
+            "",
+            "## Next Directive",
+            "",
+            "Select via `ops/directives/next_directive.py` or `ops/operator/next_step.py`.",
+            "",
+            "## Next Check-In",
+            "",
+            "After completion, blockage, or material state change.",
+            "",
+        ]
+    )
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--candidate", type=Path, action="append", default=[])
+    parser.add_argument("--available", type=int)
+    parser.add_argument("--time")
+    parser.add_argument("--location")
+    parser.add_argument("--energy")
+    parser.add_argument("--environment")
+    parser.add_argument("--obligations")
+    parser.add_argument("--constraints")
+    parser.add_argument("--protected-time", default="")
+    parser.add_argument("--frame", default="Synthesize current candidate directives into one active queue.")
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--force", action="store_true")
+    return parser
+
+
+def main_with_args(argv: list[str] | None = None) -> None:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    if not args.candidate:
+        raise SystemExit("at least one --candidate file is required")
+
+    candidates = read_candidates(args.candidate)
+    output = args.output or PRIVATE / "directives" / "queues" / f"{args.date}-queue.md"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    if output.exists() and not args.force:
+        raise SystemExit(f"refusing to overwrite existing file: {output}")
+    output.write_text(build_queue(candidates, args))
+    print(f"wrote: {output}")
+
+
+if __name__ == "__main__":
+    main_with_args()

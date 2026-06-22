@@ -157,3 +157,19 @@ Directive synthesis should produce:
 - End-of-day review questions.
 
 Use `pego/templates/synthesized-day-plan.md` when a directive set needs explicit scheduling.
+
+## Local Runner
+
+The reference queue synthesis runner lives at:
+
+```text
+ops/synthesis/synthesize_queue.py
+```
+
+It reads protected directive candidates and anticipation scans, then writes an active queue under:
+
+```text
+private/directives/queues/
+```
+
+The resulting queue is consumed by `ops/directives/next_directive.py` and `ops/operator/next_step.py`.

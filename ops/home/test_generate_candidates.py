@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 from pathlib import Path
 
@@ -43,6 +44,7 @@ def main() -> None:
         root = Path(directory)
         register = root / "register.md"
         output = root / "home-candidates.md"
+        json_output = root / "home-candidates.json"
         register.write_text(REGISTER)
         generate_candidates.main_with_args(
             [
@@ -52,6 +54,8 @@ def main() -> None:
                 str(register),
                 "--output",
                 str(output),
+                "--json-output",
+                str(json_output),
                 "--force",
             ]
         )
@@ -62,6 +66,17 @@ def main() -> None:
         assert_contains(text, "spending or contractor commitment requires governance review")
         if "Protein yogurt" in text:
             raise AssertionError(text)
+
+        structured = json.loads(json_output.read_text())
+        if structured[0]["artifact_type"] != "directive_candidate":
+            raise AssertionError("expected directive candidate artifact")
+        if structured[0]["domain"] != "home_environment":
+            raise AssertionError("expected home_environment domain")
+        if not any(candidate["candidate"] == "Front garden: Weed 20 minutes" for candidate in structured):
+            raise AssertionError("expected front garden structured candidate")
+        quote = next(candidate for candidate in structured if candidate["candidate"] == "Exterior trim: Get repair quote")
+        if quote["governance_status"] != "reviewed":
+            raise AssertionError("expected repair quote to require review")
 
     print("home candidate smoke tests passed.")
 

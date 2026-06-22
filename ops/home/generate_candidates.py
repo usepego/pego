@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from dataclasses import dataclass
 from datetime import date
@@ -173,6 +174,76 @@ def build_candidates(register_text: str) -> list[Candidate]:
     return candidates
 
 
+def normalize_energy(value: str) -> str:
+    normalized = value.strip().lower()
+    if "high" in normalized:
+        return "high"
+    if "medium" in normalized:
+        return "medium"
+    return "low"
+
+
+def normalize_location(value: str) -> str:
+    normalized = value.strip().lower()
+    if "outside" in normalized:
+        return "outside"
+    if "phone" in normalized:
+        return "phone"
+    if "computer" in normalized:
+        return "computer"
+    if "home" in normalized:
+        return "home"
+    return "other"
+
+
+def normalize_impact(value: str) -> str:
+    normalized = value.strip().lower()
+    if "high" in normalized:
+        return "high"
+    if "medium" in normalized:
+        return "medium"
+    if "low" in normalized:
+        return "low"
+    return "none"
+
+
+def normalize_governance(value: str) -> str:
+    normalized = value.strip().lower()
+    if "blocked" in normalized:
+        return "blocked"
+    if "escalat" in normalized:
+        return "escalated"
+    if "review" in normalized or "spending" in normalized or "contractor" in normalized:
+        return "reviewed"
+    return "draft"
+
+
+def build_json_candidates(candidates: list[Candidate]) -> list[dict]:
+    return [
+        {
+            "artifact_type": "directive_candidate",
+            "schema_version": 1,
+            "candidate": candidate.name,
+            "domain": "home_environment",
+            "altitude": "directive",
+            "proposed_action": candidate.name,
+            "duration": candidate.duration,
+            "timing": candidate.deadline,
+            "energy_required": normalize_energy(candidate.energy),
+            "location_required": normalize_location(candidate.location),
+            "dependencies": [candidate.dependency],
+            "expected_benefit": candidate.benefit,
+            "consequence_of_deferral": candidate.deferral,
+            "protected_time_impact": normalize_impact(candidate.protected_time),
+            "authority_level": "level_1_recommend",
+            "governance_status": normalize_governance(candidate.governance),
+            "conflicts": [],
+            "stop_condition": "Stop if the work would disrupt protected time, another person's space, privacy, or household peace.",
+        }
+        for candidate in candidates
+    ]
+
+
 def build_markdown(candidates: list[Candidate], output_date: str, source: Path) -> str:
     rows = [
         f"| {candidate.name} | Home and Environment | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | Level 1 | {candidate.governance} | {candidate.benefit} | {candidate.deferral} | {candidate.protected_time} |"
@@ -223,6 +294,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--register", type=Path, default=DEFAULT_REGISTER)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
 
@@ -237,6 +309,12 @@ def main_with_args(argv: list[str] | None = None) -> Path:
         raise SystemExit(f"refusing to overwrite existing file: {args.output}")
     args.output.write_text(build_markdown(candidates, args.date, args.register))
     print(f"wrote: {args.output}")
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        if args.json_output.exists() and not args.force:
+            raise SystemExit(f"refusing to overwrite existing file: {args.json_output}")
+        args.json_output.write_text(json.dumps(build_json_candidates(candidates), indent=2) + "\n")
+        print(f"wrote: {args.json_output}")
     return args.output
 
 

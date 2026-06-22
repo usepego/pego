@@ -15,3 +15,18 @@ The script creates a protected private folder structure and starter files from r
 By default, it does not overwrite existing files.
 
 Use `--force` only if you intentionally want to replace private starter files.
+
+## Check Operating Readiness
+
+```sh
+python3 ops/private/check_readiness.py
+```
+
+The readiness checker reports only path presence and safe status. It does not
+print private file contents.
+
+Write a protected private readiness report:
+
+```sh
+python3 ops/private/check_readiness.py --output private/governance/preflight/readiness.json
+```

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/private-instance-readiness.schema.json",
+  "title": "PEGO Private Instance Readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "decision",
+    "private_root",
+    "missing_checks",
+    "checks",
+    "privacy",
+    "ready_next_action"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "private_instance_readiness"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "decision": {
+      "enum": [
+        "ready",
+        "ready_with_assumptions",
+        "not_ready_missing_state"
+      ]
+    },
+    "private_root": {
+      "const": "private/"
+    },
+    "missing_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relative_path",
+          "exists",
+          "kind"
+        ],
+        "properties": {
+          "relative_path": {
+            "type": "string",
+            "pattern": "^private/"
+          },
+          "exists": {
+            "type": "boolean"
+          },
+          "kind": {
+            "enum": [
+              "file",
+              "directory",
+              "missing"
+            ]
+          }
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prints_private_contents",
+        "safe_to_commit",
+        "note"
+      ],
+      "properties": {
+        "prints_private_contents": {
+          "const": false
+        },
+        "safe_to_commit": {
+          "const": false
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "ready_next_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

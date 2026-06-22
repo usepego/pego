@@ -21,6 +21,8 @@ or local script should all be able to produce and consume these contracts.
   consumed by scenario engines.
 - `finance-scenario-output.schema.json`: protected private scenario results
   produced by finance engines.
+- `private-instance-readiness.schema.json`: safe readiness status for a
+  protected private PEGO instance.
 
 ## Rules
 

@@ -99,6 +99,9 @@ For private operation:
 
 Use `pego/operations/operating-readiness.md` before issuing active directives when session state may be stale or incomplete.
 
+If running through the local reference adapter, use `ops/private/check_readiness.py`
+to check private-instance path readiness without printing private contents.
+
 For public framework work:
 
 1. `README.md`

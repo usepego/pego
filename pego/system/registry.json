@@ -123,6 +123,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "check_private_instance_readiness",
+      "runner": "ops/private/check_readiness.py",
+      "procedure": "pego/operations/operating-readiness.md",
+      "writes_to": "optional private/governance/preflight/readiness.json",
+      "privacy": "safe-derived-output"
+    },
+    {
       "id": "generate_first_run_intake",
       "runner": "ops/onboarding/generate_intake.py",
       "procedure": "pego/ux/first-run-experience.md",
@@ -289,7 +296,8 @@
     "pego/schemas/directive-outcome.schema.json",
     "pego/schemas/runtime-adapter-manifest.schema.json",
     "pego/schemas/finance-scenario-input.schema.json",
-    "pego/schemas/finance-scenario-output.schema.json"
+    "pego/schemas/finance-scenario-output.schema.json",
+    "pego/schemas/private-instance-readiness.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -353,6 +361,7 @@
     "pego/schemas/runtime-adapter-manifest.schema.json",
     "pego/schemas/finance-scenario-input.schema.json",
     "pego/schemas/finance-scenario-output.schema.json",
+    "pego/schemas/private-instance-readiness.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",
@@ -386,6 +395,8 @@
     "ops/synthesis/synthesize_queue.py",
     "ops/synthesis/test_synthesize_queue.py",
     "ops/private/bootstrap_private_instance.py",
+    "ops/private/check_readiness.py",
+    "ops/private/test_check_readiness.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",

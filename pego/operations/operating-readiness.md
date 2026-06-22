@@ -4,6 +4,17 @@ Operating readiness is the preflight check before PEGO issues directives.
 
 Use it to determine whether the system has enough current state, queue state, governance context, and outcome destination to operate safely.
 
+## Local Checker
+
+Reference local checker:
+
+```sh
+python3 ops/private/check_readiness.py
+```
+
+It reports path presence and safe readiness status only. It must not print
+private operating contents.
+
 ## Readiness Decision
 
 Return one of:

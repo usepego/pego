@@ -41,6 +41,18 @@ python3 ops/private/bootstrap_private_instance.py
 
 The bootstrap script does not overwrite existing files unless `--force` is passed.
 
+## Readiness
+
+Check whether the protected private instance has the minimum structure required
+for USER mode operation:
+
+```sh
+python3 ops/private/check_readiness.py
+```
+
+The readiness checker must not print private contents. It may write a protected
+private readiness report under `private/governance/preflight/`.
+
 ## Operating Rule
 
 Agents may read and update local private files when operating on a private instance, but reusable framework files must not contain primary-subject details.

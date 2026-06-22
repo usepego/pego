@@ -67,6 +67,7 @@ REQUIRED_FILES = [
     "pego/schemas/runtime-adapter-manifest.schema.json",
     "pego/schemas/finance-scenario-input.schema.json",
     "pego/schemas/finance-scenario-output.schema.json",
+    "pego/schemas/private-instance-readiness.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -118,6 +119,8 @@ REQUIRED_FILES = [
     "ops/health/test_generate_candidates.py",
     "ops/home/generate_candidates.py",
     "ops/home/test_generate_candidates.py",
+    "ops/private/check_readiness.py",
+    "ops/private/test_check_readiness.py",
     "ops/pego_registry.py",
 ]
 
@@ -131,6 +134,7 @@ SCHEMA_FILES = [
     "pego/schemas/runtime-adapter-manifest.schema.json",
     "pego/schemas/finance-scenario-input.schema.json",
     "pego/schemas/finance-scenario-output.schema.json",
+    "pego/schemas/private-instance-readiness.schema.json",
 ]
 
 

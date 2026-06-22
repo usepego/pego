@@ -10,6 +10,11 @@ def assert_outcome(text: str, expected: str) -> None:
     result = directive_preflight.preflight(text)
     if result.outcome != expected:
         raise AssertionError(f"expected {expected}, got {result.outcome}: {result}")
+    data = result.to_dict()
+    if data["artifact_type"] != "directive_preflight":
+        raise AssertionError("expected directive_preflight artifact")
+    if data["schema_version"] != 1:
+        raise AssertionError("expected schema version 1")
 
 
 def main() -> None:

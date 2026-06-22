@@ -110,6 +110,8 @@ class PreflightResult:
 
     def to_dict(self) -> dict:
         return {
+            "artifact_type": "directive_preflight",
+            "schema_version": 1,
             "outcome": self.outcome,
             "authority_level": self.authority_level,
             "review_level": self.review_level,

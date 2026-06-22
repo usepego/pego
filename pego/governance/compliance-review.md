@@ -155,4 +155,10 @@ python3 ops/governance/directive_preflight.py --directive private/directives/com
 
 The preflight runner does not approve execution. It classifies whether the directive can remain a low-risk recommendation, needs standard review, or must escalate into a decision packet.
 
+Structured runtimes should preserve preflight classifications using:
+
+```text
+pego/schemas/directive-preflight.schema.json
+```
+
 It must not print private directive content.

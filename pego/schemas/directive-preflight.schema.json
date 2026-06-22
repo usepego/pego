@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/directive-preflight.schema.json",
+  "title": "PEGO Directive Preflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "outcome",
+    "authority_level",
+    "review_level",
+    "risks",
+    "reasons",
+    "required_next_step"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "directive_preflight"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "outcome": {
+      "enum": [
+        "pass",
+        "needs_review",
+        "escalate"
+      ]
+    },
+    "authority_level": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_level": {
+      "enum": [
+        "light",
+        "standard",
+        "formal"
+      ]
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "financial_execution",
+          "career",
+          "health_medical",
+          "legal_tax",
+          "housing",
+          "privacy",
+          "relationship_stakeholder",
+          "recurrence",
+          "spending",
+          "schedule",
+          "external_tool",
+          "protected_time"
+        ]
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_next_step": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

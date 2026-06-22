@@ -70,6 +70,10 @@ def main() -> None:
         if summary["preflight_outcome"] != "pass":
             raise AssertionError(summary)
         data = json.loads(preflight.read_text())
+        if data["artifact_type"] != "directive_preflight":
+            raise AssertionError(data)
+        if data["schema_version"] != 1:
+            raise AssertionError(data)
         if data["outcome"] != "pass":
             raise AssertionError(data)
 

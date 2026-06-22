@@ -184,3 +184,9 @@ ops/operator/next_step.py
 ```
 
 It composes directive selection with governance preflight and writes protected private artifacts.
+
+The preflight artifact should preserve:
+
+```text
+pego/schemas/directive-preflight.schema.json
+```

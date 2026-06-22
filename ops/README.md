@@ -6,6 +6,7 @@ Secrets and local credentials should remain outside Git.
 
 Useful tools:
 
+- `pego_doctor.py`: verify repository hygiene and required framework files.
 - `private/bootstrap_private_instance.py`: create local-only private instance skeleton.
 - `directives/generate_daily_directive.py`: create local-only daily directive packets.
 - `governance/generate_compliance_review.py`: create local-only compliance review packets.

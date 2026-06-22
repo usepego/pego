@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""Verify PEGO repository hygiene and required framework structure."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+REQUIRED_FILES = [
+    "README.md",
+    ".gitignore",
+    "private/README.md",
+    "pego/principles.md",
+    "pego/agents/council-protocol.md",
+    "pego/agents/finance-agent.md",
+    "pego/agents/governance-agent.md",
+    "pego/agents/health-agent.md",
+    "pego/agents/career-agent.md",
+    "pego/agents/happiness-agent.md",
+    "pego/agents/operations-agent.md",
+    "pego/governance/authority-levels.md",
+    "pego/governance/compliance-review.md",
+    "pego/governance/repository-access-policy.md",
+    "pego/operations/daily-loop.md",
+    "pego/operations/private-instance-workflow.md",
+    "ops/private/bootstrap_private_instance.py",
+    "ops/directives/generate_daily_directive.py",
+    "ops/governance/generate_compliance_review.py",
+    "ops/finance/run_scenarios.py",
+]
+
+LOCAL_MARKERS_FILE = ROOT / "private" / "_local" / "doctor-private-markers.txt"
+
+
+def run_git(args: list[str]) -> str:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return completed.stdout
+
+
+def check_required_files(errors: list[str]) -> None:
+    for relative in REQUIRED_FILES:
+        if not (ROOT / relative).is_file():
+            errors.append(f"missing required file: {relative}")
+
+
+def check_private_tracking(errors: list[str]) -> None:
+    tracked_private = sorted(
+        line for line in run_git(["ls-files", "private"]).splitlines() if line
+    )
+    if tracked_private != ["private/README.md"]:
+        errors.append(
+            "private tracking boundary failed: expected only private/README.md, got "
+            + ", ".join(tracked_private)
+        )
+
+
+def check_private_ignored(errors: list[str]) -> None:
+    paths = [
+        "private/constitution/constitution.md",
+        "private/finance/financial-position.md",
+        "private/person/observations.md",
+        "private/directives/daily/example.md",
+    ]
+    for relative in paths:
+        completed = subprocess.run(
+            ["git", "check-ignore", relative],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        if completed.returncode != 0:
+            errors.append(f"private path is not ignored: {relative}")
+
+
+def check_tracked_content_markers(errors: list[str]) -> None:
+    if not LOCAL_MARKERS_FILE.exists():
+        return
+    markers = [
+        line.strip()
+        for line in LOCAL_MARKERS_FILE.read_text().splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    ]
+    if not markers:
+        return
+
+    tracked = [line for line in run_git(["ls-files"]).splitlines() if line]
+    pattern = re.compile("|".join(re.escape(marker) for marker in markers))
+    for relative in tracked:
+        path = ROOT / relative
+        if not path.is_file():
+            continue
+        try:
+            text = path.read_text()
+        except UnicodeDecodeError:
+            continue
+        match = pattern.search(text)
+        if match:
+            errors.append(f"private marker '{match.group(0)}' found in tracked file: {relative}")
+
+
+def check_python_syntax(errors: list[str]) -> None:
+    scripts = [
+        "ops/private/bootstrap_private_instance.py",
+        "ops/directives/generate_daily_directive.py",
+        "ops/governance/generate_compliance_review.py",
+        "ops/finance/run_scenarios.py",
+        "ops/pego_doctor.py",
+    ]
+    env = dict(os.environ)
+    env["PYTHONPYCACHEPREFIX"] = "/private/tmp/pego-pycache"
+    completed = subprocess.run(
+        ["python3", "-m", "py_compile", *scripts],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=env,
+    )
+    if completed.returncode != 0:
+        errors.append("python syntax check failed:\n" + completed.stderr.strip())
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--skip-markers", action="store_true")
+    args = parser.parse_args()
+
+    errors: list[str] = []
+    check_required_files(errors)
+    check_private_tracking(errors)
+    check_private_ignored(errors)
+    if not args.skip_markers:
+        check_tracked_content_markers(errors)
+    check_python_syntax(errors)
+
+    if errors:
+        print("PEGO doctor failed:")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+
+    print("PEGO doctor passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -15,6 +15,10 @@ PEGO is not a helper, habit tracker, or quantified-self dashboard. The operating
 
 Do not place private life details, secrets, credentials, real financial data, health records, or personal journals in `pego/`.
 
+Private instance files under `private/` are local-only and ignored by Git, except for the placeholder `private/README.md`.
+
+Repository access should be least-privilege and scoped only to this PEGO repository. Do not grant unrelated organization or employer access for PEGO work.
+
 ## Status
 
 Early architecture and governance design.

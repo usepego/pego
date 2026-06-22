@@ -35,3 +35,7 @@ Sleep, movement, food, recovery, spouse or partner time, friend time, and alone 
 ## Privacy Is a Governance Constraint
 
 Primary-subject data must be private by default. Personal financial, health, relationship, identity, household, location, work, legal, emotional, behavioral, biometric, journal, telemetry, and preference data may be used for private reasoning, but must not be disclosed publicly or to third parties without explicit approval.
+
+## Access Is Least Privilege
+
+PEGO repository, app, OAuth, and API access should be scoped only to the system being governed. Personal PEGO work should not request unrelated organization access, employer repository access, or broad third-party permissions when a narrower token or app installation is available.

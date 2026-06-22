@@ -55,6 +55,7 @@ Before a directive is accepted, ask:
 
 - Does this violate any non-negotiable?
 - Does this protect the primary subject's privacy?
+- Does this use the minimum required repository, app, OAuth, or API access?
 - Does this protect spouse/partner, family, or other protected stakeholder happiness and lack of disturbance where relevant?
 - Does this preserve protected time unless override conditions are met?
 - Does this improve or reasonably serve the top-level aim?

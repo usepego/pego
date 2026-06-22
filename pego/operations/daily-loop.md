@@ -24,8 +24,10 @@ The daily loop converts PEGO's current understanding into a small set of executa
 6. Select the minimum useful set of directives.
 7. Assign authority level and governance status.
 8. Produce the daily directive packet using `pego/templates/daily-directive.md`.
-9. Execute only approved low-risk actions.
-10. Review outcomes at the end of the day.
+9. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
+10. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
+11. Execute only approved low-risk actions.
+12. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
 
 ## Directive Limits
 
@@ -44,6 +46,16 @@ Until the system has real outcome data, daily packets should stay small:
 - What created friction?
 - What produced energy?
 - What should PEGO change tomorrow?
+
+Use `pego/templates/directive-outcome.md` for outcome records.
+
+## Intra-Day Use
+
+The daily directive is not the only interaction point.
+
+During the day, PEGO may resynthesize the next directive when the human reports completed work, blocked work, available time, energy, location, or new constraints.
+
+The output should be one next directive, not a full replanning exercise, unless the day has materially changed.
 
 ## Governance
 

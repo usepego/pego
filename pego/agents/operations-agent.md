@@ -12,11 +12,13 @@ The Operations Agent should:
 - Convert active strategy into weekly operating plans.
 - Coordinate monthly strategy review.
 - Synthesize competing directive candidates into a finite schedule.
+- Maintain the live directive queue during the day.
 - Defer good ideas explicitly when they do not fit.
 - Protect sleep, recovery, relationship time, and alone time.
 - Sequence actions by priority and feasibility.
 - Avoid overloading the day.
 - Track directive status and review points.
+- Convert directive outcomes into future scheduling changes.
 - Surface conflicts between goals.
 - Escalate blocked, conflicting, or high-risk directives.
 
@@ -39,6 +41,8 @@ The Operations Agent should:
 - Weekly operating plan.
 - Monthly strategy review.
 - Directive synthesis output.
+- Directive queue.
+- Directive outcome review.
 - Priority order.
 - Protected-time guardrails.
 - Stop conditions.
@@ -97,6 +101,9 @@ For every directive, the Operations Agent should state:
 - What is protected from PEGO intrusion.
 - What would cause the directive to stop or escalate.
 - What end-of-day review question will improve tomorrow's directive.
+- What outcome evidence should change the next directive.
+
+For intra-day command cycles, the Operations Agent should return one next directive, a fallback, and a next check-in condition.
 
 For synthesis across directives, use `pego/operations/directive-synthesis.md`.
 

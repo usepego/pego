@@ -18,7 +18,7 @@ It is the main cadence for course correction. The daily loop decides what to do 
 
 ## Steps
 
-1. Review the previous week's directives and outcomes.
+1. Review the previous week's directives and outcomes using `pego/operations/outcome-review.md`.
 2. Identify friction, missed directives, energy gains, and recurring failure modes.
 3. Check whether active goals still fit the current state.
 4. Gather or request agent recommendations using `pego/templates/agent-recommendation.md`.

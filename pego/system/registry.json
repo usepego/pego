@@ -158,6 +158,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "review_directive_outcome",
+      "runner": "ops/review/review_outcome.py",
+      "procedure": "pego/operations/outcome-review.md",
+      "writes_to": "private/reviews/outcomes/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "record_context_update",
       "runner": "ops/context/record_context_update.py",
       "procedure": "pego/operations/context-update.md",
@@ -243,6 +250,7 @@
     "pego/templates/intra-day-session-log.md",
     "pego/templates/command-response.md",
     "pego/templates/directive-outcome.md",
+    "pego/templates/outcome-review.md",
     "pego/templates/context-update.md",
     "pego/templates/anticipation-scan.md",
     "pego/templates/operating-register.md",
@@ -343,6 +351,8 @@
     "ops/context/test_record_context_update.py",
     "ops/outcomes/record_outcome.py",
     "ops/outcomes/test_record_outcome.py",
+    "ops/review/review_outcome.py",
+    "ops/review/test_review_outcome.py",
     "ops/directives/generate_daily_directive.py",
     "ops/directives/next_directive.py",
     "ops/directives/test_next_directive.py",

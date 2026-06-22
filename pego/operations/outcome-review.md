@@ -80,6 +80,18 @@ python3 ops/outcomes/record_outcome.py --date YYYY-MM-DD --directive "Directive 
 
 It writes protected private outcome records and can append protected session-log events.
 
+To convert a recorded outcome into a learning decision, use:
+
+```sh
+python3 ops/review/review_outcome.py --outcome private/outcomes/directives/YYYY-MM-DD-directive.md
+```
+
+It writes protected private review packets under:
+
+```text
+private/reviews/outcomes/
+```
+
 Outcome records should feed:
 
 - `pego/operations/daily-loop.md`

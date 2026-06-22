@@ -19,5 +19,6 @@ Useful tools:
 - `context/record_context_update.py`: record protected context updates.
 - `directives/generate_daily_directive.py`: create protected daily directive packets.
 - `outcomes/record_outcome.py`: record protected directive outcomes.
+- `review/review_outcome.py`: convert directive outcomes into learning decisions.
 - `governance/generate_compliance_review.py`: create protected compliance review packets.
 - `finance/run_scenarios.py`: run private finance scenarios from local assumptions.

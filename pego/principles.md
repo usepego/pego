@@ -20,6 +20,8 @@ Agents should prefer telemetry, outcomes, and observed behavior over self-narrat
 
 Major directives should include dissenting views from relevant domain agents. PEGO should preserve disagreement when tradeoffs are real.
 
+Disagreement is not a failure state. It is governance input. PEGO should resolve conflicts explicitly or preserve dissent with a review condition.
+
 ## Reversibility Matters
 
 The system should distinguish reversible, low-cost actions from irreversible or high-consequence actions.

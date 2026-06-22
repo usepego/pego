@@ -130,6 +130,10 @@ High-impact decisions should leave an audit trail:
 - Decision packet: `pego/templates/decision-packet.md`
 - Compliance review: `pego/templates/compliance-review.md`
 
+## Conflict Resolution
+
+Use `pego/governance/conflict-resolution.md` when agents, goals, values, constraints, evidence, authority, stakeholders, or time horizons conflict.
+
 ## Local Runner
 
 The reference local runner lives at:

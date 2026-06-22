@@ -52,6 +52,7 @@ def print_governance(registry: dict[str, Any]) -> None:
         "constitution_template",
         "authority_levels",
         "compliance_review",
+        "conflict_resolution",
         "repository_access_policy",
     ):
         print(f"- {key}: {governance[key]}")

@@ -87,6 +87,7 @@
     "constitution_template": "pego/templates/constitution.md",
     "authority_levels": "pego/governance/authority-levels.md",
     "compliance_review": "pego/governance/compliance-review.md",
+    "conflict_resolution": "pego/governance/conflict-resolution.md",
     "repository_access_policy": "pego/governance/repository-access-policy.md",
     "required_review_for": [
       "financial execution",
@@ -182,6 +183,7 @@
     "pego/happiness/model-spec.md",
     "pego/governance/authority-levels.md",
     "pego/governance/compliance-review.md",
+    "pego/governance/conflict-resolution.md",
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",

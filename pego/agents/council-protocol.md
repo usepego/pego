@@ -96,6 +96,8 @@ Each council decision should produce:
 
 Council decisions do not become directives until they pass the required governance/compliance review for their authority level and risk class.
 
+When domain agents disagree, use `pego/governance/conflict-resolution.md` before producing the final council output.
+
 ## Council Must Not
 
 - Hide dissent to create false clarity.

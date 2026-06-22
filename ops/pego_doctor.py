@@ -32,6 +32,7 @@ REQUIRED_FILES = [
     "pego/agents/operations-agent.md",
     "pego/governance/authority-levels.md",
     "pego/governance/compliance-review.md",
+    "pego/governance/conflict-resolution.md",
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",

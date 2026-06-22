@@ -89,4 +89,4 @@ The reference daily cycle runner lives at:
 ops/cycles/daily_cycle.py
 ```
 
-It composes the local `next`, `outcome`, and `learn` operations for active daily use.
+It composes the local `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.

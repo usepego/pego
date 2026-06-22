@@ -30,6 +30,15 @@ REGISTER = """# Register
 """
 
 
+CANDIDATES = """# Candidates
+
+| Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Governance Status | Expected Benefit | Consequence of Deferral | Protected-Time Impact |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Breakfast Anchor | Health | 10 min | Low | Home | Morning | Level 1 | Draft | Stabilizes diet | Hunger and snacking | None |
+| Venture Problem Map | Venture | 60 min | Medium | Computer | Workday | Level 1 | Draft | Strategic progress | Delays clarity | None |
+"""
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -38,9 +47,27 @@ def main() -> None:
         response = root / "response.md"
         preflight = root / "preflight.json"
         outcome = root / "outcome.md"
+        review = root / "review.md"
         context = root / "context.md"
+        candidates = root / "candidates.md"
         queue.write_text(QUEUE)
         register.write_text(REGISTER)
+        candidates.write_text(CANDIDATES)
+
+        daily_cycle.main_with_args(
+            [
+                "synthesize",
+                "--date",
+                "2026-06-23",
+                "--candidate",
+                str(candidates),
+                "--available",
+                "30",
+                "--output",
+                str(queue),
+                "--force",
+            ]
+        )
 
         daily_cycle.main_with_args(
             [
@@ -84,6 +111,18 @@ def main() -> None:
         )
         daily_cycle.main_with_args(
             [
+                "review",
+                "--date",
+                "2026-06-23",
+                "--outcome",
+                str(outcome),
+                "--output",
+                str(review),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
                 "learn",
                 "--date",
                 "2026-06-23",
@@ -105,9 +144,11 @@ def main() -> None:
             ]
         )
 
-        for path in (response, preflight, outcome, context):
+        for path in (queue, response, preflight, outcome, review, context):
             if not path.exists():
                 raise AssertionError(f"missing expected file: {path}")
+        if "Learning Decision" not in review.read_text():
+            raise AssertionError(review.read_text())
 
     print("daily cycle smoke tests passed.")
 

@@ -5,6 +5,8 @@ Subcommands:
 
 - next: select one next directive and run governance preflight.
 - outcome: record execution outcome evidence.
+- review: convert an outcome into a learning decision.
+- synthesize: convert directive candidates into an active queue.
 - learn: record a context update from an outcome, conversation, or observation.
 
 The runner delegates to local tools that write protected private artifacts and
@@ -22,11 +24,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "ops" / "operator"))
 sys.path.insert(0, str(ROOT / "ops" / "outcomes"))
+sys.path.insert(0, str(ROOT / "ops" / "review"))
 sys.path.insert(0, str(ROOT / "ops" / "context"))
+sys.path.insert(0, str(ROOT / "ops" / "synthesis"))
 
 import next_step  # noqa: E402
 import record_context_update  # noqa: E402
 import record_outcome  # noqa: E402
+import review_outcome  # noqa: E402
+import synthesize_queue  # noqa: E402
 
 
 def add_shared_date(parser: argparse.ArgumentParser) -> None:
@@ -49,6 +55,21 @@ def build_parser() -> argparse.ArgumentParser:
     next_parser.add_argument("--response-output", type=Path)
     next_parser.add_argument("--preflight-output", type=Path)
     next_parser.add_argument("--force", action="store_true")
+
+    synthesize_parser = subparsers.add_parser("synthesize")
+    add_shared_date(synthesize_parser)
+    synthesize_parser.add_argument("--candidate", type=Path, action="append", default=[])
+    synthesize_parser.add_argument("--available", type=int)
+    synthesize_parser.add_argument("--time")
+    synthesize_parser.add_argument("--location")
+    synthesize_parser.add_argument("--energy")
+    synthesize_parser.add_argument("--environment")
+    synthesize_parser.add_argument("--obligations")
+    synthesize_parser.add_argument("--constraints")
+    synthesize_parser.add_argument("--protected-time", default="")
+    synthesize_parser.add_argument("--frame", default="Synthesize current candidate directives into one active queue.")
+    synthesize_parser.add_argument("--output", type=Path)
+    synthesize_parser.add_argument("--force", action="store_true")
 
     outcome_parser = subparsers.add_parser("outcome")
     add_shared_date(outcome_parser)
@@ -80,6 +101,12 @@ def build_parser() -> argparse.ArgumentParser:
     outcome_parser.add_argument("--append-session", action="store_true")
     outcome_parser.add_argument("--session-log", type=Path)
     outcome_parser.add_argument("--force", action="store_true")
+
+    review_parser = subparsers.add_parser("review")
+    add_shared_date(review_parser)
+    review_parser.add_argument("--outcome", type=Path, required=True)
+    review_parser.add_argument("--output", type=Path)
+    review_parser.add_argument("--force", action="store_true")
 
     learn_parser = subparsers.add_parser("learn")
     add_shared_date(learn_parser)
@@ -135,8 +162,12 @@ def main_with_args(argv: list[str] | None = None) -> object:
 
     if command == "next":
         return next_step.main_with_args(delegated_args)
+    if command == "synthesize":
+        return synthesize_queue.main_with_args(delegated_args)
     if command == "outcome":
         return record_outcome.main_with_args(delegated_args)
+    if command == "review":
+        return review_outcome.main_with_args(delegated_args)
     if command == "learn":
         return record_context_update.main_with_args(delegated_args)
     raise SystemExit(f"unknown command: {command}")

@@ -6,6 +6,12 @@ Cycle runners compose smaller local tools while preserving the same privacy rule
 
 ## Daily Cycle
 
+Synthesize current directive candidates into an active queue:
+
+```sh
+python3 ops/cycles/daily_cycle.py synthesize --date YYYY-MM-DD --candidate private/directives/candidates/example.md
+```
+
 Select the next directive and run preflight:
 
 ```sh
@@ -16,6 +22,12 @@ Record an outcome:
 
 ```sh
 python3 ops/cycles/daily_cycle.py outcome --date YYYY-MM-DD --directive "Breakfast Anchor" --completion completed
+```
+
+Review an outcome into a learning decision:
+
+```sh
+python3 ops/cycles/daily_cycle.py review --date YYYY-MM-DD --outcome private/outcomes/directives/YYYY-MM-DD-directive.md
 ```
 
 Record a learning/context update:

@@ -21,6 +21,8 @@ PEGO should remain portable across runtimes by defining stable contracts for:
 - Directive candidates and synthesized directives.
 - Governance review and escalation.
 - Memory, context updates, and outcome reviews.
+- Runtime-neutral artifact schemas for agent output, directive candidates,
+  compliance review, and outcome records.
 - Privacy boundaries between reusable framework material and protected private
   instance data.
 - Runtime adapters that can read and write PEGO-compatible artifacts.
@@ -64,7 +66,8 @@ A runtime adapter should be able to:
 
 - Load a protected private operating brief.
 - Load the relevant public agent protocols and governance rules.
-- Produce structured agent recommendations or directive candidates.
+- Produce structured agent recommendations or directive candidates that conform
+  to public PEGO schemas.
 - Run governance preflight before adoption or execution.
 - Write private outputs only to the protected private instance.
 - Preserve dissent, uncertainty, evidence level, review dates, and stop

@@ -21,6 +21,8 @@ The verifier checks:
 - Tracked files do not contain configured private markers.
 - Python operation scripts compile.
 - The system registry references existing public framework files.
+- Public PEGO schemas are valid JSON and expose required artifact contract
+  fields.
 
 `ops/pego_doctor.py` compiles every `ops/**/*.py` file so validation coverage
 follows the local operations tree as it grows.

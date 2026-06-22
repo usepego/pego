@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/agent-recommendation.schema.json",
+  "title": "PEGO Agent Recommendation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "agent",
+    "recommendation_type",
+    "proposed_directive",
+    "authority_level",
+    "relevant_facts",
+    "assumptions",
+    "evidence_quality",
+    "expected_benefit",
+    "costs_and_tradeoffs",
+    "risks",
+    "reversibility",
+    "privacy_impact",
+    "required_handoffs",
+    "dissent",
+    "stop_conditions",
+    "review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "agent_recommendation"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommendation_type": {
+      "enum": [
+        "recommend",
+        "direct",
+        "dissent",
+        "request_more_information",
+        "escalate"
+      ]
+    },
+    "proposed_directive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_level": {
+      "$ref": "#/$defs/authority_level"
+    },
+    "relevant_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "statement",
+          "certainty"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "certainty": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        }
+      }
+    },
+    "evidence_quality": {
+      "$ref": "#/$defs/evidence_quality_list"
+    },
+    "expected_benefit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "costs_and_tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "$ref": "#/$defs/risk_list"
+    },
+    "reversibility": {
+      "$ref": "#/$defs/reversibility"
+    },
+    "privacy_impact": {
+      "$ref": "#/$defs/privacy_impact"
+    },
+    "required_handoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dissent": {
+      "type": "string"
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "evidence_quality_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "direct_telemetry",
+          "financial_model_output",
+          "human_report",
+          "repeated_observed_pattern",
+          "expert_source",
+          "agent_inference",
+          "speculation"
+        ]
+      }
+    },
+    "privacy_impact": {
+      "enum": [
+        "private_only",
+        "safe_to_summarize",
+        "requires_explicit_disclosure_approval",
+        "blocked"
+      ]
+    },
+    "reversibility": {
+      "enum": [
+        "easy_to_reverse",
+        "reversible_with_cost",
+        "hard_to_reverse",
+        "irreversible"
+      ]
+    },
+    "risk_list": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "financial",
+          "health",
+          "relationship",
+          "career",
+          "legal",
+          "tax",
+          "privacy",
+          "reputation",
+          "time",
+          "energy",
+          "psychological",
+          "opportunity_cost"
+        ]
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_date_or_success_criteria"
+      ],
+      "properties": {
+        "review_date_or_success_criteria": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

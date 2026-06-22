@@ -57,6 +57,11 @@ REQUIRED_FILES = [
     "pego/operations/context-update.md",
     "pego/operations/anticipation-loop.md",
     "pego/operations/private-instance-workflow.md",
+    "pego/schemas/README.md",
+    "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/directive-candidate.schema.json",
+    "pego/schemas/compliance-review.schema.json",
+    "pego/schemas/directive-outcome.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -113,6 +118,12 @@ REQUIRED_FILES = [
 
 LOCAL_MARKERS_FILE = ROOT / "private" / "_local" / "doctor-private-markers.txt"
 REGISTRY_FILE = ROOT / "pego" / "system" / "registry.json"
+SCHEMA_FILES = [
+    "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/directive-candidate.schema.json",
+    "pego/schemas/compliance-review.schema.json",
+    "pego/schemas/directive-outcome.schema.json",
+]
 
 
 def run_git(args: list[str]) -> str:
@@ -192,6 +203,52 @@ def check_registry(errors: list[str]) -> None:
             errors.append(f"system registry references missing file: {relative}")
 
 
+def check_schemas(errors: list[str]) -> None:
+    required_top_level = {
+        "$schema",
+        "$id",
+        "title",
+        "type",
+        "additionalProperties",
+        "required",
+        "properties",
+    }
+    for relative in SCHEMA_FILES:
+        path = ROOT / relative
+        try:
+            schema = json.loads(path.read_text())
+        except json.JSONDecodeError as exc:
+            errors.append(f"schema is invalid JSON: {relative}: {exc}")
+            continue
+
+        missing = sorted(required_top_level - set(schema))
+        if missing:
+            errors.append(f"schema missing required top-level keys: {relative}: {', '.join(missing)}")
+            continue
+
+        if schema.get("type") != "object":
+            errors.append(f"schema root type must be object: {relative}")
+
+        required = schema.get("required")
+        properties = schema.get("properties")
+        if not isinstance(required, list) or not required:
+            errors.append(f"schema required field must be a non-empty list: {relative}")
+            continue
+        if not isinstance(properties, dict) or not properties:
+            errors.append(f"schema properties field must be a non-empty object: {relative}")
+            continue
+
+        for field in ["artifact_type", "schema_version"]:
+            if field not in required:
+                errors.append(f"schema must require {field}: {relative}")
+            if field not in properties:
+                errors.append(f"schema must define property {field}: {relative}")
+
+        artifact_type = properties.get("artifact_type", {})
+        if not isinstance(artifact_type, dict) or not artifact_type.get("const"):
+            errors.append(f"schema artifact_type must define a const: {relative}")
+
+
 def check_tracked_content_markers(errors: list[str]) -> None:
     if not LOCAL_MARKERS_FILE.exists():
         return
@@ -254,6 +311,7 @@ def main() -> int:
     check_private_tracking(errors)
     check_private_ignored(errors)
     check_registry(errors)
+    check_schemas(errors)
     if not args.skip_markers:
         check_tracked_content_markers(errors)
     check_python_syntax(errors)

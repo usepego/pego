@@ -49,6 +49,10 @@ Python and other scripts are appropriate for CI, repository validation,
 scaffolding, linting, migration, privacy checks, template generation, and local
 developer workflows. They can help build and maintain PEGO.
 
+Continuous integration should validate PEGO's framework invariants: public files
+exist, private data is not tracked, registry paths are valid, operation scripts
+compile, and smoke tests can run without protected private instance contents.
+
 Reference scripts under `ops/` are allowed when they make the framework usable
 locally, but they are support tooling or examples of one runtime adapter. They
 should not imply that PEGO is a Python application or that future users must

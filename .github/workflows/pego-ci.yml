@@ -1,0 +1,52 @@
+name: PEGO CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate PEGO framework
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run PEGO doctor
+        run: python3 ops/pego_doctor.py
+
+      - name: Validate system registry JSON
+        run: python3 -m json.tool pego/system/registry.json > /dev/null
+
+      - name: Verify protected private tracking boundary
+        run: |
+          test "$(git ls-files private)" = "private/README.md"
+
+      - name: Run smoke tests
+        run: |
+          python3 ops/cycles/test_daily_cycle.py
+          python3 ops/cycles/test_weekly_cycle.py
+          python3 ops/synthesis/test_synthesize_queue.py
+          python3 ops/review/test_review_outcome.py
+          python3 ops/finance/test_run_scenarios.py
+          python3 ops/finance/test_review_scenarios.py
+          python3 ops/health/test_generate_candidates.py
+          python3 ops/home/test_generate_candidates.py
+          python3 ops/onboarding/test_generate_intake.py
+          python3 ops/anticipation/test_generate_scan.py
+          python3 ops/directives/test_next_directive.py
+          python3 ops/operator/test_next_step.py
+          python3 ops/context/test_record_context_update.py
+          python3 ops/outcomes/test_record_outcome.py
+          python3 ops/governance/test_directive_preflight.py

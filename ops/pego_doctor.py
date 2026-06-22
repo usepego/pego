@@ -18,6 +18,7 @@ REQUIRED_FILES = [
     "README.md",
     "AGENTS.md",
     ".gitignore",
+    ".github/workflows/pego-ci.yml",
     "private/README.md",
     "pego/principles.md",
     "pego/architecture/agent-infrastructure.md",
@@ -217,29 +218,14 @@ def check_tracked_content_markers(errors: list[str]) -> None:
 
 
 def check_python_syntax(errors: list[str]) -> None:
-    scripts = [
-        "ops/private/bootstrap_private_instance.py",
-        "ops/cycles/daily_cycle.py",
-        "ops/cycles/test_daily_cycle.py",
-        "ops/cycles/weekly_cycle.py",
-        "ops/cycles/test_weekly_cycle.py",
-        "ops/operator/next_step.py",
-        "ops/operator/test_next_step.py",
-        "ops/context/record_context_update.py",
-        "ops/context/test_record_context_update.py",
-        "ops/outcomes/record_outcome.py",
-        "ops/outcomes/test_record_outcome.py",
-        "ops/directives/generate_daily_directive.py",
-        "ops/directives/next_directive.py",
-        "ops/directives/test_next_directive.py",
-        "ops/governance/directive_preflight.py",
-        "ops/governance/test_directive_preflight.py",
-        "ops/governance/generate_compliance_review.py",
-        "ops/finance/run_scenarios.py",
-        "ops/finance/test_run_scenarios.py",
-        "ops/pego_registry.py",
-        "ops/pego_doctor.py",
-    ]
+    scripts = sorted(
+        str(path.relative_to(ROOT))
+        for path in (ROOT / "ops").rglob("*.py")
+        if path.is_file()
+    )
+    if not scripts:
+        errors.append("no python operation scripts found under ops/")
+        return
     env = dict(os.environ)
     env["PYTHONPYCACHEPREFIX"] = "/private/tmp/pego-pycache"
     completed = subprocess.run(

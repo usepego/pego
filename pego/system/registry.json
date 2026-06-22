@@ -286,6 +286,7 @@
     "README.md",
     "AGENTS.md",
     ".gitignore",
+    ".github/workflows/pego-ci.yml",
     "private/README.md",
     "pego/README.md",
     "pego/principles.md",

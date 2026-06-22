@@ -44,6 +44,7 @@ REQUIRED_FILES = [
     "pego/governance/conflict-resolution.md",
     "pego/governance/private-data-policy.md",
     "pego/governance/repository-access-policy.md",
+    "pego/finance/engine-contract.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",
     "pego/operations/monthly-loop.md",
@@ -64,6 +65,8 @@ REQUIRED_FILES = [
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
     "pego/schemas/runtime-adapter-manifest.schema.json",
+    "pego/schemas/finance-scenario-input.schema.json",
+    "pego/schemas/finance-scenario-output.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -126,6 +129,8 @@ SCHEMA_FILES = [
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
     "pego/schemas/runtime-adapter-manifest.schema.json",
+    "pego/schemas/finance-scenario-input.schema.json",
+    "pego/schemas/finance-scenario-output.schema.json",
 ]
 
 

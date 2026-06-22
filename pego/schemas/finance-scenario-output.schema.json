@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/finance-scenario-output.schema.json",
+  "title": "PEGO Finance Scenario Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "version",
+    "as_of",
+    "currency",
+    "validation",
+    "summary",
+    "results"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "finance_scenario_output"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_scenarios",
+        "present_scenarios",
+        "missing_required_scenarios",
+        "status"
+      ],
+      "properties": {
+        "required_scenarios": {
+          "$ref": "#/$defs/scenario_name_list"
+        },
+        "present_scenarios": {
+          "$ref": "#/$defs/scenario_name_list"
+        },
+        "missing_required_scenarios": {
+          "$ref": "#/$defs/scenario_name_list"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "missing_required_scenarios"
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_count",
+        "earliest_target_scenario",
+        "latest_target_scenario",
+        "highest_target_number_scenario",
+        "negative_gap_scenarios",
+        "flagged_scenarios"
+      ],
+      "properties": {
+        "scenario_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "earliest_target_scenario": {
+          "$ref": "#/$defs/nullable_scenario_name"
+        },
+        "latest_target_scenario": {
+          "$ref": "#/$defs/nullable_scenario_name"
+        },
+        "highest_target_number_scenario": {
+          "$ref": "#/$defs/nullable_scenario_name"
+        },
+        "negative_gap_scenarios": {
+          "$ref": "#/$defs/scenario_name_list"
+        },
+        "flagged_scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "risk_flags"
+            ],
+            "properties": {
+              "name": {
+                "$ref": "#/$defs/scenario_name"
+              },
+              "risk_flags": {
+                "$ref": "#/$defs/risk_flag_list"
+              }
+            }
+          }
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "description",
+          "monthly_burn",
+          "annual_burn",
+          "nominal_return",
+          "inflation",
+          "target_multiple",
+          "current_age",
+          "retirement_start_age",
+          "years_to_fund",
+          "target_number",
+          "target_number_without_social_security",
+          "liquid_runway_months",
+          "total_runway_months",
+          "monthly_savings",
+          "months_to_target",
+          "target_achieved_date",
+          "target_date",
+          "projected_savings_at_target_date",
+          "surplus_or_gap_at_target_date",
+          "include_social_security",
+          "risk_flags"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/scenario_name"
+          },
+          "description": {
+            "type": "string"
+          },
+          "monthly_burn": {
+            "type": "number",
+            "minimum": 0
+          },
+          "annual_burn": {
+            "type": "number",
+            "minimum": 0
+          },
+          "nominal_return": {
+            "type": "number"
+          },
+          "inflation": {
+            "type": "number"
+          },
+          "target_multiple": {
+            "type": "number",
+            "minimum": 0
+          },
+          "current_age": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "retirement_start_age": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "years_to_fund": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "target_number": {
+            "type": "number",
+            "minimum": 0
+          },
+          "target_number_without_social_security": {
+            "type": "number",
+            "minimum": 0
+          },
+          "liquid_runway_months": {
+            "type": "number",
+            "minimum": 0
+          },
+          "total_runway_months": {
+            "type": "number",
+            "minimum": 0
+          },
+          "monthly_savings": {
+            "type": "number"
+          },
+          "months_to_target": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "target_achieved_date": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "target_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "projected_savings_at_target_date": {
+            "type": "number",
+            "minimum": 0
+          },
+          "surplus_or_gap_at_target_date": {
+            "type": "number"
+          },
+          "include_social_security": {
+            "type": "boolean"
+          },
+          "risk_flags": {
+            "$ref": "#/$defs/risk_flag_list"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nullable_scenario_name": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/scenario_name"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "risk_flag": {
+      "enum": [
+        "target_not_reached_within_model_window",
+        "target_after_target_date",
+        "negative_gap_at_target_date",
+        "liquid_runway_below_emergency_target",
+        "depends_on_social_security_offset",
+        "depends_on_speculative_upside"
+      ]
+    },
+    "risk_flag_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk_flag"
+      }
+    },
+    "scenario_name": {
+      "enum": [
+        "conservative",
+        "base",
+        "upside",
+        "stress",
+        "lifestyle_upgrade"
+      ]
+    },
+    "scenario_name_list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario_name"
+      }
+    }
+  }
+}

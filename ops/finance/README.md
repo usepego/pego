@@ -4,6 +4,19 @@ Local finance scenario tools for PEGO.
 
 These scripts may read private inputs and write generated outputs into protected local directories. Raw financial source files and generated reports must stay inside the private instance unless intentionally summarized into sanitized Markdown.
 
+Public engine contract:
+
+```text
+pego/finance/engine-contract.md
+```
+
+Public schemas:
+
+```text
+pego/schemas/finance-scenario-input.schema.json
+pego/schemas/finance-scenario-output.schema.json
+```
+
 ## Run Scenario Engine
 
 ```sh

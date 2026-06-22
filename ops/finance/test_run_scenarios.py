@@ -49,6 +49,8 @@ CONFIG = {
 
 def main() -> None:
     output = run_scenarios.run(CONFIG)
+    if output["artifact_type"] != "finance_scenario_output" or output["schema_version"] != 1:
+        raise AssertionError("expected finance scenario output schema identity")
     if output["validation"]["status"] != "missing_required_scenarios":
         raise AssertionError(output["validation"])
     if output["summary"]["scenario_count"] != 2:

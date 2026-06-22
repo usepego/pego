@@ -287,7 +287,9 @@
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
-    "pego/schemas/runtime-adapter-manifest.schema.json"
+    "pego/schemas/runtime-adapter-manifest.schema.json",
+    "pego/schemas/finance-scenario-input.schema.json",
+    "pego/schemas/finance-scenario-output.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -315,6 +317,7 @@
     "pego/agents/exploration-agent.md",
     "pego/agents/happiness-agent.md",
     "pego/agents/operations-agent.md",
+    "pego/finance/engine-contract.md",
     "pego/finance/model-spec.md",
     "pego/finance/account-integration-policy.md",
     "pego/health/model-spec.md",
@@ -348,6 +351,8 @@
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
     "pego/schemas/runtime-adapter-manifest.schema.json",
+    "pego/schemas/finance-scenario-input.schema.json",
+    "pego/schemas/finance-scenario-output.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",

@@ -131,6 +131,8 @@ def run(config: dict) -> dict:
         results.append(result)
 
     return {
+        "artifact_type": "finance_scenario_output",
+        "schema_version": 1,
         "version": config["version"],
         "as_of": config["as_of"],
         "currency": config.get("currency", "USD"),

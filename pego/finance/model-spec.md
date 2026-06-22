@@ -67,6 +67,12 @@ The PEGO finance model estimates when a person can stop relying on regular salar
 
 ## Executable Engine
 
+The finance engine contract lives at:
+
+```text
+pego/finance/engine-contract.md
+```
+
 The reference local scenario runner lives at:
 
 ```text

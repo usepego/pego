@@ -17,6 +17,10 @@ or local script should all be able to produce and consume these contracts.
   attempted.
 - `runtime-adapter-manifest.schema.json`: capability declaration for a PEGO
   runtime adapter.
+- `finance-scenario-input.schema.json`: protected private finance assumptions
+  consumed by scenario engines.
+- `finance-scenario-output.schema.json`: protected private scenario results
+  produced by finance engines.
 
 ## Rules
 

@@ -172,6 +172,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_anticipation_scan",
+      "runner": "ops/anticipation/generate_scan.py",
+      "procedure": "pego/operations/anticipation-loop.md",
+      "writes_to": "private/anticipation/scans/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "generate_compliance_review",
       "runner": "ops/governance/generate_compliance_review.py",
       "procedure": "pego/operations/compliance-review-runner.md",
@@ -268,6 +275,7 @@
     "pego/operations/monthly-loop.md",
     "pego/operations/directive-synthesis.md",
     "pego/operations/operator-interface.md",
+    "pego/operations/collaboration-modes.md",
     "pego/operations/runtime-agent-protocol.md",
     "pego/operations/first-run.md",
     "pego/operations/operating-readiness.md",
@@ -302,6 +310,8 @@
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/compliance-review.md",
+    "ops/anticipation/generate_scan.py",
+    "ops/anticipation/test_generate_scan.py",
     "ops/private/bootstrap_private_instance.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",

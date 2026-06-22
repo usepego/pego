@@ -12,6 +12,7 @@ Useful tools:
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.
 - `cycles/daily_cycle.py`: run daily next/outcome/learn cycle commands.
 - `cycles/weekly_cycle.py`: generate protected weekly operating plans.
+- `anticipation/generate_scan.py`: generate one protected anticipation scan from the operating register.
 - `operator/next_step.py`: select one next directive and run governance preflight.
 - `context/record_context_update.py`: record protected context updates.
 - `directives/generate_daily_directive.py`: create protected daily directive packets.

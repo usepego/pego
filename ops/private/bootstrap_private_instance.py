@@ -23,6 +23,7 @@ FILES: dict[str, str] = {
     "person/profile.md": "person-profile.md",
     "happiness/model.md": "happiness-model.md",
     "time/protected-time.md": "protected-time.md",
+    "operator/operating-register.md": "operating-register.md",
     "governance/compliance-review-template.md": "compliance-review.md",
 }
 

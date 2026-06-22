@@ -31,14 +31,15 @@ Start here:
 11. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
 12. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
 13. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
-14. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
-15. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-16. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-17. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-18. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-19. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-20. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-21. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+14. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
+15. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
+16. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
+17. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+18. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+19. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+20. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+21. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+22. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

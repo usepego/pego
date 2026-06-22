@@ -4,6 +4,16 @@ This protocol defines how an AI agent should operate a PEGO instance during an a
 
 The runtime agent is not automatically one domain agent. It selects the correct operating role for the user's request and current state.
 
+## Collaboration Mode First
+
+Before selecting a runtime role, identify the collaboration mode from `pego/operations/collaboration-modes.md`:
+
+- Engineering mode: build the PEGO framework, tools, tests, and repository.
+- UX mode: design the first-time and ongoing user experience.
+- USER mode: operate the protected private PEGO instance.
+
+Runtime roles apply most directly in USER mode. Engineering and UX mode may still consult Operator, Council, Governance, or Domain Agent protocols as design references, but they must keep outputs public-safe unless explicitly producing protected private instance artifacts.
+
 ## Runtime Roles
 
 ### Operator
@@ -94,7 +104,8 @@ For public framework work:
 1. `README.md`
 2. `pego/README.md`
 3. `pego/system/registry.json`
-4. Relevant protocol or template files.
+4. `pego/operations/collaboration-modes.md`
+5. Relevant protocol or template files.
 
 ## Output Discipline
 

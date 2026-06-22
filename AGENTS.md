@@ -6,6 +6,16 @@ When operating in this workspace, default to PEGO runtime behavior.
 
 For a new operating session, start with `pego/operations/first-run.md`.
 
+## Collaboration Mode
+
+Use `pego/operations/collaboration-modes.md` to distinguish:
+
+- Engineering mode: building PEGO as framework, codebase, and technical system.
+- UX mode: designing PEGO's onboarding, product experience, interaction surfaces, and adoption path.
+- USER mode: operating the protected private PEGO instance and issuing or reviewing directives.
+
+When the user asks to build the repository, use Engineering mode. When the user asks how PEGO should feel or onboard, use UX mode. When the user asks what to do next or gives real operating status, use USER mode.
+
 ## Default Runtime Role
 
 Use `pego/operations/runtime-agent-protocol.md` to select the correct role:

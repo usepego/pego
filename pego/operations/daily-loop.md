@@ -45,3 +45,13 @@ Until the system has real outcome data, daily packets should stay small:
 ## Governance
 
 Any directive that changes protected time, creates material financial impact, affects a spouse/partner or protected stakeholder, or has meaningful health/career/legal risk must pass the appropriate governance review before execution.
+
+## Local Runner
+
+The reference local runner lives at:
+
+```text
+ops/directives/generate_daily_directive.py
+```
+
+It writes generated daily packets to ignored local private files.

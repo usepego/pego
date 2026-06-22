@@ -89,6 +89,7 @@ Every meaningful directive should be assessed for:
 
 This repository separates the reusable PEGO framework from a private local instance.
 
+- `AGENTS.md` contains runtime instructions for AI agents operating in this repository.
 - `pego/` contains reusable framework material that may eventually become open source or productized.
 - `private/` contains the private PEGO instance: real goals, constraints, telemetry, directives, and life details.
 - `ops/` contains lightweight scripts, integrations, checks, and local operating machinery.

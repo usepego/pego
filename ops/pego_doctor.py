@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = [
     "README.md",
+    "AGENTS.md",
     ".gitignore",
     "private/README.md",
     "pego/principles.md",

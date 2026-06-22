@@ -181,6 +181,7 @@
   ],
   "verify_paths": [
     "README.md",
+    "AGENTS.md",
     ".gitignore",
     "private/README.md",
     "pego/README.md",

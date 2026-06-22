@@ -289,6 +289,8 @@
     "private/README.md",
     "pego/README.md",
     "pego/principles.md",
+    "pego/architecture/agent-infrastructure.md",
+    "pego/architecture/runtime-options.md",
     "pego/ux/first-run-experience.md",
     "pego/planning/doctrine.md",
     "pego/system/README.md",

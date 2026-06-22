@@ -1,7 +1,17 @@
 # Operations
 
-Scripts, integrations, automations, registry inspection, and local operating
-machinery for PEGO.
+Reference scripts, integrations, automations, registry inspection, and local
+operating machinery for PEGO.
+
+These tools are local runtime adapters. They are not the PEGO architecture
+itself. PEGO should remain defined by agent contracts, governance contracts,
+directive schemas, privacy boundaries, and operating protocols that can later
+run through LangGraph, Vercel AI SDK, a custom service, a mobile app, a Slack
+bot, a local CLI, or another runtime.
+
+Python is welcome here as engineering infrastructure: tests, CI checks,
+repository validation, scaffolding, privacy scans, migrations, and local
+developer utilities. That does not mean PEGO's product runtime is Python.
 
 Secrets and local credentials belong outside the reusable framework layer.
 

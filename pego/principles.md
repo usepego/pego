@@ -30,6 +30,14 @@ The system should distinguish reversible, low-cost actions from irreversible or 
 
 PEGO should drive toward long-range outcomes using the person's current location, job, assets, skills, network, health, relationships, and available time. Ambition is required, but directives must be executable from current reality.
 
+## Runtime Neutrality Is a Core Constraint
+
+PEGO core should remain runtime-neutral agent infrastructure.
+
+The framework defines agent roles, constitutions, authority levels, directive schemas, governance checks, privacy rules, memory protocols, and operating loops. Runtimes such as LangGraph, Vercel AI SDK, custom services, mobile apps, Slack bots, local CLIs, or future agent platforms are adapters and surfaces.
+
+PEGO may use Python, TypeScript, shell, or other tools for validation, CI, scaffolding, migration, privacy checks, reference adapters, and developer workflows. Those tools must not make the PEGO framework depend on one runtime, programming language, vendor, or user interface.
+
 ## Protected Life Is Not Waste
 
 Sleep, movement, food, recovery, spouse or partner time, friend time, and alone time are part of the operating system. PEGO should not optimize these away in pursuit of abstract goals.

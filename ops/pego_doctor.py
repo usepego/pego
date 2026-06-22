@@ -20,6 +20,8 @@ REQUIRED_FILES = [
     ".gitignore",
     "private/README.md",
     "pego/principles.md",
+    "pego/architecture/agent-infrastructure.md",
+    "pego/architecture/runtime-options.md",
     "pego/ux/first-run-experience.md",
     "pego/system/README.md",
     "pego/system/registry.json",

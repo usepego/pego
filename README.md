@@ -61,6 +61,16 @@ PEGO is a response to that pattern. It asks:
 - What if the system could be bold about life direction while still being governed, private, reviewable, and reversible where possible?
 - What if the output was not advice, but a directive small enough to execute today?
 
+## Project Goals And Constraints
+
+PEGO core should remain runtime-neutral agent infrastructure.
+
+The project goal is to define the governing framework: agent roles, constitutions, authority levels, directive schemas, governance checks, privacy rules, memory protocols, operating loops, and adapter contracts.
+
+The runtime can later be LangGraph, Vercel AI SDK, a custom service, a mobile app, a Slack bot, a local CLI, or another environment. Those are hosting and surface choices, not PEGO itself.
+
+Python and other code are welcome for validation, CI, scaffolding, migrations, privacy checks, reference adapters, and developer workflows. They should not make the framework depend on one runtime, programming language, vendor, or user interface.
+
 ## Governance Model
 
 PEGO authority is explicit.
@@ -92,7 +102,7 @@ This repository separates the reusable PEGO framework from a private local insta
 - `AGENTS.md` contains runtime instructions for AI agents operating in this repository.
 - `pego/` contains reusable framework material that may eventually become open source or productized.
 - `private/` is reserved for the protected private PEGO instance: real goals, constraints, telemetry, directives, and life details.
-- `ops/` contains lightweight scripts, integrations, checks, and local operating machinery.
+- `ops/` contains lightweight scripts, integrations, checks, CI-oriented validation, and local operating machinery.
 - `decisions/` contains durable decision records about PEGO architecture and governance.
 
 Do not place private life details, secrets, credentials, real financial data, health records, relationship details, personal journals, or local directives in `pego/`.

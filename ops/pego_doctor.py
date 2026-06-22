@@ -111,6 +111,8 @@ REQUIRED_FILES = [
     "ops/anticipation/test_generate_scan.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
+    "ops/communications/generate_public_writing_brief.py",
+    "ops/communications/test_generate_public_writing_brief.py",
     "ops/synthesis/synthesize_queue.py",
     "ops/synthesis/test_synthesize_queue.py",
     "ops/council/synthesize_decision.py",

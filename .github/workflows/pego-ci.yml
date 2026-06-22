@@ -49,6 +49,7 @@ jobs:
           python3 ops/home/test_generate_candidates.py
           python3 ops/private/test_check_readiness.py
           python3 ops/onboarding/test_generate_intake.py
+          python3 ops/communications/test_generate_public_writing_brief.py
           python3 ops/anticipation/test_generate_scan.py
           python3 ops/directives/test_next_directive.py
           python3 ops/operator/test_next_step.py

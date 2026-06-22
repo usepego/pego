@@ -144,6 +144,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_public_writing_brief",
+      "runner": "ops/communications/generate_public_writing_brief.py",
+      "procedure": "pego/agents/communications-agent.md",
+      "writes_to": "private/writing/briefs/; private/directives/candidates/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "daily_cycle",
       "runner": "ops/cycles/daily_cycle.py",
       "procedure": "pego/operations/daily-loop.md",
@@ -463,6 +470,8 @@
     "ops/anticipation/test_generate_scan.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
+    "ops/communications/generate_public_writing_brief.py",
+    "ops/communications/test_generate_public_writing_brief.py",
     "ops/synthesis/synthesize_queue.py",
     "ops/synthesis/test_synthesize_queue.py",
     "ops/council/synthesize_decision.py",

@@ -102,7 +102,7 @@ The reference daily cycle runner lives at:
 ops/cycles/daily_cycle.py
 ```
 
-It composes the local `health-check-in`, `finance-check-in`, `council`, `council-candidate`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
+It composes the local `health-check-in`, `finance-check-in`, `writing-brief`, `council`, `council-candidate`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
 
 To generate a targeted health check-in through the daily runner:
 
@@ -120,6 +120,12 @@ To synthesize a council decision through the daily runner:
 
 ```sh
 python3 ops/cycles/daily_cycle.py council --recommendation private/agents/recommendations/example.json
+```
+
+To generate a private public-writing brief and communications candidate:
+
+```sh
+python3 ops/cycles/daily_cycle.py writing-brief --artifact "PEGO introduction essay"
 ```
 
 To convert a council decision into a directive candidate:

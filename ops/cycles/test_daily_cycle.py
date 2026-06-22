@@ -180,6 +180,9 @@ def main() -> None:
         council_decision_json = root / "council-decision.json"
         council_candidate = root / "council-candidate.md"
         council_candidate_json = root / "council-candidate.json"
+        writing_brief = root / "writing-brief.md"
+        writing_candidate = root / "writing-candidate.md"
+        writing_candidate_json = root / "writing-candidate.json"
         queue.write_text(QUEUE)
         register.write_text(REGISTER)
         candidates.write_text(CANDIDATES)
@@ -243,6 +246,24 @@ def main() -> None:
                 "--force",
             ]
         )
+        daily_cycle.main_with_args(
+            [
+                "writing-brief",
+                "--date",
+                "2026-06-23",
+                "--artifact",
+                "PEGO introduction essay",
+                "--voice-model",
+                str(root / "missing-voice-model.md"),
+                "--brief-output",
+                str(writing_brief),
+                "--candidate-output",
+                str(writing_candidate),
+                "--json-output",
+                str(writing_candidate_json),
+                "--force",
+            ]
+        )
 
         daily_cycle.main_with_args(
             [
@@ -253,6 +274,8 @@ def main() -> None:
                 str(candidates),
                 "--candidate",
                 str(council_candidate_json),
+                "--candidate",
+                str(writing_candidate_json),
                 "--available",
                 "30",
                 "--output",
@@ -351,6 +374,9 @@ def main() -> None:
             council_decision_json,
             council_candidate,
             council_candidate_json,
+            writing_brief,
+            writing_candidate,
+            writing_candidate_json,
         ):
             if not path.exists():
                 raise AssertionError(f"missing expected file: {path}")
@@ -364,6 +390,8 @@ def main() -> None:
             raise AssertionError(council_decision.read_text())
         if "directive_candidate" not in council_candidate_json.read_text():
             raise AssertionError(council_candidate_json.read_text())
+        if "communications" not in writing_candidate_json.read_text():
+            raise AssertionError(writing_candidate_json.read_text())
 
     print("daily cycle smoke tests passed.")
 

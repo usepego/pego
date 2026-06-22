@@ -93,6 +93,7 @@ def display_domain(value: object) -> str:
         "home_environment": "Home and Environment",
         "relationships": "Relationships",
         "exploration": "Exploration",
+        "communications": "Communications",
         "happiness": "Happiness",
         "operations": "Operations",
         "governance": "Governance",
@@ -305,9 +306,10 @@ def candidate_score(candidate: Candidate) -> tuple[int, int, int]:
         "Venture": 3,
         "Career": 4,
         "Finance": 5,
-        "Operations": 6,
-        "Exploration": 7,
-        "Happiness": 8,
+        "Communications": 6,
+        "Operations": 7,
+        "Exploration": 8,
+        "Happiness": 9,
     }
     consequence = candidate.deferral.lower()
     urgency = 0 if any(word in consequence for word in ["urgent", "scrambling", "delay", "friction"]) else 1

@@ -140,6 +140,25 @@ The Communications Agent should inform daily directives when:
 - A draft needs revision, cooling-off, or governance review before release.
 - Recent reading, watching, learning, or conversation should become durable private context.
 
+## Local Runner
+
+The reference public-writing brief runner lives at:
+
+```text
+ops/communications/generate_public_writing_brief.py
+```
+
+It reads a protected private voice model, writes a protected private public-writing brief, and emits a communications directive candidate for queue synthesis.
+
+Default outputs:
+
+```text
+private/writing/briefs/
+private/directives/candidates/communications-candidates.md
+```
+
+The runner does not approve publication. It creates private drafting work and preserves the rule that publishing requires governance review.
+
 ## Must Not
 
 The Communications Agent must not:

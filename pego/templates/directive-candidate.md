@@ -8,7 +8,7 @@ Short name.
 
 ## Domain
 
-Finance / Health / Career / Venture / Home and Environment / Relationships / Exploration / Happiness / Operations / Governance.
+Finance / Health / Career / Venture / Home and Environment / Relationships / Exploration / Communications / Happiness / Operations / Governance.
 
 ## Altitude
 

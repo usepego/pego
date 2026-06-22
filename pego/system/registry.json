@@ -143,6 +143,13 @@
       "privacy": "local-only"
     },
     {
+      "id": "directive_preflight",
+      "runner": "ops/governance/directive_preflight.py",
+      "procedure": "pego/governance/compliance-review.md",
+      "writes_to": null,
+      "privacy": "safe-derived-output"
+    },
+    {
       "id": "run_finance_scenarios",
       "runner": "ops/finance/run_scenarios.py",
       "procedure": "ops/finance/README.md",
@@ -262,6 +269,8 @@
     "ops/directives/generate_daily_directive.py",
     "ops/directives/next_directive.py",
     "ops/directives/test_next_directive.py",
+    "ops/governance/directive_preflight.py",
+    "ops/governance/test_directive_preflight.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/pego_registry.py",

@@ -143,3 +143,15 @@ ops/governance/generate_compliance_review.py
 ```
 
 It writes generated review packets to ignored local private files.
+
+## Preflight Runner
+
+Use the directive preflight runner before a daily or intra-day directive is adopted:
+
+```sh
+python3 ops/governance/directive_preflight.py --directive private/directives/command-responses/YYYY-MM-DD-next.md
+```
+
+The preflight runner does not approve execution. It classifies whether the directive can remain a low-risk recommendation, needs standard review, or must escalate into a decision packet.
+
+It must not print private directive content.

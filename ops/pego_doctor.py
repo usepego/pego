@@ -9,6 +9,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -227,7 +228,10 @@ def check_python_syntax(errors: list[str]) -> None:
         errors.append("no python operation scripts found under ops/")
         return
     env = dict(os.environ)
-    env["PYTHONPYCACHEPREFIX"] = "/private/tmp/pego-pycache"
+    env["PYTHONPYCACHEPREFIX"] = env.get(
+        "PEGO_PYCACHE_DIR",
+        str(Path(tempfile.gettempdir()) / "pego-pycache"),
+    )
     completed = subprocess.run(
         ["python3", "-m", "py_compile", *scripts],
         cwd=ROOT,

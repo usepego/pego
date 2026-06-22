@@ -12,6 +12,12 @@ private/directives/daily/
 
 That directory is ignored by Git.
 
+The public framework template is:
+
+```text
+pego/templates/daily-directive.md
+```
+
 ## Command
 
 ```sh
@@ -33,3 +39,5 @@ The runner must not:
 Generated daily directives are Level 1 recommendations by default.
 
 They become stronger only if the private constitution grants that authority and governance review approves it.
+
+High-impact recommendations should remain decision packets, not routine daily directives.

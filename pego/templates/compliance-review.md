@@ -6,48 +6,69 @@ Approve / Approve with constraints / Request more information / Downgrade / Esca
 
 ## Directive or Recommendation
 
-TBD
+The directive, recommendation, or decision packet under review.
 
 ## Authority Level
 
-TBD
+Requested level and approved level.
 
 ## Constitutional Alignment
 
-TBD
+How the recommendation aligns or conflicts with the constitution.
 
 ## Goal Alignment
 
-TBD
+Goals advanced and goals potentially harmed.
 
 ## Constraint Fit
 
-TBD
+Fit with current resources, time, energy, obligations, household constraints, and available capabilities.
 
 ## Evidence Quality
 
-TBD
+Classify supporting evidence:
+
+- Direct telemetry.
+- Financial model output.
+- Human report.
+- Repeated observed pattern.
+- Expert source.
+- Agent inference.
+- Speculation.
 
 ## Risks
 
-TBD
+Classify relevant risks:
+
+- Financial.
+- Health.
+- Relationship.
+- Career.
+- Legal.
+- Tax.
+- Privacy.
+- Reputation.
+- Time.
+- Energy.
+- Psychological.
+- Opportunity cost.
 
 ## Reversibility
 
-TBD
+Easy to reverse / Reversible with cost / Hard to reverse / Irreversible.
 
 ## Privacy Impact
 
-TBD
+Private-only / Safe to summarize / Requires explicit disclosure approval / Blocked.
 
 ## Dissent
 
-TBD
+Required dissenting view or explanation of why dissent is not required.
 
 ## Conditions
 
-TBD
+Conditions required before adoption or execution.
 
 ## Review Date or Stop Condition
 
-TBD
+When the directive must be reviewed, or what event causes PEGO to stop, revise, or escalate.

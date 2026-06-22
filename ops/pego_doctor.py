@@ -35,6 +35,8 @@ REQUIRED_FILES = [
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
     "pego/operations/private-instance-workflow.md",
+    "pego/templates/agent-recommendation.md",
+    "pego/templates/decision-packet.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/directives/generate_daily_directive.py",
     "ops/governance/generate_compliance_review.py",

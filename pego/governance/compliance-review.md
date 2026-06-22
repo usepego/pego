@@ -41,7 +41,7 @@ Use for Level 4 escalations and high-impact actions.
 
 Required checks:
 
-- Full decision packet.
+- Full decision packet using `pego/templates/decision-packet.md`.
 - Scenario analysis.
 - Dissent from relevant agents.
 - Waiting period recommendation.
@@ -123,6 +123,12 @@ High-impact decisions should leave an audit trail:
 - Dissent.
 - Approval status.
 - Review date.
+
+## Templates
+
+- Agent recommendation: `pego/templates/agent-recommendation.md`
+- Decision packet: `pego/templates/decision-packet.md`
+- Compliance review: `pego/templates/compliance-review.md`
 
 ## Local Runner
 

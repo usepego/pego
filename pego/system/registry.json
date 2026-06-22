@@ -150,6 +150,8 @@
     "pego/templates/happiness-model.md",
     "pego/templates/protected-time.md",
     "pego/templates/goal-strategy.md",
+    "pego/templates/agent-recommendation.md",
+    "pego/templates/decision-packet.md",
     "pego/templates/daily-directive.md",
     "pego/templates/compliance-review.md"
   ],
@@ -191,6 +193,8 @@
     "pego/templates/happiness-model.md",
     "pego/templates/protected-time.md",
     "pego/templates/goal-strategy.md",
+    "pego/templates/agent-recommendation.md",
+    "pego/templates/decision-packet.md",
     "pego/templates/daily-directive.md",
     "pego/templates/compliance-review.md",
     "ops/private/bootstrap_private_instance.py",

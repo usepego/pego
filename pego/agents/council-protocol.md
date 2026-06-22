@@ -59,6 +59,10 @@ When an agent is invoked, it should return:
 
 Agents must distinguish facts from inference. If evidence is weak, they should say so directly and reduce confidence.
 
+Use `pego/templates/agent-recommendation.md` as the default output shape for domain-agent recommendations and dissent.
+
+Use `pego/templates/decision-packet.md` for Level 4 escalations and high-impact decisions.
+
 ## Deliberation Order
 
 Default order:

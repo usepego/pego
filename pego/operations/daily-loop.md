@@ -18,11 +18,12 @@ The daily loop converts PEGO's current understanding into a small set of executa
 
 1. Gather approved or draft recommendations.
 2. Check protected time and hard constraints.
-3. Select the minimum useful set of directives.
-4. Assign authority level and governance status.
-5. Produce the daily directive packet.
-6. Execute only approved low-risk actions.
-7. Review outcomes at the end of the day.
+3. Normalize recommendations using `pego/templates/agent-recommendation.md`.
+4. Select the minimum useful set of directives.
+5. Assign authority level and governance status.
+6. Produce the daily directive packet using `pego/templates/daily-directive.md`.
+7. Execute only approved low-risk actions.
+8. Review outcomes at the end of the day.
 
 ## Directive Limits
 
@@ -45,6 +46,8 @@ Until the system has real outcome data, daily packets should stay small:
 ## Governance
 
 Any directive that changes protected time, creates material financial impact, affects a spouse/partner or protected stakeholder, or has meaningful health/career/legal risk must pass the appropriate governance review before execution.
+
+High-impact actions must be converted into a decision packet using `pego/templates/decision-packet.md`; they should not be hidden inside a daily directive.
 
 ## Local Runner
 

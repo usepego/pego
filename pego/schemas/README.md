@@ -10,6 +10,8 @@ or local script should all be able to produce and consume these contracts.
 ## Core Artifacts
 
 - `agent-recommendation.schema.json`: structured output from a domain agent.
+- `command-response.schema.json`: single next-directive response from the
+  intra-day command loop.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.

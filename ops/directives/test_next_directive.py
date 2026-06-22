@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 from pathlib import Path
 
@@ -58,6 +59,35 @@ def run_selector(*args: str) -> str:
         return output.read_text()
 
 
+def run_selector_json(*args: str) -> dict:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        queue = root / "queue.md"
+        register = root / "register.md"
+        output = root / "response.md"
+        json_output = root / "response.json"
+        queue.write_text(QUEUE)
+        register.write_text(REGISTER)
+
+        next_directive.main_with_args(
+            [
+                "--date",
+                "2026-06-23",
+                "--queue",
+                str(queue),
+                "--register",
+                str(register),
+                "--output",
+                str(output),
+                "--json-output",
+                str(json_output),
+                "--force",
+                *args,
+            ]
+        )
+        return json.loads(json_output.read_text())
+
+
 def assert_contains(text: str, expected: str) -> None:
     if expected not in text:
         raise AssertionError(f"expected {expected!r} in output:\n{text}")
@@ -66,6 +96,14 @@ def assert_contains(text: str, expected: str) -> None:
 def main() -> None:
     breakfast = run_selector("--available", "15", "--energy", "low", "--location", "home")
     assert_contains(breakfast, "Breakfast Anchor")
+
+    structured_breakfast = run_selector_json("--available", "15", "--energy", "low", "--location", "home")
+    if structured_breakfast["artifact_type"] != "command_response":
+        raise AssertionError("expected command_response JSON artifact")
+    if structured_breakfast["next_directive"]["directive"] != "Breakfast Anchor":
+        raise AssertionError("expected Breakfast Anchor structured directive")
+    if structured_breakfast["next_directive"]["authority_level"] != "level_1_recommend":
+        raise AssertionError("expected normalized authority level")
 
     venture = run_selector(
         "--done",
@@ -92,6 +130,23 @@ def main() -> None:
         "5",
     )
     assert_contains(question, "Which visible part of the home or yard is most annoying right now?")
+
+    structured_question = run_selector_json(
+        "--done",
+        "Breakfast Anchor",
+        "--done",
+        "Venture Problem Map",
+        "--done",
+        "Garden Weed Block",
+        "--done",
+        "Store List",
+        "--available",
+        "5",
+    )
+    if structured_question["next_directive"]["candidate_rank"] is not None:
+        raise AssertionError("expected no candidate rank for targeted question")
+    if "targeted_question" not in structured_question:
+        raise AssertionError("expected targeted question in structured response")
 
     print("next directive smoke tests passed.")
 

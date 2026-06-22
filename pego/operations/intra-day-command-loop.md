@@ -74,6 +74,12 @@ Before selecting the next directive, PEGO should check:
 
 Use `pego/templates/command-response.md`.
 
+Structured runtimes should preserve command responses using:
+
+```text
+pego/schemas/command-response.schema.json
+```
+
 Use `pego/templates/intra-day-session-log.md` to preserve the state changes caused by the command.
 
 The response should include:

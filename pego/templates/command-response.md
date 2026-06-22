@@ -2,6 +2,12 @@
 
 Use this template when the human asks for the next directive or reports an intra-day status update.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/command-response.schema.json
+```
+
 ## State Update
 
 What changed since the prior directive?

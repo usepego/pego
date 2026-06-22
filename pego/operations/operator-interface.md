@@ -29,6 +29,8 @@ Use when the human asks:
 
 Read the active operating brief, directive queue, and session log. Return one next directive using `pego/templates/command-response.md`.
 
+Structured runtimes should preserve next-directive command responses using `pego/schemas/command-response.schema.json`.
+
 If no active directive is clearly superior, inspect the operating register for a small preventive directive that fits the available time, location, and energy.
 
 ### Resynthesize

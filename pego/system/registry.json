@@ -291,6 +291,7 @@
   ],
   "schemas": [
     "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/command-response.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -360,6 +361,7 @@
     "pego/operations/verification.md",
     "pego/schemas/README.md",
     "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/command-response.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",

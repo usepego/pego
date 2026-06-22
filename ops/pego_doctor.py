@@ -61,6 +61,7 @@ REQUIRED_FILES = [
     "pego/operations/private-instance-workflow.md",
     "pego/schemas/README.md",
     "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/command-response.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -133,6 +134,7 @@ LOCAL_MARKERS_FILE = ROOT / "private" / "_local" / "doctor-private-markers.txt"
 REGISTRY_FILE = ROOT / "pego" / "system" / "registry.json"
 SCHEMA_FILES = [
     "pego/schemas/agent-recommendation.schema.json",
+    "pego/schemas/command-response.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",

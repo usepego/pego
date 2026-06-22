@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Record a local-only PEGO context update.
+"""Record a protected PEGO context update.
 
-The runner writes ignored private context-update records. It can optionally
+The runner writes protected private context-update records. It can optionally
 append the proposed update to a private destination file when explicitly asked.
 It prints only paths by default because updates may contain private facts.
 """

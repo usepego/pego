@@ -2,7 +2,7 @@
 
 Local tools for recording PEGO context updates.
 
-Context updates are ignored private artifacts. They may contain private facts, preferences, constraints, goals, or operating patterns and should not be committed.
+Context updates are protected private artifacts. They may contain private facts, preferences, constraints, goals, or operating patterns and must stay inside the private instance unless explicitly sanitized.
 
 ## Record Context Update
 

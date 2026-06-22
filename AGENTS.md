@@ -45,7 +45,7 @@ Do not move private facts into public framework files.
 
 ## Privacy Boundary
 
-`private/` contains the local personal PEGO instance and is ignored by Git except for `private/README.md`.
+`private/` contains the protected private PEGO instance. Treat it as private operating memory, not framework content.
 
 Never commit:
 
@@ -56,6 +56,8 @@ Never commit:
 - Work details.
 - Journals, telemetry, directives, outcomes, or private strategy files.
 - Secrets, credentials, API keys, OAuth tokens, or account data.
+
+See `pego/governance/private-data-policy.md` for the framework/private-instance boundary.
 
 Before committing public framework work, run:
 

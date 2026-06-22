@@ -85,19 +85,19 @@ Every meaningful directive should be assessed for:
 - Dissent.
 - Review date or stop condition.
 
-## Repository Boundary
+## Framework And Private Instance
 
 This repository separates the reusable PEGO framework from a private local instance.
 
 - `AGENTS.md` contains runtime instructions for AI agents operating in this repository.
 - `pego/` contains reusable framework material that may eventually become open source or productized.
-- `private/` contains the private PEGO instance: real goals, constraints, telemetry, directives, and life details.
+- `private/` is reserved for the protected private PEGO instance: real goals, constraints, telemetry, directives, and life details.
 - `ops/` contains lightweight scripts, integrations, checks, and local operating machinery.
 - `decisions/` contains durable decision records about PEGO architecture and governance.
 
 Do not place private life details, secrets, credentials, real financial data, health records, relationship details, personal journals, or local directives in `pego/`.
 
-Private instance files under `private/` are local-only and ignored by Git, except for the placeholder `private/README.md`.
+The reusable framework layer and the protected private instance are intentionally separate. See `pego/governance/private-data-policy.md` for the product boundary and implementation rules.
 
 Repository access should be least-privilege and scoped only to this PEGO repository. Do not grant unrelated organization or employer access for PEGO work.
 

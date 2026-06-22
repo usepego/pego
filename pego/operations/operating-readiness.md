@@ -37,7 +37,7 @@ For active operation, confirm:
 - Outcome record location exists or can be generated.
 - Governance constraints are known.
 
-Private files should remain under ignored `private/` paths.
+Private files should remain under protected `private/` paths.
 
 ## Queue Checks
 

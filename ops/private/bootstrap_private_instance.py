@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Create a local-only private PEGO instance skeleton.
+"""Create a protected private PEGO instance skeleton.
 
-The generated files live under private/, which is ignored by Git except for
-private/README.md. This script intentionally writes generic placeholders only.
+The generated files live under private/. This script intentionally writes
+generic placeholders only.
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ FILES: dict[str, str] = {
 STATIC_FILES: dict[str, str] = {
     "README.md": """# Private PEGO Instance
 
-This directory contains the local-only private PEGO instance.
+This directory contains the protected private PEGO instance.
 
 Do not commit private instance files.
 """,

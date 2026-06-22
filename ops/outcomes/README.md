@@ -2,7 +2,7 @@
 
 Local tools for recording PEGO execution outcomes.
 
-Outcome records are ignored private artifacts. They may contain private context and should not be committed.
+Outcome records are protected private artifacts. They may contain private context and must stay inside the private instance unless explicitly sanitized.
 
 ## Record Outcome
 

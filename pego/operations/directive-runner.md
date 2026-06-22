@@ -4,13 +4,13 @@ The directive runner is a local operational helper for creating private daily di
 
 ## Purpose
 
-It turns the PEGO daily-loop protocol into a concrete local file under:
+It turns the PEGO daily-loop protocol into a concrete protected private file under:
 
 ```text
 private/directives/daily/
 ```
 
-That directory is ignored by Git.
+That directory is part of the protected private instance.
 
 The public framework template is:
 
@@ -32,7 +32,7 @@ Use this command when the human reports status or asks what is next:
 python3 ops/directives/next_directive.py --date YYYY-MM-DD --available 30 --energy medium --location computer
 ```
 
-The runner reads the ignored private directive queue and operating register, then writes one ignored command response under:
+The runner reads the protected private directive queue and operating register, then writes one protected command response under:
 
 ```text
 private/directives/command-responses/
@@ -46,12 +46,12 @@ python3 ops/directives/next_directive.py --date YYYY-MM-DD --done "Breakfast Anc
 
 ## Privacy
 
-The runner may read local private files. It must write generated directives only to ignored local paths.
+The runner may read protected private files. It must write generated directives only to protected private-instance paths.
 
 The runner must not:
 
 - Print private file contents to stdout.
-- Write private instance content to tracked framework files.
+- Write private instance content to framework files.
 - Imply Level 2 or higher authority without explicit adoption.
 - Treat markdown queue parsing as a substitute for governance review.
 

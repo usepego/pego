@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate a local-only PEGO compliance review packet.
+"""Generate a protected PEGO compliance review packet.
 
-The output is written under private/governance/reviews/, which is ignored by
-Git. The runner intentionally does not print private directive content.
+The output is written into the private instance under private/governance/reviews/.
+The runner intentionally does not print private directive content.
 """
 
 from __future__ import annotations
@@ -132,7 +132,7 @@ Level 1 recommendations should generally be reversible. Escalate if the directiv
 
 Private-only.
 
-No public disclosure, third-party sharing, or Git-tracked private instance data is approved.
+No public disclosure, third-party sharing, or framework-layer private instance data is approved.
 
 ## Dissent
 

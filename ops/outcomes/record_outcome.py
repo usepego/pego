@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Record a local-only PEGO directive outcome.
+"""Record a protected PEGO directive outcome.
 
-The runner writes ignored private outcome records. It prints only the output
+The runner writes protected private outcome records. It prints only the output
 path by default because outcome content may contain private facts.
 """
 

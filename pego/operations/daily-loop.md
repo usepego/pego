@@ -81,7 +81,7 @@ The reference daily directive generator lives at:
 ops/directives/generate_daily_directive.py
 ```
 
-It writes generated daily packets to ignored local private files.
+It writes generated daily packets into the protected private instance.
 
 The reference daily cycle runner lives at:
 

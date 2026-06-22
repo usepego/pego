@@ -29,7 +29,7 @@ The local private instance lives under:
 private/
 ```
 
-Everything under `private/` is ignored by Git except `private/README.md`.
+Everything under `private/` is protected private operating state except `private/README.md`, which only documents the boundary.
 
 ## Bootstrap
 

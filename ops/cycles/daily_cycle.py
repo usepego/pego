@@ -7,7 +7,7 @@ Subcommands:
 - outcome: record execution outcome evidence.
 - learn: record a context update from an outcome, conversation, or observation.
 
-The runner delegates to local tools that write ignored private artifacts and
+The runner delegates to local tools that write protected private artifacts and
 print only safe status/paths.
 """
 

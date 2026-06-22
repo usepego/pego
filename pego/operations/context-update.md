@@ -137,7 +137,7 @@ For local operation, the reference runner is:
 python3 ops/context/record_context_update.py --source Outcome --raw-observation "What was learned" --update-class Pattern --evidence-strength "Directive outcome" --stability "Current but changeable" --proposed-update "What should change"
 ```
 
-It writes ignored private context-update records. It updates destination files only when explicitly run with `--apply`.
+It writes protected private context-update records. It updates destination files only when explicitly run with `--apply`.
 
 ## Stop Conditions
 

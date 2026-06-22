@@ -228,7 +228,7 @@ def format_markdown_summary(output: dict) -> str:
             "",
             "## Privacy Note",
             "",
-            "This file is local-only and may contain private financial model outputs if expanded.",
+            "This file is protected private operating state and may contain private financial model outputs if expanded.",
             "",
         ]
     )

@@ -2,7 +2,7 @@
 
 Local tools for producing PEGO governance and compliance artifacts.
 
-Generated reviews are written under `private/governance/reviews/`, which is ignored by Git.
+Generated reviews are written into the protected private instance under `private/governance/reviews/`.
 
 ## Directive Preflight
 

@@ -2,7 +2,7 @@
 
 Local cycle runners for PEGO operating loops.
 
-Cycle runners compose smaller local tools while preserving the same privacy rule: private content is written to ignored private files, and console output is limited to safe status and paths.
+Cycle runners compose smaller local tools while preserving the same privacy rule: private content is written into the protected private instance, and console output is limited to safe status and paths.
 
 ## Daily Cycle
 

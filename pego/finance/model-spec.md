@@ -73,7 +73,7 @@ The reference local scenario runner lives at:
 ops/finance/run_scenarios.py
 ```
 
-It reads private scenario assumptions and writes generated outputs to ignored local files.
+It reads private scenario assumptions and writes generated outputs into protected local files.
 
 By default, finance runners should not print private financial results to stdout. Console output should be limited to file paths or safe-derived status unless an explicit print flag is used.
 

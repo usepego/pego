@@ -47,3 +47,9 @@ Start here:
 - Real health, finance, relationship, or work details
 - Secrets or credentials
 - Private journals or directives
+
+## Privacy Boundary
+
+PEGO uses a reusable framework layer and a protected private instance. Framework files may define structures, protocols, and templates, but must not contain real subject facts.
+
+See `pego/governance/private-data-policy.md`.

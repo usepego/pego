@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a local-only PEGO daily directive packet.
+"""Generate a protected PEGO daily directive packet.
 
-The output is written under private/directives/daily/, which is ignored by Git.
+The output is written into the private instance under private/directives/daily/.
 This runner intentionally uses generic conservative defaults and does not expose
-private instance content in tracked files.
+private instance content in framework files.
 """
 
 from __future__ import annotations

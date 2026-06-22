@@ -2,7 +2,7 @@
 
 Local tools for running PEGO as an active operator.
 
-These tools may read ignored private state and write ignored private operating artifacts. They should print only safe-derived status and file paths by default.
+These tools may read the protected private instance and write protected private operating artifacts. They should print only safe-derived status and file paths by default.
 
 ## Next Step
 
@@ -19,7 +19,7 @@ python3 ops/operator/next_step.py --date YYYY-MM-DD --done "Breakfast Anchor" --
 The runner:
 
 - Selects one next directive from the private queue/register.
-- Writes an ignored command response.
+- Writes a protected command response.
 - Runs governance preflight on the response.
-- Writes an ignored preflight JSON record.
+- Writes a protected preflight JSON record.
 - Prints only paths and preflight outcome.

@@ -67,7 +67,7 @@ If no current queue exists:
 
 1. Read the current daily directive or synthesized day plan.
 2. Convert selected directives into `pego/templates/directive-queue.md`.
-3. Keep the queue under ignored `private/` paths.
+3. Keep the queue under protected `private/` paths.
 
 ### 5. Confirm Constraints
 
@@ -97,7 +97,7 @@ For local operation, the reference runner is:
 python3 ops/operator/next_step.py --date YYYY-MM-DD --available 30 --energy medium --location computer
 ```
 
-It writes the command response and governance preflight output to ignored private paths.
+It writes the command response and governance preflight output to protected private paths.
 
 ### 7. Record Session State
 

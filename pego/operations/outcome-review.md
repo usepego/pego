@@ -78,7 +78,7 @@ For local operation, the reference runner is:
 python3 ops/outcomes/record_outcome.py --date YYYY-MM-DD --directive "Directive name" --completion completed
 ```
 
-It writes ignored private outcome records and can append ignored session-log events.
+It writes protected private outcome records and can append protected session-log events.
 
 Outcome records should feed:
 

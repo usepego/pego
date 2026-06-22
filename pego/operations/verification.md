@@ -14,19 +14,19 @@ The verifier checks:
 
 - Required framework files exist.
 - Only `private/README.md` is tracked under `private/`.
-- Private instance paths are ignored.
+- Private instance paths remain outside the reusable framework history.
 - Tracked files do not contain configured private markers.
 - Python operation scripts compile.
 
 ## Optional Private Marker Scan
 
-For local-only sensitive terms, create:
+For sensitive terms that should stay in protected local state, create:
 
 ```text
 private/_local/doctor-private-markers.txt
 ```
 
-Add one marker per line. That file is ignored by Git.
+Add one marker per line. That file stays in the protected private instance.
 
 ## Before Push
 

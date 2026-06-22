@@ -2,7 +2,7 @@
 
 Local tools for producing PEGO directive packets.
 
-Generated directives are written under `private/directives/`, which is ignored by Git.
+Generated directives are written into the protected private instance under `private/directives/`.
 
 ## Generate Daily Directive
 
@@ -30,4 +30,4 @@ With completed work:
 python3 ops/directives/next_directive.py --date 2026-06-23 --done "Breakfast Anchor" --available 45 --energy medium --location computer
 ```
 
-The runner reads ignored private queue/register files and writes an ignored command response under `private/directives/command-responses/`. It does not execute actions or grant additional authority.
+The runner reads protected private queue/register files and writes a protected command response under `private/directives/command-responses/`. It does not execute actions or grant additional authority.

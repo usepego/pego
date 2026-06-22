@@ -181,4 +181,4 @@ The reference local operator runner lives at:
 ops/operator/next_step.py
 ```
 
-It composes directive selection with governance preflight and writes ignored private artifacts.
+It composes directive selection with governance preflight and writes protected private artifacts.

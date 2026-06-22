@@ -4,13 +4,13 @@ The compliance review runner is a local helper for creating private governance r
 
 ## Purpose
 
-It turns a local directive file into a local review packet under:
+It turns a protected private directive file into a protected private review packet under:
 
 ```text
 private/governance/reviews/
 ```
 
-That directory is ignored by Git.
+That directory is part of the protected private instance.
 
 ## Command
 
@@ -20,7 +20,7 @@ python3 ops/governance/generate_compliance_review.py --directive private/directi
 
 ## Privacy
 
-The runner may inspect a private directive to infer authority level, but it does not print directive content to stdout and does not write private content into tracked framework files.
+The runner may inspect a private directive to infer authority level, but it does not print directive content to stdout and does not write private content into framework files.
 
 ## Authority
 

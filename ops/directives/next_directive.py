@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Select one next PEGO directive from a private queue.
 
-The runner reads ignored local files under private/ and writes the response
+The runner reads protected private files under private/ and writes the response
 back under private/directives/command-responses/. It is deliberately simple:
 it does not grant authority, execute actions, or treat markdown parsing as a
 source of truth beyond selecting a low-risk next directive candidate.

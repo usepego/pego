@@ -131,7 +131,7 @@ For each account:
 ## Credential Rules
 
 - Do not commit credentials, API keys, tokens, recovery phrases, or account numbers.
-- Store secrets only in local ignored files or a dedicated secret manager.
+- Store secrets only in protected local files or a dedicated secret manager.
 - Prefer read-only API scopes.
 - Prefer separate API keys per institution and purpose.
 - Disable withdrawals wherever possible.

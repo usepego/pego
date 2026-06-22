@@ -4,9 +4,9 @@
 This composes directive selection with governance preflight:
 
 1. Select one next directive from private queue/register state.
-2. Write the command response to ignored private output.
+2. Write the command response to protected private output.
 3. Run governance preflight on the response.
-4. Write a derived preflight JSON record to ignored private output.
+4. Write a derived preflight JSON record to protected private output.
 
 The runner does not print private directive content.
 """

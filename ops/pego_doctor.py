@@ -36,6 +36,7 @@ REQUIRED_FILES = [
     "pego/governance/authority-levels.md",
     "pego/governance/compliance-review.md",
     "pego/governance/conflict-resolution.md",
+    "pego/governance/private-data-policy.md",
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",
@@ -159,7 +160,9 @@ def check_registry(errors: list[str]) -> None:
             errors.append("system registry verify_paths entries must be strings")
             continue
         if relative.startswith("private/") and relative != "private/README.md":
-            errors.append(f"system registry must not verify local-only private path: {relative}")
+            errors.append(
+                f"system registry must not verify protected private path: {relative}"
+            )
             continue
         if not (ROOT / relative).is_file():
             errors.append(f"system registry references missing file: {relative}")

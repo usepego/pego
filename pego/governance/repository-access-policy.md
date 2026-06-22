@@ -68,7 +68,7 @@ Before pushing sensitive or personal PEGO work:
 
 - Confirm the remote points to the intended repository.
 - Confirm tracked files do not include private instance data.
-- Confirm ignored local files remain ignored.
+- Confirm protected private instance files remain outside the reusable framework layer.
 - Confirm OAuth or app access does not include unrelated organizations.
 
 ## Principle

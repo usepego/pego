@@ -142,7 +142,7 @@ The reference local runner lives at:
 ops/governance/generate_compliance_review.py
 ```
 
-It writes generated review packets to ignored local private files.
+It writes generated review packets into the protected private instance.
 
 ## Preflight Runner
 

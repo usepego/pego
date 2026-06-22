@@ -2,7 +2,7 @@
 
 Local finance scenario tools for PEGO.
 
-These scripts may read private inputs and write generated outputs under ignored local directories. Raw financial source files and generated reports should not be committed unless intentionally summarized into private Markdown.
+These scripts may read private inputs and write generated outputs into protected local directories. Raw financial source files and generated reports must stay inside the private instance unless intentionally summarized into sanitized Markdown.
 
 ## Run Scenario Engine
 

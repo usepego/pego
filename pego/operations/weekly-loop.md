@@ -75,4 +75,4 @@ The reference weekly cycle runner lives at:
 ops/cycles/weekly_cycle.py
 ```
 
-It writes ignored private weekly operating plans and keeps all priorities at Level 1 unless separately reviewed.
+It writes protected private weekly operating plans and keeps all priorities at Level 1 unless separately reviewed.

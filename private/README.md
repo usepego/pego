@@ -1,12 +1,12 @@
 # Private PEGO Instance
 
-This directory is reserved for the real private PEGO instance.
+This directory is reserved for the real protected private PEGO instance.
 
-Private instance files should remain local-only and ignored by Git.
+The private instance is PEGO's protected local operating state: real goals, constraints, telemetry, directives, outcomes, and operating memory.
 
 Do not commit actual goals, values, constraints, telemetry, directives, journals, health information, finances, relationship context, work context, or other personal material.
 
-Use local ignored files under `private/` for the private instance. Keep reusable framework material under `pego/`.
+Keep reusable framework material under `pego/`. Keep real operating state in the protected private instance.
 
 To create a local private skeleton, run:
 

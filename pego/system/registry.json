@@ -8,11 +8,11 @@
       "private/README.md"
     ],
     "private_instance_root": "private/",
-    "local_only_roots": [
+    "protected_private_roots": [
       "private/",
       "private/_local/"
     ],
-    "rule": "Tracked framework files must not contain private subject facts, financial details, health details, relationship context, or local directive outputs."
+    "rule": "Framework files must not contain private subject facts, financial details, health details, relationship context, or local directive outputs."
   },
   "agents": [
     {
@@ -102,6 +102,7 @@
     "authority_levels": "pego/governance/authority-levels.md",
     "compliance_review": "pego/governance/compliance-review.md",
     "conflict_resolution": "pego/governance/conflict-resolution.md",
+    "private_data_policy": "pego/governance/private-data-policy.md",
     "repository_access_policy": "pego/governance/repository-access-policy.md",
     "required_review_for": [
       "financial execution",
@@ -119,63 +120,63 @@
       "runner": "ops/private/bootstrap_private_instance.py",
       "procedure": "pego/operations/private-instance-workflow.md",
       "writes_to": "private/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "daily_cycle",
       "runner": "ops/cycles/daily_cycle.py",
       "procedure": "pego/operations/daily-loop.md",
       "writes_to": "private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/context/updates/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "weekly_cycle",
       "runner": "ops/cycles/weekly_cycle.py",
       "procedure": "pego/operations/weekly-loop.md",
       "writes_to": "private/directives/weekly/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "operator_next_step",
       "runner": "ops/operator/next_step.py",
       "procedure": "pego/operations/operator-interface.md",
       "writes_to": "private/directives/command-responses/; private/governance/preflight/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "record_directive_outcome",
       "runner": "ops/outcomes/record_outcome.py",
       "procedure": "pego/operations/outcome-review.md",
       "writes_to": "private/outcomes/directives/; optionally private/directives/sessions/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "record_context_update",
       "runner": "ops/context/record_context_update.py",
       "procedure": "pego/operations/context-update.md",
       "writes_to": "private/context/updates/; optionally private destination files",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "generate_daily_directive",
       "runner": "ops/directives/generate_daily_directive.py",
       "procedure": "pego/operations/directive-runner.md",
       "writes_to": "private/directives/daily/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "select_next_directive",
       "runner": "ops/directives/next_directive.py",
       "procedure": "pego/operations/directive-runner.md",
       "writes_to": "private/directives/command-responses/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "generate_compliance_review",
       "runner": "ops/governance/generate_compliance_review.py",
       "procedure": "pego/operations/compliance-review-runner.md",
       "writes_to": "private/governance/reviews/",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "directive_preflight",
@@ -189,7 +190,7 @@
       "runner": "ops/finance/run_scenarios.py",
       "procedure": "ops/finance/README.md",
       "writes_to": "private/_local/finance/scenario-output.json; optionally private/finance/scenario-results.md",
-      "privacy": "local-only"
+      "privacy": "protected-private-instance"
     },
     {
       "id": "pego_doctor",
@@ -260,6 +261,7 @@
     "pego/governance/authority-levels.md",
     "pego/governance/compliance-review.md",
     "pego/governance/conflict-resolution.md",
+    "pego/governance/private-data-policy.md",
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",

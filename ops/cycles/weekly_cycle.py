@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate a local-only PEGO weekly operating plan.
+"""Generate a protected PEGO weekly operating plan.
 
-The weekly cycle reads ignored private operating artifacts and writes an ignored
-weekly plan. It avoids printing private content; stdout is limited to the output
+The weekly cycle reads protected private operating artifacts and writes a
+protected weekly plan. It avoids printing private content; stdout is limited to the output
 path.
 """
 

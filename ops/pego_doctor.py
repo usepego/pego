@@ -44,6 +44,7 @@ REQUIRED_FILES = [
     "pego/operations/operator-interface.md",
     "pego/operations/runtime-agent-protocol.md",
     "pego/operations/first-run.md",
+    "pego/operations/operating-readiness.md",
     "pego/operations/intra-day-command-loop.md",
     "pego/operations/outcome-review.md",
     "pego/operations/private-instance-workflow.md",

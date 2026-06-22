@@ -87,6 +87,8 @@ For private operation:
 6. Relevant public protocol files.
 7. Governance review if authority, privacy, protected time, or risk is implicated.
 
+Use `pego/operations/operating-readiness.md` before issuing active directives when session state may be stale or incomplete.
+
 For public framework work:
 
 1. `README.md`

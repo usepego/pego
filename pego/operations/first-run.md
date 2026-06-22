@@ -27,6 +27,16 @@ python3 ops/pego_doctor.py
 
 If the doctor fails, fix repository hygiene before operating PEGO.
 
+### 1.5. Check Operating Readiness
+
+Use:
+
+```text
+pego/operations/operating-readiness.md
+```
+
+If PEGO is not ready, issue the smallest setup directive that makes operation possible.
+
 ### 2. Select Runtime Role
 
 Read:

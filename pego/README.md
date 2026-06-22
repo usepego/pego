@@ -33,8 +33,9 @@ Start here:
 13. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
 14. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
 15. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-16. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-17. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+16. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+17. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+18. `operations/outcome-review.md`: how execution results become evidence for the next directive.
 
 ## Non-Scope
 

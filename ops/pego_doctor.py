@@ -66,6 +66,8 @@ REQUIRED_FILES = [
     "pego/templates/monthly-strategy-review.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/directives/generate_daily_directive.py",
+    "ops/directives/next_directive.py",
+    "ops/directives/test_next_directive.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/pego_registry.py",
@@ -180,6 +182,8 @@ def check_python_syntax(errors: list[str]) -> None:
     scripts = [
         "ops/private/bootstrap_private_instance.py",
         "ops/directives/generate_daily_directive.py",
+        "ops/directives/next_directive.py",
+        "ops/directives/test_next_directive.py",
         "ops/governance/generate_compliance_review.py",
         "ops/finance/run_scenarios.py",
         "ops/pego_registry.py",

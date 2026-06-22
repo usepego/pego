@@ -129,6 +129,13 @@
       "privacy": "local-only"
     },
     {
+      "id": "select_next_directive",
+      "runner": "ops/directives/next_directive.py",
+      "procedure": "pego/operations/directive-runner.md",
+      "writes_to": "private/directives/command-responses/",
+      "privacy": "local-only"
+    },
+    {
       "id": "generate_compliance_review",
       "runner": "ops/governance/generate_compliance_review.py",
       "procedure": "pego/operations/compliance-review-runner.md",
@@ -253,6 +260,8 @@
     "pego/templates/compliance-review.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/directives/generate_daily_directive.py",
+    "ops/directives/next_directive.py",
+    "ops/directives/test_next_directive.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/pego_registry.py",

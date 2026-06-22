@@ -4,6 +4,8 @@ The intra-day command loop lets PEGO update directives during the day when the h
 
 The daily loop sets the operating frame. The intra-day loop selects the next directive from the live queue.
 
+Use `pego/operations/operator-interface.md` for the human-facing command protocol.
+
 ## Purpose
 
 The command loop should answer:

@@ -54,6 +54,12 @@ Use at the end of a directive, session, or day.
 
 Record what happened using `pego/templates/directive-outcome.md`.
 
+### Targeted Health Check-In
+
+Use before selecting or revising a health directive when sleep, food availability, hunger/cravings, movement completion, symptoms, constraints, or optional metrics could change the directive.
+
+Ask only the smallest question needed to decide. Do not turn the check-in into broad reflection, diagnosis, or a request for new biometric tracking without a decision reason.
+
 ### Escalation
 
 Use when a directive exceeds authority, affects protected stakeholders, risks privacy, or touches financial, career, medical, legal, tax, relationship, housing, or hard-to-reverse action.
@@ -140,6 +146,7 @@ Ask a question only when:
 - Available time is unknown and multiple candidates differ materially by duration.
 - Location is unknown and it changes the selected directive.
 - Energy is unknown and the top candidate may be too demanding.
+- Health state is stale or ambiguous and would change food, movement, sleep, or recovery selection.
 - A governance constraint may be violated.
 - Protected time may be affected.
 

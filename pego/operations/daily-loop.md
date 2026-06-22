@@ -20,16 +20,17 @@ The daily loop converts PEGO's current understanding into a small set of executa
 
 1. Gather approved or draft recommendations.
 2. Check protected time and hard constraints.
-3. Normalize recommendations using `pego/templates/agent-recommendation.md`.
-4. Convert competing recommendations into directive candidates using `pego/templates/directive-candidate.md`.
-5. Synthesize candidates using `pego/operations/directive-synthesis.md`.
-6. Select the minimum useful set of directives.
-7. Assign authority level and governance status.
-8. Produce the daily directive packet using `pego/templates/daily-directive.md`.
-9. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
-10. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
-11. Execute only approved low-risk actions.
-12. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
+3. If health state could change food, movement, sleep, or recovery directives, generate a targeted health check-in using `pego/templates/health-check-in.md`.
+4. Normalize recommendations using `pego/templates/agent-recommendation.md`.
+5. Convert competing recommendations into directive candidates using `pego/templates/directive-candidate.md`.
+6. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+7. Select the minimum useful set of directives.
+8. Assign authority level and governance status.
+9. Produce the daily directive packet using `pego/templates/daily-directive.md`.
+10. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
+11. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
+12. Execute only approved low-risk actions.
+13. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
 
 Before selecting directives, run a short anticipation scan using `pego/operations/anticipation-loop.md`.
 
@@ -67,6 +68,8 @@ The output should be one next directive, not a full replanning exercise, unless 
 
 If the human asks what is next after reporting status, PEGO should consider whether the next useful directive is preventive rather than reactive. Example categories include preparing for a known event, buying a missing default food, or handling the most visible environmental irritant before it becomes a larger annoyance.
 
+If the next plausible directive is health-related and the current state is stale or ambiguous, PEGO should ask a targeted health check-in question before selecting the directive. The question must be tied to a decision such as meal default, movement intensity, recovery priority, stop condition, or escalation. Do not ask for new biomarker tracking unless the measurement would change a directive, risk classification, escalation, or strategy review.
+
 ## Governance
 
 Any directive that changes protected time, creates material financial impact, affects a spouse/partner or protected stakeholder, or has meaningful health/career/legal risk must pass the appropriate governance review before execution.
@@ -89,4 +92,10 @@ The reference daily cycle runner lives at:
 ops/cycles/daily_cycle.py
 ```
 
-It composes the local `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
+It composes the local `health-check-in`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
+
+To generate a targeted health check-in through the daily runner:
+
+```sh
+python3 ops/cycles/daily_cycle.py health-check-in
+```

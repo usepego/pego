@@ -8,6 +8,7 @@ Subcommands:
 - review: convert an outcome into a learning decision.
 - synthesize: convert directive candidates into an active queue.
 - learn: record a context update from an outcome, conversation, or observation.
+- health-check-in: generate targeted health questions for directive selection.
 
 The runner delegates to local tools that write protected private artifacts and
 print only safe status/paths.
@@ -27,7 +28,9 @@ sys.path.insert(0, str(ROOT / "ops" / "outcomes"))
 sys.path.insert(0, str(ROOT / "ops" / "review"))
 sys.path.insert(0, str(ROOT / "ops" / "context"))
 sys.path.insert(0, str(ROOT / "ops" / "synthesis"))
+sys.path.insert(0, str(ROOT / "ops" / "health"))
 
+import generate_check_in  # noqa: E402
 import next_step  # noqa: E402
 import record_context_update  # noqa: E402
 import record_outcome  # noqa: E402
@@ -138,6 +141,13 @@ def build_parser() -> argparse.ArgumentParser:
     learn_parser.add_argument("--apply", action="store_true")
     learn_parser.add_argument("--force", action="store_true")
 
+    health_parser = subparsers.add_parser("health-check-in")
+    add_shared_date(health_parser)
+    health_parser.add_argument("--input", type=Path)
+    health_parser.add_argument("--output", type=Path)
+    health_parser.add_argument("--json-output", type=Path)
+    health_parser.add_argument("--force", action="store_true")
+
     return parser
 
 
@@ -170,6 +180,8 @@ def main_with_args(argv: list[str] | None = None) -> object:
         return review_outcome.main_with_args(delegated_args)
     if command == "learn":
         return record_context_update.main_with_args(delegated_args)
+    if command == "health-check-in":
+        return generate_check_in.main_with_args(delegated_args)
     raise SystemExit(f"unknown command: {command}")
 
 

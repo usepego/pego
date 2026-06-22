@@ -39,6 +39,62 @@ CANDIDATES = """# Candidates
 """
 
 
+HEALTH_BASELINE = """{
+  "artifact_type": "health_baseline",
+  "schema_version": 1,
+  "as_of": "2026-06-23",
+  "evidence_policy": {
+    "tracking_level": "minimal",
+    "burden_limit": "Use the least tracking that produces better directives.",
+    "medical_interpretation": "agent_may_use_as_context_only",
+    "measurement_rule": "Ask only when the metric changes a concrete decision."
+  },
+  "goal": {
+    "current_weight_kg": null,
+    "target_weight_kg": null,
+    "priority": "weight_loss"
+  },
+  "constraints": {
+    "medical_constraints": [],
+    "injuries": [],
+    "forbidden_directives": [],
+    "protected_time": ""
+  },
+  "preferences": {
+    "food_defaults": ["eggs"],
+    "food_aversions": [],
+    "sweet_triggers": [],
+    "movement_preferences": [],
+    "movement_aversions": [],
+    "available_equipment": []
+  },
+  "current_routine": {
+    "breakfast": "",
+    "lunch": "",
+    "dinner": "",
+    "snacks": "",
+    "movement": "",
+    "sleep": ""
+  },
+  "availability": {
+    "morning_minutes": 10,
+    "midday_minutes": 10,
+    "evening_minutes": 10,
+    "outside_ok": true
+  },
+  "metrics": {
+    "body": {},
+    "vitals": {},
+    "glucose": {},
+    "lipids_metabolic": {},
+    "fitness": {},
+    "sleep_recovery": {},
+    "clinical_context": {}
+  }
+}
+"""
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -50,9 +106,28 @@ def main() -> None:
         review = root / "review.md"
         context = root / "context.md"
         candidates = root / "candidates.md"
+        health_baseline = root / "health-baseline.json"
+        health_check_in = root / "health-check-in.md"
+        health_check_in_json = root / "health-check-in.json"
         queue.write_text(QUEUE)
         register.write_text(REGISTER)
         candidates.write_text(CANDIDATES)
+        health_baseline.write_text(HEALTH_BASELINE)
+
+        daily_cycle.main_with_args(
+            [
+                "health-check-in",
+                "--date",
+                "2026-06-23",
+                "--input",
+                str(health_baseline),
+                "--output",
+                str(health_check_in),
+                "--json-output",
+                str(health_check_in_json),
+                "--force",
+            ]
+        )
 
         daily_cycle.main_with_args(
             [
@@ -144,11 +219,22 @@ def main() -> None:
             ]
         )
 
-        for path in (queue, response, preflight, outcome, review, context):
+        for path in (
+            queue,
+            response,
+            preflight,
+            outcome,
+            review,
+            context,
+            health_check_in,
+            health_check_in_json,
+        ):
             if not path.exists():
                 raise AssertionError(f"missing expected file: {path}")
         if "Learning Decision" not in review.read_text():
             raise AssertionError(review.read_text())
+        if "How did you sleep last night" not in health_check_in.read_text():
+            raise AssertionError(health_check_in.read_text())
 
     print("daily cycle smoke tests passed.")
 

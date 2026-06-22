@@ -26,6 +26,8 @@ PEGO should remain portable across runtimes by defining stable contracts for:
 - Privacy boundaries between reusable framework material and protected private
   instance data.
 - Runtime adapters that can read and write PEGO-compatible artifacts.
+- Runtime adapters that preserve the PEGO lifecycle from intake through outcome
+  learning.
 
 ## Product Shape
 
@@ -74,6 +76,10 @@ A runtime adapter should be able to:
   conditions.
 - Expose a clear user-facing command surface such as "what is next?",
   "resynthesize", "record outcome", "update context", or "review goals".
+- Declare capabilities with a runtime adapter manifest before being treated as
+  a complete PEGO runtime.
 
 Adapters may differ in execution model, storage, UI, scheduling, and model
 provider. They should not differ in constitutional authority or privacy rules.
+
+See `pego/architecture/runtime-adapter-lifecycle.md` for the required lifecycle.

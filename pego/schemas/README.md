@@ -15,6 +15,8 @@ or local script should all be able to produce and consume these contracts.
   directive, or decision packet.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
+- `runtime-adapter-manifest.schema.json`: capability declaration for a PEGO
+  runtime adapter.
 
 ## Rules
 

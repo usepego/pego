@@ -24,6 +24,7 @@ REQUIRED_FILES = [
     "pego/principles.md",
     "pego/architecture/agent-infrastructure.md",
     "pego/architecture/runtime-options.md",
+    "pego/architecture/runtime-adapter-lifecycle.md",
     "pego/ux/first-run-experience.md",
     "pego/system/README.md",
     "pego/system/registry.json",
@@ -62,6 +63,7 @@ REQUIRED_FILES = [
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
+    "pego/schemas/runtime-adapter-manifest.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -123,6 +125,7 @@ SCHEMA_FILES = [
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/directive-outcome.schema.json",
+    "pego/schemas/runtime-adapter-manifest.schema.json",
 ]
 
 

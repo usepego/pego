@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/runtime-adapter-manifest.schema.json",
+  "title": "PEGO Runtime Adapter Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "adapter_id",
+    "name",
+    "runtime_type",
+    "supported_modes",
+    "supported_commands",
+    "artifact_support",
+    "storage",
+    "privacy_boundary",
+    "governance_capabilities",
+    "tool_permissions",
+    "known_limitations"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "runtime_adapter_manifest"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "adapter_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime_type": {
+      "enum": [
+        "local_cli",
+        "codex_session",
+        "langgraph",
+        "vercel",
+        "mobile_app",
+        "slack_bot",
+        "custom_service",
+        "other"
+      ]
+    },
+    "supported_modes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "engineering",
+          "ux",
+          "user"
+        ]
+      }
+    },
+    "supported_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "brief",
+          "next",
+          "resynthesize",
+          "record_outcome",
+          "update_context",
+          "review_goals",
+          "governance_review",
+          "stop"
+        ]
+      }
+    },
+    "artifact_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_recommendation",
+        "directive_candidate",
+        "compliance_review",
+        "directive_outcome"
+      ],
+      "properties": {
+        "agent_recommendation": {
+          "$ref": "#/$defs/support_level"
+        },
+        "directive_candidate": {
+          "$ref": "#/$defs/support_level"
+        },
+        "compliance_review": {
+          "$ref": "#/$defs/support_level"
+        },
+        "directive_outcome": {
+          "$ref": "#/$defs/support_level"
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_framework",
+        "protected_private_instance",
+        "ephemeral_session"
+      ],
+      "properties": {
+        "public_framework": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protected_private_instance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ephemeral_session": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "privacy_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "private_data_location",
+        "public_output_policy",
+        "third_party_disclosure_policy"
+      ],
+      "properties": {
+        "private_data_location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "public_output_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "third_party_disclosure_policy": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "governance_capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preflight_review",
+        "human_approval_gate",
+        "dissent_preservation",
+        "audit_log"
+      ],
+      "properties": {
+        "preflight_review": {
+          "type": "boolean"
+        },
+        "human_approval_gate": {
+          "type": "boolean"
+        },
+        "dissent_preservation": {
+          "type": "boolean"
+        },
+        "audit_log": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tool_permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "scope",
+          "authority_level"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority_level": {
+            "enum": [
+              "level_0_observe",
+              "level_1_recommend",
+              "level_2_direct",
+              "level_3_execute",
+              "level_4_escalate"
+            ]
+          }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "support_level": {
+      "enum": [
+        "none",
+        "read",
+        "write",
+        "read_write"
+      ]
+    }
+  }
+}

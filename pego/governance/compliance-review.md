@@ -123,3 +123,13 @@ High-impact decisions should leave an audit trail:
 - Dissent.
 - Approval status.
 - Review date.
+
+## Local Runner
+
+The reference local runner lives at:
+
+```text
+ops/governance/generate_compliance_review.py
+```
+
+It writes generated review packets to ignored local private files.

@@ -235,6 +235,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_finance_check_in",
+      "runner": "ops/finance/generate_check_in.py",
+      "procedure": "pego/finance/model-spec.md",
+      "writes_to": "private/finance/check-ins/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "generate_health_candidates",
       "runner": "ops/health/generate_candidates.py",
       "procedure": "pego/health/model-spec.md",
@@ -294,6 +301,7 @@
     "pego/templates/synthesized-day-plan.md",
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
+    "pego/templates/finance-check-in.md",
     "pego/templates/health-check-in.md",
     "pego/templates/compliance-review.md"
   ],
@@ -311,6 +319,7 @@
     "pego/schemas/synthesized-day-plan.schema.json",
     "pego/schemas/finance-scenario-input.schema.json",
     "pego/schemas/finance-scenario-output.schema.json",
+    "pego/schemas/finance-check-in.schema.json",
     "pego/schemas/private-instance-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
@@ -413,6 +422,7 @@
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/finance-scenario-review.md",
+    "pego/templates/finance-check-in.md",
     "pego/templates/health-baseline.json",
     "pego/templates/health-check-in.md",
     "pego/templates/compliance-review.md",
@@ -447,6 +457,8 @@
     "ops/finance/test_run_scenarios.py",
     "ops/finance/review_scenarios.py",
     "ops/finance/test_review_scenarios.py",
+    "ops/finance/generate_check_in.py",
+    "ops/finance/test_generate_check_in.py",
     "ops/health/generate_candidates.py",
     "ops/health/test_generate_candidates.py",
     "ops/health/generate_check_in.py",

@@ -89,7 +89,17 @@ ops/finance/review_scenarios.py
 
 It converts scenario output into a protected finance scenario review packet for Finance, Governance, Career, Venture, Operations, and Happiness agents.
 
+The reference finance check-in runner lives at:
+
+```text
+ops/finance/generate_check_in.py
+```
+
+It reads protected scenario assumptions and writes targeted questions about assumption freshness, spending changes, runway risk, account-data recency, upcoming decisions, and governance-relevant risks.
+
 By default, finance runners should not print private financial results to stdout. Console output should be limited to file paths or safe-derived status unless an explicit print flag is used.
+
+Finance check-ins must ask for private financial values only inside the protected private instance, and only when the answer changes a directive, scenario, governance gate, or strategy review.
 
 ## Required Scenario Set
 

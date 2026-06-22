@@ -77,6 +77,7 @@ REQUIRED_FILES = [
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
+    "pego/schemas/health-check-in.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -95,6 +96,7 @@ REQUIRED_FILES = [
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/finance-scenario-review.md",
     "pego/templates/health-baseline.json",
+    "pego/templates/health-check-in.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -126,6 +128,8 @@ REQUIRED_FILES = [
     "ops/finance/test_review_scenarios.py",
     "ops/health/generate_candidates.py",
     "ops/health/test_generate_candidates.py",
+    "ops/health/generate_check_in.py",
+    "ops/health/test_generate_check_in.py",
     "ops/home/generate_candidates.py",
     "ops/home/test_generate_candidates.py",
     "ops/private/check_readiness.py",
@@ -153,6 +157,7 @@ SCHEMA_FILES = [
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
+    "pego/schemas/health-check-in.schema.json",
 ]
 
 

@@ -180,6 +180,14 @@ ops/health/generate_candidates.py
 
 It reads a protected health baseline and writes conservative Level 1 directive candidates for food, movement, sweets control, and sleep protection.
 
+The reference local health check-in runner lives at:
+
+```text
+ops/health/generate_check_in.py
+```
+
+It reads the same protected health baseline and writes a targeted check-in packet for sleep, food availability, hunger/cravings, movement completion, symptoms/constraints, and decision-relevant optional metrics.
+
 The protected baseline should follow:
 
 ```text

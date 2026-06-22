@@ -40,6 +40,8 @@ or local script should all be able to produce and consume these contracts.
   assumptions, agent assessments, and next-month priorities.
 - `health-baseline.schema.json`: protected private health baseline with
   optional evidence tiers and biomarker fields.
+- `health-check-in.schema.json`: targeted protected health questions used to
+  gather only the state needed for directive selection or review.
 
 ## Rules
 

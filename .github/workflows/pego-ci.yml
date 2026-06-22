@@ -42,6 +42,7 @@ jobs:
           python3 ops/finance/test_run_scenarios.py
           python3 ops/finance/test_review_scenarios.py
           python3 ops/health/test_generate_candidates.py
+          python3 ops/health/test_generate_check_in.py
           python3 ops/home/test_generate_candidates.py
           python3 ops/private/test_check_readiness.py
           python3 ops/onboarding/test_generate_intake.py

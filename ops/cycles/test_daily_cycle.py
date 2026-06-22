@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 from pathlib import Path
 
@@ -135,6 +136,28 @@ FINANCE_SCENARIOS = """{
 """
 
 
+AGENT_RECOMMENDATION = {
+    "artifact_type": "agent_recommendation",
+    "schema_version": 1,
+    "agent": "Operations",
+    "recommendation_type": "recommend",
+    "proposed_directive": "Run a 30 minute venture problem map",
+    "authority_level": "level_1_recommend",
+    "relevant_facts": ["Synthetic test fact"],
+    "assumptions": [{"statement": "Synthetic assumption", "certainty": "medium"}],
+    "evidence_quality": ["agent_inference"],
+    "expected_benefit": "Clarifies the next business experiment.",
+    "costs_and_tradeoffs": ["Uses focused work time."],
+    "risks": ["time", "energy"],
+    "reversibility": "easy_to_reverse",
+    "privacy_impact": "private_only",
+    "required_handoffs": ["Venture"],
+    "dissent": "",
+    "stop_conditions": ["Stop if protected time begins."],
+    "review": {"review_date_or_success_criteria": "Review after artifact exists."},
+}
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -152,11 +175,15 @@ def main() -> None:
         finance_scenarios = root / "finance-scenarios.json"
         finance_check_in = root / "finance-check-in.md"
         finance_check_in_json = root / "finance-check-in.json"
+        recommendation = root / "recommendation.json"
+        council_decision = root / "council-decision.md"
+        council_decision_json = root / "council-decision.json"
         queue.write_text(QUEUE)
         register.write_text(REGISTER)
         candidates.write_text(CANDIDATES)
         health_baseline.write_text(HEALTH_BASELINE)
         finance_scenarios.write_text(FINANCE_SCENARIOS)
+        recommendation.write_text(json.dumps(AGENT_RECOMMENDATION))
 
         daily_cycle.main_with_args(
             [
@@ -183,6 +210,22 @@ def main() -> None:
                 str(finance_check_in),
                 "--json-output",
                 str(finance_check_in_json),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                "council",
+                "--date",
+                "2026-06-23",
+                "--frame",
+                "Choose next work directive.",
+                "--recommendation",
+                str(recommendation),
+                "--output",
+                str(council_decision),
+                "--json-output",
+                str(council_decision_json),
                 "--force",
             ]
         )
@@ -288,6 +331,8 @@ def main() -> None:
             health_check_in_json,
             finance_check_in,
             finance_check_in_json,
+            council_decision,
+            council_decision_json,
         ):
             if not path.exists():
                 raise AssertionError(f"missing expected file: {path}")
@@ -297,6 +342,8 @@ def main() -> None:
             raise AssertionError(health_check_in.read_text())
         if "Has income, recurring burn, savings rate" not in finance_check_in.read_text():
             raise AssertionError(finance_check_in.read_text())
+        if "Council Outcome" not in council_decision.read_text():
+            raise AssertionError(council_decision.read_text())
 
     print("daily cycle smoke tests passed.")
 

@@ -23,15 +23,16 @@ The daily loop converts PEGO's current understanding into a small set of executa
 3. If health state could change food, movement, sleep, or recovery directives, generate a targeted health check-in using `pego/templates/health-check-in.md`.
 4. If finance state could change finance/admin, career, venture, spending, runway, or governance directives, generate a targeted finance check-in using `pego/templates/finance-check-in.md`.
 5. Normalize recommendations using `pego/templates/agent-recommendation.md`.
-6. Convert competing recommendations into directive candidates using `pego/templates/directive-candidate.md`.
-7. Synthesize candidates using `pego/operations/directive-synthesis.md`.
-8. Select the minimum useful set of directives.
-9. Assign authority level and governance status.
-10. Produce the daily directive packet using `pego/templates/daily-directive.md`.
-11. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
-12. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
-13. Execute only approved low-risk actions.
-14. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
+6. If recommendations conflict, carry dissent, or involve cross-domain tradeoffs, synthesize a council decision using `pego/templates/council-decision.md`.
+7. Convert competing recommendations or council-approved next actions into directive candidates using `pego/templates/directive-candidate.md`.
+8. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+9. Select the minimum useful set of directives.
+10. Assign authority level and governance status.
+11. Produce the daily directive packet using `pego/templates/daily-directive.md`.
+12. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
+13. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
+14. Execute only approved low-risk actions.
+15. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
 
 Before selecting directives, run a short anticipation scan using `pego/operations/anticipation-loop.md`.
 
@@ -73,6 +74,8 @@ If the next plausible directive is health-related and the current state is stale
 
 If the next plausible directive is finance-related and the current state is stale or ambiguous, PEGO should ask a targeted finance check-in question before selecting the directive. The question must be tied to a decision such as assumption refresh, scenario rerun, runway protection, upcoming spending, tax/admin lead time, account-data recency, or governance escalation. Do not ask for balances, holdings, or transaction details unless the protected private destination and decision use are clear.
 
+If agent recommendations disagree, require handoffs, or contain risk that changes authority, PEGO should produce a council decision before selecting the next directive. The council output should preserve dissent and either adopt, revise, request information, escalate, or block the proposed directive.
+
 ## Governance
 
 Any directive that changes protected time, creates material financial impact, affects a spouse/partner or protected stakeholder, or has meaningful health/career/legal risk must pass the appropriate governance review before execution.
@@ -95,7 +98,7 @@ The reference daily cycle runner lives at:
 ops/cycles/daily_cycle.py
 ```
 
-It composes the local `health-check-in`, `finance-check-in`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
+It composes the local `health-check-in`, `finance-check-in`, `council`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
 
 To generate a targeted health check-in through the daily runner:
 
@@ -107,4 +110,10 @@ To generate a targeted finance check-in through the daily runner:
 
 ```sh
 python3 ops/cycles/daily_cycle.py finance-check-in
+```
+
+To synthesize a council decision through the daily runner:
+
+```sh
+python3 ops/cycles/daily_cycle.py council --recommendation private/agents/recommendations/example.json
 ```

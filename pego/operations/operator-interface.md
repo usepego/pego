@@ -48,6 +48,12 @@ Examples:
 
 Update the directive queue before returning the next directive.
 
+### Council Synthesis
+
+Use when agent recommendations conflict, dissent is present, handoffs are required, or cross-domain tradeoffs could change the directive.
+
+The council output should adopt, revise, request more information, escalate, or block. Do not flatten dissent into false certainty.
+
 ### Outcome Review
 
 Use at the end of a directive, session, or day.
@@ -154,6 +160,7 @@ Ask a question only when:
 - Energy is unknown and the top candidate may be too demanding.
 - Health state is stale or ambiguous and would change food, movement, sleep, or recovery selection.
 - Finance state is stale or ambiguous and would change scenario, runway, spending, career, venture, or governance selection.
+- Agent recommendations conflict, carry dissent, or require cross-domain handoffs.
 - A governance constraint may be violated.
 - Protected time may be affected.
 

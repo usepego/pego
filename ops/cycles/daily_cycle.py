@@ -7,6 +7,7 @@ Subcommands:
 - outcome: record execution outcome evidence.
 - review: convert an outcome into a learning decision.
 - synthesize: convert directive candidates into an active queue.
+- council: synthesize agent recommendations into a council decision.
 - learn: record a context update from an outcome, conversation, or observation.
 - finance-check-in: generate targeted finance questions for directive selection.
 - health-check-in: generate targeted health questions for directive selection.
@@ -51,7 +52,19 @@ def load_finance_check_in():
     return module
 
 
+def load_council_decision():
+    path = ROOT / "ops" / "council" / "synthesize_decision.py"
+    spec = importlib.util.spec_from_file_location("council_synthesize_decision", path)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"unable to load council decision runner: {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 finance_generate_check_in = load_finance_check_in()
+council_synthesize_decision = load_council_decision()
 
 
 def add_shared_date(parser: argparse.ArgumentParser) -> None:
@@ -171,6 +184,14 @@ def build_parser() -> argparse.ArgumentParser:
     finance_parser.add_argument("--json-output", type=Path)
     finance_parser.add_argument("--force", action="store_true")
 
+    council_parser = subparsers.add_parser("council")
+    add_shared_date(council_parser)
+    council_parser.add_argument("--frame", default="Council synthesis of current agent recommendations.")
+    council_parser.add_argument("--recommendation", type=Path, action="append", default=[])
+    council_parser.add_argument("--output", type=Path)
+    council_parser.add_argument("--json-output", type=Path)
+    council_parser.add_argument("--force", action="store_true")
+
     return parser
 
 
@@ -207,6 +228,8 @@ def main_with_args(argv: list[str] | None = None) -> object:
         return generate_check_in.main_with_args(delegated_args)
     if command == "finance-check-in":
         return finance_generate_check_in.main_with_args(delegated_args)
+    if command == "council":
+        return council_synthesize_decision.main_with_args(delegated_args)
     raise SystemExit(f"unknown command: {command}")
 
 

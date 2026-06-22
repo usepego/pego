@@ -140,7 +140,7 @@
       "id": "daily_cycle",
       "runner": "ops/cycles/daily_cycle.py",
       "procedure": "pego/operations/daily-loop.md",
-      "writes_to": "private/health/check-ins/; private/finance/check-ins/; private/directives/queues/; private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/reviews/outcomes/; private/context/updates/",
+      "writes_to": "private/health/check-ins/; private/finance/check-ins/; private/council/decisions/; private/directives/queues/; private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/reviews/outcomes/; private/context/updates/",
       "privacy": "protected-private-instance"
     },
     {

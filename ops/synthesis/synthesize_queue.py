@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from dataclasses import dataclass
 from datetime import date
@@ -28,6 +29,13 @@ class Candidate:
     deferral: str
     protected_time: str
     source: str
+
+
+@dataclass(frozen=True)
+class QueueBuild:
+    active: list[Candidate]
+    deferred: list[tuple[Candidate, str]]
+    args: argparse.Namespace
 
 
 def parse_table_cells(line: str) -> list[str]:
@@ -209,7 +217,7 @@ def is_active(candidate: Candidate, available_minutes: int | None) -> bool:
 def build_queue(
     candidates: list[Candidate],
     args: argparse.Namespace,
-) -> str:
+) -> QueueBuild:
     active: list[Candidate] = []
     deferred: list[tuple[Candidate, str]] = []
 
@@ -223,8 +231,13 @@ def build_queue(
             continue
         active.append(candidate)
 
+    return QueueBuild(active=active, deferred=deferred, args=args)
+
+
+def build_markdown_queue(queue: QueueBuild) -> str:
+    args = queue.args
     active_rows = []
-    for rank, candidate in enumerate(active, start=1):
+    for rank, candidate in enumerate(queue.active, start=1):
         active_rows.append(
             f"| {rank} | {candidate.name} | {candidate.domain} | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | {candidate.authority} | Ready |"
         )
@@ -232,7 +245,7 @@ def build_queue(
         active_rows.append("| 1 | Answer targeted operating question | Operations | 5 min | Low | Home | Now | Level 1 | Ready |")
 
     deferred_rows = [
-        f"| {candidate.name} | {reason} | Next synthesis |" for candidate, reason in deferred
+        f"| {candidate.name} | {reason} | Next synthesis |" for candidate, reason in queue.deferred
     ]
     if not deferred_rows:
         deferred_rows.append("| None | No deferred candidates | Next synthesis |")
@@ -302,6 +315,115 @@ def build_queue(
     )
 
 
+def normalize_energy(value: str) -> str:
+    normalized = value.strip().lower()
+    if "low" in normalized:
+        return "low"
+    if "medium" in normalized:
+        return "medium"
+    if "high" in normalized:
+        return "high"
+    return "unknown"
+
+
+def normalize_authority(value: str) -> str:
+    normalized = value.strip().lower().replace("-", " ")
+    mapping = {
+        "level 0": "level_0_observe",
+        "level 1": "level_1_recommend",
+        "level 2": "level_2_direct",
+        "level 3": "level_3_execute",
+        "level 4": "level_4_escalate",
+    }
+    for marker, authority in mapping.items():
+        if marker in normalized:
+            return authority
+    return "level_1_recommend"
+
+
+def split_arg_list(value: str | None) -> list[str]:
+    if not value:
+        return []
+    return [part.strip() for part in value.split(";") if part.strip()]
+
+
+def build_json_queue(queue: QueueBuild) -> dict:
+    args = queue.args
+    active = queue.active
+    deferred = queue.deferred
+    if active:
+        selected = active[0]
+        next_directive = {
+            "candidate_id": "candidate-1",
+            "directive": selected.name,
+            "selection_rationale": "Selected as the highest-ranked active candidate that fits supplied constraints.",
+            "authority_level": normalize_authority(selected.authority),
+            "governance_status": "ready",
+        }
+    else:
+        next_directive = {
+            "candidate_id": "",
+            "directive": "Answer targeted operating question",
+            "selection_rationale": "No active candidate fit the current queue constraints.",
+            "authority_level": "level_1_recommend",
+            "governance_status": "ready",
+        }
+
+    return {
+        "artifact_type": "directive_queue",
+        "schema_version": 1,
+        "session": args.date,
+        "operating_frame": args.frame,
+        "protected_time": [
+            {
+                "label": "Protected time",
+                "window": args.protected_time,
+                "protection_level": "hard",
+            }
+        ]
+        if args.protected_time
+        else [],
+        "current_state": {
+            "time": args.time or "",
+            "location": args.location or "",
+            "energy": normalize_energy(args.energy or ""),
+            "environment": args.environment or "",
+            "active_obligations": split_arg_list(args.obligations),
+            "known_constraints": split_arg_list(args.constraints),
+        },
+        "completed": [],
+        "active_candidates": [
+            {
+                "rank": rank,
+                "candidate_id": f"candidate-{rank}",
+                "candidate": candidate.name,
+                "domain": candidate.domain,
+                "duration": candidate.duration,
+                "energy": normalize_energy(candidate.energy),
+                "location": candidate.location,
+                "deadline": candidate.deadline,
+                "authority_level": normalize_authority(candidate.authority),
+                "governance_status": "ready",
+                "source": candidate.source,
+            }
+            for rank, candidate in enumerate(active, start=1)
+        ],
+        "deferred": [
+            {
+                "candidate_id": f"deferred-{index}",
+                "candidate": candidate.name,
+                "reason_deferred": reason,
+                "next_review": "Next synthesis",
+                "consequence_of_deferral": candidate.deferral,
+            }
+            for index, (candidate, reason) in enumerate(deferred, start=1)
+        ],
+        "blocked": [],
+        "next_directive": next_directive,
+        "next_check_in": "After completion, blockage, or material state change.",
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
@@ -316,6 +438,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--protected-time", default="")
     parser.add_argument("--frame", default="Synthesize current candidate directives into one active queue.")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
 
@@ -328,11 +451,20 @@ def main_with_args(argv: list[str] | None = None) -> None:
 
     candidates = read_candidates(args.candidate)
     output = args.output or PRIVATE / "directives" / "queues" / f"{args.date}-queue.md"
+    queue = build_queue(candidates, args)
+
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists() and not args.force:
         raise SystemExit(f"refusing to overwrite existing file: {output}")
-    output.write_text(build_queue(candidates, args))
+    output.write_text(build_markdown_queue(queue))
     print(f"wrote: {output}")
+
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        if args.json_output.exists() and not args.force:
+            raise SystemExit(f"refusing to overwrite existing file: {args.json_output}")
+        args.json_output.write_text(json.dumps(build_json_queue(queue), indent=2) + "\n")
+        print(f"wrote: {args.json_output}")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import tempfile
+import json
 from pathlib import Path
 
 import synthesize_queue
@@ -51,6 +52,7 @@ def main() -> None:
         candidate_file = root / "candidates.md"
         scan_file = root / "scan.md"
         output = root / "queue.md"
+        json_output = root / "queue.json"
         candidate_file.write_text(CANDIDATES)
         scan_file.write_text(ANTICIPATION_SCAN)
 
@@ -66,6 +68,8 @@ def main() -> None:
                 "30",
                 "--output",
                 str(output),
+                "--json-output",
+                str(json_output),
                 "--force",
             ]
         )
@@ -76,6 +80,22 @@ def main() -> None:
         assert_contains(text, "Decide outfit for dinner")
         assert_contains(text, "Venture Problem Map | Does not fit available window")
         assert_contains(text, "Quit Job Decision | Needs governance review")
+
+        structured = json.loads(json_output.read_text())
+        if structured["artifact_type"] != "directive_queue":
+            raise AssertionError("expected directive_queue JSON artifact")
+        if structured["active_candidates"][0]["candidate"] != "Garden Weed Block":
+            raise AssertionError("expected Garden Weed Block as first active candidate")
+        if structured["next_directive"]["directive"] != "Garden Weed Block":
+            raise AssertionError("expected structured next directive")
+        if not any(item["candidate"] == "Breakfast Anchor" for item in structured["active_candidates"]):
+            raise AssertionError("expected Breakfast Anchor in active candidates")
+        if not any(
+            item["candidate"] == "Quit Job Decision"
+            and item["reason_deferred"].startswith("Needs governance review")
+            for item in structured["deferred"]
+        ):
+            raise AssertionError("expected Level 4 candidate deferred for governance")
 
     print("directive synthesis smoke tests passed.")
 

@@ -36,6 +36,8 @@ Start here:
 16. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
 17. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
 18. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+19. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+20. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
 
 ## Non-Scope
 

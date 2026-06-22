@@ -78,4 +78,5 @@ Outcome records should feed:
 - `pego/operations/intra-day-command-loop.md`
 - `pego/operations/weekly-loop.md`
 - `pego/operations/monthly-loop.md`
+- `pego/operations/context-update.md`
 - Relevant agent files and model specs.

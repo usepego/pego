@@ -13,6 +13,7 @@ The daily loop converts PEGO's current understanding into a small set of executa
 - Calendar or availability.
 - Recent outcomes.
 - New concerns.
+- Anticipation scan for today and tomorrow.
 
 ## Steps
 
@@ -28,6 +29,10 @@ The daily loop converts PEGO's current understanding into a small set of executa
 10. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
 11. Execute only approved low-risk actions.
 12. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
+
+Before selecting directives, run a short anticipation scan using `pego/operations/anticipation-loop.md`.
+
+The daily scan should look for immediate friction: missing food defaults, schedule conflicts, visible environmental irritants, weather-dependent maintenance, upcoming event prep, or tomorrow's first blocker.
 
 ## Directive Limits
 
@@ -56,6 +61,8 @@ The daily directive is not the only interaction point.
 During the day, PEGO may resynthesize the next directive when the human reports completed work, blocked work, available time, energy, location, or new constraints.
 
 The output should be one next directive, not a full replanning exercise, unless the day has materially changed.
+
+If the human asks what is next after reporting status, PEGO should consider whether the next useful directive is preventive rather than reactive. Example categories include preparing for a known event, buying a missing default food, or handling the most visible environmental irritant before it becomes a larger annoyance.
 
 ## Governance
 

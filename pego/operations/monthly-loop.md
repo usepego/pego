@@ -14,6 +14,7 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 - Governance reviews and escalations.
 - New human concerns or objections.
 - Significant life changes.
+- Anticipation scans for the next 30-90 days.
 
 ## Steps
 
@@ -23,10 +24,11 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 4. Reassess goal strategy using `pego/templates/goal-strategy.md`.
 5. Reassess the happiness model and protected-time fit.
 6. Review financial runway, health trend, career capital, relationship impact, and exploration portfolio.
-7. Update strategic priorities for the next month.
-8. Identify decisions requiring formal review.
-9. Propose amendments only if the constitution no longer fits reality.
-10. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
+7. Run a 30-90 day anticipation scan using `pego/operations/anticipation-loop.md`.
+8. Update strategic priorities for the next month.
+9. Identify decisions requiring formal review.
+10. Propose amendments only if the constitution no longer fits reality.
+11. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
 
 ## Monthly Strategy Questions
 
@@ -39,6 +41,7 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 - Did PEGO protect relationships, health, privacy, and protected time?
 - Did PEGO underuse current resources?
 - Did PEGO avoid a needed decision?
+- Did PEGO anticipate events, seasonal needs, prep work, and recurring annoyances early enough?
 - Which strategy should change next month?
 
 ## Agent Review

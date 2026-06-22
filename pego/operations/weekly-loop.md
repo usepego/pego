@@ -15,20 +15,22 @@ It is the main cadence for course correction. The daily loop decides what to do 
 - Governance reviews.
 - Calendar or availability.
 - New human concerns or objections.
+- Anticipation scans for the next 7-14 days.
 
 ## Steps
 
 1. Review the previous week's directives and outcomes using `pego/operations/outcome-review.md`.
 2. Identify friction, missed directives, energy gains, and recurring failure modes.
 3. Check whether active goals still fit the current state.
-4. Gather or request agent recommendations using `pego/templates/agent-recommendation.md`.
-5. Convert recommendations into directive candidates using `pego/templates/directive-candidate.md`.
-6. Synthesize candidates using `pego/operations/directive-synthesis.md`.
-7. Select a small number of weekly priorities.
-8. Assign authority levels and governance status.
-9. Produce the weekly operating plan using `pego/templates/weekly-operating-plan.md`.
-10. Convert the weekly plan into daily directive constraints.
-11. Escalate high-impact or unresolved decisions into decision packets.
+4. Run an anticipation scan using `pego/operations/anticipation-loop.md`.
+5. Gather or request agent recommendations using `pego/templates/agent-recommendation.md`.
+6. Convert recommendations into directive candidates using `pego/templates/directive-candidate.md`.
+7. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+8. Select a small number of weekly priorities.
+9. Assign authority levels and governance status.
+10. Produce the weekly operating plan using `pego/templates/weekly-operating-plan.md`.
+11. Convert the weekly plan into daily directive constraints.
+12. Escalate high-impact or unresolved decisions into decision packets.
 
 ## Weekly Limits
 
@@ -52,6 +54,7 @@ The weekly plan should create focus, not a backlog.
 - What created drag, anxiety, or avoidance?
 - Which goal assumptions changed?
 - Which agent needs better information?
+- Which upcoming event, maintenance issue, supply gap, or deadline needs lead time?
 - What should be simplified this week?
 
 ## Governance

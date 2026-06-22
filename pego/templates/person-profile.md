@@ -53,3 +53,5 @@ Things PEGO does not yet understand.
 ## Update Rules
 
 When should this profile be updated?
+
+Use `pego/operations/context-update.md` before making durable updates from conversation, outcomes, telemetry, or agent inference.

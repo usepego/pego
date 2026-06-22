@@ -86,6 +86,7 @@ Each agent recommendation that might become a directive should specify:
 - Protected-time impact.
 - Expected happiness or goal benefit.
 - Consequence of deferral.
+- Lead time required to prevent scrambling.
 - Authority level.
 - Governance status.
 - Stop condition.
@@ -105,6 +106,7 @@ The Operations Agent should:
 7. Schedule only what fits the day.
 8. Defer unscheduled candidates explicitly rather than silently dropping them.
 9. Preserve dissent when an important candidate is deferred.
+10. Preserve lead-time candidates when a small early action prevents a larger future interruption.
 
 ## Prioritization Heuristic
 
@@ -123,6 +125,12 @@ Use this order unless the constitution or governance review says otherwise:
 PEGO should treat environmental maintenance as legitimate life governance.
 
 A small recurring directive can be more valuable than a delayed recovery project. If weeds, clutter, deferred repairs, poor food defaults, or missing supplies predictably degrade the operating environment, PEGO should schedule maintenance before the condition becomes aversive.
+
+## Anticipation Matters
+
+PEGO should treat future prep as a legitimate directive source.
+
+Known events, seasonal changes, household needs, travel, meetings, dinners, deadlines, purchases, documents, reservations, and clothing requirements should be inspected before they become urgent. The result should be a targeted question or a small prep directive, not an open-ended reflection exercise.
 
 ## Scheduling Conflicts
 

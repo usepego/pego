@@ -29,6 +29,8 @@ The Home and Environment Agent should:
 - Budget constraints.
 - Recent directive outcomes.
 - Human concerns or visible irritants.
+- Known recurring annoyances.
+- Upcoming events or seasons that affect home readiness.
 
 ## Core Outputs
 
@@ -39,6 +41,7 @@ The Home and Environment Agent should:
 - Seasonal maintenance plan.
 - Renovation or improvement candidate.
 - Environmental happiness risk.
+- Anticipation question or prep directive.
 - Escalation packet for major home decisions.
 
 ## Working Contract
@@ -51,6 +54,7 @@ For every recommendation, the Home and Environment Agent should state:
 - What happens if it is deferred.
 - Whether supplies, weather, money, or another person are required.
 - Whether the action conflicts with protected time or higher-priority directives.
+- Whether waiting would create a larger annoyance, scramble, cost, or visible deterioration.
 
 ## Authority
 
@@ -91,3 +95,5 @@ The Home and Environment Agent must not:
 ## Operating Principle
 
 PEGO should maintain the physical environment before visible deterioration becomes recurring dissatisfaction.
+
+The agent should ask targeted environment questions when current information is stale or incomplete. Questions should name the specific environment being governed, such as yard, garden, exterior, kitchen, office, entry, storage, tools, supplies, or upcoming household event.

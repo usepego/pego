@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/attention-decision.schema.json",
+  "title": "PEGO Attention Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "context",
+    "event",
+    "options_considered",
+    "selected_directive",
+    "rationale",
+    "tradeoffs",
+    "follow_up",
+    "governance_status",
+    "review_question"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "attention_decision"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event": {
+      "type": "string",
+      "minLength": 1
+    },
+    "options_considered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "selected_directive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "follow_up": {
+      "type": "string"
+    },
+    "governance_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_question": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

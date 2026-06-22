@@ -53,6 +53,11 @@ or local script should all be able to produce and consume these contracts.
   restaurant, menu, nutrition, map, delivery, or agent-estimate sources.
 - `meal-decision.schema.json`: protected meal decision comparing available
   food options and producing a concrete food directive.
+- `attention-option.schema.json`: protected live-event, media, leisure, or
+  rest option used for attention governance.
+- `attention-decision.schema.json`: protected attention decision selecting
+  watch live, multitask live, highlights later, score only, defer, skip, or
+  escalate.
 
 ## Rules
 

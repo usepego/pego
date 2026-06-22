@@ -214,6 +214,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "decide_attention",
+      "runner": "ops/attention/decide_attention.py",
+      "procedure": "pego/operations/attention-governance.md",
+      "writes_to": "private/attention/decisions/; private/directives/candidates/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "synthesize_directive_queue",
       "runner": "ops/synthesis/synthesize_queue.py",
       "procedure": "pego/operations/directive-synthesis.md",
@@ -343,6 +350,8 @@
     "pego/templates/public-writing-brief.md",
     "pego/templates/food-option.md",
     "pego/templates/meal-decision.md",
+    "pego/templates/attention-option.md",
+    "pego/templates/attention-decision.md",
     "pego/templates/compliance-review.md"
   ],
   "schemas": [
@@ -368,7 +377,9 @@
     "pego/schemas/health-check-in.schema.json",
     "pego/schemas/voice-and-taste-model.schema.json",
     "pego/schemas/food-option.schema.json",
-    "pego/schemas/meal-decision.schema.json"
+    "pego/schemas/meal-decision.schema.json",
+    "pego/schemas/attention-option.schema.json",
+    "pego/schemas/attention-decision.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -423,6 +434,7 @@
     "pego/operations/outcome-review.md",
     "pego/operations/context-update.md",
     "pego/operations/anticipation-loop.md",
+    "pego/operations/attention-governance.md",
     "pego/operations/private-instance-workflow.md",
     "pego/operations/directive-runner.md",
     "pego/operations/compliance-review-runner.md",
@@ -449,6 +461,8 @@
     "pego/schemas/voice-and-taste-model.schema.json",
     "pego/schemas/food-option.schema.json",
     "pego/schemas/meal-decision.schema.json",
+    "pego/schemas/attention-option.schema.json",
+    "pego/schemas/attention-decision.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",
@@ -481,9 +495,13 @@
     "pego/templates/public-writing-brief.md",
     "pego/templates/food-option.md",
     "pego/templates/meal-decision.md",
+    "pego/templates/attention-option.md",
+    "pego/templates/attention-decision.md",
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
+    "ops/attention/decide_attention.py",
+    "ops/attention/test_decide_attention.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
     "ops/communications/generate_public_writing_brief.py",

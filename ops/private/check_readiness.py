@@ -26,6 +26,7 @@ REQUIRED_PATHS = {
     "writing_briefs_dir": "writing/briefs",
     "health_food_options_dir": "health/food-options",
     "health_meal_decisions_dir": "health/meal-decisions",
+    "attention_decisions_dir": "attention/decisions",
     "directive_candidates_dir": "directives/candidates",
     "directive_queues_dir": "directives/queues",
     "command_responses_dir": "directives/command-responses",

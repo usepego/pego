@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/attention-option.schema.json",
+  "title": "PEGO Attention Option",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "event",
+    "source",
+    "event_type",
+    "live_value",
+    "personal_importance",
+    "recovery_value",
+    "social_or_cultural_value",
+    "opportunity_cost",
+    "multitask_compatibility",
+    "time_window",
+    "best_alternative",
+    "risk",
+    "recommendation",
+    "stop_condition"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "attention_option"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string"
+    },
+    "event": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "enum": [
+        "calendar",
+        "sports_schedule",
+        "news",
+        "social_input",
+        "streaming_service",
+        "manual_report",
+        "agent_observation",
+        "other"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "sports",
+        "news",
+        "world_event",
+        "culture",
+        "learning",
+        "entertainment",
+        "social",
+        "rest",
+        "other"
+      ]
+    },
+    "live_value": {
+      "$ref": "#/$defs/level"
+    },
+    "personal_importance": {
+      "$ref": "#/$defs/level"
+    },
+    "recovery_value": {
+      "$ref": "#/$defs/level"
+    },
+    "social_or_cultural_value": {
+      "$ref": "#/$defs/level"
+    },
+    "opportunity_cost": {
+      "type": "string"
+    },
+    "multitask_compatibility": {
+      "enum": [
+        "full_attention_required",
+        "low_cognitive_work",
+        "background_only",
+        "not_compatible",
+        "unknown"
+      ]
+    },
+    "time_window": {
+      "type": "string"
+    },
+    "best_alternative": {
+      "type": "string"
+    },
+    "risk": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendation": {
+      "enum": [
+        "watch_live",
+        "multitask_live",
+        "highlights_later",
+        "score_only",
+        "defer",
+        "skip",
+        "escalate"
+      ]
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "level": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    }
+  }
+}

@@ -144,6 +144,14 @@ Local private operator state, session logs, registers, and quickstart files.
 
 Local private intra-day session logs.
 """,
+    "attention/README.md": """# Attention
+
+Local private attention options, leisure decisions, event decisions, and media outcomes.
+""",
+    "attention/decisions/README.md": """# Attention Decisions
+
+Local private attention decisions such as watch live, multitask live, highlights later, score only, defer, skip, or escalate.
+""",
     "governance/README.md": """# Governance
 
 Local private governance constraints, reviews, and preflight outputs.

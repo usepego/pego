@@ -172,3 +172,13 @@ The operator interface must not:
 - Execute financial, medical, legal, career, relationship, privacy, housing, or hard-to-reverse actions without governance review.
 - Use employer-sensitive information.
 - Consume protected time by default.
+
+## Local Runner
+
+The reference local operator runner lives at:
+
+```text
+ops/operator/next_step.py
+```
+
+It composes directive selection with governance preflight and writes ignored private artifacts.

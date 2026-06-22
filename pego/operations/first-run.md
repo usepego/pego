@@ -91,6 +91,14 @@ pego/templates/command-response.md
 
 Return one directive unless the user asks for a plan, discussion, queue, review, or strategy.
 
+For local operation, the reference runner is:
+
+```sh
+python3 ops/operator/next_step.py --date YYYY-MM-DD --available 30 --energy medium --location computer
+```
+
+It writes the command response and governance preflight output to ignored private paths.
+
 ### 7. Record Session State
 
 Use:

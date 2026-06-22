@@ -65,6 +65,8 @@ REQUIRED_FILES = [
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "ops/private/bootstrap_private_instance.py",
+    "ops/operator/next_step.py",
+    "ops/operator/test_next_step.py",
     "ops/directives/generate_daily_directive.py",
     "ops/directives/next_directive.py",
     "ops/directives/test_next_directive.py",
@@ -184,6 +186,8 @@ def check_tracked_content_markers(errors: list[str]) -> None:
 def check_python_syntax(errors: list[str]) -> None:
     scripts = [
         "ops/private/bootstrap_private_instance.py",
+        "ops/operator/next_step.py",
+        "ops/operator/test_next_step.py",
         "ops/directives/generate_daily_directive.py",
         "ops/directives/next_directive.py",
         "ops/directives/test_next_directive.py",

@@ -221,6 +221,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "review_finance_scenarios",
+      "runner": "ops/finance/review_scenarios.py",
+      "procedure": "pego/finance/model-spec.md",
+      "writes_to": "private/finance/reviews/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "pego_doctor",
       "runner": "ops/pego_doctor.py",
       "procedure": "pego/operations/verification.md",
@@ -333,6 +340,7 @@
     "pego/templates/synthesized-day-plan.md",
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
+    "pego/templates/finance-scenario-review.md",
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -361,6 +369,8 @@
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/finance/test_run_scenarios.py",
+    "ops/finance/review_scenarios.py",
+    "ops/finance/test_review_scenarios.py",
     "ops/pego_registry.py",
     "ops/pego_doctor.py"
   ]

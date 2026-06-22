@@ -22,3 +22,4 @@ Useful tools:
 - `review/review_outcome.py`: convert directive outcomes into learning decisions.
 - `governance/generate_compliance_review.py`: create protected compliance review packets.
 - `finance/run_scenarios.py`: run private finance scenarios from local assumptions.
+- `finance/review_scenarios.py`: convert scenario output into protected governance-ready finance review.

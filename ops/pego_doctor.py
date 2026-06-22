@@ -69,6 +69,7 @@ REQUIRED_FILES = [
     "pego/templates/synthesized-day-plan.md",
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
+    "pego/templates/finance-scenario-review.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -96,6 +97,8 @@ REQUIRED_FILES = [
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/finance/test_run_scenarios.py",
+    "ops/finance/review_scenarios.py",
+    "ops/finance/test_review_scenarios.py",
     "ops/pego_registry.py",
 ]
 

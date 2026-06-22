@@ -75,6 +75,14 @@ ops/finance/run_scenarios.py
 
 It reads private scenario assumptions and writes generated outputs into protected local files.
 
+The reference finance review runner lives at:
+
+```text
+ops/finance/review_scenarios.py
+```
+
+It converts scenario output into a protected finance scenario review packet for Finance, Governance, Career, Venture, Operations, and Happiness agents.
+
 By default, finance runners should not print private financial results to stdout. Console output should be limited to file paths or safe-derived status unless an explicit print flag is used.
 
 ## Required Scenario Set

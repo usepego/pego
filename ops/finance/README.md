@@ -36,8 +36,15 @@ Generate a local private Markdown summary:
 python3 ops/finance/run_scenarios.py --write-summary
 ```
 
+Review scenario output into governance-ready finance guidance:
+
+```sh
+python3 ops/finance/review_scenarios.py
+```
+
 Run smoke tests with synthetic data:
 
 ```sh
 python3 ops/finance/test_run_scenarios.py
+python3 ops/finance/test_review_scenarios.py
 ```

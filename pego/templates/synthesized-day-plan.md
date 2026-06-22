@@ -4,6 +4,12 @@ Use this template after directive candidates have been prioritized.
 
 The plan should show what fits, what does not fit, and why.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/synthesized-day-plan.schema.json
+```
+
 ## Date
 
 Date.

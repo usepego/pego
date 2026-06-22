@@ -158,6 +158,13 @@ Directive synthesis should produce:
 
 Use `pego/templates/synthesized-day-plan.md` when a directive set needs explicit scheduling.
 
+Structured runtimes should preserve synthesized day plans and live directive queues using:
+
+```text
+pego/schemas/synthesized-day-plan.schema.json
+pego/schemas/directive-queue.schema.json
+```
+
 ## Local Runner
 
 The reference queue synthesis runner lives at:

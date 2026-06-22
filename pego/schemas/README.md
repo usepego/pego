@@ -17,6 +17,10 @@ or local script should all be able to produce and consume these contracts.
   Level 4 decisions.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
+- `directive-queue.schema.json`: live intra-day queue for active, deferred,
+  blocked, and selected directives.
+- `synthesized-day-plan.schema.json`: scheduled operating plan produced from
+  prioritized directive candidates.
 - `runtime-adapter-manifest.schema.json`: capability declaration for a PEGO
   runtime adapter.
 - `finance-scenario-input.schema.json`: protected private finance assumptions

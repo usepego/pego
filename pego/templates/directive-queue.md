@@ -4,6 +4,12 @@ Use this template to maintain the live queue for a day or work session.
 
 The queue is not a backlog. It is the active set of candidates that PEGO may select from during intra-day command cycles.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/directive-queue.schema.json
+```
+
 ## Date or Session
 
 Date or session name.

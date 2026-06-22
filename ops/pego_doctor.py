@@ -47,6 +47,7 @@ REQUIRED_FILES = [
     "pego/templates/active-operating-brief.md",
     "pego/templates/directive-candidate.md",
     "pego/templates/directive-queue.md",
+    "pego/templates/intra-day-session-log.md",
     "pego/templates/command-response.md",
     "pego/templates/directive-outcome.md",
     "pego/templates/decision-packet.md",

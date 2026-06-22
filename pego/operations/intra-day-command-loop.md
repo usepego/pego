@@ -53,22 +53,26 @@ Before selecting the next directive, PEGO should check:
 - Available time, if supplied.
 - Energy and location, if supplied.
 - Governance constraints.
+- Intra-day session log, if one exists.
 
 ## Steps
 
 1. Parse the status update.
 2. Record any completed, partial, blocked, or canceled directive.
-3. Update the directive queue.
-4. Remove candidates that no longer fit the day.
-5. Re-rank remaining candidates by priority, timing, energy, location, and consequence of deferral.
-6. Select one next directive.
-7. Provide a fallback if the selected directive becomes blocked.
-8. State what is deferred.
-9. State the next check-in condition.
+3. Update the intra-day session log using `pego/templates/intra-day-session-log.md`.
+4. Update the directive queue.
+5. Remove candidates that no longer fit the day.
+6. Re-rank remaining candidates by priority, timing, energy, location, and consequence of deferral.
+7. Select one next directive.
+8. Provide a fallback if the selected directive becomes blocked.
+9. State what is deferred.
+10. State the next check-in condition.
 
 ## Output Shape
 
 Use `pego/templates/command-response.md`.
+
+Use `pego/templates/intra-day-session-log.md` to preserve the state changes caused by the command.
 
 The response should include:
 

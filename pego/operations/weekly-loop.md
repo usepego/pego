@@ -22,11 +22,13 @@ It is the main cadence for course correction. The daily loop decides what to do 
 2. Identify friction, missed directives, energy gains, and recurring failure modes.
 3. Check whether active goals still fit the current state.
 4. Gather or request agent recommendations using `pego/templates/agent-recommendation.md`.
-5. Select a small number of weekly priorities.
-6. Assign authority levels and governance status.
-7. Produce the weekly operating plan using `pego/templates/weekly-operating-plan.md`.
-8. Convert the weekly plan into daily directive constraints.
-9. Escalate high-impact or unresolved decisions into decision packets.
+5. Convert recommendations into directive candidates using `pego/templates/directive-candidate.md`.
+6. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+7. Select a small number of weekly priorities.
+8. Assign authority levels and governance status.
+9. Produce the weekly operating plan using `pego/templates/weekly-operating-plan.md`.
+10. Convert the weekly plan into daily directive constraints.
+11. Escalate high-impact or unresolved decisions into decision packets.
 
 ## Weekly Limits
 

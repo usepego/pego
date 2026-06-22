@@ -19,11 +19,13 @@ The daily loop converts PEGO's current understanding into a small set of executa
 1. Gather approved or draft recommendations.
 2. Check protected time and hard constraints.
 3. Normalize recommendations using `pego/templates/agent-recommendation.md`.
-4. Select the minimum useful set of directives.
-5. Assign authority level and governance status.
-6. Produce the daily directive packet using `pego/templates/daily-directive.md`.
-7. Execute only approved low-risk actions.
-8. Review outcomes at the end of the day.
+4. Convert competing recommendations into directive candidates using `pego/templates/directive-candidate.md`.
+5. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+6. Select the minimum useful set of directives.
+7. Assign authority level and governance status.
+8. Produce the daily directive packet using `pego/templates/daily-directive.md`.
+9. Execute only approved low-risk actions.
+10. Review outcomes at the end of the day.
 
 ## Directive Limits
 

@@ -24,6 +24,8 @@ Initial council members:
 - Health Agent
 - Finance Agent
 - Career Agent
+- Venture Agent
+- Home and Environment Agent
 - Operations Agent
 - Relationships Agent
 - Exploration Agent
@@ -35,6 +37,8 @@ See domain protocols:
 - `finance-agent.md`
 - `health-agent.md`
 - `career-agent.md`
+- `venture-agent.md`
+- `home-environment-agent.md`
 - `relationships-agent.md`
 - `exploration-agent.md`
 - `happiness-agent.md`
@@ -63,17 +67,20 @@ Use `pego/templates/agent-recommendation.md` as the default output shape for dom
 
 Use `pego/templates/decision-packet.md` for Level 4 escalations and high-impact decisions.
 
+Use `pego/templates/directive-candidate.md` when a recommendation needs to be compared, prioritized, or scheduled against other directives.
+
 ## Deliberation Order
 
 Default order:
 
 1. Operations frames the concrete decision or directive needed.
 2. Relevant domain agents make recommendations.
-3. Happiness checks whether the proposal serves the actual life objective.
-4. Relationships checks protected stakeholder and household impact.
-5. Finance checks capital, runway, and downside.
-6. Governance checks authority, privacy, risk, evidence, and constraints.
-7. Council produces a single directive, revision request, or escalation.
+3. Operations classifies candidate directives by altitude using `pego/operations/directive-synthesis.md`.
+4. Happiness checks whether the proposal serves the actual life objective.
+5. Relationships checks protected stakeholder and household impact.
+6. Finance checks capital, runway, and downside.
+7. Governance checks authority, privacy, risk, evidence, and constraints.
+8. Council produces a single directive, revision request, or escalation.
 
 The order may change when the issue clearly belongs to a specific domain, but Governance should remain the final gate for high-impact actions.
 

@@ -28,6 +28,7 @@ Start here:
 8. `operations/daily-loop.md`: how approved strategy becomes daily directives.
 9. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
 10. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
+11. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
 
 ## Non-Scope
 

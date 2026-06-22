@@ -60,6 +60,14 @@ def metric_groups_with_values(baseline: dict) -> list[str]:
     return present
 
 
+def measurement_rule(baseline: dict) -> str:
+    policy = baseline.get("evidence_policy", {})
+    rule = policy.get("measurement_rule")
+    if isinstance(rule, str) and rule.strip():
+        return rule.strip()
+    return "Ask for new metrics only when they change a directive, risk classification, escalation, or strategy review."
+
+
 def breakfast_candidate(baseline: dict) -> Candidate:
     defaults = baseline.get("preferences", {}).get("food_defaults", [])
     default_text = list_text(defaults)
@@ -220,6 +228,7 @@ def build_markdown(baseline: dict, output_date: str) -> str:
     escalation_lines = [f"- {item}" for item in escalations] or ["- None."]
     stop_lines = [f"- {candidate.name}: {candidate.stop}" for candidate in candidates]
     dependency_lines = [f"- {candidate.name}: {candidate.dependencies}" for candidate in candidates]
+    rule = measurement_rule(baseline)
     return "\n".join(
         [
             f"# Health Directive Candidates: {output_date}",
@@ -235,6 +244,10 @@ def build_markdown(baseline: dict, output_date: str) -> str:
             "## Evidence Inputs",
             "",
             evidence_summary,
+            "",
+            "## Measurement Rule",
+            "",
+            rule,
             "",
             "## Candidate Table",
             "",

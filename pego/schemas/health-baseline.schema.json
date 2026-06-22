@@ -34,7 +34,8 @@
       "required": [
         "tracking_level",
         "burden_limit",
-        "medical_interpretation"
+        "medical_interpretation",
+        "measurement_rule"
       ],
       "properties": {
         "tracking_level": {
@@ -53,6 +54,10 @@
             "agent_may_use_as_context_only",
             "requires_clinician_review"
           ]
+        },
+        "measurement_rule": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },

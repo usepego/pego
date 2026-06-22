@@ -5,7 +5,8 @@
   "evidence_policy": {
     "tracking_level": "minimal",
     "burden_limit": "Use the least tracking that produces better directives.",
-    "medical_interpretation": "agent_may_use_as_context_only"
+    "medical_interpretation": "agent_may_use_as_context_only",
+    "measurement_rule": "Ask for new metrics only when they change a directive, risk classification, escalation, or strategy review."
   },
   "goal": {
     "current_weight_kg": null,
@@ -52,7 +53,9 @@
     "glucose": {
       "fasting_glucose_mg_dl": null,
       "a1c_percent": null,
-      "cgm_available": false
+      "postprandial_glucose_mg_dl": null,
+      "cgm_available": false,
+      "clinician_glucose_target": ""
     },
     "lipids_metabolic": {
       "total_cholesterol": null,

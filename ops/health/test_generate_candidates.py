@@ -18,6 +18,7 @@ BASELINE = {
         "tracking_level": "periodic_metrics",
         "burden_limit": "Use periodic metrics without daily tracking burden.",
         "medical_interpretation": "agent_may_use_as_context_only",
+        "measurement_rule": "Ask only when the metric changes a concrete decision.",
     },
     "goal": {
         "current_weight_kg": 88,
@@ -94,6 +95,8 @@ def main() -> None:
         assert_contains(text, "Walk Outside")
         assert_contains(text, "Sweet Trigger Control")
         assert_contains(text, "Optional health metrics available: glucose")
+        assert_contains(text, "## Measurement Rule")
+        assert_contains(text, "Ask only when the metric changes a concrete decision.")
         assert_contains(text, "use as context only")
         assert_contains(text, "Level 1")
         assert_contains(text, "Do not treat candidates as medical advice")

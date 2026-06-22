@@ -102,14 +102,16 @@ PHASES: dict[str, Phase] = {
     ),
     "health": Phase(
         name="Health",
-        purpose="Capture food, movement, sleep, and medical boundaries for safe low-friction health directives.",
+        purpose="Capture food, movement, sleep, optional health evidence, and medical boundaries for safe low-friction health directives.",
         questions=[
             Question("What are the current default breakfasts, lunches, dinners, snacks, and drinks?", "Identifies the actual diet baseline.", "private/health/baseline.md"),
             Question("What foods, movements, or routines are unacceptable, medically constrained, or likely to fail?", "Prevents brittle health directives.", "private/health/baseline.md"),
+            Question("Which health metrics already exist and are acceptable to use as context: weight trend, blood pressure, blood sugar/A1C, lipids, resting heart rate, sleep, wearable summaries, or clinician guidance?", "Captures useful evidence without requiring new tracking.", "private/health/baseline.json"),
             Question("What is the smallest movement option that can happen without motivation?", "Creates a viable first movement directive.", "private/operator/operating-register.md"),
         ],
         avoid=[
             "Give medical advice.",
+            "Ask the user to start measuring biomarkers unless the benefit and burden are explicit.",
             "Prescribe aggressive exercise or diet changes without review.",
         ],
         output="Health baseline.",

@@ -141,6 +141,12 @@ Prompts:
 - What should be reported manually?
 - What should be inferred cautiously?
 
+Health telemetry should be tiered. PEGO should work with minimal reported health state by default, may use periodic metrics if already available, and should use continuous telemetry only when explicitly authorized and useful.
+
+Optional health evidence may include blood pressure, blood sugar or A1C, lipids, resting heart rate, sleep/recovery summaries, weight trend, waist trend, wearable summaries, clinician guidance, and movement completion. These are evidence inputs, not mandatory daily tracking requirements.
+
+PEGO must not ask the person to collect medical or biometric data unless the expected benefit justifies the burden and the constitution permits that level of telemetry.
+
 ## 10. Review and Amendment
 
 Define how the constitution changes.

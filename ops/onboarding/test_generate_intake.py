@@ -40,6 +40,11 @@ def main() -> None:
     assert_contains(environment, "Which visible part of the home or yard is most annoying right now?")
     assert_contains(environment, "private/operator/operating-register.md")
 
+    health = run_intake("health")
+    assert_contains(health, "blood pressure, blood sugar/A1C, lipids")
+    assert_contains(health, "without requiring new tracking")
+    assert_contains(health, "Ask the user to start measuring biomarkers")
+
     authority = run_intake("authority")
     assert_contains(authority, "Which low-risk daily choices may PEGO direct by default?")
     assert_contains(authority, "Treat silence as authority.")

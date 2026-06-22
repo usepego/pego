@@ -17,6 +17,8 @@ or local script should all be able to produce and consume these contracts.
   directive, or decision packet.
 - `decision-packet.schema.json`: formal escalation artifact for high-impact
   Level 4 decisions.
+- `council-decision.schema.json`: cross-agent synthesis decision preserving
+  outcome, dissent, handoffs, governance status, and next action.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
 - `outcome-review.schema.json`: learning decision produced from directive

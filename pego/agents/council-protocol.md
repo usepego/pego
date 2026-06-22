@@ -69,6 +69,10 @@ Use `pego/templates/decision-packet.md` for Level 4 escalations and high-impact 
 
 Structured runtimes should preserve Level 4 escalation packets using `pego/schemas/decision-packet.schema.json`.
 
+Use `pego/templates/council-decision.md` when multiple agent recommendations must be reconciled into one directive, revision request, information request, or escalation.
+
+Structured runtimes should preserve council decisions using `pego/schemas/council-decision.schema.json`.
+
 Use `pego/templates/directive-candidate.md` when a recommendation needs to be compared, prioritized, or scheduled against other directives.
 
 ## Deliberation Order
@@ -100,6 +104,14 @@ Each council decision should produce:
 - Authority level.
 - Conditions or stop rules.
 - Required next action.
+
+The reference local council decision runner lives at:
+
+```text
+ops/council/synthesize_decision.py
+```
+
+It reads protected agent recommendations and writes protected council decisions under the private instance.
 
 ## Governance Gate
 

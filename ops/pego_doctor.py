@@ -37,6 +37,7 @@ REQUIRED_FILES = [
     "ops/directives/generate_daily_directive.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
+    "ops/pego_registry.py",
 ]
 
 LOCAL_MARKERS_FILE = ROOT / "private" / "_local" / "doctor-private-markers.txt"
@@ -150,6 +151,7 @@ def check_python_syntax(errors: list[str]) -> None:
         "ops/directives/generate_daily_directive.py",
         "ops/governance/generate_compliance_review.py",
         "ops/finance/run_scenarios.py",
+        "ops/pego_registry.py",
         "ops/pego_doctor.py",
     ]
     env = dict(os.environ)

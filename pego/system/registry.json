@@ -119,6 +119,13 @@
       "procedure": "pego/operations/verification.md",
       "writes_to": null,
       "privacy": "safe"
+    },
+    {
+      "id": "inspect_system_registry",
+      "runner": "ops/pego_registry.py",
+      "procedure": "pego/system/README.md",
+      "writes_to": null,
+      "privacy": "safe"
     }
   ],
   "templates": [
@@ -174,6 +181,7 @@
     "ops/directives/generate_daily_directive.py",
     "ops/governance/generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
+    "ops/pego_registry.py",
     "ops/pego_doctor.py"
   ]
 }

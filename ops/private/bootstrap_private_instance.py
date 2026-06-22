@@ -22,6 +22,7 @@ FILES: dict[str, str] = {
     "current-state/current-state.md": "current-state.md",
     "person/profile.md": "person-profile.md",
     "happiness/model.md": "happiness-model.md",
+    "health/baseline.json": "health-baseline.json",
     "time/protected-time.md": "protected-time.md",
     "operator/operating-register.md": "operating-register.md",
     "governance/compliance-review-template.md": "compliance-review.md",

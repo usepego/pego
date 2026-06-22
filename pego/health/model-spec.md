@@ -28,10 +28,23 @@ The PEGO health model converts desired health states into daily food, movement, 
 - Daily movement directive.
 - Daily food directive.
 - Sleep directive.
+- Directive candidate table for synthesis.
 - Weekly review.
 - Minimum viable habit.
 - Stop conditions.
 - Escalation triggers.
+
+## Executable Engine
+
+The reference local health candidate runner lives at:
+
+```text
+ops/health/generate_candidates.py
+```
+
+It reads a protected health baseline and writes conservative Level 1 directive candidates for food, movement, sweets control, and sleep protection.
+
+The output should feed directive synthesis, not bypass governance or medical review.
 
 ## Principles
 

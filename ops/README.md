@@ -23,3 +23,4 @@ Useful tools:
 - `governance/generate_compliance_review.py`: create protected compliance review packets.
 - `finance/run_scenarios.py`: run private finance scenarios from local assumptions.
 - `finance/review_scenarios.py`: convert scenario output into protected governance-ready finance review.
+- `health/generate_candidates.py`: convert a protected health baseline into low-risk directive candidates.

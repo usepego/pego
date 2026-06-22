@@ -70,6 +70,7 @@ REQUIRED_FILES = [
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/finance-scenario-review.md",
+    "pego/templates/health-baseline.json",
     "ops/private/bootstrap_private_instance.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -99,6 +100,8 @@ REQUIRED_FILES = [
     "ops/finance/test_run_scenarios.py",
     "ops/finance/review_scenarios.py",
     "ops/finance/test_review_scenarios.py",
+    "ops/health/generate_candidates.py",
+    "ops/health/test_generate_candidates.py",
     "ops/pego_registry.py",
 ]
 

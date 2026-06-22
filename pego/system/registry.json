@@ -228,6 +228,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_health_candidates",
+      "runner": "ops/health/generate_candidates.py",
+      "procedure": "pego/health/model-spec.md",
+      "writes_to": "private/directives/candidates/health-candidates.md",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "pego_doctor",
       "runner": "ops/pego_doctor.py",
       "procedure": "pego/operations/verification.md",
@@ -341,6 +348,7 @@
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/finance-scenario-review.md",
+    "pego/templates/health-baseline.json",
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -371,6 +379,8 @@
     "ops/finance/test_run_scenarios.py",
     "ops/finance/review_scenarios.py",
     "ops/finance/test_review_scenarios.py",
+    "ops/health/generate_candidates.py",
+    "ops/health/test_generate_candidates.py",
     "ops/pego_registry.py",
     "ops/pego_doctor.py"
   ]

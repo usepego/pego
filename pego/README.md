@@ -19,27 +19,28 @@ This directory should contain only material that can safely become public, share
 Start here:
 
 1. `principles.md`: the operating philosophy.
-2. `templates/constitution.md`: the local delegation contract.
-3. `templates/active-operating-brief.md`: the current private operating entry point.
-4. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
-5. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
-6. `templates/agent-recommendation.md`: the standard shape for agent outputs.
-7. `templates/decision-packet.md`: the standard shape for high-impact escalations.
-8. `governance/compliance-review.md`: the review gate before adoption or execution.
-9. `operations/daily-loop.md`: how approved strategy becomes daily directives.
-10. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
-11. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
-12. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
-13. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
-14. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
-15. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
-16. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-17. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-18. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-19. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-20. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-21. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-22. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+2. `ux/first-run-experience.md`: how a new user first understands and adopts PEGO.
+3. `templates/constitution.md`: the local delegation contract.
+4. `templates/active-operating-brief.md`: the current private operating entry point.
+5. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
+6. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
+7. `templates/agent-recommendation.md`: the standard shape for agent outputs.
+8. `templates/decision-packet.md`: the standard shape for high-impact escalations.
+9. `governance/compliance-review.md`: the review gate before adoption or execution.
+10. `operations/daily-loop.md`: how approved strategy becomes daily directives.
+11. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
+12. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
+13. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
+14. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
+15. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
+16. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
+17. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
+18. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+19. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+20. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+21. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+22. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+23. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

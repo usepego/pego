@@ -10,6 +10,7 @@ Useful tools:
 - `pego_registry.py`: inspect the public PEGO system registry without reading private data.
 - `pego_doctor.py`: verify repository hygiene and required framework files.
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.
+- `onboarding/generate_intake.py`: generate one protected first-run intake packet.
 - `cycles/daily_cycle.py`: run daily next/outcome/learn cycle commands.
 - `cycles/weekly_cycle.py`: generate protected weekly operating plans.
 - `anticipation/generate_scan.py`: generate one protected anticipation scan from the operating register.

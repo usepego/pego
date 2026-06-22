@@ -123,6 +123,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_first_run_intake",
+      "runner": "ops/onboarding/generate_intake.py",
+      "procedure": "pego/ux/first-run-experience.md",
+      "writes_to": "private/onboarding/intake/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "daily_cycle",
       "runner": "ops/cycles/daily_cycle.py",
       "procedure": "pego/operations/daily-loop.md",
@@ -246,6 +253,7 @@
     "private/README.md",
     "pego/README.md",
     "pego/principles.md",
+    "pego/ux/first-run-experience.md",
     "pego/planning/doctrine.md",
     "pego/system/README.md",
     "pego/system/registry.json",
@@ -288,6 +296,7 @@
     "pego/operations/compliance-review-runner.md",
     "pego/operations/verification.md",
     "pego/templates/onboarding.md",
+    "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/constitution.md",
     "pego/templates/current-state.md",
@@ -312,6 +321,8 @@
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
+    "ops/onboarding/generate_intake.py",
+    "ops/onboarding/test_generate_intake.py",
     "ops/private/bootstrap_private_instance.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",

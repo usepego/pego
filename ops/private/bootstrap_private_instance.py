@@ -43,6 +43,10 @@ Local private goals and goal strategies.
 
 Local private PEGO directives.
 """,
+    "onboarding/README.md": """# Onboarding
+
+Protected private first-run intake packets and onboarding answers.
+""",
     "directives/daily/README.md": """# Daily Directives
 
 Local private daily directive packets.

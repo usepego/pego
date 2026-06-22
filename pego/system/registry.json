@@ -122,6 +122,13 @@
       "privacy": "local-only"
     },
     {
+      "id": "daily_cycle",
+      "runner": "ops/cycles/daily_cycle.py",
+      "procedure": "pego/operations/daily-loop.md",
+      "writes_to": "private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/context/updates/",
+      "privacy": "local-only"
+    },
+    {
       "id": "operator_next_step",
       "runner": "ops/operator/next_step.py",
       "procedure": "pego/operations/operator-interface.md",
@@ -287,6 +294,8 @@
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/compliance-review.md",
     "ops/private/bootstrap_private_instance.py",
+    "ops/cycles/daily_cycle.py",
+    "ops/cycles/test_daily_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
     "ops/context/record_context_update.py",

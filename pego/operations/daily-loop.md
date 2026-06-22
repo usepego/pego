@@ -75,10 +75,18 @@ High-impact actions must be converted into a decision packet using `pego/templat
 
 ## Local Runner
 
-The reference local runner lives at:
+The reference daily directive generator lives at:
 
 ```text
 ops/directives/generate_daily_directive.py
 ```
 
 It writes generated daily packets to ignored local private files.
+
+The reference daily cycle runner lives at:
+
+```text
+ops/cycles/daily_cycle.py
+```
+
+It composes the local `next`, `outcome`, and `learn` operations for active daily use.

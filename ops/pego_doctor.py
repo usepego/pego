@@ -65,6 +65,8 @@ REQUIRED_FILES = [
     "pego/templates/weekly-operating-plan.md",
     "pego/templates/monthly-strategy-review.md",
     "ops/private/bootstrap_private_instance.py",
+    "ops/cycles/daily_cycle.py",
+    "ops/cycles/test_daily_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
     "ops/context/record_context_update.py",
@@ -190,6 +192,8 @@ def check_tracked_content_markers(errors: list[str]) -> None:
 def check_python_syntax(errors: list[str]) -> None:
     scripts = [
         "ops/private/bootstrap_private_instance.py",
+        "ops/cycles/daily_cycle.py",
+        "ops/cycles/test_daily_cycle.py",
         "ops/operator/next_step.py",
         "ops/operator/test_next_step.py",
         "ops/context/record_context_update.py",

@@ -140,7 +140,7 @@
       "id": "daily_cycle",
       "runner": "ops/cycles/daily_cycle.py",
       "procedure": "pego/operations/daily-loop.md",
-      "writes_to": "private/health/check-ins/; private/finance/check-ins/; private/council/decisions/; private/directives/queues/; private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/reviews/outcomes/; private/context/updates/",
+      "writes_to": "private/health/check-ins/; private/finance/check-ins/; private/council/decisions/; private/directives/candidates/; private/directives/queues/; private/directives/command-responses/; private/governance/preflight/; private/outcomes/directives/; private/reviews/outcomes/; private/context/updates/",
       "privacy": "protected-private-instance"
     },
     {
@@ -211,6 +211,13 @@
       "runner": "ops/council/synthesize_decision.py",
       "procedure": "pego/agents/council-protocol.md",
       "writes_to": "private/council/decisions/",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "council_decision_to_candidate",
+      "runner": "ops/council/decision_to_candidate.py",
+      "procedure": "pego/operations/directive-synthesis.md",
+      "writes_to": "private/directives/candidates/",
       "privacy": "protected-private-instance"
     },
     {
@@ -445,6 +452,8 @@
     "ops/synthesis/test_synthesize_queue.py",
     "ops/council/synthesize_decision.py",
     "ops/council/test_synthesize_decision.py",
+    "ops/council/decision_to_candidate.py",
+    "ops/council/test_decision_to_candidate.py",
     "ops/private/bootstrap_private_instance.py",
     "ops/private/check_readiness.py",
     "ops/private/test_check_readiness.py",

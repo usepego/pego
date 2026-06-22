@@ -110,6 +110,8 @@ REQUIRED_FILES = [
     "ops/synthesis/test_synthesize_queue.py",
     "ops/council/synthesize_decision.py",
     "ops/council/test_synthesize_decision.py",
+    "ops/council/decision_to_candidate.py",
+    "ops/council/test_decision_to_candidate.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",

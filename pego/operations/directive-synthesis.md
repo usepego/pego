@@ -93,6 +93,15 @@ Each agent recommendation that might become a directive should specify:
 
 Use `pego/templates/directive-candidate.md`.
 
+Council decisions are not scheduled directly. A council decision must first be converted into a directive candidate so adoption, revision, information requests, and escalation all pass through the same prioritization and governance gates.
+
+The conversion rule is:
+
+- Adopted decisions become operations candidates for the proposed directive.
+- Revision decisions become governance candidates to revise and rerun council synthesis.
+- Information requests become governance candidates to answer the missing decision-grade question.
+- Escalations stay escalated and should be deferred by queue synthesis until the required governance review or decision packet exists.
+
 ## Synthesis Rules
 
 The Operations Agent should:
@@ -180,3 +189,15 @@ private/directives/queues/
 ```
 
 The resulting queue is consumed by `ops/directives/next_directive.py` and `ops/operator/next_step.py`.
+
+The reference council-decision bridge lives at:
+
+```text
+ops/council/decision_to_candidate.py
+```
+
+It reads protected council decisions and writes protected directive candidates under:
+
+```text
+private/directives/candidates/
+```

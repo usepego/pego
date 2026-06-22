@@ -24,7 +24,7 @@ The daily loop converts PEGO's current understanding into a small set of executa
 4. If finance state could change finance/admin, career, venture, spending, runway, or governance directives, generate a targeted finance check-in using `pego/templates/finance-check-in.md`.
 5. Normalize recommendations using `pego/templates/agent-recommendation.md`.
 6. If recommendations conflict, carry dissent, or involve cross-domain tradeoffs, synthesize a council decision using `pego/templates/council-decision.md`.
-7. Convert competing recommendations or council-approved next actions into directive candidates using `pego/templates/directive-candidate.md`.
+7. Convert competing recommendations, adopted council decisions, revision requests, or targeted information requests into directive candidates using `pego/templates/directive-candidate.md`.
 8. Synthesize candidates using `pego/operations/directive-synthesis.md`.
 9. Select the minimum useful set of directives.
 10. Assign authority level and governance status.
@@ -74,7 +74,7 @@ If the next plausible directive is health-related and the current state is stale
 
 If the next plausible directive is finance-related and the current state is stale or ambiguous, PEGO should ask a targeted finance check-in question before selecting the directive. The question must be tied to a decision such as assumption refresh, scenario rerun, runway protection, upcoming spending, tax/admin lead time, account-data recency, or governance escalation. Do not ask for balances, holdings, or transaction details unless the protected private destination and decision use are clear.
 
-If agent recommendations disagree, require handoffs, or contain risk that changes authority, PEGO should produce a council decision before selecting the next directive. The council output should preserve dissent and either adopt, revise, request information, escalate, or block the proposed directive.
+If agent recommendations disagree, require handoffs, or contain risk that changes authority, PEGO should produce a council decision before selecting the next directive. The council output should preserve dissent and either adopt, revise, request information, escalate, or block the proposed directive. A council decision is then converted into a directive candidate so the normal queue synthesis, prioritization, and preflight gates still apply.
 
 ## Governance
 
@@ -98,7 +98,7 @@ The reference daily cycle runner lives at:
 ops/cycles/daily_cycle.py
 ```
 
-It composes the local `health-check-in`, `finance-check-in`, `council`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
+It composes the local `health-check-in`, `finance-check-in`, `council`, `council-candidate`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
 
 To generate a targeted health check-in through the daily runner:
 
@@ -116,4 +116,10 @@ To synthesize a council decision through the daily runner:
 
 ```sh
 python3 ops/cycles/daily_cycle.py council --recommendation private/agents/recommendations/example.json
+```
+
+To convert a council decision into a directive candidate:
+
+```sh
+python3 ops/cycles/daily_cycle.py council-candidate --decision private/council/decisions/council-decision.json
 ```

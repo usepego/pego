@@ -73,7 +73,7 @@ Use `pego/templates/council-decision.md` when multiple agent recommendations mus
 
 Structured runtimes should preserve council decisions using `pego/schemas/council-decision.schema.json`.
 
-Use `pego/templates/directive-candidate.md` when a recommendation needs to be compared, prioritized, or scheduled against other directives.
+Use `pego/templates/directive-candidate.md` when a recommendation or council decision needs to be compared, prioritized, or scheduled against other directives.
 
 ## Deliberation Order
 
@@ -112,6 +112,14 @@ ops/council/synthesize_decision.py
 ```
 
 It reads protected agent recommendations and writes protected council decisions under the private instance.
+
+The reference council-decision bridge lives at:
+
+```text
+ops/council/decision_to_candidate.py
+```
+
+It converts adopted decisions, revision requests, information requests, and escalations into directive candidates. Escalated outcomes remain escalated so queue synthesis does not accidentally turn them into normal executable work.
 
 ## Governance Gate
 

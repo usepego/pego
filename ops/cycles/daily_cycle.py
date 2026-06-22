@@ -8,6 +8,7 @@ Subcommands:
 - review: convert an outcome into a learning decision.
 - synthesize: convert directive candidates into an active queue.
 - council: synthesize agent recommendations into a council decision.
+- council-candidate: convert a council decision into a directive candidate.
 - learn: record a context update from an outcome, conversation, or observation.
 - finance-check-in: generate targeted finance questions for directive selection.
 - health-check-in: generate targeted health questions for directive selection.
@@ -63,8 +64,20 @@ def load_council_decision():
     return module
 
 
+def load_council_candidate():
+    path = ROOT / "ops" / "council" / "decision_to_candidate.py"
+    spec = importlib.util.spec_from_file_location("council_decision_to_candidate", path)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"unable to load council candidate runner: {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 finance_generate_check_in = load_finance_check_in()
 council_synthesize_decision = load_council_decision()
+council_decision_to_candidate = load_council_candidate()
 
 
 def add_shared_date(parser: argparse.ArgumentParser) -> None:
@@ -192,6 +205,12 @@ def build_parser() -> argparse.ArgumentParser:
     council_parser.add_argument("--json-output", type=Path)
     council_parser.add_argument("--force", action="store_true")
 
+    council_candidate_parser = subparsers.add_parser("council-candidate")
+    council_candidate_parser.add_argument("--decision", type=Path, required=True)
+    council_candidate_parser.add_argument("--output", type=Path)
+    council_candidate_parser.add_argument("--json-output", type=Path)
+    council_candidate_parser.add_argument("--force", action="store_true")
+
     return parser
 
 
@@ -230,6 +249,8 @@ def main_with_args(argv: list[str] | None = None) -> object:
         return finance_generate_check_in.main_with_args(delegated_args)
     if command == "council":
         return council_synthesize_decision.main_with_args(delegated_args)
+    if command == "council-candidate":
+        return council_decision_to_candidate.main_with_args(delegated_args)
     raise SystemExit(f"unknown command: {command}")
 
 

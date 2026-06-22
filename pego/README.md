@@ -20,15 +20,16 @@ Start here:
 
 1. `principles.md`: the operating philosophy.
 2. `templates/constitution.md`: the local delegation contract.
-3. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
-4. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
-5. `templates/agent-recommendation.md`: the standard shape for agent outputs.
-6. `templates/decision-packet.md`: the standard shape for high-impact escalations.
-7. `governance/compliance-review.md`: the review gate before adoption or execution.
-8. `operations/daily-loop.md`: how approved strategy becomes daily directives.
-9. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
-10. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
-11. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
+3. `templates/active-operating-brief.md`: the current private operating entry point.
+4. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
+5. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
+6. `templates/agent-recommendation.md`: the standard shape for agent outputs.
+7. `templates/decision-packet.md`: the standard shape for high-impact escalations.
+8. `governance/compliance-review.md`: the review gate before adoption or execution.
+9. `operations/daily-loop.md`: how approved strategy becomes daily directives.
+10. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
+11. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
+12. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
 
 ## Non-Scope
 

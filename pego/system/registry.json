@@ -159,6 +159,7 @@
   ],
   "templates": [
     "pego/templates/onboarding.md",
+    "pego/templates/active-operating-brief.md",
     "pego/templates/constitution.md",
     "pego/templates/current-state.md",
     "pego/templates/person-profile.md",
@@ -212,6 +213,7 @@
     "pego/operations/compliance-review-runner.md",
     "pego/operations/verification.md",
     "pego/templates/onboarding.md",
+    "pego/templates/active-operating-brief.md",
     "pego/templates/constitution.md",
     "pego/templates/current-state.md",
     "pego/templates/person-profile.md",

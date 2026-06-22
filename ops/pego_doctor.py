@@ -42,6 +42,7 @@ REQUIRED_FILES = [
     "pego/operations/directive-synthesis.md",
     "pego/operations/private-instance-workflow.md",
     "pego/templates/agent-recommendation.md",
+    "pego/templates/active-operating-brief.md",
     "pego/templates/directive-candidate.md",
     "pego/templates/decision-packet.md",
     "pego/templates/synthesized-day-plan.md",

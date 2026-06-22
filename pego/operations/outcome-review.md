@@ -72,6 +72,14 @@ The directive was intentionally canceled because it no longer fit the day or str
 
 Use `pego/templates/directive-outcome.md`.
 
+For local operation, the reference runner is:
+
+```sh
+python3 ops/outcomes/record_outcome.py --date YYYY-MM-DD --directive "Directive name" --completion completed
+```
+
+It writes ignored private outcome records and can append ignored session-log events.
+
 Outcome records should feed:
 
 - `pego/operations/daily-loop.md`

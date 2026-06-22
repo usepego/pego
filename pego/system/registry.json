@@ -129,6 +129,13 @@
       "privacy": "local-only"
     },
     {
+      "id": "record_directive_outcome",
+      "runner": "ops/outcomes/record_outcome.py",
+      "procedure": "pego/operations/outcome-review.md",
+      "writes_to": "private/outcomes/directives/; optionally private/directives/sessions/",
+      "privacy": "local-only"
+    },
+    {
       "id": "generate_daily_directive",
       "runner": "ops/directives/generate_daily_directive.py",
       "procedure": "pego/operations/directive-runner.md",
@@ -275,6 +282,8 @@
     "ops/private/bootstrap_private_instance.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
+    "ops/outcomes/record_outcome.py",
+    "ops/outcomes/test_record_outcome.py",
     "ops/directives/generate_daily_directive.py",
     "ops/directives/next_directive.py",
     "ops/directives/test_next_directive.py",

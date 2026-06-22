@@ -23,6 +23,7 @@ That requires more than one assistant. PEGO uses specialized agents with differe
 - Career evaluates work, leverage, skill growth, reputation, autonomy, and exit strategy.
 - Relationships protects spouse/partner time, household peace, social connection, and stakeholder impact.
 - Exploration preserves curiosity, learning, travel, craft, taste, and optionality.
+- Communications preserves voice, taste, public writing, positioning, and opportunity-oriented communication.
 - Happiness checks whether the system is serving the actual life objective rather than proxy goals.
 - Operations turns strategy into daily and weekly directives.
 - Governance enforces authority levels, privacy, evidence quality, reversibility, constraints, and dissent.

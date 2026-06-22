@@ -25,6 +25,8 @@ def populate_ready_instance(root: Path) -> None:
         "active-operating-brief.md",
         "constitution/constitution.md",
         "current-state/current-state.md",
+        "person/profile.md",
+        "person/voice-and-taste.md",
         "time/protected-time.md",
         "operator/operating-register.md",
     ]:
@@ -37,6 +39,10 @@ def populate_ready_instance(root: Path) -> None:
         "outcomes/directives",
         "governance/preflight",
         "governance/reviews",
+        "writing",
+        "writing/samples",
+        "writing/drafts",
+        "writing/briefs",
     ]:
         mkdir(root / relative)
 

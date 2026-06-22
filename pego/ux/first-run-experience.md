@@ -61,6 +61,7 @@ PEGO gathers facts about the current environment and resources:
 - Work and income context.
 - Health baseline.
 - Relationship and household constraints.
+- Voice, taste, and communication context.
 - Skills, assets, network, and obligations.
 - Available time and protected time.
 
@@ -114,9 +115,18 @@ PEGO should gather onboarding state in phases:
 | Environment | Capture home, household, events, annoyances, supplies | Operating register |
 | Strategy | Capture income, career, venture, skill, finance constraints | Goal-strategy inputs |
 | Health | Capture food, movement, sleep, medical boundaries | Health baseline |
+| Voice | Capture communication style, taste signals, influences, and public positioning constraints | Voice and taste model |
 | Authority | Capture grants, approvals, stop rules | Constitution authority section |
 
 Each phase should fit in one short session.
+
+The voice phase should avoid asking the user to describe their entire personality. Prefer targeted prompts that collect evidence:
+
+- Link or paste one private writing sample that feels like you.
+- Name one piece of writing, film, talk, software, object, or place that captures your taste.
+- What would make a public essay about PEGO sound embarrassing or wrong?
+- What kind of opportunity should public writing attract?
+- What should never be used publicly without review?
 
 ## Interaction Cadence
 

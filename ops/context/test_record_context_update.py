@@ -48,6 +48,44 @@ def main() -> None:
         if "Synthetic pattern should be remembered" not in destination.read_text():
             raise AssertionError(destination.read_text())
 
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        private_root = root / "private"
+        record_context_update.PRIVATE = private_root
+        output = private_root / "context" / "updates" / "voice.md"
+        destination = private_root / "person" / "voice-and-taste.md"
+        record_context_update.main_with_args(
+            [
+                "--date",
+                "2026-06-23",
+                "--title",
+                "Synthetic Voice Rule",
+                "--source",
+                "Conversation",
+                "--raw-observation",
+                "Synthetic voice preference.",
+                "--update-class",
+                "Voice rule",
+                "--evidence-strength",
+                "Direct statement",
+                "--stability",
+                "Provisional",
+                "--destination-file",
+                str(destination),
+                "--proposed-update",
+                "Synthetic voice rule should be remembered.",
+                "--action",
+                "Update destination",
+                "--output",
+                str(output),
+                "--apply",
+            ]
+        )
+        if "Voice rule" not in output.read_text():
+            raise AssertionError(output.read_text())
+        if "Synthetic voice rule should be remembered" not in destination.read_text():
+            raise AssertionError(destination.read_text())
+
     print("context update recorder smoke tests passed.")
 
 

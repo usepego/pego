@@ -22,6 +22,7 @@ FILES: dict[str, str] = {
     "constitution/constitution.md": "constitution.md",
     "current-state/current-state.md": "current-state.md",
     "person/profile.md": "person-profile.md",
+    "person/voice-and-taste.md": "voice-and-taste-model.md",
     "happiness/model.md": "happiness-model.md",
     "health/baseline.json": "health-baseline.json",
     "time/protected-time.md": "protected-time.md",
@@ -110,6 +111,22 @@ Local private health baseline, directives, and reviews.
     "telemetry/README.md": """# Telemetry
 
 Local private telemetry sources and summaries.
+""",
+    "writing/README.md": """# Writing
+
+Local private writing samples, drafts, public-writing briefs, and publication reviews.
+""",
+    "writing/samples/README.md": """# Writing Samples
+
+Local private writing samples PEGO may use to learn voice and style.
+""",
+    "writing/drafts/README.md": """# Drafts
+
+Local private writing drafts.
+""",
+    "writing/briefs/README.md": """# Writing Briefs
+
+Local private public-writing briefs.
 """,
     "operator/README.md": """# Operator
 

@@ -26,6 +26,7 @@ REQUIRED_FILES = [
     "pego/architecture/runtime-options.md",
     "pego/architecture/runtime-adapter-lifecycle.md",
     "pego/ux/first-run-experience.md",
+    "pego/ux/public-site-positioning.md",
     "pego/system/README.md",
     "pego/system/registry.json",
     "pego/agents/council-protocol.md",
@@ -37,6 +38,7 @@ REQUIRED_FILES = [
     "pego/agents/home-environment-agent.md",
     "pego/agents/relationships-agent.md",
     "pego/agents/exploration-agent.md",
+    "pego/agents/communications-agent.md",
     "pego/agents/happiness-agent.md",
     "pego/agents/operations-agent.md",
     "pego/governance/authority-levels.md",
@@ -80,6 +82,7 @@ REQUIRED_FILES = [
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
     "pego/schemas/health-check-in.schema.json",
+    "pego/schemas/voice-and-taste-model.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -101,6 +104,8 @@ REQUIRED_FILES = [
     "pego/templates/finance-check-in.md",
     "pego/templates/health-baseline.json",
     "pego/templates/health-check-in.md",
+    "pego/templates/voice-and-taste-model.md",
+    "pego/templates/public-writing-brief.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
@@ -170,6 +175,7 @@ SCHEMA_FILES = [
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
     "pego/schemas/health-check-in.schema.json",
+    "pego/schemas/voice-and-taste-model.schema.json",
 ]
 
 

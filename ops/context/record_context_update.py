@@ -34,6 +34,10 @@ UPDATE_CLASSES = {
     "Strategy",
     "Pattern",
     "Tone rule",
+    "Voice rule",
+    "Taste signal",
+    "Influence",
+    "Public positioning",
     "Governance rule",
 }
 EVIDENCE_STRENGTHS = {

@@ -29,6 +29,7 @@ Initial council members:
 - Operations Agent
 - Relationships Agent
 - Exploration Agent
+- Communications Agent
 - Happiness Agent
 - Governance Agent
 
@@ -41,6 +42,7 @@ See domain protocols:
 - `home-environment-agent.md`
 - `relationships-agent.md`
 - `exploration-agent.md`
+- `communications-agent.md`
 - `happiness-agent.md`
 - `operations-agent.md`
 

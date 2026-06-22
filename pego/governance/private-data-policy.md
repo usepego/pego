@@ -30,6 +30,7 @@ The private instance contains the human's real operating state:
 - Financial, health, work, relationship, household, and location context.
 - Directives, outcomes, session logs, reviews, and private strategy.
 - Private operating memory inferred from conversations and telemetry.
+- Writing samples, drafts, edit history, voice models, taste signals, influences, and public-positioning notes.
 - Account data, exports, statements, balances, holdings, and credentials.
 
 The private instance is not disposable. It needs durability, recovery, and backup, but ordinary framework publishing is not an acceptable backup mechanism.
@@ -66,7 +67,24 @@ Sanitized exports must remove:
 - Relationship and household context.
 - Employer, customer, and work details.
 - Locations, routines, and calendar details.
+- Raw writing samples, private drafts, taste notes, influence notes, and voice-model evidence unless explicitly approved for public use.
 - Secrets, credentials, tokens, and account identifiers.
+
+## Public Artifacts
+
+Public essays, posts, talks, websites, and announcements may be created from private source material, but the source material itself remains protected.
+
+Before publication, PEGO must distinguish:
+
+- Private source material.
+- Public-safe claims.
+- Claims requiring evidence.
+- Third-party or employer-sensitive context.
+- Voice and positioning constraints.
+- Opportunity goals.
+- Governance risks.
+
+Use `pego/templates/public-writing-brief.md` before public release of meaningful artifacts.
 
 ## Durability
 

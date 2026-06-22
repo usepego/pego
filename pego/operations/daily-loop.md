@@ -15,6 +15,7 @@ The daily loop converts PEGO's current understanding into a small set of executa
 - New concerns.
 - Anticipation scan for today and tomorrow.
 - Current operating register.
+- Voice, taste, and public artifact context when communication work could advance goals.
 
 ## Steps
 
@@ -22,17 +23,18 @@ The daily loop converts PEGO's current understanding into a small set of executa
 2. Check protected time and hard constraints.
 3. If health state could change food, movement, sleep, or recovery directives, generate a targeted health check-in using `pego/templates/health-check-in.md`.
 4. If finance state could change finance/admin, career, venture, spending, runway, or governance directives, generate a targeted finance check-in using `pego/templates/finance-check-in.md`.
-5. Normalize recommendations using `pego/templates/agent-recommendation.md`.
-6. If recommendations conflict, carry dissent, or involve cross-domain tradeoffs, synthesize a council decision using `pego/templates/council-decision.md`.
-7. Convert competing recommendations, adopted council decisions, revision requests, or targeted information requests into directive candidates using `pego/templates/directive-candidate.md`.
-8. Synthesize candidates using `pego/operations/directive-synthesis.md`.
-9. Select the minimum useful set of directives.
-10. Assign authority level and governance status.
-11. Produce the daily directive packet using `pego/templates/daily-directive.md`.
-12. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
-13. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
-14. Execute only approved low-risk actions.
-15. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
+5. If communication work could advance career, venture, network, reputation, or self-understanding goals, consult the private voice and taste model using `pego/templates/voice-and-taste-model.md`.
+6. Normalize recommendations using `pego/templates/agent-recommendation.md`.
+7. If recommendations conflict, carry dissent, or involve cross-domain tradeoffs, synthesize a council decision using `pego/templates/council-decision.md`.
+8. Convert competing recommendations, adopted council decisions, revision requests, or targeted information requests into directive candidates using `pego/templates/directive-candidate.md`.
+9. Synthesize candidates using `pego/operations/directive-synthesis.md`.
+10. Select the minimum useful set of directives.
+11. Assign authority level and governance status.
+12. Produce the daily directive packet using `pego/templates/daily-directive.md`.
+13. Produce or update the live directive queue using `pego/templates/directive-queue.md`.
+14. Use `pego/operations/intra-day-command-loop.md` when the human reports status or asks what is next.
+15. Execute only approved low-risk actions.
+16. Review outcomes at the end of the day using `pego/operations/outcome-review.md`.
 
 Before selecting directives, run a short anticipation scan using `pego/operations/anticipation-loop.md`.
 
@@ -75,6 +77,8 @@ If the next plausible directive is health-related and the current state is stale
 If the next plausible directive is finance-related and the current state is stale or ambiguous, PEGO should ask a targeted finance check-in question before selecting the directive. The question must be tied to a decision such as assumption refresh, scenario rerun, runway protection, upcoming spending, tax/admin lead time, account-data recency, or governance escalation. Do not ask for balances, holdings, or transaction details unless the protected private destination and decision use are clear.
 
 If agent recommendations disagree, require handoffs, or contain risk that changes authority, PEGO should produce a council decision before selecting the next directive. The council output should preserve dissent and either adopt, revise, request information, escalate, or block the proposed directive. A council decision is then converted into a directive candidate so the normal queue synthesis, prioritization, and preflight gates still apply.
+
+If the next plausible directive is writing or public-positioning related, PEGO should distinguish between private source collection, private drafting, public-safe revision, and publishing. Publishing requires governance review; collecting one private writing sample or drafting a private outline can be a normal low-risk directive.
 
 ## Governance
 

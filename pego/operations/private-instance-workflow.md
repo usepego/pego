@@ -19,6 +19,7 @@ Not tracked by Git:
 - Directives.
 - Journals.
 - Telemetry.
+- Writing samples, voice models, taste notes, drafts, and public-writing briefs.
 - Local source files.
 
 ## Local Instance Layer

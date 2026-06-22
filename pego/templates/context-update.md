@@ -18,7 +18,7 @@ Keep raw private content in private files only.
 
 ## Update Class
 
-Fact / Preference / Constraint / Goal / Strategy / Pattern / Tone rule / Governance rule.
+Fact / Preference / Constraint / Goal / Strategy / Pattern / Tone rule / Voice rule / Taste signal / Influence / Public positioning / Governance rule.
 
 ## Evidence Strength
 

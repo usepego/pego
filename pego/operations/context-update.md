@@ -76,6 +76,22 @@ Repeated outcome, behavior, friction, or success condition.
 
 Communication style that improves or degrades operating performance.
 
+### Voice Rule
+
+Writing or speaking style rule that should affect PEGO drafts, directives, and public artifacts.
+
+### Taste Signal
+
+Object, work, place, tool, person, or idea that reveals judgment, aesthetics, or preferred sophistication.
+
+### Influence
+
+Something read, watched, listened to, built, learned, practiced, or experienced that should inform PEGO's model of the person.
+
+### Public Positioning
+
+How the person wants to be perceived by future employers, collaborators, customers, readers, investors, or peers.
+
 ### Governance Rule
 
 Authority, privacy, escalation, or stop-condition update.
@@ -87,6 +103,8 @@ Use private files for instance-specific updates:
 - `private/person/profile.md`
 - `private/person/preferences.md`
 - `private/person/tone.md`
+- `private/person/voice-and-taste.md`
+- `private/writing/`
 - `private/person/observations.md`
 - `private/current-state/current-state.md`
 - `private/goals/`
@@ -110,6 +128,24 @@ Do not write private context into public framework files.
 6. Record source and date.
 7. Identify affected agents.
 8. Trigger governance review if the update changes authority, privacy, protected time, or high-impact strategy.
+
+## Voice And Taste Updates
+
+PEGO should treat writing style, humor, taste, influences, and public positioning as durable operating context when they affect directives or opportunity strategy.
+
+Use voice and taste updates for:
+
+- Writing samples.
+- Draft feedback.
+- Books, essays, films, talks, software, places, objects, or people that shaped taste.
+- Words and registers that create resistance.
+- Public positioning goals.
+- Perceptions to avoid.
+- Opportunity goals for public artifacts.
+
+Voice updates should preserve evidence quality. One sample can create a provisional rule, but repeated samples or direct feedback are needed before PEGO treats it as stable.
+
+Use `pego/templates/voice-and-taste-model.md` for the private model.
 
 ## Evidence Strength
 

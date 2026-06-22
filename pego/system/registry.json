@@ -82,6 +82,13 @@
       "purpose": "Turn curiosity, learning, travel, culture, and experiments into disciplined life optionality."
     },
     {
+      "id": "communications",
+      "name": "Communications Agent",
+      "protocol": "pego/agents/communications-agent.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Govern voice, taste, public writing, positioning, and opportunity-oriented communication."
+    },
+    {
       "id": "happiness",
       "name": "Happiness Agent",
       "protocol": "pego/agents/happiness-agent.md",
@@ -318,6 +325,8 @@
     "pego/templates/monthly-strategy-review.md",
     "pego/templates/finance-check-in.md",
     "pego/templates/health-check-in.md",
+    "pego/templates/voice-and-taste-model.md",
+    "pego/templates/public-writing-brief.md",
     "pego/templates/compliance-review.md"
   ],
   "schemas": [
@@ -340,7 +349,8 @@
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
-    "pego/schemas/health-check-in.schema.json"
+    "pego/schemas/health-check-in.schema.json",
+    "pego/schemas/voice-and-taste-model.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -354,6 +364,7 @@
     "pego/architecture/runtime-options.md",
     "pego/architecture/runtime-adapter-lifecycle.md",
     "pego/ux/first-run-experience.md",
+    "pego/ux/public-site-positioning.md",
     "pego/planning/doctrine.md",
     "pego/system/README.md",
     "pego/system/registry.json",
@@ -366,6 +377,7 @@
     "pego/agents/home-environment-agent.md",
     "pego/agents/relationships-agent.md",
     "pego/agents/exploration-agent.md",
+    "pego/agents/communications-agent.md",
     "pego/agents/happiness-agent.md",
     "pego/agents/operations-agent.md",
     "pego/finance/engine-contract.md",
@@ -415,6 +427,7 @@
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
+    "pego/schemas/voice-and-taste-model.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",
@@ -443,6 +456,8 @@
     "pego/templates/finance-check-in.md",
     "pego/templates/health-baseline.json",
     "pego/templates/health-check-in.md",
+    "pego/templates/voice-and-taste-model.md",
+    "pego/templates/public-writing-brief.md",
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",

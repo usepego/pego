@@ -8,6 +8,7 @@ Subcommands:
 - review: convert an outcome into a learning decision.
 - synthesize: convert directive candidates into an active queue.
 - learn: record a context update from an outcome, conversation, or observation.
+- finance-check-in: generate targeted finance questions for directive selection.
 - health-check-in: generate targeted health questions for directive selection.
 
 The runner delegates to local tools that write protected private artifacts and
@@ -17,6 +18,7 @@ print only safe status/paths.
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import sys
 from datetime import date
 from pathlib import Path
@@ -36,6 +38,20 @@ import record_context_update  # noqa: E402
 import record_outcome  # noqa: E402
 import review_outcome  # noqa: E402
 import synthesize_queue  # noqa: E402
+
+
+def load_finance_check_in():
+    path = ROOT / "ops" / "finance" / "generate_check_in.py"
+    spec = importlib.util.spec_from_file_location("finance_generate_check_in", path)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"unable to load finance check-in runner: {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+finance_generate_check_in = load_finance_check_in()
 
 
 def add_shared_date(parser: argparse.ArgumentParser) -> None:
@@ -148,6 +164,13 @@ def build_parser() -> argparse.ArgumentParser:
     health_parser.add_argument("--json-output", type=Path)
     health_parser.add_argument("--force", action="store_true")
 
+    finance_parser = subparsers.add_parser("finance-check-in")
+    add_shared_date(finance_parser)
+    finance_parser.add_argument("--input", type=Path)
+    finance_parser.add_argument("--output", type=Path)
+    finance_parser.add_argument("--json-output", type=Path)
+    finance_parser.add_argument("--force", action="store_true")
+
     return parser
 
 
@@ -182,6 +205,8 @@ def main_with_args(argv: list[str] | None = None) -> object:
         return record_context_update.main_with_args(delegated_args)
     if command == "health-check-in":
         return generate_check_in.main_with_args(delegated_args)
+    if command == "finance-check-in":
+        return finance_generate_check_in.main_with_args(delegated_args)
     raise SystemExit(f"unknown command: {command}")
 
 

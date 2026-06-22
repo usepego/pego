@@ -60,6 +60,12 @@ Use before selecting or revising a health directive when sleep, food availabilit
 
 Ask only the smallest question needed to decide. Do not turn the check-in into broad reflection, diagnosis, or a request for new biometric tracking without a decision reason.
 
+### Targeted Finance Check-In
+
+Use before selecting or revising a finance/admin, career, venture, spending, runway, or lifestyle directive when assumptions, account-data recency, upcoming decisions, or risk posture could change the directive.
+
+Ask only the smallest question needed to decide. Do not ask for balances, holdings, trades, transfers, or allocation instructions unless the protected private destination, authority level, and governance reason are clear.
+
 ### Escalation
 
 Use when a directive exceeds authority, affects protected stakeholders, risks privacy, or touches financial, career, medical, legal, tax, relationship, housing, or hard-to-reverse action.
@@ -147,6 +153,7 @@ Ask a question only when:
 - Location is unknown and it changes the selected directive.
 - Energy is unknown and the top candidate may be too demanding.
 - Health state is stale or ambiguous and would change food, movement, sleep, or recovery selection.
+- Finance state is stale or ambiguous and would change scenario, runway, spending, career, venture, or governance selection.
 - A governance constraint may be violated.
 - Protected time may be affected.
 

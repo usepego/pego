@@ -95,6 +95,46 @@ HEALTH_BASELINE = """{
 """
 
 
+FINANCE_SCENARIOS = """{
+  "artifact_type": "finance_scenario_input",
+  "schema_version": 1,
+  "version": 1,
+  "as_of": "2026-01-01",
+  "currency": "USD",
+  "current_position": {
+    "liquid_savings": 120000,
+    "total_model_savings": 500000
+  },
+  "global_assumptions": {
+    "current_age": 40,
+    "retirement_start_age": 60,
+    "age_to_live": 95,
+    "target_date": "2040-01-01",
+    "social_security_monthly_estimate": 2000,
+    "emergency_runway_months": 12
+  },
+  "scenarios": [
+    {
+      "name": "base",
+      "monthly_burn": 7000,
+      "nominal_return": 0.07,
+      "inflation": 0.03,
+      "monthly_savings": 4000,
+      "include_social_security": false
+    },
+    {
+      "name": "stress",
+      "monthly_burn": 9000,
+      "nominal_return": 0.03,
+      "inflation": 0.05,
+      "monthly_savings": 1000,
+      "include_social_security": false
+    }
+  ]
+}
+"""
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -109,10 +149,14 @@ def main() -> None:
         health_baseline = root / "health-baseline.json"
         health_check_in = root / "health-check-in.md"
         health_check_in_json = root / "health-check-in.json"
+        finance_scenarios = root / "finance-scenarios.json"
+        finance_check_in = root / "finance-check-in.md"
+        finance_check_in_json = root / "finance-check-in.json"
         queue.write_text(QUEUE)
         register.write_text(REGISTER)
         candidates.write_text(CANDIDATES)
         health_baseline.write_text(HEALTH_BASELINE)
+        finance_scenarios.write_text(FINANCE_SCENARIOS)
 
         daily_cycle.main_with_args(
             [
@@ -125,6 +169,20 @@ def main() -> None:
                 str(health_check_in),
                 "--json-output",
                 str(health_check_in_json),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                "finance-check-in",
+                "--date",
+                "2026-06-23",
+                "--input",
+                str(finance_scenarios),
+                "--output",
+                str(finance_check_in),
+                "--json-output",
+                str(finance_check_in_json),
                 "--force",
             ]
         )
@@ -228,6 +286,8 @@ def main() -> None:
             context,
             health_check_in,
             health_check_in_json,
+            finance_check_in,
+            finance_check_in_json,
         ):
             if not path.exists():
                 raise AssertionError(f"missing expected file: {path}")
@@ -235,6 +295,8 @@ def main() -> None:
             raise AssertionError(review.read_text())
         if "How did you sleep last night" not in health_check_in.read_text():
             raise AssertionError(health_check_in.read_text())
+        if "Has income, recurring burn, savings rate" not in finance_check_in.read_text():
+            raise AssertionError(finance_check_in.read_text())
 
     print("daily cycle smoke tests passed.")
 

@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/health-baseline.schema.json",
+  "title": "PEGO Health Baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "as_of",
+    "evidence_policy",
+    "goal",
+    "constraints",
+    "preferences",
+    "current_routine",
+    "availability",
+    "metrics"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "health_baseline"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "as_of": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tracking_level",
+        "burden_limit",
+        "medical_interpretation"
+      ],
+      "properties": {
+        "tracking_level": {
+          "enum": [
+            "minimal",
+            "periodic_metrics",
+            "continuous_telemetry"
+          ]
+        },
+        "burden_limit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "medical_interpretation": {
+          "enum": [
+            "agent_may_use_as_context_only",
+            "requires_clinician_review"
+          ]
+        }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_weight_kg",
+        "target_weight_kg",
+        "priority"
+      ],
+      "properties": {
+        "current_weight_kg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "target_weight_kg": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "priority": {
+          "type": "string"
+        }
+      }
+    },
+    "constraints": {
+      "$ref": "#/$defs/constraints"
+    },
+    "preferences": {
+      "$ref": "#/$defs/preferences"
+    },
+    "current_routine": {
+      "$ref": "#/$defs/current_routine"
+    },
+    "availability": {
+      "$ref": "#/$defs/availability"
+    },
+    "metrics": {
+      "$ref": "#/$defs/metrics"
+    }
+  },
+  "$defs": {
+    "availability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "morning_minutes",
+        "midday_minutes",
+        "evening_minutes",
+        "outside_ok"
+      ],
+      "properties": {
+        "morning_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "midday_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evening_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outside_ok": {
+          "type": "boolean"
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "medical_constraints",
+        "injuries",
+        "forbidden_directives",
+        "protected_time"
+      ],
+      "properties": {
+        "medical_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "injuries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_directives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protected_time": {
+          "type": "string"
+        }
+      }
+    },
+    "current_routine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "snacks",
+        "movement",
+        "sleep"
+      ],
+      "properties": {
+        "breakfast": {
+          "type": "string"
+        },
+        "lunch": {
+          "type": "string"
+        },
+        "dinner": {
+          "type": "string"
+        },
+        "snacks": {
+          "type": "string"
+        },
+        "movement": {
+          "type": "string"
+        },
+        "sleep": {
+          "type": "string"
+        }
+      }
+    },
+    "metric_value": {
+      "type": [
+        "number",
+        "string",
+        "boolean",
+        "null"
+      ]
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "body",
+        "vitals",
+        "glucose",
+        "lipids_metabolic",
+        "fitness",
+        "sleep_recovery",
+        "clinical_context"
+      ],
+      "properties": {
+        "body": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "vitals": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "glucose": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "lipids_metabolic": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "fitness": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "sleep_recovery": {
+          "$ref": "#/$defs/metric_group"
+        },
+        "clinical_context": {
+          "$ref": "#/$defs/metric_group"
+        }
+      }
+    },
+    "metric_group": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/metric_value"
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "food_defaults",
+        "food_aversions",
+        "sweet_triggers",
+        "movement_preferences",
+        "movement_aversions",
+        "available_equipment"
+      ],
+      "properties": {
+        "food_defaults": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "food_aversions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sweet_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_preferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "movement_aversions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "available_equipment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

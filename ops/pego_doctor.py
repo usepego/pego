@@ -75,6 +75,7 @@ REQUIRED_FILES = [
     "pego/schemas/private-instance-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
+    "pego/schemas/health-baseline.schema.json",
     "pego/templates/agent-recommendation.md",
     "pego/templates/active-operating-brief.md",
     "pego/templates/first-run-intake.md",
@@ -149,6 +150,7 @@ SCHEMA_FILES = [
     "pego/schemas/private-instance-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
+    "pego/schemas/health-baseline.schema.json",
 ]
 
 

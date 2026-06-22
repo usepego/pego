@@ -11,8 +11,14 @@ import generate_candidates
 
 
 BASELINE = {
-    "version": 1,
+    "artifact_type": "health_baseline",
+    "schema_version": 1,
     "as_of": "2026-06-23",
+    "evidence_policy": {
+        "tracking_level": "periodic_metrics",
+        "burden_limit": "Use periodic metrics without daily tracking burden.",
+        "medical_interpretation": "agent_may_use_as_context_only",
+    },
     "goal": {
         "current_weight_kg": 88,
         "target_weight_kg": 80,
@@ -46,6 +52,15 @@ BASELINE = {
         "evening_minutes": 5,
         "outside_ok": True,
     },
+    "metrics": {
+        "body": {},
+        "vitals": {},
+        "glucose": {"a1c_percent": "provided privately"},
+        "lipids_metabolic": {},
+        "fitness": {},
+        "sleep_recovery": {},
+        "clinical_context": {},
+    },
 }
 
 
@@ -75,6 +90,8 @@ def main() -> None:
         assert_contains(text, "Breakfast Anchor")
         assert_contains(text, "Walk Outside")
         assert_contains(text, "Sweet Trigger Control")
+        assert_contains(text, "Optional health metrics available: glucose")
+        assert_contains(text, "use as context only")
         assert_contains(text, "Level 1")
         assert_contains(text, "Do not treat candidates as medical advice")
 

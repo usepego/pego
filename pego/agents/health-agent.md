@@ -28,6 +28,7 @@ The Health Agent should:
 - Exercise preferences and aversions.
 - Sleep baseline.
 - Medical constraints.
+- Optional biomarkers and health metrics if provided.
 - Current routines.
 - Available time and equipment.
 
@@ -98,7 +99,13 @@ Avoid:
 The Health Agent may use:
 
 - Weight trend.
+- Waist or body-composition trend if available.
+- Blood pressure if available.
+- Resting heart rate if available.
+- A1C or blood-sugar metrics if available.
+- Lipids and metabolic labs if available.
 - Sleep reports.
+- Wearable sleep, heart-rate, HRV, activity, or CGM summaries if the person has opted in.
 - Energy reports.
 - Hunger and craving reports.
 - Food logs if useful.
@@ -106,6 +113,14 @@ The Health Agent may use:
 - Medical labs or clinician advice if provided.
 
 Do not turn health into an excessive quantified-self project unless it clearly improves outcomes.
+
+Health evidence should be tiered:
+
+- Minimal reported state by default.
+- Periodic metrics when available.
+- Continuous telemetry only when explicitly useful and acceptable to the person.
+
+The agent may use biomarkers as context for conservatism, escalation, and strategy review. It must not diagnose, set clinical targets, or recommend clinical interventions without appropriate review.
 
 ## Working Contract
 

@@ -47,6 +47,19 @@ def has_medical_escalation(baseline: dict) -> bool:
     return bool(constraints.get("medical_constraints") or constraints.get("injuries"))
 
 
+def metric_groups_with_values(baseline: dict) -> list[str]:
+    groups = baseline.get("metrics", {})
+    if not isinstance(groups, dict):
+        return []
+    present: list[str] = []
+    for name, values in groups.items():
+        if not isinstance(values, dict):
+            continue
+        if any(value not in ("", None, [], {}) for value in values.values()):
+            present.append(str(name))
+    return present
+
+
 def breakfast_candidate(baseline: dict) -> Candidate:
     defaults = baseline.get("preferences", {}).get("food_defaults", [])
     default_text = list_text(defaults)
@@ -132,6 +145,9 @@ def build_candidates(baseline: dict) -> tuple[list[Candidate], list[str]]:
     escalations: list[str] = []
     if has_medical_escalation(baseline):
         escalations.append("Medical constraints or injuries are present; keep candidates Level 1 and avoid intensity increases without review.")
+    metric_groups = metric_groups_with_values(baseline)
+    if metric_groups:
+        escalations.append("Health metrics present: use as context only unless clinician guidance exists. Groups: " + ", ".join(metric_groups) + ".")
     forbidden = baseline.get("constraints", {}).get("forbidden_directives", [])
     for forbidden_item in forbidden:
         escalations.append(f"Forbidden directive constraint recorded: {forbidden_item}")
@@ -140,6 +156,10 @@ def build_candidates(baseline: dict) -> tuple[list[Candidate], list[str]]:
 
 def build_markdown(baseline: dict, output_date: str) -> str:
     candidates, escalations = build_candidates(baseline)
+    metric_groups = metric_groups_with_values(baseline)
+    evidence_summary = "Minimal reported baseline only."
+    if metric_groups:
+        evidence_summary = "Optional health metrics available: " + ", ".join(metric_groups) + "."
     rows = [
         f"| {candidate.name} | Health | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | Level 1 | Draft | {candidate.benefit} | {candidate.deferral} | None |"
         for candidate in candidates
@@ -158,6 +178,10 @@ def build_markdown(baseline: dict, output_date: str) -> str:
             "## Source",
             "",
             "private/health/baseline.json",
+            "",
+            "## Evidence Inputs",
+            "",
+            evidence_summary,
             "",
             "## Candidate Table",
             "",

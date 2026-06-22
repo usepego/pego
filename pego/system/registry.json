@@ -304,7 +304,8 @@
     "pego/schemas/finance-scenario-output.schema.json",
     "pego/schemas/private-instance-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
-    "pego/schemas/monthly-strategy-review.schema.json"
+    "pego/schemas/monthly-strategy-review.schema.json",
+    "pego/schemas/health-baseline.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -376,6 +377,7 @@
     "pego/schemas/private-instance-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
+    "pego/schemas/health-baseline.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",

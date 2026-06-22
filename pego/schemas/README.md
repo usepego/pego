@@ -23,6 +23,9 @@ or local script should all be able to produce and consume these contracts.
   produced by finance engines.
 - `private-instance-readiness.schema.json`: safe readiness status for a
   protected private PEGO instance.
+- `goal-strategy.schema.json`: structured strategy for a long-range goal.
+- `monthly-strategy-review.schema.json`: structured review of goals,
+  assumptions, agent assessments, and next-month priorities.
 
 ## Rules
 

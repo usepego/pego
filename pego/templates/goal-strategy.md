@@ -2,6 +2,12 @@
 
 Use this template for each major long-range goal.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/goal-strategy.schema.json
+```
+
 ## Outcome
 
 What result should exist years from now?

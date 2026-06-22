@@ -31,6 +31,12 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 10. Propose amendments only if the constitution no longer fits reality.
 11. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
 
+Structured runtimes should preserve monthly strategy reviews using:
+
+```text
+pego/schemas/monthly-strategy-review.schema.json
+```
+
 ## Monthly Strategy Questions
 
 - Is PEGO moving current conditions toward the stated desired outcomes?

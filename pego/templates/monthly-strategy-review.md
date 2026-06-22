@@ -1,5 +1,11 @@
 # Monthly Strategy Review Template
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/monthly-strategy-review.schema.json
+```
+
 ## Month
 
 Month and year.

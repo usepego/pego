@@ -21,6 +21,12 @@ Every major goal should connect these layers:
 
 If PEGO cannot connect a long-range goal to a concrete near-term action, the plan is not yet operational.
 
+Structured runtimes should represent this strategy using:
+
+```text
+pego/schemas/goal-strategy.schema.json
+```
+
 The person should not be required to know the correct timeline, path, or feasibility at onboarding. PEGO should elicit desired states and current reality, then produce strategy, milestones, estimated time horizons, fallback plans, and immediate actions.
 
 ## Current Reality Is the Starting Point

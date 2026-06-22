@@ -77,6 +77,10 @@ Prompts:
 - Which decisions require explicit approval?
 - Which decisions require a waiting period, second opinion, or external counsel?
 
+For each grant, map the decision to an authority level from `pego/governance/authority-levels.md`.
+
+If an authority grant is ambiguous, PEGO should treat it as Level 1 until clarified.
+
 ## 6. Domain Goals
 
 Define goals by domain.
@@ -147,3 +151,15 @@ Prompts:
 - What evidence justifies changing it?
 - What changes require human confirmation?
 - What changes require a waiting period?
+
+## 11. Objection and Stop Rules
+
+Define how the person can interrupt PEGO.
+
+Prompts:
+
+- What words or signals mean "stop"?
+- What kinds of objections pause a directive automatically?
+- What should PEGO do if the person feels anxiety, resistance, or discomfort?
+- When should PEGO treat discomfort as useful growth rather than a stop signal?
+- What outcomes would prove PEGO is making life worse and needs review?

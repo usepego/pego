@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import tempfile
 from pathlib import Path
 
@@ -13,6 +14,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         output = root / "outcome.md"
+        json_output = root / "outcome.json"
         session = root / "session.md"
         record_outcome.main_with_args(
             [
@@ -30,6 +32,8 @@ def main() -> None:
                 "Synthetic report.",
                 "--output",
                 str(output),
+                "--json-output",
+                str(json_output),
                 "--append-session",
                 "--session-log",
                 str(session),
@@ -38,6 +42,13 @@ def main() -> None:
         text = output.read_text()
         if "Breakfast Anchor" not in text or "Completed" not in text:
             raise AssertionError(text)
+        structured = json.loads(json_output.read_text())
+        if structured["artifact_type"] != "directive_outcome":
+            raise AssertionError("expected directive_outcome artifact")
+        if structured["completion"] != "completed":
+            raise AssertionError("expected normalized completion")
+        if structured["evidence"] != ["human_report"]:
+            raise AssertionError("expected human_report evidence")
         session_text = session.read_text()
         if "Outcome recorded" not in session_text:
             raise AssertionError(session_text)

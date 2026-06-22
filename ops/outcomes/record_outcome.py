@@ -8,6 +8,7 @@ path by default because outcome content may contain private facts.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from datetime import date, datetime
 from pathlib import Path
@@ -32,6 +33,64 @@ def completion_label(value: str) -> str:
         "blocked": "Blocked",
         "canceled": "Canceled",
     }[value]
+
+
+def completion_key(value: str) -> str:
+    if value == "partial":
+        return "partially_completed"
+    return value
+
+
+def normalize_impact(value: str) -> str:
+    return value.strip().lower().replace("none", "none")
+
+
+def split_lines(value: str, fallback: str = "") -> list[str]:
+    text = value.strip() or fallback
+    return [line.strip("- ").strip() for line in text.splitlines() if line.strip()]
+
+
+def evidence_values(value: str) -> list[str]:
+    if not value.strip():
+        return ["human_report"]
+    normalized = value.lower()
+    evidence = []
+    if "telemetry" in normalized:
+        evidence.append("telemetry")
+    if "artifact" in normalized:
+        evidence.append("artifact_produced")
+    if "calendar" in normalized:
+        evidence.append("calendar_record")
+    if "financial model" in normalized:
+        evidence.append("financial_model_output")
+    if "observation" in normalized:
+        evidence.append("direct_observation")
+    if "report" in normalized or "human" in normalized:
+        evidence.append("human_report")
+    return evidence or ["other"]
+
+
+def build_json_outcome(args: argparse.Namespace) -> dict:
+    return {
+        "artifact_type": "directive_outcome",
+        "schema_version": 1,
+        "date": args.date,
+        "source_directive": args.source or "Not supplied.",
+        "directive_summary": args.directive,
+        "completion": completion_key(args.completion),
+        "what_happened": args.what_happened or "Not supplied.",
+        "evidence": evidence_values(args.evidence),
+        "friction": split_lines(args.friction),
+        "benefit": args.benefit or "",
+        "cost": args.cost or "",
+        "protected_time_impact": normalize_impact(args.protected_time_impact),
+        "stakeholder_impact": args.stakeholder_impact or "",
+        "environment_impact": args.environment_impact or "",
+        "follow_up_directive_candidates": split_lines(args.follow_up),
+        "agent_updates": split_lines(args.agent_updates, "Operations Agent should ingest this outcome."),
+        "governance_notes": args.governance_notes or "No governance issue recorded.",
+        "next_review": args.next_review or "Next daily or weekly review.",
+    }
 
 
 def build_outcome(args: argparse.Namespace) -> str:
@@ -160,6 +219,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--governance-notes", default="")
     parser.add_argument("--next-review", default="")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--json-output", type=Path)
     parser.add_argument("--append-session", action="store_true")
     parser.add_argument("--session-log", type=Path)
     parser.add_argument("--force", action="store_true")
@@ -181,6 +241,12 @@ def main_with_args(argv: list[str] | None = None) -> Path:
     output.write_text(build_outcome(args))
 
     print(f"wrote: {output}")
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        if args.json_output.exists() and not args.force:
+            raise SystemExit(f"refusing to overwrite existing file: {args.json_output}")
+        args.json_output.write_text(json.dumps(build_json_outcome(args), indent=2) + "\n")
+        print(f"wrote: {args.json_output}")
     if args.append_session:
         session_path = append_session_event(args, output)
         print(f"updated: {session_path}")

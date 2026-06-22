@@ -59,6 +59,7 @@ REQUIRED_FILES = [
     "pego/templates/directive-outcome.md",
     "pego/templates/context-update.md",
     "pego/templates/anticipation-scan.md",
+    "pego/templates/operating-register.md",
     "pego/templates/decision-packet.md",
     "pego/templates/synthesized-day-plan.md",
     "pego/templates/weekly-operating-plan.md",

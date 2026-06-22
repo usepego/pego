@@ -14,6 +14,7 @@ The daily loop converts PEGO's current understanding into a small set of executa
 - Recent outcomes.
 - New concerns.
 - Anticipation scan for today and tomorrow.
+- Current operating register.
 
 ## Steps
 
@@ -33,6 +34,8 @@ The daily loop converts PEGO's current understanding into a small set of executa
 Before selecting directives, run a short anticipation scan using `pego/operations/anticipation-loop.md`.
 
 The daily scan should look for immediate friction: missing food defaults, schedule conflicts, visible environmental irritants, weather-dependent maintenance, upcoming event prep, or tomorrow's first blocker.
+
+If the scan identifies a future condition that should not be scheduled today, add or update an operating-register entry instead of expanding the daily plan.
 
 ## Directive Limits
 

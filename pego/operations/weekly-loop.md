@@ -16,6 +16,7 @@ It is the main cadence for course correction. The daily loop decides what to do 
 - Calendar or availability.
 - New human concerns or objections.
 - Anticipation scans for the next 7-14 days.
+- Current operating register.
 
 ## Steps
 
@@ -55,6 +56,7 @@ The weekly plan should create focus, not a backlog.
 - Which goal assumptions changed?
 - Which agent needs better information?
 - Which upcoming event, maintenance issue, supply gap, or deadline needs lead time?
+- Which register entries should become directive candidates this week?
 - What should be simplified this week?
 
 ## Governance

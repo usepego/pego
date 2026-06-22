@@ -15,6 +15,7 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 - New human concerns or objections.
 - Significant life changes.
 - Anticipation scans for the next 30-90 days.
+- Current operating register.
 
 ## Steps
 
@@ -42,6 +43,7 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 - Did PEGO underuse current resources?
 - Did PEGO avoid a needed decision?
 - Did PEGO anticipate events, seasonal needs, prep work, and recurring annoyances early enough?
+- Which register entries reveal a strategy, goal, or constitution change?
 - Which strategy should change next month?
 
 ## Agent Review

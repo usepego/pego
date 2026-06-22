@@ -39,6 +39,10 @@ Current monthly strategy review or strategy priorities.
 
 Current candidate list.
 
+### Operating Register
+
+Current register for upcoming events, recurring annoyances, supply gaps, prep needs, home watchlist, strategic dependencies, and concrete concerns.
+
 ### Domain Files
 
 Active files by domain.

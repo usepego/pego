@@ -16,6 +16,7 @@ The anticipation loop should determine:
 
 ## Inputs
 
+- Operating register.
 - Calendar or known upcoming events.
 - Active goals and strategy.
 - Current state.
@@ -33,6 +34,8 @@ Use anticipation at several horizons:
 - Weekly: inspect the next 7-14 days for events, errands, home maintenance, purchases, reservations, wardrobe, documents, and project dependencies.
 - Monthly: inspect the next 30-90 days for larger goals, seasonal home work, travel, social obligations, financial decisions, health appointments, and venture milestones.
 - Event-driven: run the loop when a new trip, dinner, meeting, household issue, deadline, purchase, or concern appears.
+
+Use `pego/templates/operating-register.md` as the durable inventory of upcoming events, recurring annoyances, supply gaps, wardrobe or presentation prep, home watchlist items, strategic dependencies, and concrete fears or concerns.
 
 ## Targeted Questions
 
@@ -90,12 +93,17 @@ The output should produce one of:
 - A supply or purchase candidate.
 - A governance escalation.
 - A context update.
+- An operating-register update.
 
 ## Synthesis Rule
 
 Anticipation does not add unlimited tasks. It creates candidates for directive synthesis.
 
 The Operations Agent must compare anticipated work against daily capacity, protected time, current strategy, and competing directives. Low-effort prevention can be scheduled early; larger actions should become weekly priorities or decision packets.
+
+## Register Update Rule
+
+If the scan discovers a future condition that will matter again, update the operating register. If it discovers a stable preference, constraint, goal, pattern, or governance rule, run the context update process instead.
 
 ## Stop Conditions
 

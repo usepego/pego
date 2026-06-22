@@ -38,6 +38,7 @@ Start here:
 18. `operations/outcome-review.md`: how execution results become evidence for the next directive.
 19. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
 20. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+21. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

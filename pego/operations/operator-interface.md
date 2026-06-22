@@ -16,6 +16,8 @@ Use when the human asks:
 
 Return the current operating frame, protected constraints, active queue, and first directive.
 
+If relevant, include one register item that needs lead-time attention. Do not include the full register unless requested.
+
 ### Next Directive
 
 Use when the human asks:
@@ -26,6 +28,8 @@ Use when the human asks:
 - `Blocked.`
 
 Read the active operating brief, directive queue, and session log. Return one next directive using `pego/templates/command-response.md`.
+
+If no active directive is clearly superior, inspect the operating register for a small preventive directive that fits the available time, location, and energy.
 
 ### Resynthesize
 
@@ -62,8 +66,9 @@ For active private operation, read in this order:
 2. Current directive queue.
 3. Intra-day session log.
 4. Current daily directive or synthesized day plan.
-5. Relevant domain files.
-6. Governance review, if the action is constrained or high-impact.
+5. Operating register.
+6. Relevant domain files.
+7. Governance review, if the action is constrained or high-impact.
 
 If a file is missing, proceed from available state and note the missing file.
 

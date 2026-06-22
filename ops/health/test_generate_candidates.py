@@ -74,6 +74,7 @@ def main() -> None:
         root = Path(directory)
         input_path = root / "baseline.json"
         output_path = root / "health-candidates.md"
+        json_output = root / "health-candidates.json"
         input_path.write_text(json.dumps(BASELINE))
         generate_candidates.main_with_args(
             [
@@ -83,6 +84,8 @@ def main() -> None:
                 str(input_path),
                 "--output",
                 str(output_path),
+                "--json-output",
+                str(json_output),
                 "--force",
             ]
         )
@@ -94,6 +97,18 @@ def main() -> None:
         assert_contains(text, "use as context only")
         assert_contains(text, "Level 1")
         assert_contains(text, "Do not treat candidates as medical advice")
+
+        structured = json.loads(json_output.read_text())
+        if structured[0]["artifact_type"] != "directive_candidate":
+            raise AssertionError("expected directive candidate artifact")
+        if structured[0]["candidate"] != "Breakfast Anchor":
+            raise AssertionError("expected Breakfast Anchor as first structured candidate")
+        if structured[0]["domain"] != "health":
+            raise AssertionError("expected health domain")
+        if structured[0]["authority_level"] != "level_1_recommend":
+            raise AssertionError("expected Level 1 authority")
+        if not any(candidate["candidate"] == "Walk Outside" for candidate in structured):
+            raise AssertionError("expected Walk Outside structured candidate")
 
     print("health candidate smoke tests passed.")
 

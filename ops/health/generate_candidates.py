@@ -140,6 +140,32 @@ def sleep_candidate(baseline: dict) -> Candidate:
     )
 
 
+def normalize_energy(value: str) -> str:
+    normalized = value.strip().lower()
+    if "high" in normalized:
+        return "high"
+    if "medium" in normalized:
+        return "medium"
+    return "low"
+
+
+def normalize_location(value: str) -> str:
+    normalized = value.strip().lower()
+    if "outside" in normalized:
+        return "outside"
+    if "computer" in normalized:
+        return "computer"
+    if "phone" in normalized:
+        return "phone"
+    if "office" in normalized:
+        return "office"
+    if "errand" in normalized:
+        return "errand"
+    if "home" in normalized:
+        return "home"
+    return "other"
+
+
 def build_candidates(baseline: dict) -> tuple[list[Candidate], list[str]]:
     candidates = [breakfast_candidate(baseline), movement_candidate(baseline), sweets_candidate(baseline), sleep_candidate(baseline)]
     escalations: list[str] = []
@@ -152,6 +178,33 @@ def build_candidates(baseline: dict) -> tuple[list[Candidate], list[str]]:
     for forbidden_item in forbidden:
         escalations.append(f"Forbidden directive constraint recorded: {forbidden_item}")
     return candidates, escalations
+
+
+def build_json_candidates(baseline: dict) -> list[dict]:
+    candidates, _ = build_candidates(baseline)
+    return [
+        {
+            "artifact_type": "directive_candidate",
+            "schema_version": 1,
+            "candidate": candidate.name,
+            "domain": "health",
+            "altitude": "directive",
+            "proposed_action": candidate.name,
+            "duration": candidate.duration,
+            "timing": candidate.deadline,
+            "energy_required": normalize_energy(candidate.energy),
+            "location_required": normalize_location(candidate.location),
+            "dependencies": [candidate.dependencies],
+            "expected_benefit": candidate.benefit,
+            "consequence_of_deferral": candidate.deferral,
+            "protected_time_impact": "none",
+            "authority_level": "level_1_recommend",
+            "governance_status": "draft",
+            "conflicts": [],
+            "stop_condition": candidate.stop,
+        }
+        for candidate in candidates
+    ]
 
 
 def build_markdown(baseline: dict, output_date: str) -> str:
@@ -214,6 +267,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
 
@@ -229,6 +283,12 @@ def main_with_args(argv: list[str] | None = None) -> Path:
         raise SystemExit(f"refusing to overwrite existing file: {args.output}")
     args.output.write_text(build_markdown(baseline, args.date))
     print(f"wrote: {args.output}")
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        if args.json_output.exists() and not args.force:
+            raise SystemExit(f"refusing to overwrite existing file: {args.json_output}")
+        args.json_output.write_text(json.dumps(build_json_candidates(baseline), indent=2) + "\n")
+        print(f"wrote: {args.json_output}")
     return args.output
 
 

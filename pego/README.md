@@ -31,8 +31,9 @@ Start here:
 11. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
 12. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
 13. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
-14. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-15. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+14. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
+15. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+16. `operations/outcome-review.md`: how execution results become evidence for the next directive.
 
 ## Non-Scope
 

@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "name": "PEGO",
+  "full_name": "Personal Executive Governance OS",
+  "description": "A privacy-preserving framework for agent-governed personal strategy, directives, and compliance review.",
+  "privacy": {
+    "tracked_private_files": [
+      "private/README.md"
+    ],
+    "private_instance_root": "private/",
+    "local_only_roots": [
+      "private/",
+      "private/_local/"
+    ],
+    "rule": "Tracked framework files must not contain private subject facts, financial details, health details, relationship context, or local directive outputs."
+  },
+  "agents": [
+    {
+      "id": "council",
+      "name": "Council Protocol",
+      "protocol": "pego/agents/council-protocol.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Coordinate multi-agent deliberation and dissent."
+    },
+    {
+      "id": "governance",
+      "name": "Governance Agent",
+      "protocol": "pego/agents/governance-agent.md",
+      "default_authority": "Level 4: Escalate",
+      "purpose": "Evaluate authority, privacy, risk, reversibility, and constitutional fit."
+    },
+    {
+      "id": "finance",
+      "name": "Finance Agent",
+      "protocol": "pego/agents/finance-agent.md",
+      "model_spec": "pego/finance/model-spec.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Model financial freedom paths, capital allocation proposals, runway, and tradeoffs."
+    },
+    {
+      "id": "health",
+      "name": "Health Agent",
+      "protocol": "pego/agents/health-agent.md",
+      "model_spec": "pego/health/model-spec.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Translate health goals into safe, low-friction food, movement, sleep, and recovery directives."
+    },
+    {
+      "id": "career",
+      "name": "Career Agent",
+      "protocol": "pego/agents/career-agent.md",
+      "model_spec": "pego/career/model-spec.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Evaluate work, venture, skill, network, and income strategies."
+    },
+    {
+      "id": "happiness",
+      "name": "Happiness Agent",
+      "protocol": "pego/agents/happiness-agent.md",
+      "model_spec": "pego/happiness/model-spec.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Protect the actual objective function: happiness, meaning, relationships, energy, and desired lived experience."
+    },
+    {
+      "id": "operations",
+      "name": "Operations Agent",
+      "protocol": "pego/agents/operations-agent.md",
+      "default_authority": "Level 1: Recommend",
+      "purpose": "Convert reviewed strategy into executable daily, weekly, and monthly operating plans."
+    }
+  ],
+  "governance": {
+    "constitution_template": "pego/templates/constitution.md",
+    "authority_levels": "pego/governance/authority-levels.md",
+    "compliance_review": "pego/governance/compliance-review.md",
+    "repository_access_policy": "pego/governance/repository-access-policy.md",
+    "required_review_for": [
+      "financial execution",
+      "medical or health-risking changes",
+      "legal commitments",
+      "career-impacting decisions",
+      "relationship-impacting decisions",
+      "privacy-impacting disclosure",
+      "irreversible or hard-to-reverse actions"
+    ]
+  },
+  "operations": [
+    {
+      "id": "bootstrap_private_instance",
+      "runner": "ops/private/bootstrap_private_instance.py",
+      "procedure": "pego/operations/private-instance-workflow.md",
+      "writes_to": "private/",
+      "privacy": "local-only"
+    },
+    {
+      "id": "generate_daily_directive",
+      "runner": "ops/directives/generate_daily_directive.py",
+      "procedure": "pego/operations/directive-runner.md",
+      "writes_to": "private/directives/daily/",
+      "privacy": "local-only"
+    },
+    {
+      "id": "generate_compliance_review",
+      "runner": "ops/governance/generate_compliance_review.py",
+      "procedure": "pego/operations/compliance-review-runner.md",
+      "writes_to": "private/governance/reviews/",
+      "privacy": "local-only"
+    },
+    {
+      "id": "run_finance_scenarios",
+      "runner": "ops/finance/run_scenarios.py",
+      "procedure": "ops/finance/README.md",
+      "writes_to": "private/_local/finance/scenario-output.json",
+      "privacy": "local-only"
+    },
+    {
+      "id": "pego_doctor",
+      "runner": "ops/pego_doctor.py",
+      "procedure": "pego/operations/verification.md",
+      "writes_to": null,
+      "privacy": "safe"
+    }
+  ],
+  "templates": [
+    "pego/templates/onboarding.md",
+    "pego/templates/constitution.md",
+    "pego/templates/current-state.md",
+    "pego/templates/person-profile.md",
+    "pego/templates/happiness-model.md",
+    "pego/templates/protected-time.md",
+    "pego/templates/goal-strategy.md",
+    "pego/templates/daily-directive.md",
+    "pego/templates/compliance-review.md"
+  ],
+  "verify_paths": [
+    "README.md",
+    ".gitignore",
+    "private/README.md",
+    "pego/README.md",
+    "pego/principles.md",
+    "pego/planning/doctrine.md",
+    "pego/system/README.md",
+    "pego/system/registry.json",
+    "pego/agents/council-protocol.md",
+    "pego/agents/finance-agent.md",
+    "pego/agents/governance-agent.md",
+    "pego/agents/health-agent.md",
+    "pego/agents/career-agent.md",
+    "pego/agents/happiness-agent.md",
+    "pego/agents/operations-agent.md",
+    "pego/finance/model-spec.md",
+    "pego/finance/account-integration-policy.md",
+    "pego/health/model-spec.md",
+    "pego/career/model-spec.md",
+    "pego/happiness/model-spec.md",
+    "pego/governance/authority-levels.md",
+    "pego/governance/compliance-review.md",
+    "pego/governance/repository-access-policy.md",
+    "pego/operations/daily-loop.md",
+    "pego/operations/private-instance-workflow.md",
+    "pego/operations/directive-runner.md",
+    "pego/operations/compliance-review-runner.md",
+    "pego/operations/verification.md",
+    "pego/templates/onboarding.md",
+    "pego/templates/constitution.md",
+    "pego/templates/current-state.md",
+    "pego/templates/person-profile.md",
+    "pego/templates/happiness-model.md",
+    "pego/templates/protected-time.md",
+    "pego/templates/goal-strategy.md",
+    "pego/templates/daily-directive.md",
+    "pego/templates/compliance-review.md",
+    "ops/private/bootstrap_private_instance.py",
+    "ops/directives/generate_daily_directive.py",
+    "ops/governance/generate_compliance_review.py",
+    "ops/finance/run_scenarios.py",
+    "ops/pego_doctor.py"
+  ]
+}

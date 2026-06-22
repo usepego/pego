@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import subprocess
@@ -18,6 +19,8 @@ REQUIRED_FILES = [
     ".gitignore",
     "private/README.md",
     "pego/principles.md",
+    "pego/system/README.md",
+    "pego/system/registry.json",
     "pego/agents/council-protocol.md",
     "pego/agents/finance-agent.md",
     "pego/agents/governance-agent.md",
@@ -37,6 +40,7 @@ REQUIRED_FILES = [
 ]
 
 LOCAL_MARKERS_FILE = ROOT / "private" / "_local" / "doctor-private-markers.txt"
+REGISTRY_FILE = ROOT / "pego" / "system" / "registry.json"
 
 
 def run_git(args: list[str]) -> str:
@@ -85,6 +89,33 @@ def check_private_ignored(errors: list[str]) -> None:
         )
         if completed.returncode != 0:
             errors.append(f"private path is not ignored: {relative}")
+
+
+def check_registry(errors: list[str]) -> None:
+    if not REGISTRY_FILE.exists():
+        errors.append("missing system registry: pego/system/registry.json")
+        return
+
+    try:
+        registry = json.loads(REGISTRY_FILE.read_text())
+    except json.JSONDecodeError as exc:
+        errors.append(f"system registry is invalid JSON: {exc}")
+        return
+
+    verify_paths = registry.get("verify_paths")
+    if not isinstance(verify_paths, list) or not verify_paths:
+        errors.append("system registry must define a non-empty verify_paths list")
+        return
+
+    for relative in verify_paths:
+        if not isinstance(relative, str):
+            errors.append("system registry verify_paths entries must be strings")
+            continue
+        if relative.startswith("private/") and relative != "private/README.md":
+            errors.append(f"system registry must not verify local-only private path: {relative}")
+            continue
+        if not (ROOT / relative).is_file():
+            errors.append(f"system registry references missing file: {relative}")
 
 
 def check_tracked_content_markers(errors: list[str]) -> None:
@@ -144,6 +175,7 @@ def main() -> int:
     check_required_files(errors)
     check_private_tracking(errors)
     check_private_ignored(errors)
+    check_registry(errors)
     if not args.skip_markers:
         check_tracked_content_markers(errors)
     check_python_syntax(errors)

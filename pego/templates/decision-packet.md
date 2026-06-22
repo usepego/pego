@@ -4,6 +4,12 @@ Use this template for Level 4 escalations and any high-impact decision.
 
 Decision packets are not daily directives. They are structured governance artifacts for actions that could materially affect finances, health, career, relationships, privacy, legal status, location, household stability, or long-term optionality.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/decision-packet.schema.json
+```
+
 ## Decision
 
 What decision is being considered?

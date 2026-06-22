@@ -1,0 +1,435 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/decision-packet.schema.json",
+  "title": "PEGO Decision Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "decision",
+    "recommendation",
+    "authority_level",
+    "agents_consulted",
+    "constitutional_fit",
+    "goal_alignment",
+    "current_state_fit",
+    "scenarios",
+    "expected_benefit",
+    "costs_and_opportunity_costs",
+    "risks",
+    "reversibility",
+    "privacy_impact",
+    "stakeholder_impact",
+    "dissent",
+    "waiting_period",
+    "required_reviews",
+    "decision_conditions",
+    "stop_conditions",
+    "audit_record"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "decision_packet"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "decision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommendation": {
+      "enum": [
+        "approve",
+        "approve_with_constraints",
+        "delay",
+        "reject",
+        "request_more_information",
+        "escalate_to_outside_professional_review"
+      ]
+    },
+    "authority_level": {
+      "const": "level_4_escalate"
+    },
+    "agents_consulted": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/agent_position"
+      }
+    },
+    "constitutional_fit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal_alignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advances",
+        "may_harm"
+      ],
+      "properties": {
+        "advances": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "may_harm": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "current_state_fit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scenarios": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_case",
+        "conservative_case",
+        "upside_case",
+        "stress_case"
+      ],
+      "properties": {
+        "base_case": {
+          "$ref": "#/$defs/scenario"
+        },
+        "conservative_case": {
+          "$ref": "#/$defs/scenario"
+        },
+        "upside_case": {
+          "$ref": "#/$defs/scenario"
+        },
+        "stress_case": {
+          "$ref": "#/$defs/scenario"
+        }
+      }
+    },
+    "expected_benefit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "costs_and_opportunity_costs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk"
+      }
+    },
+    "reversibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "can_undo",
+        "cannot_undo",
+        "recovery_time_if_wrong"
+      ],
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/reversibility_classification"
+        },
+        "can_undo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cannot_undo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recovery_time_if_wrong": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "privacy_impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "private_information_used",
+        "third_party_disclosures",
+        "disclosure_approvals_required"
+      ],
+      "properties": {
+        "classification": {
+          "$ref": "#/$defs/privacy_impact_classification"
+        },
+        "private_information_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "third_party_disclosures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclosure_approvals_required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stakeholder_impact": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stakeholder_impact"
+      }
+    },
+    "dissent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "waiting_period": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "human_approval",
+          "governance_review",
+          "finance_review",
+          "medical_review",
+          "legal_review",
+          "tax_review",
+          "relationship_or_household_discussion",
+          "outside_professional_review"
+        ]
+      }
+    },
+    "decision_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "date",
+        "decision_owner",
+        "agents_involved",
+        "evidence_used",
+        "approval_status",
+        "next_review_date"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agents_involved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approval_status": {
+          "enum": [
+            "draft",
+            "pending_human_approval",
+            "approved",
+            "approved_with_constraints",
+            "delayed",
+            "rejected",
+            "escalated"
+          ]
+        },
+        "next_review_date": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "agent_position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent",
+        "position",
+        "confidence",
+        "rationale"
+      ],
+      "properties": {
+        "agent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "position": {
+          "enum": [
+            "support",
+            "support_with_constraints",
+            "delay",
+            "oppose",
+            "request_more_information",
+            "escalate"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "privacy_impact_classification": {
+      "enum": [
+        "private_only",
+        "safe_to_summarize",
+        "requires_explicit_disclosure_approval",
+        "blocked"
+      ]
+    },
+    "reversibility_classification": {
+      "enum": [
+        "easy_to_reverse",
+        "reversible_with_cost",
+        "hard_to_reverse",
+        "irreversible"
+      ]
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "severity",
+        "description",
+        "mitigation"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "financial",
+            "health",
+            "relationship",
+            "career",
+            "legal",
+            "tax",
+            "privacy",
+            "reputation",
+            "time",
+            "energy",
+            "psychological",
+            "opportunity_cost"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mitigation": {
+          "type": "string"
+        }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "key_assumptions",
+        "consequences"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key_assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consequences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stakeholder_impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stakeholder",
+        "impact",
+        "protection"
+      ],
+      "properties": {
+        "stakeholder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protection": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

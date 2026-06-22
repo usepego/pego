@@ -67,6 +67,8 @@ Use `pego/templates/agent-recommendation.md` as the default output shape for dom
 
 Use `pego/templates/decision-packet.md` for Level 4 escalations and high-impact decisions.
 
+Structured runtimes should preserve Level 4 escalation packets using `pego/schemas/decision-packet.schema.json`.
+
 Use `pego/templates/directive-candidate.md` when a recommendation needs to be compared, prioritized, or scheduled against other directives.
 
 ## Deliberation Order

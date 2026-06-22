@@ -42,6 +42,7 @@ Use for Level 4 escalations and high-impact actions.
 Required checks:
 
 - Full decision packet using `pego/templates/decision-packet.md`.
+- Structured runtimes should preserve formal review packets using `pego/schemas/decision-packet.schema.json`.
 - Scenario analysis.
 - Dissent from relevant agents.
 - Waiting period recommendation.

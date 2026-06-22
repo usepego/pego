@@ -13,6 +13,8 @@ or local script should all be able to produce and consume these contracts.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.
+- `decision-packet.schema.json`: formal escalation artifact for high-impact
+  Level 4 decisions.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
 - `runtime-adapter-manifest.schema.json`: capability declaration for a PEGO

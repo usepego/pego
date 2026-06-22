@@ -1,0 +1,17 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+.cache/
+*.log
+
+# Private local source files. These may be used by PEGO agents but must not be committed.
+private/_local/
+private/**
+!private/
+!private/README.md
+*.numbers
+*.numbers/

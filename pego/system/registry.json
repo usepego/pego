@@ -153,6 +153,8 @@
     "pego/templates/agent-recommendation.md",
     "pego/templates/decision-packet.md",
     "pego/templates/daily-directive.md",
+    "pego/templates/weekly-operating-plan.md",
+    "pego/templates/monthly-strategy-review.md",
     "pego/templates/compliance-review.md"
   ],
   "verify_paths": [
@@ -182,6 +184,8 @@
     "pego/governance/compliance-review.md",
     "pego/governance/repository-access-policy.md",
     "pego/operations/daily-loop.md",
+    "pego/operations/weekly-loop.md",
+    "pego/operations/monthly-loop.md",
     "pego/operations/private-instance-workflow.md",
     "pego/operations/directive-runner.md",
     "pego/operations/compliance-review-runner.md",
@@ -196,6 +200,8 @@
     "pego/templates/agent-recommendation.md",
     "pego/templates/decision-packet.md",
     "pego/templates/daily-directive.md",
+    "pego/templates/weekly-operating-plan.md",
+    "pego/templates/monthly-strategy-review.md",
     "pego/templates/compliance-review.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/directives/generate_daily_directive.py",

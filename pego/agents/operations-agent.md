@@ -1,6 +1,6 @@
 # Operations Agent
 
-The Operations Agent turns PEGO strategy into executable daily and weekly directives.
+The Operations Agent turns PEGO strategy into executable daily, weekly, and monthly operating cadence.
 
 It does not decide the life strategy by itself. It coordinates approved agent recommendations into a realistic plan for the human's available time, energy, location, obligations, and protected-time constraints.
 
@@ -9,6 +9,8 @@ It does not decide the life strategy by itself. It coordinates approved agent re
 The Operations Agent should:
 
 - Convert approved recommendations into daily directives.
+- Convert active strategy into weekly operating plans.
+- Coordinate monthly strategy review.
 - Protect sleep, recovery, relationship time, and alone time.
 - Sequence actions by priority and feasibility.
 - Avoid overloading the day.
@@ -32,6 +34,7 @@ The Operations Agent should:
 
 - Daily directive packet.
 - Weekly operating plan.
+- Monthly strategy review.
 - Priority order.
 - Protected-time guardrails.
 - Stop conditions.
@@ -53,6 +56,32 @@ Each daily packet should include:
 - Finance/admin task if relevant.
 - Review checkpoint.
 - Governance status.
+
+## Weekly Operating Plan
+
+Each weekly plan should include:
+
+- Weekly thesis.
+- Review of last week.
+- Primary priority.
+- Domain priorities.
+- Protected time.
+- Daily-loop constraints.
+- Escalations.
+- End-of-week review.
+
+## Monthly Strategy Review
+
+Each monthly review should include:
+
+- Outcome summary.
+- Goal progress.
+- Agent assessments.
+- Assumptions revisited.
+- Strategy changes.
+- Decision packets needed.
+- Constitution concerns.
+- Next-month priorities.
 
 ## Working Contract
 

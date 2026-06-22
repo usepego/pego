@@ -136,6 +136,13 @@
       "privacy": "local-only"
     },
     {
+      "id": "record_context_update",
+      "runner": "ops/context/record_context_update.py",
+      "procedure": "pego/operations/context-update.md",
+      "writes_to": "private/context/updates/; optionally private destination files",
+      "privacy": "local-only"
+    },
+    {
       "id": "generate_daily_directive",
       "runner": "ops/directives/generate_daily_directive.py",
       "procedure": "pego/operations/directive-runner.md",
@@ -282,6 +289,8 @@
     "ops/private/bootstrap_private_instance.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
+    "ops/context/record_context_update.py",
+    "ops/context/test_record_context_update.py",
     "ops/outcomes/record_outcome.py",
     "ops/outcomes/test_record_outcome.py",
     "ops/directives/generate_daily_directive.py",

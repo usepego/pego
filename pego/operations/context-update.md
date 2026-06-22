@@ -131,6 +131,14 @@ Speculation should not become durable profile memory without review.
 
 Use `pego/templates/context-update.md`.
 
+For local operation, the reference runner is:
+
+```sh
+python3 ops/context/record_context_update.py --source Outcome --raw-observation "What was learned" --update-class Pattern --evidence-strength "Directive outcome" --stability "Current but changeable" --proposed-update "What should change"
+```
+
+It writes ignored private context-update records. It updates destination files only when explicitly run with `--apply`.
+
 ## Stop Conditions
 
 Do not update durable memory if:

@@ -235,6 +235,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_home_candidates",
+      "runner": "ops/home/generate_candidates.py",
+      "procedure": "pego/agents/home-environment-agent.md",
+      "writes_to": "private/directives/candidates/home-candidates.md",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "pego_doctor",
       "runner": "ops/pego_doctor.py",
       "procedure": "pego/operations/verification.md",
@@ -381,6 +388,8 @@
     "ops/finance/test_review_scenarios.py",
     "ops/health/generate_candidates.py",
     "ops/health/test_generate_candidates.py",
+    "ops/home/generate_candidates.py",
+    "ops/home/test_generate_candidates.py",
     "ops/pego_registry.py",
     "ops/pego_doctor.py"
   ]

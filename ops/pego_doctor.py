@@ -102,6 +102,8 @@ REQUIRED_FILES = [
     "ops/finance/test_review_scenarios.py",
     "ops/health/generate_candidates.py",
     "ops/health/test_generate_candidates.py",
+    "ops/home/generate_candidates.py",
+    "ops/home/test_generate_candidates.py",
     "ops/pego_registry.py",
 ]
 

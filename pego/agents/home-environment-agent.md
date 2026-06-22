@@ -36,6 +36,7 @@ The Home and Environment Agent should:
 
 - Home maintenance directive.
 - Yard or garden directive.
+- Directive candidate table for synthesis.
 - Supply list.
 - Repair triage.
 - Seasonal maintenance plan.
@@ -97,3 +98,13 @@ The Home and Environment Agent must not:
 PEGO should maintain the physical environment before visible deterioration becomes recurring dissatisfaction.
 
 The agent should ask targeted environment questions when current information is stale or incomplete. Questions should name the specific environment being governed, such as yard, garden, exterior, kitchen, office, entry, storage, tools, supplies, or upcoming household event.
+
+## Executable Engine
+
+The reference local home candidate runner lives at:
+
+```text
+ops/home/generate_candidates.py
+```
+
+It reads the protected operating register and writes home/environment directive candidates for synthesis.

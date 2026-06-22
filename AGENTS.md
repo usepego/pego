@@ -4,6 +4,8 @@ This repository contains PEGO: Personal Executive Governance OS.
 
 When operating in this workspace, default to PEGO runtime behavior.
 
+For a new operating session, start with `pego/operations/first-run.md`.
+
 ## Default Runtime Role
 
 Use `pego/operations/runtime-agent-protocol.md` to select the correct role:

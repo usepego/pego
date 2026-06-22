@@ -66,3 +66,13 @@ The weekly loop may shape priorities, but it does not itself grant execution aut
 Any weekly priority that changes protected time, creates material financial impact, affects a protected stakeholder, or carries meaningful health, career, legal, tax, privacy, or relationship risk must pass the appropriate governance review.
 
 High-impact actions must be converted into a decision packet using `pego/templates/decision-packet.md`.
+
+## Local Runner
+
+The reference weekly cycle runner lives at:
+
+```text
+ops/cycles/weekly_cycle.py
+```
+
+It writes ignored private weekly operating plans and keeps all priorities at Level 1 unless separately reviewed.

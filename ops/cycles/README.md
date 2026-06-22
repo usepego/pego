@@ -23,3 +23,11 @@ Record a learning/context update:
 ```sh
 python3 ops/cycles/daily_cycle.py learn --date YYYY-MM-DD --source Outcome --raw-observation "What was learned" --update-class Pattern --evidence-strength "Directive outcome" --stability "Current but changeable" --proposed-update "What should change"
 ```
+
+## Weekly Cycle
+
+Generate a bounded weekly operating plan:
+
+```sh
+python3 ops/cycles/weekly_cycle.py --week YYYY-Www
+```

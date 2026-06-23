@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/memory-application-review.schema.json",
+  "title": "PEGO Memory Application Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_updates",
+    "eligible_count",
+    "deferred_count",
+    "applied_count",
+    "items",
+    "applied_destinations",
+    "apply_requested",
+    "governance_status"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "memory_application_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_updates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "eligible_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "deferred_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "applied_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/review_item"
+      }
+    },
+    "applied_destinations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "apply_requested": {
+      "type": "boolean"
+    },
+    "governance_status": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "review_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_update",
+        "title",
+        "update_class",
+        "evidence_strength",
+        "stability",
+        "action",
+        "destination",
+        "decision",
+        "reasons",
+        "affected_agents"
+      ],
+      "properties": {
+        "source_update": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "update_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_strength": {
+          "type": "string"
+        },
+        "stability": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "decision": {
+          "enum": [
+            "eligible",
+            "defer"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "affected_agents": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

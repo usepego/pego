@@ -36,6 +36,7 @@ REQUIRED_PATHS = {
     "session_reviews_dir": "reviews/sessions",
     "context_updates_dir": "context/updates",
     "context_promotions_dir": "context/promotions",
+    "context_application_reviews_dir": "context/application-reviews",
     "governance_preflight_dir": "governance/preflight",
     "governance_reviews_dir": "governance/reviews",
 }

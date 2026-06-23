@@ -185,6 +185,17 @@ This records protected context-update files from `private/reviews/sessions/`
 without applying them into durable profile, goal, health, finance, or strategy
 files. Durable application remains an explicit governance-sensitive step.
 
+To review protected context updates for durable application, use:
+
+```sh
+python3 pegoctl apply-context
+```
+
+This writes a protected memory-application review. It does not change durable
+private memory unless run with `--apply`; even then, only eligible updates are
+applied. Structured memory-application reviews must conform to
+`pego/schemas/memory-application-review.schema.json`.
+
 ## Stop Conditions
 
 Do not update durable memory if:

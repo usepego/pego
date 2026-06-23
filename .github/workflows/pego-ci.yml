@@ -60,6 +60,7 @@ jobs:
           python3 ops/operator/test_next_step.py
           python3 ops/operator/test_user_check_in.py
           python3 ops/context/test_promote_session_review.py
+          python3 ops/context/test_apply_context_updates.py
           python3 ops/context/test_record_context_update.py
           python3 ops/outcomes/test_record_outcome.py
           python3 ops/governance/test_directive_preflight.py

@@ -20,6 +20,8 @@ or local script should all be able to produce and consume these contracts.
 - `session-review.schema.json`: protected session-level learning review for
   completed directives, blockers, governance notes, and next-day synthesis
   inputs.
+- `memory-application-review.schema.json`: protected review deciding which
+  context updates are eligible, deferred, or applied to durable private memory.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.

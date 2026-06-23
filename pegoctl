@@ -44,6 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="promote session-review candidates into protected context updates",
     )
 
+    apply_context = subparsers.add_parser(
+        "apply-context",
+        help="review and optionally apply protected context updates to durable private memory",
+    )
+
     next_step = subparsers.add_parser("next", help="select one next directive and run preflight")
 
     check_in = subparsers.add_parser(
@@ -73,6 +78,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/operator/close_session.py", forwarded)
     if args.command == "promote-context":
         return run_script("ops/context/promote_session_review.py", forwarded)
+    if args.command == "apply-context":
+        return run_script("ops/context/apply_context_updates.py", forwarded)
     if args.command == "next":
         return run_script("ops/operator/next_step.py", forwarded)
     if args.command == "check-in":

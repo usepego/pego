@@ -110,6 +110,10 @@ Local private context update records.
 
 Local private summaries of promoted context-update candidates.
 """,
+    "context/application-reviews/README.md": """# Memory Application Reviews
+
+Local private reviews for applying context updates into durable memory.
+""",
     "finance/README.md": """# Finance
 
 Local private financial summaries, scenario assumptions, and outputs.

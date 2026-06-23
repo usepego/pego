@@ -41,6 +41,7 @@ def populate_ready_instance(root: Path) -> None:
         "reviews/sessions",
         "context/updates",
         "context/promotions",
+        "context/application-reviews",
         "governance/preflight",
         "governance/reviews",
         "writing",

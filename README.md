@@ -123,6 +123,7 @@ python3 pegoctl brief
 python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
 python3 pegoctl close-session
 python3 pegoctl promote-context
+python3 pegoctl apply-context
 ```
 
 `pegoctl` is only a local adapter around the checked-in operation scripts. It is

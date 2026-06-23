@@ -12,6 +12,8 @@
     "storage_mode",
     "backup_signal",
     "manual_backup_confirmed",
+    "persisted_backup_confirmation",
+    "confirmation_path",
     "git_tracking",
     "privacy",
     "recommended_next_action"
@@ -47,6 +49,12 @@
     },
     "manual_backup_confirmed": {
       "type": "boolean"
+    },
+    "persisted_backup_confirmation": {
+      "type": "boolean"
+    },
+    "confirmation_path": {
+      "type": "string"
     },
     "git_tracking": {
       "type": "object",

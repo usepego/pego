@@ -49,6 +49,31 @@ def main() -> None:
         if data["git_tracking"]["tracked_private_paths"] != ["private/README.md"]:
             raise AssertionError(data)
 
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory) / "private"
+        root.mkdir()
+        result = check_storage.main_with_args(
+            [
+                "--private-root",
+                str(root),
+                "--confirm-backup",
+                "--confirmed-at",
+                "2026-06-23",
+            ]
+        )
+        if result["decision"] != "backup_ready_manual":
+            raise AssertionError(result)
+        if not result["persisted_backup_confirmation"]:
+            raise AssertionError(result)
+        if str(root) in json.dumps(result):
+            raise AssertionError(result)
+
+        follow_up = check_storage.assess(root, False, False)
+        if follow_up["decision"] != "backup_ready_manual":
+            raise AssertionError(follow_up)
+        if not follow_up["persisted_backup_confirmation"]:
+            raise AssertionError(follow_up)
+
     print("private storage smoke tests passed.")
 
 

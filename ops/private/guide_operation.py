@@ -49,7 +49,7 @@ def choose_next_step(private_root: Path, readiness: dict, storage: dict) -> dict
     if storage["decision"] == "backup_not_confirmed":
         return {
             "label": "Confirm private storage backup",
-            "command": f"{prefix} storage --backup-confirmed",
+            "command": f"{prefix} storage --confirm-backup",
             "reason": "PEGO can see private storage, but backup coverage is not confirmed.",
         }
 

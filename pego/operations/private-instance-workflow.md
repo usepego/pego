@@ -83,6 +83,12 @@ If PEGO cannot detect a backup/sync signal, the user may confirm backup coverage
 explicitly, but that confirmation should be treated as infrastructure evidence,
 not as a substitute for durable backup.
 
+To persist that confirmation for future guide and readiness flows:
+
+```sh
+python3 pegoctl storage --confirm-backup
+```
+
 ## Operating Rule
 
 Agents may read and update local private files when operating on a private instance, but reusable framework files must not contain primary-subject details.

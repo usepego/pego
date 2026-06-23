@@ -33,6 +33,17 @@ def test_missing_private_root_recommends_bootstrap() -> None:
         assert str(private_root) not in json.dumps(result)
 
 
+def test_existing_private_root_recommends_persistent_backup_confirmation() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "external-private"
+        private_root.mkdir()
+        result = guide_operation.assess(private_root, backup_confirmed=False)
+
+        assert result["storage_decision"] == "backup_not_confirmed"
+        assert result["next_step"]["command"].endswith("storage --confirm-backup")
+        assert str(private_root) not in json.dumps(result)
+
+
 def test_ready_private_root_recommends_user_mode() -> None:
     with tempfile.TemporaryDirectory() as directory:
         private_root = Path(directory) / "external-private"
@@ -49,6 +60,7 @@ def test_ready_private_root_recommends_user_mode() -> None:
 
 def main() -> None:
     test_missing_private_root_recommends_bootstrap()
+    test_existing_private_root_recommends_persistent_backup_confirmation()
     test_ready_private_root_recommends_user_mode()
     print("guide operation tests passed")
 

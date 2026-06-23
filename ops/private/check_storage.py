@@ -8,6 +8,7 @@ import json
 import os
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 
 
@@ -25,6 +26,8 @@ BACKUP_MARKERS = [
     ("syncthing", "Syncthing"),
     ("proton_drive", "Proton Drive"),
 ]
+
+CONFIRMATION_RELATIVE_PATH = "governance/preflight/storage-confirmation.json"
 
 
 def is_relative_to(path: Path, parent: Path) -> bool:
@@ -54,6 +57,48 @@ def backup_signal(private_root: Path) -> str:
     return "unknown"
 
 
+def confirmation_path(private_root: Path) -> Path:
+    return private_root / CONFIRMATION_RELATIVE_PATH
+
+
+def persisted_backup_confirmed(private_root: Path) -> bool:
+    path = confirmation_path(private_root)
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return False
+    return (
+        data.get("artifact_type") == "private_storage_confirmation"
+        and data.get("backup_confirmed") is True
+    )
+
+
+def write_backup_confirmation(private_root: Path, confirmed_at: str) -> Path:
+    path = confirmation_path(private_root)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            {
+                "artifact_type": "private_storage_confirmation",
+                "schema_version": 1,
+                "backup_confirmed": True,
+                "confirmed_at": confirmed_at,
+                "private_root": display_private_root(private_root, reveal_path=False),
+                "privacy": {
+                    "prints_private_contents": False,
+                    "safe_to_commit": False,
+                    "absolute_path_revealed": False,
+                },
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+    return path
+
+
 def tracked_private_paths() -> list[str]:
     completed = subprocess.run(
         ["git", "ls-files", "private"],
@@ -75,18 +120,20 @@ def recommended_next_action(decision: str) -> str:
         return "Proceed with private readiness checks before USER-mode operation."
     if decision == "missing_private_root":
         return "Bootstrap the private instance or choose a backed-up private root."
-    return "Move the private root to a backed-up location or rerun with manual backup confirmation."
+    return "Move the private root to a backed-up location or persist manual backup confirmation."
 
 
 def assess(private_root: Path, manual_backup_confirmed: bool, reveal_path: bool) -> dict:
     mode = storage_mode(private_root)
     signal = "missing" if mode == "missing" else backup_signal(private_root)
+    persisted_confirmation = persisted_backup_confirmed(private_root)
+    confirmed = manual_backup_confirmed or persisted_confirmation
 
     if mode == "missing":
         decision = "missing_private_root"
     elif signal != "unknown":
         decision = "backup_ready"
-    elif manual_backup_confirmed:
+    elif confirmed:
         decision = "backup_ready_manual"
     else:
         decision = "backup_not_confirmed"
@@ -99,7 +146,11 @@ def assess(private_root: Path, manual_backup_confirmed: bool, reveal_path: bool)
         "private_root": display_private_root(private_root, reveal_path),
         "storage_mode": mode,
         "backup_signal": signal,
-        "manual_backup_confirmed": manual_backup_confirmed,
+        "manual_backup_confirmed": confirmed,
+        "persisted_backup_confirmation": persisted_confirmation,
+        "confirmation_path": private_root_config.framework_relative_private_path(
+            private_root, CONFIRMATION_RELATIVE_PATH
+        ),
         "git_tracking": {
             "checked": True,
             "tracked_private_paths": tracked,
@@ -120,7 +171,17 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--backup-confirmed",
         action="store_true",
-        help="assert that the private root is covered by a trusted backup system",
+        help="assert backup coverage for this check without writing confirmation",
+    )
+    parser.add_argument(
+        "--confirm-backup",
+        action="store_true",
+        help="persist manual backup confirmation under the protected private root",
+    )
+    parser.add_argument(
+        "--confirmed-at",
+        default=date.today().isoformat(),
+        help="confirmation date for --confirm-backup, in YYYY-MM-DD format",
     )
     parser.add_argument(
         "--reveal-path",
@@ -139,6 +200,11 @@ def main_with_args(argv: list[str] | None = None) -> dict:
         "PEGO_PRIVATE_BACKUP_CONFIRMED"
     ) == "1"
     root = private_root_config.resolve_private_root(args.private_root)
+    if args.confirm_backup:
+        write_backup_confirmation(root, args.confirmed_at)
+        print(
+            f"wrote: {private_root_config.framework_relative_private_path(root, CONFIRMATION_RELATIVE_PATH)}"
+        )
     result = assess(root, manual_backup_confirmed, args.reveal_path)
 
     if args.output:

@@ -179,6 +179,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "generate_operating_brief",
+      "runner": "ops/operator/generate_brief.py",
+      "procedure": "pego/operations/operator-interface.md",
+      "writes_to": "private/operator/briefs/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "user_mode_check_in",
       "runner": "ops/operator/user_check_in.py",
       "procedure": "pego/operations/intra-day-command-loop.md",
@@ -371,6 +378,7 @@
   "schemas": [
     "pego/schemas/agent-recommendation.schema.json",
     "pego/schemas/command-response.schema.json",
+    "pego/schemas/operating-brief.schema.json",
     "pego/schemas/intra-day-session-log.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
@@ -458,6 +466,7 @@
     "pego/schemas/README.md",
     "pego/schemas/agent-recommendation.schema.json",
     "pego/schemas/command-response.schema.json",
+    "pego/schemas/operating-brief.schema.json",
     "pego/schemas/intra-day-session-log.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
@@ -539,6 +548,8 @@
     "ops/cycles/test_weekly_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
+    "ops/operator/generate_brief.py",
+    "ops/operator/test_generate_brief.py",
     "ops/operator/user_check_in.py",
     "ops/operator/test_user_check_in.py",
     "ops/context/record_context_update.py",

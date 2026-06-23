@@ -77,6 +77,12 @@ If no current queue exists:
 2. Convert selected directives into `pego/templates/directive-queue.md`.
 3. Keep the queue under protected `private/` paths.
 
+To generate a protected operating brief from the current queue and session:
+
+```sh
+python3 pegoctl brief
+```
+
 ### 5. Confirm Constraints
 
 Before selecting a directive, check:

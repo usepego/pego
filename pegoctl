@@ -35,6 +35,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     bootstrap = subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
 
+    brief = subparsers.add_parser("brief", help="generate a protected operating brief")
+
     next_step = subparsers.add_parser("next", help="select one next directive and run preflight")
 
     check_in = subparsers.add_parser(
@@ -58,6 +60,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/private/check_readiness.py", forwarded)
     if args.command == "bootstrap":
         return run_script("ops/private/bootstrap_private_instance.py", forwarded)
+    if args.command == "brief":
+        return run_script("ops/operator/generate_brief.py", forwarded)
     if args.command == "next":
         return run_script("ops/operator/next_step.py", forwarded)
     if args.command == "check-in":

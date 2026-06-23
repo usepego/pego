@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/operating-brief.schema.json",
+  "title": "PEGO Operating Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "mode",
+    "active_objective",
+    "active_queue",
+    "active_session",
+    "session_events",
+    "protected_time",
+    "current_state",
+    "first_directive",
+    "active_candidates",
+    "governance_notes",
+    "next_action"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "operating_brief"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_queue": {
+      "type": "string"
+    },
+    "active_session": {
+      "type": "string"
+    },
+    "session_events": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "protected_time": {
+      "type": "string",
+      "minLength": 1
+    },
+    "current_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "first_directive": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/queue_candidate"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/queue_candidate"
+      }
+    },
+    "governance_notes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "queue_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rank",
+        "candidate",
+        "domain",
+        "duration",
+        "energy",
+        "location",
+        "deadline",
+        "authority",
+        "status"
+      ],
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duration": {
+          "type": "string"
+        },
+        "energy": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "deadline": {
+          "type": "string"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

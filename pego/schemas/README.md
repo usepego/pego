@@ -12,6 +12,8 @@ or local script should all be able to produce and consume these contracts.
 - `agent-recommendation.schema.json`: structured output from a domain agent.
 - `command-response.schema.json`: single next-directive response from the
   intra-day command loop.
+- `operating-brief.schema.json`: protected USER-mode brief summarizing current
+  operating frame, queue, session count, first directive, and governance notes.
 - `intra-day-session-log.schema.json`: protected USER-mode session log
   preserving check-ins, state changes, command responses, and governance notes
   across a day.

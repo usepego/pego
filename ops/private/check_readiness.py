@@ -30,6 +30,7 @@ REQUIRED_PATHS = {
     "directive_candidates_dir": "directives/candidates",
     "directive_queues_dir": "directives/queues",
     "command_responses_dir": "directives/command-responses",
+    "operator_briefs_dir": "operator/briefs",
     "operator_sessions_dir": "operator/sessions",
     "directive_outcomes_dir": "outcomes/directives",
     "governance_preflight_dir": "governance/preflight",

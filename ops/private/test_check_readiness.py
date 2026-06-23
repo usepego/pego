@@ -35,6 +35,7 @@ def populate_ready_instance(root: Path) -> None:
         "directives/candidates",
         "directives/queues",
         "directives/command-responses",
+        "operator/briefs",
         "operator/sessions",
         "outcomes/directives",
         "governance/preflight",

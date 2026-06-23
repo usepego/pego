@@ -18,6 +18,12 @@ Return the current operating frame, protected constraints, active queue, and fir
 
 If relevant, include one register item that needs lead-time attention. Do not include the full register unless requested.
 
+The local reference command is:
+
+```sh
+python3 pegoctl brief
+```
+
 ### Next Directive
 
 Use when the human asks:

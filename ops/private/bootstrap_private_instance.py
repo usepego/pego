@@ -140,6 +140,10 @@ Local private public-writing briefs.
 
 Local private operator state, session logs, registers, and quickstart files.
 """,
+    "operator/briefs/README.md": """# Briefs
+
+Local private operating briefs for USER mode.
+""",
     "operator/sessions/README.md": """# Sessions
 
 Local private intra-day session logs.

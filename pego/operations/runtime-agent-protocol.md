@@ -122,6 +122,12 @@ Return one next directive unless the user asks for a plan, discussion, or review
 
 Return the reconciled directive or escalation, with dissent and governance status.
 
+If multiple agents need to exchange positions before synthesis, use
+`pego/templates/agent-message.md` and
+`pego/templates/deliberation-thread.md`. Agent-to-agent deliberation should
+preserve dissent, evidence gaps, and authority implications without implying
+execution approval.
+
 ### Governance Output
 
 Return approve, approve with constraints, request information, downgrade, escalate, or reject.

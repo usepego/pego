@@ -77,6 +77,43 @@ Structured runtimes should preserve council decisions using `pego/schemas/counci
 
 Use `pego/templates/directive-candidate.md` when a recommendation or council decision needs to be compared, prioritized, or scheduled against other directives.
 
+## Agent-To-Agent Deliberation
+
+Before Council synthesizes a meaningful cross-domain decision, agents may
+exchange structured messages.
+
+Agent-to-agent messages are for deliberation, not execution. A message can
+request a domain position, challenge an assumption, ask for evidence, preserve
+dissent, summarize a tool result, or hand off a risk to Governance.
+
+Use `pego/templates/agent-message.md` for each message.
+
+Structured runtimes should preserve messages using:
+
+```text
+pego/schemas/agent-message.schema.json
+```
+
+Use `pego/templates/deliberation-thread.md` when a sequence of messages should
+be preserved before the Council decision.
+
+Structured runtimes should preserve deliberation threads using:
+
+```text
+pego/schemas/deliberation-thread.schema.json
+```
+
+The thread should end in one of:
+
+- Council synthesis.
+- One targeted question.
+- A tool call.
+- Governance escalation.
+- Blocked status.
+
+The thread must preserve dissent and evidence gaps. It must not create
+execution authority.
+
 ## Deliberation Order
 
 Default order:

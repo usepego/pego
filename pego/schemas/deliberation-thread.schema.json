@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/deliberation-thread.schema.json",
+  "title": "PEGO Deliberation Thread",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "thread",
+    "decision_frame",
+    "initiating_agent",
+    "participating_agents",
+    "trigger",
+    "messages",
+    "open_questions",
+    "dissent_preserved",
+    "evidence_gaps",
+    "proposed_council_input",
+    "governance_notes",
+    "next_step"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "deliberation_thread"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "thread": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "initiating_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "participating_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "agent-message.schema.json"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dissent_preserved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposed_council_input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_step": {
+      "enum": [
+        "continue_deliberation",
+        "send_to_council",
+        "ask_targeted_question",
+        "run_tool",
+        "escalate",
+        "block"
+      ]
+    }
+  }
+}

@@ -10,6 +10,10 @@ or local script should all be able to produce and consume these contracts.
 ## Core Artifacts
 
 - `agent-recommendation.schema.json`: structured output from a domain agent.
+- `agent-message.schema.json`: structured message from one agent to another
+  during deliberation.
+- `deliberation-thread.schema.json`: preserved sequence of agent-to-agent
+  messages before Council synthesis.
 - `command-response.schema.json`: single next-directive response from the
   intra-day command loop.
 - `operating-brief.schema.json`: protected USER-mode brief summarizing current

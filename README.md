@@ -132,6 +132,7 @@ python3 pegoctl home-candidates
 python3 pegoctl anticipate --domain Environment
 python3 pegoctl attention --option private/attention/options/options.json
 python3 pegoctl compliance-review --directive private/directives/daily/YYYY-MM-DD.md
+python3 pegoctl public-writing
 python3 pegoctl brief
 python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
 python3 pegoctl close-session

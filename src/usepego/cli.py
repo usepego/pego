@@ -88,6 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("anticipate", help="generate a protected anticipation scan")
     subparsers.add_parser("attention", help="select a protected attention directive")
     subparsers.add_parser("compliance-review", help="generate a protected compliance review packet")
+    subparsers.add_parser("public-writing", help="generate a protected public-writing brief and candidate")
     subparsers.add_parser("brief", help="generate a protected operating brief")
     subparsers.add_parser("close-session", help="close a USER-mode session into a review")
     subparsers.add_parser(
@@ -152,6 +153,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/attention/decide_attention.py", with_private_root(args, forwarded))
     if args.command == "compliance-review":
         return run_script("ops/governance/generate_compliance_review.py", with_private_root(args, forwarded))
+    if args.command == "public-writing":
+        return run_script("ops/communications/generate_public_writing_brief.py", with_private_root(args, forwarded))
     if args.command == "brief":
         return run_script("ops/operator/generate_brief.py", with_private_root(args, forwarded))
     if args.command == "close-session":

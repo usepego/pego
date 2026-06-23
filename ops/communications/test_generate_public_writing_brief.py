@@ -103,6 +103,33 @@ def main() -> None:
         if "publishing" not in structured["conflicts"][0].lower():
             raise AssertionError("expected publishing governance conflict")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        voice = private / "person" / "voice-and-taste.md"
+        voice.parent.mkdir(parents=True)
+        voice.write_text(VOICE_MODEL)
+
+        generate_public_writing_brief.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--artifact",
+                "Synthetic public essay",
+                "--json-output",
+                str(private / "directives" / "candidates" / "communications-candidates.json"),
+                "--force",
+            ]
+        )
+
+        brief = private / "writing" / "briefs" / "2026-06-23-synthetic-public-essay.md"
+        candidate = private / "directives" / "candidates" / "communications-candidates.md"
+        if "Public Writing Brief" not in brief.read_text():
+            raise AssertionError(brief.read_text())
+        if "Publishing requires Level 4 governance review" not in candidate.read_text():
+            raise AssertionError(candidate.read_text())
+
     print("public writing brief smoke tests passed.")
 
 

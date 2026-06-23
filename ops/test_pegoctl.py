@@ -166,6 +166,26 @@ Synthetic action requiring review.
 """
 
 
+VOICE_MODEL = """# Voice And Taste Model
+
+## Writing Voice
+
+Clear synthetic voice.
+
+## Humor
+
+Understated.
+
+## Intellectual Posture
+
+Practical builder.
+
+## Vocabulary
+
+Avoid: generic self-help.
+"""
+
+
 def run(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(PEGOCTL), *args],
@@ -539,7 +559,9 @@ def main() -> None:
         private_root = Path(directory) / "pego-private"
         directive = Path(directory) / "directive.md"
         (private_root / "time").mkdir(parents=True)
+        (private_root / "person").mkdir(parents=True)
         (private_root / "time" / "protected-time.md").write_text("Synthetic protected time.")
+        (private_root / "person" / "voice-and-taste.md").write_text(VOICE_MODEL)
         directive.write_text(COMPLIANCE_DIRECTIVE)
         run(
             [
@@ -550,6 +572,18 @@ def main() -> None:
                 "2026-06-23",
                 "--phase",
                 "boundary",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "public-writing",
+                "--date",
+                "2026-06-23",
+                "--artifact",
+                "Synthetic public essay",
                 "--force",
             ]
         )
@@ -583,6 +617,10 @@ def main() -> None:
             raise AssertionError("expected pegoctl daily directive under configured private root")
         if not (private_root / "governance" / "reviews" / "2026-06-23-synthetic-directive.md").exists():
             raise AssertionError("expected pegoctl compliance review under configured private root")
+        if not (private_root / "writing" / "briefs" / "2026-06-23-synthetic-public-essay.md").exists():
+            raise AssertionError("expected pegoctl public-writing brief under configured private root")
+        if not (private_root / "directives" / "candidates" / "communications-candidates.md").exists():
+            raise AssertionError("expected pegoctl communications candidate under configured private root")
 
     print("pegoctl smoke tests passed.")
 

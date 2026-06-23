@@ -55,6 +55,8 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "compliance-review" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "public-writing" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)
 

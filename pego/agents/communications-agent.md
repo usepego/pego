@@ -148,6 +148,12 @@ The reference public-writing brief runner lives at:
 ops/communications/generate_public_writing_brief.py
 ```
 
+The local wrapper command is:
+
+```sh
+python3 pegoctl public-writing
+```
+
 It reads a protected private voice model, writes a protected private public-writing brief, and emits a communications directive candidate for queue synthesis.
 
 Default outputs:

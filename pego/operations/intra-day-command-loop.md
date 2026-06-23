@@ -82,6 +82,16 @@ pego/schemas/command-response.schema.json
 
 Use `pego/templates/intra-day-session-log.md` to preserve the state changes caused by the command.
 
+The reference USER-mode runner is:
+
+```text
+ops/operator/user_check_in.py
+```
+
+It records the status update, calls the next-step selector, runs governance
+preflight through that selector, and appends the result to a protected session
+log. It is a local adapter for the protocol, not the PEGO runtime.
+
 The response should include:
 
 - State update.

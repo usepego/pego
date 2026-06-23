@@ -172,6 +172,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "user_mode_check_in",
+      "runner": "ops/operator/user_check_in.py",
+      "procedure": "pego/operations/intra-day-command-loop.md",
+      "writes_to": "private/operator/sessions/; private/directives/command-responses/; private/governance/preflight/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "record_directive_outcome",
       "runner": "ops/outcomes/record_outcome.py",
       "procedure": "pego/operations/outcome-review.md",
@@ -357,6 +364,7 @@
   "schemas": [
     "pego/schemas/agent-recommendation.schema.json",
     "pego/schemas/command-response.schema.json",
+    "pego/schemas/intra-day-session-log.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -442,6 +450,7 @@
     "pego/schemas/README.md",
     "pego/schemas/agent-recommendation.schema.json",
     "pego/schemas/command-response.schema.json",
+    "pego/schemas/intra-day-session-log.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -521,6 +530,8 @@
     "ops/cycles/test_weekly_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
+    "ops/operator/user_check_in.py",
+    "ops/operator/test_user_check_in.py",
     "ops/context/record_context_update.py",
     "ops/context/test_record_context_update.py",
     "ops/outcomes/record_outcome.py",

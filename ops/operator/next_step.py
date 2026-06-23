@@ -40,6 +40,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--energy", choices=["low", "medium", "high"])
     parser.add_argument("--location")
     parser.add_argument("--response-output", type=Path)
+    parser.add_argument("--response-json-output", type=Path)
     parser.add_argument("--preflight-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -62,6 +63,8 @@ def main_with_args(argv: list[str] | None = None) -> dict:
         "--output",
         str(response_output),
     ]
+    if args.response_json_output:
+        directive_args.extend(["--json-output", str(args.response_json_output)])
     if args.queue:
         directive_args.extend(["--queue", str(args.queue)])
     if args.register:
@@ -90,6 +93,7 @@ def main_with_args(argv: list[str] | None = None) -> dict:
 
     summary = {
         "response_output": str(response_output),
+        "response_json_output": str(args.response_json_output) if args.response_json_output else "",
         "preflight_output": str(preflight_output),
         "preflight_outcome": preflight.outcome,
         "review_level": preflight.review_level,

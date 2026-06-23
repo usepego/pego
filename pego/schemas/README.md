@@ -12,6 +12,9 @@ or local script should all be able to produce and consume these contracts.
 - `agent-recommendation.schema.json`: structured output from a domain agent.
 - `command-response.schema.json`: single next-directive response from the
   intra-day command loop.
+- `intra-day-session-log.schema.json`: protected USER-mode session log
+  preserving check-ins, state changes, command responses, and governance notes
+  across a day.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.

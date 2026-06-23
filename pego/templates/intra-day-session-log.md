@@ -4,6 +4,12 @@ Use this template to record command-loop interactions during a day or work sessi
 
 The session log preserves state between check-ins so PEGO can select the next directive without restarting the day plan.
 
+Structured runtimes should preserve the public schema at:
+
+```text
+pego/schemas/intra-day-session-log.schema.json
+```
+
 ## Date or Session
 
 Date or session name.

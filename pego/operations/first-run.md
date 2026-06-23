@@ -83,6 +83,14 @@ To generate a protected operating brief from the current queue and session:
 python3 pegoctl brief
 ```
 
+To create daily or weekly operating artifacts through the installed command
+surface:
+
+```sh
+python3 pegoctl daily health-check-in
+python3 pegoctl weekly
+```
+
 ### 5. Confirm Constraints
 
 Before selecting a directive, check:

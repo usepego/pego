@@ -219,6 +219,55 @@ def main() -> None:
         if not (private_root / "directives" / "command-responses" / "2026-06-23-next.json").exists():
             raise AssertionError("expected pegoctl command response under configured private root")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        (private_root / "health").mkdir(parents=True)
+        (private_root / "finance").mkdir(parents=True)
+        (private_root / "operator").mkdir(parents=True)
+        (private_root / "directives" / "candidates").mkdir(parents=True)
+        (private_root / "health" / "baseline.json").write_text(
+            json.dumps(
+                {
+                    "artifact_type": "health_baseline",
+                    "schema_version": 1,
+                    "evidence_policy": {"tracking_level": "minimal"},
+                    "goal": {},
+                    "constraints": {},
+                    "preferences": {},
+                    "current_routine": {},
+                    "availability": {},
+                    "metrics": {},
+                }
+            )
+        )
+        (private_root / "operator" / "operating-register.md").write_text(REGISTER)
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "daily",
+                "health-check-in",
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        if not (private_root / "health" / "check-ins" / "health-check-in.md").exists():
+            raise AssertionError("expected pegoctl daily output under configured private root")
+
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "weekly",
+                "--week",
+                "2026-W26",
+                "--force",
+            ]
+        )
+        if not (private_root / "directives" / "weekly" / "2026-W26.md").exists():
+            raise AssertionError("expected pegoctl weekly output under configured private root")
+
     print("pegoctl smoke tests passed.")
 
 

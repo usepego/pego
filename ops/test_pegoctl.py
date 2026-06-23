@@ -135,6 +135,29 @@ HOME_REGISTER = """# Operating Register
 """
 
 
+ATTENTION_OPTIONS = [
+    {
+        "artifact_type": "attention_option",
+        "schema_version": 1,
+        "date": "2026-06-23",
+        "event": "Synthetic live event",
+        "source": "synthetic_estimate",
+        "event_type": "sports",
+        "live_value": "medium",
+        "personal_importance": "low",
+        "recovery_value": "medium",
+        "social_or_cultural_value": "medium",
+        "opportunity_cost": "Could use the same window for focused work.",
+        "multitask_compatibility": "low_cognitive_work",
+        "time_window": "Now",
+        "best_alternative": "Highlights later.",
+        "risk": ["Time drift"],
+        "recommendation": "multitask_live",
+        "stop_condition": "Synthetic stop condition.",
+    }
+]
+
+
 def run(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(PEGOCTL), *args],
@@ -464,6 +487,45 @@ def main() -> None:
             raise AssertionError("expected pegoctl meal candidate under configured private root")
         if not (private_root / "directives" / "candidates" / "home-candidates.md").exists():
             raise AssertionError("expected pegoctl home candidates under configured private root")
+
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        register = private_root / "operator" / "operating-register.md"
+        attention_options = private_root / "attention" / "options" / "options.json"
+        register.parent.mkdir(parents=True)
+        attention_options.parent.mkdir(parents=True)
+        register.write_text(HOME_REGISTER)
+        attention_options.write_text(json.dumps(ATTENTION_OPTIONS))
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "anticipate",
+                "--date",
+                "2026-06-23",
+                "--domain",
+                "Environment",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "attention",
+                "--date",
+                "2026-06-23",
+                "--option",
+                str(attention_options),
+                "--force",
+            ]
+        )
+        if not (private_root / "anticipation" / "scans" / "2026-06-23-synthetic-garden.md").exists():
+            raise AssertionError("expected pegoctl anticipation scan under configured private root")
+        if not (private_root / "attention" / "decisions" / "attention-decision.md").exists():
+            raise AssertionError("expected pegoctl attention decision under configured private root")
+        if not (private_root / "directives" / "candidates" / "attention-candidate.md").exists():
+            raise AssertionError("expected pegoctl attention candidate under configured private root")
 
     print("pegoctl smoke tests passed.")
 

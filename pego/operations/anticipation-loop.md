@@ -85,6 +85,18 @@ Identify bills, account reviews, tax items, insurance, renewals, subscriptions, 
 
 Use `pego/templates/anticipation-scan.md`.
 
+The reference local runner lives at:
+
+```text
+ops/anticipation/generate_scan.py
+```
+
+The local wrapper command is:
+
+```sh
+python3 pegoctl anticipate --domain Environment
+```
+
 The output should produce one of:
 
 - A targeted question.

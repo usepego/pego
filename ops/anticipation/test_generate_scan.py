@@ -73,6 +73,28 @@ def main() -> None:
     assert_contains(strategy_scan, "Customer problem map")
     assert_contains(strategy_scan, "Draft 10 problem hypotheses")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        register = private / "operator" / "operating-register.md"
+        register.parent.mkdir(parents=True)
+        register.write_text(REGISTER)
+        generate_scan.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--horizon",
+                "14 days",
+                "--domain",
+                "Environment",
+                "--force",
+            ]
+        )
+        output = private / "anticipation" / "scans" / "2026-06-23-front-garden.md"
+        if "Weed 20 minutes" not in output.read_text():
+            raise AssertionError(output.read_text())
+
     print("anticipation scan smoke tests passed.")
 
 

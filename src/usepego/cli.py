@@ -83,6 +83,8 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("health-candidates", help="generate protected health directive candidates")
     subparsers.add_parser("meal", help="select a protected meal directive from food options")
     subparsers.add_parser("home-candidates", help="generate protected home/environment directive candidates")
+    subparsers.add_parser("anticipate", help="generate a protected anticipation scan")
+    subparsers.add_parser("attention", help="select a protected attention directive")
     subparsers.add_parser("brief", help="generate a protected operating brief")
     subparsers.add_parser("close-session", help="close a USER-mode session into a review")
     subparsers.add_parser(
@@ -137,6 +139,10 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/health/decide_meal.py", with_private_root(args, forwarded))
     if args.command == "home-candidates":
         return run_script("ops/home/generate_candidates.py", with_private_root(args, forwarded))
+    if args.command == "anticipate":
+        return run_script("ops/anticipation/generate_scan.py", with_private_root(args, forwarded))
+    if args.command == "attention":
+        return run_script("ops/attention/decide_attention.py", with_private_root(args, forwarded))
     if args.command == "brief":
         return run_script("ops/operator/generate_brief.py", with_private_root(args, forwarded))
     if args.command == "close-session":

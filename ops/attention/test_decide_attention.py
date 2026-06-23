@@ -82,6 +82,36 @@ def main() -> None:
         if candidate_data["domain"] != "happiness":
             raise AssertionError(candidate_data)
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        options = private / "attention" / "options" / "options.json"
+        options.parent.mkdir(parents=True)
+        options.write_text(
+            json.dumps(
+                [
+                    option("Synthetic live event", "multitask_live", "medium", "low", "medium"),
+                    option("Synthetic live event highlights", "highlights_later", "low", "low", "low"),
+                ]
+            )
+        )
+        decide_attention.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--option",
+                str(options),
+                "--candidate-json-output",
+                str(private / "directives" / "candidates" / "attention-candidate.json"),
+                "--force",
+            ]
+        )
+        if not (private / "attention" / "decisions" / "attention-decision.md").exists():
+            raise AssertionError("expected attention decision under configured private root")
+        if not (private / "directives" / "candidates" / "attention-candidate.md").exists():
+            raise AssertionError("expected attention candidate under configured private root")
+
     print("attention decision smoke tests passed.")
 
 

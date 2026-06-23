@@ -5,13 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
-DEFAULT_OUTPUT = Path("private/attention/decisions/attention-decision.md")
-DEFAULT_CANDIDATE_OUTPUT = Path("private/directives/candidates/attention-candidate.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 LEVEL_SCORE = {"high": 0, "medium": 1, "unknown": 2, "low": 3}
 RECOMMENDATION_DIRECTIVE = {
@@ -194,14 +197,15 @@ def build_candidate(decision: dict[str, object]) -> dict[str, object]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--option", type=Path, action="append", default=[])
     parser.add_argument("--context", default="Current attention window.")
     parser.add_argument("--follow-up", default="Record whether this restored energy, created drift, or should be pre-classified next time.")
     parser.add_argument("--review-question", default="Was this worth live attention, or would highlights have been enough?")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
-    parser.add_argument("--candidate-output", type=Path, default=DEFAULT_CANDIDATE_OUTPUT)
+    parser.add_argument("--candidate-output", type=Path)
     parser.add_argument("--candidate-json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -218,6 +222,9 @@ def write_output(path: Path, content: str, force: bool) -> None:
 def main_with_args(argv: list[str] | None = None) -> dict[str, object]:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.output = args.output or private / "attention" / "decisions" / "attention-decision.md"
+    args.candidate_output = args.candidate_output or private / "directives" / "candidates" / "attention-candidate.md"
     options = read_options(args.option)
     selected = choose_option(options)
     decision = build_decision(selected, options, args)

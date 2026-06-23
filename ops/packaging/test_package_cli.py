@@ -45,6 +45,10 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "home-candidates" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "anticipate" not in completed.stdout:
+        raise AssertionError(completed.stdout)
+    if "attention" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)
 

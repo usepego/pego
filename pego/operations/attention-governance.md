@@ -61,6 +61,18 @@ Use `pego/templates/attention-decision.md`.
 
 Structured implementations should preserve attention decisions using `pego/schemas/attention-decision.schema.json`.
 
+The reference local decision runner lives at:
+
+```text
+ops/attention/decide_attention.py
+```
+
+The local wrapper command is:
+
+```sh
+python3 pegoctl attention --option private/attention/options/options.json
+```
+
 ## Decision Rules
 
 PEGO should:

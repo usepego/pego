@@ -32,6 +32,8 @@ class Candidate:
     deadline: str
     authority: str
     status: str
+    target_behavior: str = ""
+    environment_design: str = ""
 
 
 @dataclass(frozen=True)
@@ -49,6 +51,8 @@ class CommandResponse:
     candidate_rank: int | None
     authority: str
     governance_status: str
+    target_behavior: str = ""
+    environment_design: str = ""
     targeted_question: str = ""
 
 
@@ -99,6 +103,50 @@ def parse_active_candidates(queue_text: str) -> list[Candidate]:
         )
 
     return candidates
+
+
+def parse_behavioral_strategy(queue_text: str) -> dict[int, tuple[str, str]]:
+    strategies: dict[int, tuple[str, str]] = {}
+    in_table = False
+
+    for line in queue_text.splitlines():
+        if line.startswith("## Behavioral Strategy"):
+            in_table = True
+            continue
+        if in_table and line.startswith("## "):
+            break
+        if not in_table or not line.startswith("|"):
+            continue
+        if "---" in line or "Rank" in line:
+            continue
+
+        cells = parse_table_cells(line)
+        if len(cells) < 4:
+            continue
+        try:
+            rank = int(cells[0])
+        except ValueError:
+            continue
+        strategies[rank] = (cells[2], cells[3])
+
+    return strategies
+
+
+def apply_behavioral_strategy(candidates: list[Candidate], queue_text: str) -> list[Candidate]:
+    strategies = parse_behavioral_strategy(queue_text)
+    if not strategies:
+        return candidates
+    enriched: list[Candidate] = []
+    for candidate in candidates:
+        target_behavior, environment_design = strategies.get(candidate.rank, ("", ""))
+        enriched.append(
+            replace(
+                candidate,
+                target_behavior=target_behavior,
+                environment_design=environment_design,
+            )
+        )
+    return enriched
 
 
 def parse_completed_inputs(values: list[str]) -> set[str]:
@@ -282,6 +330,8 @@ def build_response_model(
             candidate_rank=candidate.rank,
             authority=normalize_authority(candidate.authority),
             governance_status=normalize_governance_status(candidate.status),
+            target_behavior=candidate.target_behavior,
+            environment_design=candidate.environment_design,
         )
 
     question = register_question or "What changed that PEGO should account for before selecting the next directive?"
@@ -299,6 +349,8 @@ def build_response_model(
         candidate_rank=None,
         authority="level_1_recommend",
         governance_status="ready",
+        target_behavior="Create the missing condition for PEGO to select a directive.",
+        environment_design="Ask one targeted operational question instead of issuing a broad reflection prompt.",
         targeted_question=question,
     )
 
@@ -330,6 +382,10 @@ def build_markdown_response(response: CommandResponse) -> str:
     ]
     if response.targeted_question:
         lines.extend(["## Targeted Question", "", response.targeted_question, ""])
+    if response.target_behavior:
+        lines.extend(["## Target Behavior", "", response.target_behavior, ""])
+    if response.environment_design:
+        lines.extend(["## Environment Design", "", response.environment_design, ""])
     lines.extend(
         [
             "## Fallback",
@@ -364,6 +420,8 @@ def build_json_response(response: CommandResponse) -> dict:
             "candidate_rank": response.candidate_rank,
             "authority_level": response.authority,
             "governance_status": response.governance_status,
+            "target_behavior": response.target_behavior,
+            "environment_design": response.environment_design,
         },
         "duration": response.duration,
         "start_condition": response.start_condition,
@@ -412,7 +470,7 @@ def main_with_args(argv: list[str] | None = None) -> None:
     queue_text = read_if_exists(queue)
     register_text = read_if_exists(args.register)
     completed = parse_completed_inputs(args.done)
-    candidates = parse_active_candidates(queue_text)
+    candidates = apply_behavioral_strategy(parse_active_candidates(queue_text), queue_text)
     candidate = choose_candidate(candidates, completed, args.available, args.energy, args.location)
     response = build_response_model(candidate, first_register_question(register_text), args)
 

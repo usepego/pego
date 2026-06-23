@@ -60,6 +60,12 @@
         },
         "governance_status": {
           "$ref": "#/$defs/governance_status"
+        },
+        "target_behavior": {
+          "type": "string"
+        },
+        "environment_design": {
+          "type": "string"
         }
       }
     },

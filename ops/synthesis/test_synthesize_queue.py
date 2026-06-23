@@ -56,6 +56,8 @@ JSON_CANDIDATES = [
         "dependencies": ["Safe walking conditions"],
         "expected_benefit": "Preserves health capacity.",
         "consequence_of_deferral": "Movement remains at zero baseline.",
+        "target_behavior": "Create a movement action before sedentary inertia wins.",
+        "environment_design": "Put the human outside before lunch.",
         "protected_time_impact": "none",
         "authority_level": "level_1_recommend",
         "governance_status": "draft",
@@ -76,6 +78,8 @@ JSON_CANDIDATES = [
         "dependencies": ["Repair scope"],
         "expected_benefit": "Clarifies repair cost.",
         "consequence_of_deferral": "Repair remains ambiguous.",
+        "target_behavior": "Convert vague home concern into a scoped repair decision.",
+        "environment_design": "Move the issue into a phone call context before the next review.",
         "protected_time_impact": "low",
         "authority_level": "level_1_recommend",
         "governance_status": "reviewed",
@@ -127,6 +131,7 @@ def main() -> None:
         assert_contains(text, "Garden Weed Block")
         assert_contains(text, "Decide outfit for dinner")
         assert_contains(text, "Structured Health Walk")
+        assert_contains(text, "Create a movement action before sedentary inertia wins.")
         assert_contains(text, "Structured Contractor Quote")
         assert_contains(text, "Venture Problem Map | Does not fit available window")
         assert_contains(text, "Quit Job Decision | Needs governance review")
@@ -138,9 +143,15 @@ def main() -> None:
             raise AssertionError("expected Garden Weed Block as first active candidate")
         if structured["next_directive"]["directive"] != "Garden Weed Block":
             raise AssertionError("expected structured next directive")
+        if "target_behavior" not in structured["next_directive"]:
+            raise AssertionError("expected target behavior in structured next directive")
         if not any(item["candidate"] == "Breakfast Anchor" for item in structured["active_candidates"]):
             raise AssertionError("expected Breakfast Anchor in active candidates")
-        if not any(item["candidate"] == "Structured Health Walk" for item in structured["active_candidates"]):
+        if not any(
+            item["candidate"] == "Structured Health Walk"
+            and item["target_behavior"] == "Create a movement action before sedentary inertia wins."
+            for item in structured["active_candidates"]
+        ):
             raise AssertionError("expected structured health candidate in active candidates")
         if not any(
             item["candidate"] == "Quit Job Decision"

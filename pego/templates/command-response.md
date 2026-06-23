@@ -28,6 +28,14 @@ What must be true before starting?
 
 Operational reason for selecting this directive over the other candidates.
 
+## Target Behavior
+
+What behavior, state, or future choice this directive is trying to make more likely.
+
+## Environment Design
+
+What condition, default, friction change, exposure, timing, or social context this directive creates.
+
 ## Fallback
 
 What to do if this directive is blocked.

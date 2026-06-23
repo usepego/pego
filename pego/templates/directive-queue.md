@@ -43,6 +43,12 @@ Time and commitments unavailable for directives.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
+## Behavioral Strategy
+
+| Rank | Candidate | Target Behavior | Environment Design |
+| --- | --- | --- | --- |
+| 1 | TBD | TBD | TBD |
+
 ## Deferred
 
 | Candidate | Reason Deferred | Next Review |

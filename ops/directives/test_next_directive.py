@@ -20,6 +20,15 @@ QUEUE = """# Directive Queue: test
 | 2 | Venture Problem Map | Venture | 60 min | Medium | Computer | Workday | Level 1 | Ready |
 | 3 | Garden Weed Block | Home | 25 min | Medium-low | Outside | Before evening | Level 1 | Conditional |
 | 4 | Store List | Health/Ops | 10 min | Low | Phone/computer | Before grocery trip | Level 1 | Optional |
+
+## Behavioral Strategy
+
+| Rank | Candidate | Target Behavior | Environment Design |
+| --- | --- | --- | --- |
+| 1 | Breakfast Anchor | Make the first food decision stable instead of reactive. | Use home default food before hunger creates convenience-seeking. |
+| 2 | Venture Problem Map | Create one strategic work artifact. | Put the human at the computer with a bounded research block. |
+| 3 | Garden Weed Block | Reduce visual home-environment irritation before it becomes background stress. | Put the human outside at the garden bed with a short timer. |
+| 4 | Store List | Change future food defaults before the next grocery trip. | Move food choices into a list context before shopping. |
 """
 
 
@@ -96,6 +105,8 @@ def assert_contains(text: str, expected: str) -> None:
 def main() -> None:
     breakfast = run_selector("--available", "15", "--energy", "low", "--location", "home")
     assert_contains(breakfast, "Breakfast Anchor")
+    assert_contains(breakfast, "Make the first food decision stable instead of reactive.")
+    assert_contains(breakfast, "Use home default food before hunger creates convenience-seeking.")
 
     structured_breakfast = run_selector_json("--available", "15", "--energy", "low", "--location", "home")
     if structured_breakfast["artifact_type"] != "command_response":
@@ -104,6 +115,10 @@ def main() -> None:
         raise AssertionError("expected Breakfast Anchor structured directive")
     if structured_breakfast["next_directive"]["authority_level"] != "level_1_recommend":
         raise AssertionError("expected normalized authority level")
+    if structured_breakfast["next_directive"]["target_behavior"] != "Make the first food decision stable instead of reactive.":
+        raise AssertionError("expected structured target behavior")
+    if structured_breakfast["next_directive"]["environment_design"] != "Use home default food before hunger creates convenience-seeking.":
+        raise AssertionError("expected structured environment design")
 
     venture = run_selector(
         "--done",

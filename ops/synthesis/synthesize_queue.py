@@ -27,6 +27,8 @@ class Candidate:
     status: str
     benefit: str
     deferral: str
+    target_behavior: str
+    environment_design: str
     protected_time: str
     source: str
 
@@ -78,6 +80,8 @@ def candidate_from_mapping(mapped: dict[str, str], source: str) -> Candidate | N
         status=mapped.get("status", mapped.get("governance-status", "Draft")) or "Draft",
         benefit=mapped.get("expected-benefit", mapped.get("benefit", "")),
         deferral=mapped.get("consequence-of-deferral", mapped.get("deferral", "")),
+        target_behavior=mapped.get("target-behavior", ""),
+        environment_design=mapped.get("environment-design", ""),
         protected_time=mapped.get("protected-time-impact", "None") or "None",
         source=source,
     )
@@ -183,6 +187,8 @@ def parse_json_candidates(text: str, source: str) -> list[Candidate]:
                 status=display_status(item.get("governance_status")),
                 benefit=str(item.get("expected_benefit") or ""),
                 deferral=str(item.get("consequence_of_deferral") or ""),
+                target_behavior=str(item.get("target_behavior") or ""),
+                environment_design=str(item.get("environment_design") or ""),
                 protected_time=display_impact(item.get("protected_time_impact")),
                 source=source + (f" dependencies: {dependency_text}" if dependency_text else ""),
             )
@@ -246,6 +252,8 @@ def parse_single_candidate(text: str, source: str) -> Candidate | None:
         status=status,
         benefit=sections.get("Expected Benefit", ""),
         deferral=sections.get("Consequence of Deferral", ""),
+        target_behavior=sections.get("Target Behavior", ""),
+        environment_design=sections.get("Environment Design", ""),
         protected_time=(sections.get("Protected-Time Impact", "None").splitlines() or ["None"])[0],
         source=source,
     )
@@ -360,6 +368,14 @@ def build_markdown_queue(queue: QueueBuild) -> str:
     if not deferred_rows:
         deferred_rows.append("| None | No deferred candidates | Next synthesis |")
 
+    strategy_rows = []
+    for rank, candidate in enumerate(queue.active, start=1):
+        target = candidate.target_behavior or "Not specified."
+        environment = candidate.environment_design or "Not specified."
+        strategy_rows.append(f"| {rank} | {candidate.name} | {target} | {environment} |")
+    if not strategy_rows:
+        strategy_rows.append("| 1 | Answer targeted operating question | Identify the missing decision-grade fact. | Create enough context to resynthesize safely. |")
+
     state_lines = [
         f"- Time: {args.time or 'Unknown'}",
         f"- Location: {args.location or 'Unknown'}",
@@ -400,6 +416,12 @@ def build_markdown_queue(queue: QueueBuild) -> str:
             "| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             *active_rows,
+            "",
+            "## Behavioral Strategy",
+            "",
+            "| Rank | Candidate | Target Behavior | Environment Design |",
+            "| --- | --- | --- | --- |",
+            *strategy_rows,
             "",
             "## Deferred",
             "",
@@ -469,6 +491,8 @@ def build_json_queue(queue: QueueBuild) -> dict:
             "selection_rationale": "Selected as the highest-ranked active candidate that fits supplied constraints.",
             "authority_level": normalize_authority(selected.authority),
             "governance_status": "ready",
+            "target_behavior": selected.target_behavior,
+            "environment_design": selected.environment_design,
         }
     else:
         next_directive = {
@@ -477,6 +501,8 @@ def build_json_queue(queue: QueueBuild) -> dict:
             "selection_rationale": "No active candidate fit the current queue constraints.",
             "authority_level": "level_1_recommend",
             "governance_status": "ready",
+            "target_behavior": "Create the missing condition for PEGO to select a directive.",
+            "environment_design": "Ask one targeted operational question instead of issuing a broad reflection prompt.",
         }
 
     return {
@@ -514,6 +540,8 @@ def build_json_queue(queue: QueueBuild) -> dict:
                 "deadline": candidate.deadline,
                 "authority_level": normalize_authority(candidate.authority),
                 "governance_status": "ready",
+                "target_behavior": candidate.target_behavior,
+                "environment_design": candidate.environment_design,
                 "source": candidate.source,
             }
             for rank, candidate in enumerate(active, start=1)

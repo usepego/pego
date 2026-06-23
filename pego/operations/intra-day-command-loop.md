@@ -97,6 +97,8 @@ The response should include:
 - State update.
 - Next directive.
 - Duration.
+- Target behavior, when known.
+- Environment design, when known.
 - Why this directive now.
 - Fallback.
 - Deferred candidates.
@@ -115,6 +117,8 @@ Prefer the candidate that:
 - Advances an active strategy.
 - Produces evidence for future decisions.
 - Can be completed cleanly.
+
+When a selected directive has behavioral-strategy metadata, PEGO should preserve it in the response. The human should know not only what to do, but what action pattern and environmental condition the directive is meant to create.
 
 Do not select a directive that requires missing information, unavailable tools, unsafe conditions, or higher authority than granted.
 

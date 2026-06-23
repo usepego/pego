@@ -186,6 +186,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "close_user_session",
+      "runner": "ops/operator/close_session.py",
+      "procedure": "pego/operations/outcome-review.md",
+      "writes_to": "private/reviews/sessions/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "user_mode_check_in",
       "runner": "ops/operator/user_check_in.py",
       "procedure": "pego/operations/intra-day-command-loop.md",
@@ -380,6 +387,7 @@
     "pego/schemas/command-response.schema.json",
     "pego/schemas/operating-brief.schema.json",
     "pego/schemas/intra-day-session-log.schema.json",
+    "pego/schemas/session-review.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -468,6 +476,7 @@
     "pego/schemas/command-response.schema.json",
     "pego/schemas/operating-brief.schema.json",
     "pego/schemas/intra-day-session-log.schema.json",
+    "pego/schemas/session-review.schema.json",
     "pego/schemas/directive-candidate.schema.json",
     "pego/schemas/compliance-review.schema.json",
     "pego/schemas/decision-packet.schema.json",
@@ -550,6 +559,8 @@
     "ops/operator/test_next_step.py",
     "ops/operator/generate_brief.py",
     "ops/operator/test_generate_brief.py",
+    "ops/operator/close_session.py",
+    "ops/operator/test_close_session.py",
     "ops/operator/user_check_in.py",
     "ops/operator/test_user_check_in.py",
     "ops/context/record_context_update.py",

@@ -94,6 +94,10 @@ Local private PEGO reviews.
 
 Local private outcome review packets.
 """,
+    "reviews/sessions/README.md": """# Session Reviews
+
+Local private USER-mode session reviews.
+""",
     "finance/README.md": """# Finance
 
 Local private financial summaries, scenario assumptions, and outputs.

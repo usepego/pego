@@ -101,6 +101,16 @@ python3 ops/review/review_outcome.py --outcome private/outcomes/directives/YYYY-
 Structured review artifacts must conform to
 `pego/schemas/outcome-review.schema.json`.
 
+To close a USER-mode session into a session-level learning review, use:
+
+```sh
+python3 pegoctl close-session
+```
+
+It reads the protected intra-day session log and writes a protected session
+review under `private/reviews/sessions/`. Structured session reviews must
+conform to `pego/schemas/session-review.schema.json`.
+
 Outcome records should feed:
 
 - `pego/operations/daily-loop.md`

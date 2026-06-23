@@ -33,6 +33,7 @@ REQUIRED_PATHS = {
     "operator_briefs_dir": "operator/briefs",
     "operator_sessions_dir": "operator/sessions",
     "directive_outcomes_dir": "outcomes/directives",
+    "session_reviews_dir": "reviews/sessions",
     "governance_preflight_dir": "governance/preflight",
     "governance_reviews_dir": "governance/reviews",
 }

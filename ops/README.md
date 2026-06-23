@@ -29,6 +29,7 @@ Useful tools:
 - `anticipation/generate_scan.py`: generate one protected anticipation scan from the operating register.
 - `attention/decide_attention.py`: select a protected attention directive for live events, media, rest, or highlights later.
 - `operator/generate_brief.py`: generate a protected operating brief from active private queue/session state.
+- `operator/close_session.py`: close a protected USER-mode session into a session review.
 - `operator/next_step.py`: select one next directive and run governance preflight.
 - `operator/user_check_in.py`: record a USER-mode check-in, select one next directive, run preflight, and update the intra-day session log.
 - `context/record_context_update.py`: record protected context updates.

@@ -65,6 +65,8 @@ def main() -> None:
         session_json = root / "session.json"
         brief = root / "brief.md"
         brief_json = root / "brief.json"
+        session_review = root / "session-review.md"
+        session_review_json = root / "session-review.json"
         response = root / "response.md"
         response_json = root / "response.json"
         preflight = root / "preflight.json"
@@ -144,6 +146,26 @@ def main() -> None:
             raise AssertionError(brief_data)
         if not brief.exists():
             raise AssertionError("expected markdown brief output")
+
+        run(
+            [
+                "close-session",
+                "--date",
+                "2026-06-23",
+                "--session-json",
+                str(session_json),
+                "--output",
+                str(session_review),
+                "--json-output",
+                str(session_review_json),
+                "--force",
+            ]
+        )
+        review_data = json.loads(session_review_json.read_text())
+        if review_data["artifact_type"] != "session_review":
+            raise AssertionError(review_data)
+        if not session_review.exists():
+            raise AssertionError("expected markdown session review output")
 
     print("pegoctl smoke tests passed.")
 

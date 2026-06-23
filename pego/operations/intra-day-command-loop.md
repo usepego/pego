@@ -128,6 +128,9 @@ Recommended interaction model:
 - During day: human checks in after completion, blockage, or when asking what is next.
 - Before protected time: PEGO stops expansion and preserves the boundary.
 - End of day: outcome review.
+- Session closeout: run `python3 pegoctl close-session` so completed
+  directives, blockers, governance notes, and context-update candidates feed
+  the next operating cycle.
 
 Future versions may add automated nudges, but only after the constitution grants that authority.
 

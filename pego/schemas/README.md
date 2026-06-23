@@ -17,6 +17,9 @@ or local script should all be able to produce and consume these contracts.
 - `intra-day-session-log.schema.json`: protected USER-mode session log
   preserving check-ins, state changes, command responses, and governance notes
   across a day.
+- `session-review.schema.json`: protected session-level learning review for
+  completed directives, blockers, governance notes, and next-day synthesis
+  inputs.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.

@@ -5,11 +5,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PRIVATE_ROOT = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 REQUIRED_PATHS = {
     "private_readme": "README.md",
@@ -45,7 +48,7 @@ REQUIRED_PATHS = {
 def path_status(private_root: Path, relative: str) -> dict:
     path = private_root / relative
     return {
-        "relative_path": f"private/{relative}",
+        "relative_path": private_root_config.framework_relative_private_path(private_root, relative),
         "exists": path.exists(),
         "kind": "directory" if path.is_dir() else "file" if path.is_file() else "missing",
     }
@@ -73,13 +76,13 @@ def assess(private_root: Path) -> dict:
         "artifact_type": "private_instance_readiness",
         "schema_version": 1,
         "decision": decision,
-        "private_root": "private/",
+        "private_root": private_root_config.display_private_root(private_root),
         "missing_checks": missing,
         "checks": checks,
         "privacy": {
             "prints_private_contents": False,
             "safe_to_commit": False,
-            "note": "Readiness output describes presence of private paths only; keep generated reports under private/.",
+            "note": "Readiness output describes presence of private paths only; keep generated reports under the protected private root.",
         },
         "ready_next_action": ready_next_action(decision, missing),
     }
@@ -101,7 +104,7 @@ def ready_next_action(decision: str, missing: list[str]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--private-root", type=Path, default=DEFAULT_PRIVATE_ROOT)
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--print", action="store_true", help="print safe readiness JSON")
     return parser
@@ -110,7 +113,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
-    result = assess(args.private_root)
+    root = private_root_config.resolve_private_root(args.private_root)
+    result = assess(root)
 
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

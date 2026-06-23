@@ -55,6 +55,21 @@ Default recommendation:
 4. Run readiness and storage checks.
 5. Confirm that private files are not tracked by Git.
 
+Current local tools support:
+
+```sh
+export PEGO_PRIVATE_ROOT="/path/to/backed-up/PEGO/private"
+python3 pegoctl bootstrap
+python3 pegoctl storage
+python3 pegoctl readiness
+```
+
+or explicit one-command selection:
+
+```sh
+python3 pegoctl bootstrap --private-root "/path/to/backed-up/PEGO/private"
+```
+
 ## Privacy Constraints
 
 Storage checks must:

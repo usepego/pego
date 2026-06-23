@@ -19,9 +19,11 @@ Useful tools:
 
 - `../pegoctl`: local root wrapper for common operation commands.
 - `packaging/test_package_cli.py`: verify the installable `usepego` CLI surface.
+- `private_root.py`: resolve the protected private-instance root from defaults, explicit paths, or `PEGO_PRIVATE_ROOT`.
 - `pego_registry.py`: inspect the public PEGO system registry without reading private data.
 - `pego_doctor.py`: verify repository hygiene and required framework files.
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.
+- `private/test_bootstrap_private_instance.py`: verify bootstrap against an explicit external private root.
 - `private/check_storage.py`: verify protected private storage and backup readiness without printing private contents.
 - `onboarding/generate_intake.py`: generate one protected first-run intake packet.
 - `communications/generate_public_writing_brief.py`: generate a protected public-writing brief and communications directive candidate.

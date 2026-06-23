@@ -8,11 +8,15 @@ generic placeholders only.
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
+
 TEMPLATES = ROOT / "pego" / "templates"
 
 
@@ -207,28 +211,31 @@ def read_template(template_name: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--force", action="store_true", help="overwrite existing private files")
     args = parser.parse_args()
+    private = private_root_config.resolve_private_root(args.private_root)
 
     results: list[tuple[str, str]] = []
 
     for relative_path, template_name in FILES.items():
-        target = PRIVATE / relative_path
+        target = private / relative_path
         content = read_template(template_name)
         status = write_file(target, content, args.force)
         results.append((relative_path, status))
 
     for relative_path, content in STATIC_FILES.items():
-        target = PRIVATE / relative_path
+        target = private / relative_path
         status = write_file(target, content, args.force)
         results.append((relative_path, status))
 
-    (PRIVATE / "_local" / "finance").mkdir(parents=True, exist_ok=True)
+    (private / "_local" / "finance").mkdir(parents=True, exist_ok=True)
 
     for relative_path, status in results:
-        print(f"{status}: private/{relative_path}")
+        display_path = private_root_config.framework_relative_private_path(private, relative_path)
+        print(f"{status}: {display_path}")
 
-    print("ready: private/_local/finance")
+    print(f"ready: {private_root_config.framework_relative_private_path(private, '_local/finance')}")
 
 
 if __name__ == "__main__":

@@ -32,6 +32,16 @@ private/
 
 Everything under `private/` is protected private operating state except `private/README.md`, which only documents the boundary.
 
+For installs or backed-up local operation, set:
+
+```sh
+export PEGO_PRIVATE_ROOT="/path/to/backed-up/PEGO/private"
+```
+
+or pass `--private-root` to setup and readiness commands. PEGO should redact
+external private-root paths in routine reports unless explicit path reveal is
+requested.
+
 The private root should be covered by a real backup system. See
 `pego/operations/private-storage-backup.md`.
 
@@ -41,6 +51,12 @@ Create or refresh the local skeleton:
 
 ```sh
 python3 ops/private/bootstrap_private_instance.py
+```
+
+For an external backed-up private root:
+
+```sh
+python3 ops/private/bootstrap_private_instance.py --private-root "/path/to/backed-up/PEGO/private"
 ```
 
 The bootstrap script does not overwrite existing files unless `--force` is passed.

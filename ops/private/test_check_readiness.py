@@ -74,7 +74,9 @@ def main() -> None:
         data = json.loads(output.read_text())
         if data["privacy"]["prints_private_contents"]:
             raise AssertionError(data)
-        if data["checks"]["active_operating_brief"]["relative_path"] != "private/active-operating-brief.md":
+        if data["private_root"] != "external_private_root":
+            raise AssertionError(data)
+        if data["checks"]["active_operating_brief"]["relative_path"] != "external_private_root/active-operating-brief.md":
             raise AssertionError(data)
 
     print("private readiness smoke tests passed.")

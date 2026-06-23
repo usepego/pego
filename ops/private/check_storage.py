@@ -7,11 +7,14 @@ import argparse
 import json
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_PRIVATE_ROOT = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 BACKUP_MARKERS = [
     ("icloud", "Library/Mobile Documents/com~apple~CloudDocs"),
@@ -64,11 +67,7 @@ def tracked_private_paths() -> list[str]:
 
 
 def display_private_root(private_root: Path, reveal_path: bool) -> str:
-    if reveal_path:
-        return str(private_root.expanduser().resolve())
-    if is_relative_to(private_root.expanduser().resolve(), ROOT.resolve()):
-        return "private/"
-    return "external_private_root"
+    return private_root_config.display_private_root(private_root, reveal_path)
 
 
 def recommended_next_action(decision: str) -> str:
@@ -117,7 +116,7 @@ def assess(private_root: Path, manual_backup_confirmed: bool, reveal_path: bool)
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--private-root", type=Path, default=DEFAULT_PRIVATE_ROOT)
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument(
         "--backup-confirmed",
         action="store_true",
@@ -139,7 +138,8 @@ def main_with_args(argv: list[str] | None = None) -> dict:
     manual_backup_confirmed = args.backup_confirmed or os.environ.get(
         "PEGO_PRIVATE_BACKUP_CONFIRMED"
     ) == "1"
-    result = assess(args.private_root, manual_backup_confirmed, args.reveal_path)
+    root = private_root_config.resolve_private_root(args.private_root)
+    result = assess(root, manual_backup_confirmed, args.reveal_path)
 
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

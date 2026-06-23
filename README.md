@@ -131,6 +131,31 @@ not the PEGO runtime. Future interfaces may be CLI, chat, mobile, watch, Slack,
 web, or another surface, but they should preserve the same agent contracts,
 schemas, governance checks, and private-instance boundary.
 
+## Packaging Direction
+
+The installable package name is `usepego`, and the installed command is
+`pegoctl`.
+
+PEGO should use standard Python packaging only as a distribution surface, not as
+the definition of the product runtime. The current direction is a small
+`pyproject.toml` package with a `[project.scripts]` entry point, installed
+eventually through tools such as:
+
+```sh
+uv tool install usepego
+```
+
+or:
+
+```sh
+pipx install usepego
+```
+
+Public publishing is intentionally not enabled yet. Before that happens, PEGO
+should use a public repository, clean release process, security policy, CI,
+PyPI Trusted Publishing, and package provenance/attestations. See
+`pego/architecture/distribution-installation.md`.
+
 ## Current Status
 
 PEGO is in early architecture and governance design.

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "usepego"
+version = "0.0.0"
+description = "Personal Executive Governance OS framework and local operator tooling."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Private :: Do Not Upload",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.scripts]
+pegoctl = "usepego.cli:main"
+
+[project.urls]
+Homepage = "https://usepego.com"
+Documentation = "https://usepego.com"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/usepego"]

@@ -20,12 +20,16 @@ REQUIRED_FILES = [
     "AGENTS.md",
     ".gitignore",
     ".github/workflows/pego-ci.yml",
+    "pyproject.toml",
     "pegoctl",
+    "src/usepego/__init__.py",
+    "src/usepego/cli.py",
     "private/README.md",
     "pego/principles.md",
     "pego/architecture/agent-infrastructure.md",
     "pego/architecture/runtime-options.md",
     "pego/architecture/runtime-adapter-lifecycle.md",
+    "pego/architecture/distribution-installation.md",
     "pego/ux/first-run-experience.md",
     "pego/ux/public-site-positioning.md",
     "pego/system/README.md",
@@ -123,6 +127,7 @@ REQUIRED_FILES = [
     "pego/templates/attention-decision.md",
     "ops/private/bootstrap_private_instance.py",
     "ops/test_pegoctl.py",
+    "ops/packaging/test_package_cli.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
     "ops/attention/decide_attention.py",
@@ -373,6 +378,13 @@ def check_python_syntax(errors: list[str]) -> None:
         str(path.relative_to(ROOT))
         for path in (ROOT / "ops").rglob("*.py")
         if path.is_file()
+    )
+    scripts.extend(
+        sorted(
+            str(path.relative_to(ROOT))
+            for path in (ROOT / "src").rglob("*.py")
+            if path.is_file()
+        )
     )
     scripts.append("pegoctl")
     if not scripts:

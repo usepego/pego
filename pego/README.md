@@ -22,35 +22,36 @@ Start here:
 2. `architecture/agent-infrastructure.md`: why PEGO is runtime-neutral agent infrastructure, not a Python app or chatbot.
 3. `architecture/runtime-options.md`: how LangGraph, Vercel AI SDK, custom services, CLI, mobile, and other runtimes should be evaluated.
 4. `architecture/runtime-adapter-lifecycle.md`: the lifecycle every runtime adapter must preserve.
-5. `ux/first-run-experience.md`: how a new user first understands and adopts PEGO.
-6. `ux/public-site-positioning.md`: how the public PEGO site should introduce the category.
-7. `templates/constitution.md`: the local delegation contract.
-8. `templates/active-operating-brief.md`: the current private operating entry point.
-9. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
-10. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
-11. `agents/communications-agent.md`: how PEGO governs voice, taste, public writing, and opportunity-oriented communication.
-12. `schemas/README.md`: runtime-neutral artifact contracts for future adapters.
-13. `templates/agent-recommendation.md`: the standard shape for agent outputs.
-14. `templates/decision-packet.md`: the standard shape for high-impact escalations.
-15. `templates/voice-and-taste-model.md`: the private model for style, taste, influences, and public positioning.
-16. `templates/public-writing-brief.md`: the private brief for turning source material into public-safe artifacts.
-17. `health/food-environment-spec.md`: how PEGO evaluates home food, groceries, restaurants, menus, nutrition, cost, and friction for meal directives.
-18. `governance/compliance-review.md`: the review gate before adoption or execution.
-19. `operations/attention-governance.md`: how PEGO decides whether live events, media, rest, or highlights deserve attention.
-20. `operations/daily-loop.md`: how approved strategy becomes daily directives.
-21. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
-22. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
-23. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
-24. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
-25. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
-26. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
-27. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-28. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-29. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-30. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-31. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-32. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-33. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+5. `architecture/distribution-installation.md`: how PEGO becomes installable without becoming runtime-specific.
+6. `ux/first-run-experience.md`: how a new user first understands and adopts PEGO.
+7. `ux/public-site-positioning.md`: how the public PEGO site should introduce the category.
+8. `templates/constitution.md`: the local delegation contract.
+9. `templates/active-operating-brief.md`: the current private operating entry point.
+10. `governance/authority-levels.md`: what PEGO may observe, recommend, direct, execute, or escalate.
+11. `agents/council-protocol.md`: how domain agents deliberate and preserve dissent.
+12. `agents/communications-agent.md`: how PEGO governs voice, taste, public writing, and opportunity-oriented communication.
+13. `schemas/README.md`: runtime-neutral artifact contracts for future adapters.
+14. `templates/agent-recommendation.md`: the standard shape for agent outputs.
+15. `templates/decision-packet.md`: the standard shape for high-impact escalations.
+16. `templates/voice-and-taste-model.md`: the private model for style, taste, influences, and public positioning.
+17. `templates/public-writing-brief.md`: the private brief for turning source material into public-safe artifacts.
+18. `health/food-environment-spec.md`: how PEGO evaluates home food, groceries, restaurants, menus, nutrition, cost, and friction for meal directives.
+19. `governance/compliance-review.md`: the review gate before adoption or execution.
+20. `operations/attention-governance.md`: how PEGO decides whether live events, media, rest, or highlights deserve attention.
+21. `operations/daily-loop.md`: how approved strategy becomes daily directives.
+22. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
+23. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
+24. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
+25. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
+26. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
+27. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
+28. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
+29. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+30. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+31. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+32. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+33. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+34. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

@@ -120,6 +120,7 @@ The local reference command wrapper is:
 python3 pegoctl doctor
 python3 pegoctl readiness
 python3 pegoctl intake --phase boundary
+python3 pegoctl daily-directive
 python3 pegoctl daily health-check-in
 python3 pegoctl weekly
 python3 pegoctl monthly

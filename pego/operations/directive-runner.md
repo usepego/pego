@@ -22,6 +22,7 @@ pego/templates/daily-directive.md
 
 ```sh
 python3 ops/directives/generate_daily_directive.py
+python3 pegoctl daily-directive
 ```
 
 ## Next Directive Command

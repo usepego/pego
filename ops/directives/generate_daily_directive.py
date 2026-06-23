@@ -9,12 +9,15 @@ private instance content in framework files.
 from __future__ import annotations
 
 import argparse
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def read_if_exists(path: Path) -> str | None:
@@ -28,11 +31,11 @@ def section(title: str, body: str) -> str:
     return f"## {title}\n\n{body.strip()}\n"
 
 
-def build_directive(target_date: str) -> str:
-    protected_time = read_if_exists(PRIVATE / "time" / "protected-time.md")
-    health_directives = read_if_exists(PRIVATE / "health" / "directives.md")
-    finance_review = read_if_exists(PRIVATE / "finance" / "finance-agent-initial-review.md")
-    career_review = read_if_exists(PRIVATE / "career" / "career-agent-initial-review.md")
+def build_directive(target_date: str, private_root: Path) -> str:
+    protected_time = read_if_exists(private_root / "time" / "protected-time.md")
+    health_directives = read_if_exists(private_root / "health" / "directives.md")
+    finance_review = read_if_exists(private_root / "finance" / "finance-agent-initial-review.md")
+    career_review = read_if_exists(private_root / "career" / "career-agent-initial-review.md")
 
     protected_summary = (
         "Preserve protected time from the private time rules. If no private rule is available, "
@@ -108,21 +111,29 @@ def build_directive(target_date: str) -> str:
     return "\n".join(parts)
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--force", action="store_true")
-    args = parser.parse_args()
+    return parser
 
-    target = PRIVATE / "directives" / "daily" / f"{args.date}.md"
+
+def main_with_args(argv: list[str] | None = None) -> Path:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+
+    target = private / "directives" / "daily" / f"{args.date}.md"
     target.parent.mkdir(parents=True, exist_ok=True)
 
     if target.exists() and not args.force:
         raise SystemExit(f"refusing to overwrite existing file: {target}")
 
-    target.write_text(build_directive(args.date))
+    target.write_text(build_directive(args.date, private))
     print(f"wrote: {target}")
+    return target
 
 
 if __name__ == "__main__":
-    main()
+    main_with_args()

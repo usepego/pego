@@ -76,6 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("storage", help="check protected private storage and backup readiness")
     subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
     subparsers.add_parser("intake", help="generate a protected first-run intake packet")
+    subparsers.add_parser("daily-directive", help="generate a protected daily directive packet")
     subparsers.add_parser("daily", help="run daily operating-loop subcommands")
     subparsers.add_parser("weekly", help="generate a protected weekly operating plan")
     subparsers.add_parser("monthly", help="generate a protected monthly strategy review")
@@ -125,6 +126,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/private/bootstrap_private_instance.py", with_private_root(args, forwarded))
     if args.command == "intake":
         return run_script("ops/onboarding/generate_intake.py", with_private_root(args, forwarded))
+    if args.command == "daily-directive":
+        return run_script("ops/directives/generate_daily_directive.py", with_private_root(args, forwarded))
     if args.command == "daily":
         if not forwarded:
             parser.error("daily requires a daily-cycle subcommand, such as health-check-in, synthesize, next, outcome, review, or learn")

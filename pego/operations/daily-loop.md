@@ -94,6 +94,12 @@ The reference daily directive generator lives at:
 ops/directives/generate_daily_directive.py
 ```
 
+The local wrapper command is:
+
+```sh
+python3 pegoctl daily-directive
+```
+
 It writes generated daily packets into the protected private instance.
 
 The reference daily cycle runner lives at:

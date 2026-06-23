@@ -538,6 +538,8 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         private_root = Path(directory) / "pego-private"
         directive = Path(directory) / "directive.md"
+        (private_root / "time").mkdir(parents=True)
+        (private_root / "time" / "protected-time.md").write_text("Synthetic protected time.")
         directive.write_text(COMPLIANCE_DIRECTIVE)
         run(
             [
@@ -548,6 +550,16 @@ def main() -> None:
                 "2026-06-23",
                 "--phase",
                 "boundary",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "daily-directive",
+                "--date",
+                "2026-06-23",
                 "--force",
             ]
         )
@@ -567,6 +579,8 @@ def main() -> None:
         )
         if not (private_root / "onboarding" / "intake" / "2026-06-23-boundary.md").exists():
             raise AssertionError("expected pegoctl intake under configured private root")
+        if not (private_root / "directives" / "daily" / "2026-06-23.md").exists():
+            raise AssertionError("expected pegoctl daily directive under configured private root")
         if not (private_root / "governance" / "reviews" / "2026-06-23-synthetic-directive.md").exists():
             raise AssertionError("expected pegoctl compliance review under configured private root")
 

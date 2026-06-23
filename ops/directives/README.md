@@ -8,15 +8,20 @@ Generated directives are written into the protected private instance under `priv
 
 ```sh
 python3 ops/directives/generate_daily_directive.py
+python3 pegoctl daily-directive
 ```
 
 Optional date:
 
 ```sh
 python3 ops/directives/generate_daily_directive.py --date 2026-06-22
+python3 pegoctl daily-directive --date 2026-06-22
 ```
 
 By default, the script will not overwrite an existing daily directive. Use `--force` only when intentionally regenerating a local private directive.
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct script so generated daily directives stay inside the protected
+private instance.
 
 ## Select Next Directive
 

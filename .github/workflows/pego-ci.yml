@@ -62,6 +62,7 @@ jobs:
           python3 ops/packaging/test_package_cli.py
           python3 ops/operator/test_generate_brief.py
           python3 ops/operator/test_close_session.py
+          python3 ops/directives/test_generate_daily_directive.py
           python3 ops/directives/test_next_directive.py
           python3 ops/operator/test_next_step.py
           python3 ops/operator/test_user_check_in.py

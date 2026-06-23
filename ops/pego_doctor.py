@@ -176,6 +176,7 @@ REQUIRED_FILES = [
     "ops/review/review_outcome.py",
     "ops/review/test_review_outcome.py",
     "ops/directives/generate_daily_directive.py",
+    "ops/directives/test_generate_daily_directive.py",
     "ops/directives/next_directive.py",
     "ops/directives/test_next_directive.py",
     "ops/governance/directive_preflight.py",

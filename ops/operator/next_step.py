@@ -21,17 +21,19 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
 sys.path.insert(0, str(ROOT / "ops" / "directives"))
 sys.path.insert(0, str(ROOT / "ops" / "governance"))
 
 import directive_preflight  # noqa: E402
 import next_directive  # noqa: E402
+import private_root as private_root_config  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--queue", type=Path)
     parser.add_argument("--register", type=Path)
     parser.add_argument("--done", action="append", default=[])
@@ -49,12 +51,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
 
     response_output = args.response_output or (
-        PRIVATE / "directives" / "command-responses" / f"{args.date}-next.md"
+        private / "directives" / "command-responses" / f"{args.date}-next.md"
     )
     preflight_output = args.preflight_output or (
-        PRIVATE / "governance" / "preflight" / f"{args.date}-next.json"
+        private / "governance" / "preflight" / f"{args.date}-next.json"
     )
 
     directive_args = [
@@ -69,6 +72,8 @@ def main_with_args(argv: list[str] | None = None) -> dict:
         directive_args.extend(["--queue", str(args.queue)])
     if args.register:
         directive_args.extend(["--register", str(args.register)])
+    if args.private_root:
+        directive_args.extend(["--private-root", str(args.private_root)])
     for done in args.done:
         directive_args.extend(["--done", done])
     if args.blocked:

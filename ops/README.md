@@ -36,6 +36,7 @@ Useful tools:
 - `operator/close_session.py`: close a protected USER-mode session into a session review.
 - `operator/next_step.py`: select one next directive and run governance preflight.
 - `operator/user_check_in.py`: record a USER-mode check-in, select one next directive, run preflight, and update the intra-day session log.
+- `operator/test_external_private_root.py`: verify USER-mode operators can use a configured backed-up private root.
 - `context/promote_session_review.py`: promote session-review context candidates into protected context-update records.
 - `context/apply_context_updates.py`: review and optionally apply protected context updates to durable private memory.
 - `context/record_context_update.py`: record protected context updates.

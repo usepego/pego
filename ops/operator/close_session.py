@@ -10,12 +10,15 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def slugify(value: str) -> str:
@@ -223,6 +226,7 @@ def build_markdown(review: dict) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--session-json", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
@@ -234,9 +238,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
-    session_json = args.session_json or PRIVATE / "operator" / "sessions" / f"{args.date}-user-mode.json"
-    output = args.output or PRIVATE / "reviews" / "sessions" / f"{args.date}-session-review.md"
-    json_output = args.json_output or PRIVATE / "reviews" / "sessions" / f"{args.date}-session-review.json"
+    private = private_root_config.resolve_private_root(args.private_root)
+    session_json = args.session_json or private / "operator" / "sessions" / f"{args.date}-user-mode.json"
+    output = args.output or private / "reviews" / "sessions" / f"{args.date}-session-review.md"
+    json_output = args.json_output or private / "reviews" / "sessions" / f"{args.date}-session-review.json"
     review = build_review(session_json, args)
 
     for path, content in [

@@ -12,13 +12,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import asdict, dataclass
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -205,11 +208,12 @@ def build_markdown(model: dict) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--mode", default="USER mode")
     parser.add_argument("--objective", default="")
     parser.add_argument("--governance", default="")
     parser.add_argument("--limit", type=int, default=5)
-    parser.add_argument("--active-operating-brief", type=Path, default=PRIVATE / "active-operating-brief.md")
+    parser.add_argument("--active-operating-brief", type=Path)
     parser.add_argument("--queue", type=Path)
     parser.add_argument("--session-json", type=Path)
     parser.add_argument("--output", type=Path)
@@ -221,10 +225,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
-    args.queue = args.queue or PRIVATE / "directives" / "queues" / f"{args.date}-queue.md"
-    args.session_json = args.session_json or PRIVATE / "operator" / "sessions" / f"{args.date}-user-mode.json"
-    output = args.output or PRIVATE / "operator" / "briefs" / f"{args.date}-brief.md"
-    json_output = args.json_output or PRIVATE / "operator" / "briefs" / f"{args.date}-brief.json"
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.active_operating_brief = args.active_operating_brief or private / "active-operating-brief.md"
+    args.queue = args.queue or private / "directives" / "queues" / f"{args.date}-queue.md"
+    args.session_json = args.session_json or private / "operator" / "sessions" / f"{args.date}-user-mode.json"
+    output = args.output or private / "operator" / "briefs" / f"{args.date}-brief.md"
+    json_output = args.json_output or private / "operator" / "briefs" / f"{args.date}-brief.json"
 
     model = build_brief_model(args)
 

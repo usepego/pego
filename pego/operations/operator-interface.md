@@ -219,6 +219,10 @@ python3 pegoctl next --available 30 --energy medium --location computer
 python3 pegoctl check-in "Done: prior directive. Available: 30 minutes. What's next?"
 ```
 
+For installed or backed-up operation, set `PEGO_PRIVATE_ROOT` or pass
+`--private-root` so outputs go to the protected private instance rather than
+the framework checkout.
+
 `check-in` should be preferred during USER mode because it preserves the
 intra-day session log as well as the command response and preflight artifact.
 

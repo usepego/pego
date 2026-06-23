@@ -19,15 +19,17 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
 sys.path.insert(0, str(ROOT / "ops" / "operator"))
 
 import next_step  # noqa: E402
+import private_root as private_root_config  # noqa: E402
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--time", default="")
     parser.add_argument("--input", required=True, help="human status update or request")
     parser.add_argument("--queue", type=Path)
@@ -97,9 +99,9 @@ def empty_session(args: argparse.Namespace) -> dict:
     }
 
 
-def update_session(args: argparse.Namespace, event: dict) -> dict:
+def update_session(args: argparse.Namespace, event: dict, private: Path) -> dict:
     output = args.session_json_output or (
-        PRIVATE / "operator" / "sessions" / f"{args.date}-user-mode.json"
+        private / "operator" / "sessions" / f"{args.date}-user-mode.json"
     )
     session = read_json_if_exists(output)
     if session is None:
@@ -233,14 +235,15 @@ def build_markdown_session(session: dict) -> str:
 
 
 def run_next_step(args: argparse.Namespace) -> dict:
+    private = private_root_config.resolve_private_root(args.private_root)
     response_output = args.response_output or (
-        PRIVATE / "directives" / "command-responses" / f"{args.date}-next.md"
+        private / "directives" / "command-responses" / f"{args.date}-next.md"
     )
     response_json_output = args.response_json_output or (
-        PRIVATE / "directives" / "command-responses" / f"{args.date}-next.json"
+        private / "directives" / "command-responses" / f"{args.date}-next.json"
     )
     preflight_output = args.preflight_output or (
-        PRIVATE / "governance" / "preflight" / f"{args.date}-next.json"
+        private / "governance" / "preflight" / f"{args.date}-next.json"
     )
 
     forwarded = [
@@ -253,6 +256,8 @@ def run_next_step(args: argparse.Namespace) -> dict:
         "--preflight-output",
         str(preflight_output),
     ]
+    if args.private_root:
+        forwarded.extend(["--private-root", str(args.private_root)])
     if args.queue:
         forwarded.extend(["--queue", str(args.queue)])
     if args.register:
@@ -276,13 +281,14 @@ def run_next_step(args: argparse.Namespace) -> dict:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
 
     summary = run_next_step(args)
     event = build_event(args, summary)
-    session = update_session(args, event)
+    session = update_session(args, event, private)
 
     session_output = args.session_output or (
-        PRIVATE / "operator" / "sessions" / f"{args.date}-user-mode.md"
+        private / "operator" / "sessions" / f"{args.date}-user-mode.md"
     )
     session_output.parent.mkdir(parents=True, exist_ok=True)
     session_output.write_text(build_markdown_session(session))
@@ -291,7 +297,7 @@ def main_with_args(argv: list[str] | None = None) -> dict:
         "session_output": str(session_output),
         "session_json_output": str(
             args.session_json_output
-            or PRIVATE / "operator" / "sessions" / f"{args.date}-user-mode.json"
+            or private / "operator" / "sessions" / f"{args.date}-user-mode.json"
         ),
         "response_output": summary["response_output"],
         "response_json_output": summary.get("response_json_output", ""),

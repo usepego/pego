@@ -12,13 +12,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -447,8 +450,9 @@ def build_response(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--queue", type=Path)
-    parser.add_argument("--register", type=Path, default=PRIVATE / "operator" / "operating-register.md")
+    parser.add_argument("--register", type=Path)
     parser.add_argument("--done", action="append", default=[])
     parser.add_argument("--blocked", default="")
     parser.add_argument("--available", type=int)
@@ -463,12 +467,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
 
-    queue = args.queue or PRIVATE / "directives" / "queues" / f"{args.date}-queue.md"
-    output = args.output or PRIVATE / "directives" / "command-responses" / f"{args.date}-next.md"
+    queue = args.queue or private / "directives" / "queues" / f"{args.date}-queue.md"
+    register = args.register or private / "operator" / "operating-register.md"
+    output = args.output or private / "directives" / "command-responses" / f"{args.date}-next.md"
 
     queue_text = read_if_exists(queue)
-    register_text = read_if_exists(args.register)
+    register_text = read_if_exists(register)
     completed = parse_completed_inputs(args.done)
     candidates = apply_behavioral_strategy(parse_active_candidates(queue_text), queue_text)
     candidate = choose_candidate(candidates, completed, args.available, args.energy, args.location)

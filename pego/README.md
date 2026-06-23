@@ -45,14 +45,15 @@ Start here:
 25. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
 26. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
 27. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
-28. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-29. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-30. `operations/private-storage-backup.md`: how private PEGO state is protected and backed up.
-31. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-32. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-33. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-34. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-35. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+28. `operations/start-pego.md`: how a normal user starts PEGO through conversation while the adapter handles setup.
+29. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
+30. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+31. `operations/private-storage-backup.md`: how private PEGO state is protected and backed up.
+32. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+33. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+34. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+35. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+36. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

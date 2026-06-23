@@ -11,6 +11,8 @@ Outcome review should answer:
 - Did the directive happen?
 - If not, why not?
 - Did it improve the target condition?
+- Did the human report progress toward the intended outcome?
+- Did it increase, reduce, or fail to affect contentment?
 - What did it cost?
 - What should change next?
 

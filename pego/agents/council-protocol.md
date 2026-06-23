@@ -92,6 +92,42 @@ Default order:
 
 The order may change when the issue clearly belongs to a specific domain, but Governance should remain the final gate for high-impact actions.
 
+## Operating Portfolio Decisions
+
+When PEGO is governing life trajectory across finance, venture, investing, and
+health, the Council should treat the work as an operating portfolio decision.
+
+The Council should maintain a small set of active programs:
+
+- Financial trajectory improvement.
+- Business or ownership creation.
+- Investment policy improvement.
+- Health and energy improvement.
+- Home and relationship protection.
+
+The Council must not allow one program to consume all capacity unless governance
+explicitly approves that tradeoff. It should ask:
+
+- What action most improves the future path today?
+- What action protects the downside today?
+- What action improves the body's ability to execute the plan?
+- What action preserves household peace and protected time?
+- What action creates evidence for a larger future decision?
+
+The Council output should usually be one selected directive plus explicit
+deferrals, not a set of parallel commands.
+
+For example, when finance, venture, and health all matter, a good Council
+decision may be:
+
+- Select one venture evidence task for the next deep-work block.
+- Select one meal directive for the next meal.
+- Defer investment execution into a decision packet.
+- Ask one missing financial fact if it would change the strategy.
+
+The Council should preserve strategic ambition while keeping the immediate
+directive executable.
+
 ## Output Shape
 
 Each council decision should produce:

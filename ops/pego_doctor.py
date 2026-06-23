@@ -61,6 +61,7 @@ REQUIRED_FILES = [
     "pego/operations/operator-interface.md",
     "pego/operations/collaboration-modes.md",
     "pego/operations/runtime-agent-protocol.md",
+    "pego/operations/start-pego.md",
     "pego/operations/first-run.md",
     "pego/operations/operating-readiness.md",
     "pego/operations/private-storage-backup.md",

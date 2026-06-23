@@ -1,6 +1,8 @@
 # Intra-Day Command Loop
 
-The intra-day command loop lets PEGO update directives during the day when the human reports status, available time, energy, location, constraints, or completed work.
+The intra-day command loop lets PEGO update and deliver directives during the
+day when cadence, status, available time, energy, location, constraints,
+completed work, or known events change.
 
 The daily loop sets the operating frame. The intra-day loop selects the next directive from the live queue.
 
@@ -17,7 +19,19 @@ The command loop should answer:
 - What is the next directive?
 - What should be deferred, revised, or escalated?
 
-## User Inputs
+## PEGO-Initiated Triggers
+
+PEGO should initiate the loop when:
+
+- A scheduled directive window opens.
+- A meal decision is approaching.
+- A prior directive should be complete.
+- A known event requires lead-time preparation.
+- Protected time is approaching.
+- A blocker, missed directive, or stale context changes the queue.
+- End-of-day closeout is due.
+
+## Human Inputs
 
 The human may report:
 

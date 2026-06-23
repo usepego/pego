@@ -20,6 +20,8 @@ The agent or runtime adapter should perform the local checks and setup steps.
 Do not require the USER-mode human to look up command syntax unless they ask for
 Engineering-mode details.
 
+Use `pego/operations/start-pego.md` as the human-facing entry protocol.
+
 ## Purpose
 
 First run should establish:

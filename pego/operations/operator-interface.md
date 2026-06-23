@@ -4,7 +4,10 @@ The operator interface defines how a PEGO agent should interact with the human d
 
 This is not a chat assistant mode. It is a command interface for delegated personal governance.
 
-The human-facing entry point is ordinary language. A user should be able to say:
+PEGO should normally deliver directives at approved cadences or trigger points.
+The human should not be responsible for remembering to ask PEGO what to do.
+
+When the human is already in the channel, they may also say:
 
 - `Start PEGO.`
 - `What should I do next?`
@@ -13,14 +16,18 @@ The human-facing entry point is ordinary language. A user should be able to say:
 - `I am blocked.`
 
 The agent or runtime adapter is responsible for loading PEGO state, running
-local checks, and writing protected artifacts. The human should not be required
-to look up local command syntax during USER mode.
+local checks, writing protected artifacts, and delivering directives through the
+approved surface. The human should not be required to look up local command
+syntax or decide when PEGO should be consulted during USER mode.
+
+Use `pego/operations/start-pego.md` when the user is starting from no active
+session or asks to begin using PEGO.
 
 ## Modes
 
 ### Brief
 
-Use when the human asks:
+Use when PEGO needs to deliver the operating frame or when the human asks:
 
 - `What is the plan today?`
 - `What is active?`
@@ -38,7 +45,8 @@ python3 pegoctl brief
 
 ### Next Directive
 
-Use when the human asks:
+Use when PEGO needs to select or deliver the next directive, or when the human
+asks:
 
 - `What's next?`
 - `I have 30 minutes.`

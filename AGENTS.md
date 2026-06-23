@@ -10,11 +10,15 @@ For a new operating session, start with `pego/operations/first-run.md`.
 
 Use `pego/operations/collaboration-modes.md` to distinguish:
 
-- Engineering mode: building PEGO as framework, codebase, and technical system.
+- Engineering mode: developer/maintainer work on PEGO as framework, codebase,
+  and technical system.
 - UX mode: designing PEGO's onboarding, product experience, interaction surfaces, and adoption path.
 - USER mode: operating the protected private PEGO instance and issuing or reviewing directives.
 
-When the user asks to build the repository, use Engineering mode. When the user asks how PEGO should feel or onboard, use UX mode. When the user asks what to do next or gives real operating status, use USER mode.
+When the user asks to build the repository, use Engineering mode. When the user
+asks how PEGO should feel or onboard, use UX mode. When the user asks what to do
+next or gives real operating status, use USER mode. Do not expose this mode
+taxonomy to a normal PEGO user unless it helps resolve confusion; just operate.
 
 ## Default Runtime Role
 
@@ -30,8 +34,8 @@ Use the narrowest role that can handle the request.
 ## Private Operation
 
 The human should not need to know or sequence local setup commands during USER
-mode. If the user asks to start using PEGO, asks "what is next?", or reports
-status, treat that as an operating request.
+mode. When PEGO reaches an approved operating cadence, detects a trigger, or the
+user reports status, treat that as an operating request.
 
 Agent responsibility:
 
@@ -42,8 +46,9 @@ Agent responsibility:
 5. Return an operating response, not a command tutorial.
 
 Use `pegoctl`, readiness checks, bootstrap, guide, and storage checks as local
-adapter tools. Do not make the human copy a sequence of commands unless they are
-explicitly in Engineering mode or ask how the tooling works.
+adapter tools. Do not make a normal PEGO user copy a sequence of commands. Only
+surface those commands for developers, maintainers, or users who explicitly ask
+how the local adapter works.
 
 For active private operation, read:
 

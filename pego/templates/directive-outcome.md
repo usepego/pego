@@ -36,6 +36,14 @@ What made execution harder?
 
 What improved?
 
+## Outcome Progress
+
+What intended outcome became more real or better understood?
+
+## Contentment Signal
+
+Did the human report more contentment, less contentment, or no material change?
+
 ## Cost
 
 What did it consume, disrupt, or delay?

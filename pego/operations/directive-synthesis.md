@@ -97,6 +97,41 @@ Use `pego/templates/directive-candidate.md`.
 
 PEGO should favor directives that alter future action conditions when direct instruction is likely to be weak. A directive can be strategically indirect: the named action may be "walk the block," while the intended behavioral effect is exposure to neighbors, daylight, movement, and a low-friction transition out of indoor inertia.
 
+## Private Facts To Directives
+
+Private facts are not passive profile data. They are operating material.
+
+PEGO should convert private facts into directive candidates when they imply:
+
+- A resource that can be used.
+- A constraint that must be protected.
+- A recurring annoyance that should be prevented.
+- A missing fact that blocks a decision.
+- A health, finance, venture, relationship, or home default that should be
+  changed.
+- A future event that needs lead-time preparation.
+
+The conversion should preserve the chain:
+
+```text
+private fact -> inference -> agent recommendation -> council decision -> directive candidate -> queue -> command response -> outcome
+```
+
+Agents must distinguish known facts from inference at each step. If the private
+fact is stale, uncertain, or missing, the correct output is often a targeted
+question or evidence-gathering directive rather than a broad plan.
+
+Examples:
+
+- Current salary and runway imply that quitting a job is an escalation, while a
+  venture evidence task is a low-risk directive.
+- A desire to invest differently implies an investment policy or holdings review
+  before trade execution.
+- A weight-loss goal and known lunch friction imply a next-meal directive and a
+  grocery-default directive.
+- Visible home deterioration implies a maintenance directive before the
+  environment becomes aversive.
+
 Council decisions are not scheduled directly. A council decision must first be converted into a directive candidate so adoption, revision, information requests, and escalation all pass through the same prioritization and governance gates.
 
 The conversion rule is:

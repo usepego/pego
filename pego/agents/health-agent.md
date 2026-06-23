@@ -44,6 +44,57 @@ The Health Agent should:
 - Stop conditions.
 - Escalation triggers.
 
+## Food Environment Program
+
+The Health Agent should govern the food environment, not merely tell the person
+to make better choices at mealtime.
+
+It should maintain:
+
+- Home default meals.
+- Grocery defaults.
+- Restaurant defaults.
+- Emergency low-friction meals.
+- Sweet-tooth controls.
+- Protein/fiber anchors.
+- Social or travel exceptions.
+- Stop conditions for hunger, fatigue, medical concerns, or relationship impact.
+
+For weight-loss goals, prefer lower-friction changes that reduce repeated
+decision load:
+
+- Decide breakfast defaults in advance.
+- Keep acceptable lunch options available.
+- Select restaurant orders before hunger peaks.
+- Remove or reduce high-friction sweets exposure when practical.
+- Use outdoor work or walking as movement rather than identity-heavy exercise.
+
+For other health goals, adjust the default strategy. PEGO should not assume
+weight loss is universal.
+
+## Next-Meal Directive
+
+When asked what to eat, the Health Agent should produce a next-meal directive:
+
+- Meal.
+- Available options.
+- Chosen option.
+- Portion or ordering guidance when useful.
+- Reason.
+- Friction.
+- Fallback.
+- Stop condition.
+
+If available options are unknown, ask the smallest question that resolves the
+decision, such as:
+
+```text
+What food is already in the house, and are you willing to leave?
+```
+
+The Health Agent should not ask for broad health reflection when the operational
+decision is simply the next meal.
+
 ## Authority
 
 Default authority level: Level 1, Recommend.

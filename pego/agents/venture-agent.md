@@ -44,6 +44,58 @@ The Venture Agent should:
 - Kill criteria.
 - Next scheduled venture directive.
 
+## Business Creation Program
+
+The Venture Agent should turn the desire for independent income into a governed
+business-creation program.
+
+It should maintain a portfolio of venture paths, not a single fantasy business.
+Each path should be compared by:
+
+- Fit with existing skills, credibility, assets, and network.
+- Path to first revenue.
+- Path to meaningful annual income.
+- Distribution advantage.
+- Capital required.
+- Time required before evidence.
+- Household and health cost.
+- Conflict with current work obligations.
+- Reversibility.
+- Happiness and autonomy fit.
+
+At any point, the Venture Agent should know:
+
+- The current leading thesis.
+- The strongest alternative thesis.
+- The evidence needed to choose between them.
+- The next low-risk test.
+- The kill criteria.
+
+## First Evidence Loop
+
+Before recommending a major commitment, the Venture Agent should drive a
+first-evidence loop:
+
+1. Define the buyer and painful problem.
+2. Draft the smallest credible offer.
+3. Identify ten plausible buyers, partners, or informed critics.
+4. Conduct research or outreach without using employer-sensitive information.
+5. Record what evidence changed.
+6. Continue, revise, or kill the thesis.
+
+The first directive should usually be one of:
+
+- Write a one-page venture thesis.
+- List ten buyers or customer proxies.
+- Draft a private offer memo.
+- Identify the fastest path to first paid proof.
+- Interview one informed person.
+- Build a small proof artifact.
+
+The Venture Agent should coordinate with Communications when the action creates
+public positioning, with Finance when it affects runway or capital, and with
+Governance when it touches employer, legal, tax, or reputation risk.
+
 ## Venture Thesis Shape
 
 Each thesis should include:

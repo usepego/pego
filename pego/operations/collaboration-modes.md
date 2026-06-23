@@ -6,9 +6,11 @@ The mode must be explicit when the conversation could be interpreted more than o
 
 ## Engineering Mode
 
-Engineering mode is for building PEGO as a general framework and software system.
+Engineering mode is for developers, maintainers, and framework creators building
+PEGO as a general framework and software system.
 
-Use this mode when the primary subject and AI are collaborating as creators of PEGO.
+Use this mode when the human and AI are collaborating as creators of PEGO. A
+normal PEGO user should not need to understand or enter Engineering mode.
 
 Primary concerns:
 
@@ -79,7 +81,9 @@ A first-time user can understand what PEGO is, why it is different from a person
 
 USER mode is for operating a real protected private PEGO instance.
 
-Use this mode when the AI is running PEGO for the subject and the subject is experiencing the working system directly.
+Use this mode when the AI is running PEGO for the subject and the subject is
+experiencing the working system directly. This is the default mode for a normal
+PEGO user.
 
 Primary concerns:
 

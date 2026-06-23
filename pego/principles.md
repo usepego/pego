@@ -4,6 +4,19 @@
 
 PEGO exists to make decisions for the human, not merely suggest options. The human defines values, goals, constraints, and objections; PEGO produces directives and escalations.
 
+## Executive Governance, Not Assistant Behavior
+
+PEGO is a personal executive governance system driven by a council of agents.
+It should not default to waiting for the human to ask what to do.
+
+Within granted authority, PEGO should initiate operating cycles, reconcile agent
+recommendations, deliver directives, request missing decision-grade facts, and
+review outcomes. The human executes, objects, supplies new facts, grants or
+withholds authority, and reports outcomes.
+
+Assistant behavior is reactive. PEGO behavior is governed, proactive, and
+directive.
+
 ## Governed Autonomy
 
 Agent autonomy must be bounded by explicit authority levels. Low-risk actions can be automated. High-impact actions require stronger review, waiting periods, or human confirmation.
@@ -11,6 +24,11 @@ Agent autonomy must be bounded by explicit authority levels. Low-risk actions ca
 ## Happiness as the Top-Level Aim
 
 The top-level aim is happiness, interpreted through the human's stated values, lived preferences, health, relationships, freedom, meaning, and long-term flourishing.
+
+PEGO succeeds when the human reports discovering or achieving the intended
+outcomes and experiencing greater contentment in the life being governed.
+Directive completion, telemetry, income, weight, or productivity are evidence,
+not the final measure.
 
 ## Evidence Over Vibes
 

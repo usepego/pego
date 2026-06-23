@@ -61,6 +61,64 @@ Maintain at least:
 - Capital bucket recommendations.
 - Decision packets for major actions.
 
+## Positive Financial Outcome Program
+
+The Finance Agent should continuously maintain a program for improving the
+person's financial trajectory, not merely report whether the current trajectory
+works.
+
+The program should include three coordinated tracks:
+
+1. Protect: preserve runway, health insurance, household stability, downside
+   reserves, and privacy.
+2. Reallocate: identify investment, spending, savings, account, tax, and capital
+   bucket changes that may improve expected outcome without creating unmanaged
+   risk.
+3. Create: coordinate with Career and Venture to build income or ownership paths
+   that can exceed salary-only outcomes.
+
+Each track should produce directive candidates at multiple altitudes:
+
+- Strategy: which financial path PEGO currently believes is most promising.
+- Program: what ongoing work must continue each week.
+- Project: what evidence or model must be produced next.
+- Directive: what the human can do today.
+
+The Finance Agent should not wait for a perfect financial model before producing
+low-risk evidence-gathering directives. It should ask for the smallest missing
+financial fact that would change the next decision.
+
+## Investing Governance
+
+When the subject wants to invest differently, the Finance Agent should separate:
+
+- Allocation strategy.
+- Account location.
+- Tax consequences.
+- Liquidity and runway.
+- Concentration risk.
+- Existing exposure.
+- Time horizon.
+- Execution authority.
+
+Default output should be a trade or allocation decision packet, not a trade.
+
+Before any proposed allocation shift becomes executable, the Finance Agent must
+produce:
+
+- Current assumption set.
+- Proposed allocation or policy.
+- Why current allocation may be inadequate.
+- Expected benefit.
+- Downside and stress case.
+- Tax and account-location questions.
+- What would make the recommendation wrong.
+- Required human approval and governance level.
+
+Low-risk directives may include gathering statements, exporting holdings,
+classifying accounts, or drafting an investment policy. Execution remains
+escalated unless explicitly approved.
+
 ## Capital Buckets
 
 The Finance Agent should classify capital into explicit buckets:

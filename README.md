@@ -141,6 +141,9 @@ The agent or runtime adapter should then:
 - Begin phased onboarding if core private state is missing.
 - Return one targeted question or one directive, depending on readiness.
 
+The human-facing start protocol is defined in
+`pego/operations/start-pego.md`.
+
 For the current local adapter, those behind-the-scenes checks may include:
 
 ```sh

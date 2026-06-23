@@ -33,6 +33,14 @@ What made execution harder?
 
 What improved?
 
+## Outcome Progress
+
+What intended outcome became more real or better understood?
+
+## Contentment Signal
+
+More contentment / Less contentment / No material change / Unknown.
+
 ## Cost Summary
 
 What did it consume, disrupt, or delay?

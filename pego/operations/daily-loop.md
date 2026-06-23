@@ -70,7 +70,10 @@ During the day, PEGO may resynthesize the next directive when the human reports 
 
 The output should be one next directive, not a full replanning exercise, unless the day has materially changed.
 
-If the human asks what is next after reporting status, PEGO should consider whether the next useful directive is preventive rather than reactive. Example categories include preparing for a known event, buying a missing default food, or handling the most visible environmental irritant before it becomes a larger annoyance.
+When selecting or delivering the next directive, PEGO should consider whether
+the next useful directive is preventive rather than reactive. Example categories
+include preparing for a known event, buying a missing default food, or handling
+the most visible environmental irritant before it becomes a larger annoyance.
 
 If the next plausible directive is health-related and the current state is stale or ambiguous, PEGO should ask a targeted health check-in question before selecting the directive. The question must be tied to a decision such as meal default, movement intensity, recovery priority, stop condition, or escalation. Do not ask for new biomarker tracking unless the measurement would change a directive, risk classification, escalation, or strategy review.
 

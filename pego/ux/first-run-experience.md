@@ -144,11 +144,16 @@ Future product surfaces may include:
 - Slack or SMS for command-response interaction.
 - Email for weekly review packets.
 
+The primary UX should be PEGO-initiated directive delivery, not a passive chat
+box waiting for the human to ask. A user should experience PEGO as a governed
+operating cadence: prompts arrive when action, food, review, protected-time
+boundary, or anticipation is due.
+
 PEGO should not require all surfaces. The minimal viable experience is:
 
 - Local protected private instance.
 - Natural-language onboarding handled by an agent or runtime adapter.
-- One next-directive interaction.
+- One delivered next directive.
 - Outcome capture.
 - Weekly review.
 

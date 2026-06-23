@@ -29,6 +29,8 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "apply-context" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "--private-root" not in completed.stdout:
+        raise AssertionError(completed.stdout)
 
     print("package CLI smoke tests passed.")
 

@@ -168,6 +168,7 @@ REQUIRED_FILES = [
     "ops/context/test_apply_context_updates.py",
     "ops/context/record_context_update.py",
     "ops/context/test_record_context_update.py",
+    "ops/context/test_external_private_root.py",
     "ops/outcomes/record_outcome.py",
     "ops/outcomes/test_record_outcome.py",
     "ops/review/review_outcome.py",

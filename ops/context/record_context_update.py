@@ -10,12 +10,15 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 SOURCES = {
     "Conversation",
@@ -61,14 +64,14 @@ def slugify(value: str) -> str:
     return value.strip("-") or "context-update"
 
 
-def validate_private_destination(path: Path) -> None:
+def validate_private_destination(path: Path, private_root: Path) -> None:
     try:
         resolved = path.resolve()
     except FileNotFoundError:
         resolved = path.parent.resolve() / path.name
-    private_root = PRIVATE.resolve()
-    if private_root not in resolved.parents and resolved != private_root:
-        raise SystemExit(f"destination must be under private/: {path}")
+    resolved_private_root = private_root.resolve()
+    if resolved_private_root not in resolved.parents and resolved != resolved_private_root:
+        raise SystemExit(f"destination must be under configured private root: {path}")
 
 
 def build_update(args: argparse.Namespace) -> str:
@@ -128,12 +131,12 @@ def build_update(args: argparse.Namespace) -> str:
     )
 
 
-def apply_update(args: argparse.Namespace, update_path: Path) -> Path:
+def apply_update(args: argparse.Namespace, update_path: Path, private_root: Path) -> Path:
     if args.action != "Update destination":
         raise SystemExit("--apply requires --action 'Update destination'")
     if not args.destination_file:
         raise SystemExit("--apply requires --destination-file")
-    validate_private_destination(args.destination_file)
+    validate_private_destination(args.destination_file, private_root)
     args.destination_file.parent.mkdir(parents=True, exist_ok=True)
     with args.destination_file.open("a") as handle:
         handle.write(
@@ -155,6 +158,7 @@ def apply_update(args: argparse.Namespace, update_path: Path) -> Path:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--title", default="")
     parser.add_argument("--source", choices=sorted(SOURCES), required=True)
     parser.add_argument("--raw-observation", required=True)
@@ -176,13 +180,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
     if not args.title:
         args.title = slugify(args.raw_observation)[:80]
     if args.destination_file:
-        validate_private_destination(args.destination_file)
+        validate_private_destination(args.destination_file, private)
 
     output = args.output or (
-        PRIVATE
+        private
         / "context"
         / "updates"
         / f"{args.date}-{slugify(args.title)}.md"
@@ -194,7 +199,7 @@ def main_with_args(argv: list[str] | None = None) -> Path:
 
     print(f"wrote: {output}")
     if args.apply:
-        destination = apply_update(args, output)
+        destination = apply_update(args, output, private)
         print(f"updated: {destination}")
     return output
 

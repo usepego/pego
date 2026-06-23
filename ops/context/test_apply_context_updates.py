@@ -71,8 +71,6 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         private_root = root / "private"
-        apply_context_updates.PRIVATE = private_root
-        apply_context_updates.DEFAULT_DESTINATIONS["Preference"] = private_root / "person" / "preferences.md"
         update = root / "update.md"
         destination = private_root / "person" / "preferences.md"
         output = root / "review.md"
@@ -83,6 +81,8 @@ def main() -> None:
             [
                 "--date",
                 "2026-06-23",
+                "--private-root",
+                str(private_root),
                 "--update",
                 str(update),
                 "--output",
@@ -101,6 +101,8 @@ def main() -> None:
             [
                 "--date",
                 "2026-06-23",
+                "--private-root",
+                str(private_root),
                 "--update",
                 str(update),
                 "--output",

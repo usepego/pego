@@ -51,10 +51,23 @@ def run_script(relative: str, args: list[str]) -> int:
     return completed.returncode
 
 
+def with_private_root(args: argparse.Namespace, forwarded: list[str]) -> list[str]:
+    if not args.private_root:
+        return forwarded
+    if "--private-root" in forwarded:
+        return forwarded
+    return ["--private-root", str(args.private_root), *forwarded]
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="pegoctl",
         description="Local PEGO operation wrapper for framework checks and USER-mode operation.",
+    )
+    parser.add_argument(
+        "--private-root",
+        type=Path,
+        help="protected private instance root for commands that read or write private artifacts",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -89,25 +102,30 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         if forwarded:
             parser.error("doctor does not accept forwarded arguments")
+        if args.private_root:
+            parser.error("doctor does not use --private-root")
         return run_script("ops/pego_doctor.py", [])
     if args.command == "readiness":
-        return run_script("ops/private/check_readiness.py", forwarded)
+        return run_script("ops/private/check_readiness.py", with_private_root(args, forwarded))
     if args.command == "storage":
-        return run_script("ops/private/check_storage.py", forwarded)
+        return run_script("ops/private/check_storage.py", with_private_root(args, forwarded))
     if args.command == "bootstrap":
-        return run_script("ops/private/bootstrap_private_instance.py", forwarded)
+        return run_script("ops/private/bootstrap_private_instance.py", with_private_root(args, forwarded))
     if args.command == "brief":
-        return run_script("ops/operator/generate_brief.py", forwarded)
+        return run_script("ops/operator/generate_brief.py", with_private_root(args, forwarded))
     if args.command == "close-session":
-        return run_script("ops/operator/close_session.py", forwarded)
+        return run_script("ops/operator/close_session.py", with_private_root(args, forwarded))
     if args.command == "promote-context":
-        return run_script("ops/context/promote_session_review.py", forwarded)
+        return run_script("ops/context/promote_session_review.py", with_private_root(args, forwarded))
     if args.command == "apply-context":
-        return run_script("ops/context/apply_context_updates.py", forwarded)
+        return run_script("ops/context/apply_context_updates.py", with_private_root(args, forwarded))
     if args.command == "next":
-        return run_script("ops/operator/next_step.py", forwarded)
+        return run_script("ops/operator/next_step.py", with_private_root(args, forwarded))
     if args.command == "check-in":
-        return run_script("ops/operator/user_check_in.py", ["--input", args.input, *forwarded])
+        return run_script(
+            "ops/operator/user_check_in.py",
+            with_private_root(args, ["--input", args.input, *forwarded]),
+        )
 
     parser.error(f"unknown command: {args.command}")
     return 2

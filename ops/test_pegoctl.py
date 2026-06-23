@@ -187,6 +187,38 @@ def main() -> None:
         if promotion_data["artifact_type"] != "session_context_promotion":
             raise AssertionError(promotion_data)
 
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        (private_root / "directives" / "queues").mkdir(parents=True)
+        (private_root / "operator").mkdir(parents=True)
+        (private_root / "directives" / "queues" / "2026-06-23-queue.md").write_text(QUEUE)
+        (private_root / "operator" / "operating-register.md").write_text(REGISTER)
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "check-in",
+                "Breakfast is done. What is next?",
+                "--date",
+                "2026-06-23",
+                "--time",
+                "09:00",
+                "--done",
+                "Breakfast Anchor",
+                "--available",
+                "45",
+                "--energy",
+                "medium",
+                "--location",
+                "computer",
+                "--force",
+            ]
+        )
+        if not (private_root / "operator" / "sessions" / "2026-06-23-user-mode.json").exists():
+            raise AssertionError("expected pegoctl check-in session under configured private root")
+        if not (private_root / "directives" / "command-responses" / "2026-06-23-next.json").exists():
+            raise AssertionError("expected pegoctl command response under configured private root")
+
     print("pegoctl smoke tests passed.")
 
 

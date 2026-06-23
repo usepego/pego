@@ -131,6 +131,13 @@ not the PEGO runtime. Future interfaces may be CLI, chat, mobile, watch, Slack,
 web, or another surface, but they should preserve the same agent contracts,
 schemas, governance checks, and private-instance boundary.
 
+For protected operation outside the framework checkout, set `PEGO_PRIVATE_ROOT`
+or pass `--private-root` before the command:
+
+```sh
+python3 pegoctl --private-root ~/Documents/PEGO/private check-in "Done: lunch. Available: 30 minutes. What's next?"
+```
+
 ## Packaging Direction
 
 The installable package name is `usepego`, and the installed command is

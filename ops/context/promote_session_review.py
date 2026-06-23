@@ -12,9 +12,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
 sys.path.insert(0, str(ROOT / "ops" / "context"))
 
+import private_root as private_root_config  # noqa: E402
 import record_context_update  # noqa: E402
 
 
@@ -61,6 +62,8 @@ def candidate_args(
     return [
         "--date",
         args.date,
+        "--private-root",
+        str(args.private_root_resolved),
         "--title",
         title[:80],
         "--source",
@@ -103,8 +106,9 @@ def build_summary(review: dict, outputs: list[Path], args: argparse.Namespace) -
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--review", type=Path)
-    parser.add_argument("--output-dir", type=Path, default=PRIVATE / "context" / "updates")
+    parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--summary-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -113,7 +117,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> dict:
     parser = build_parser()
     args = parser.parse_args(argv)
-    args.review = args.review or PRIVATE / "reviews" / "sessions" / f"{args.date}-session-review.json"
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.private_root_resolved = private
+    args.review = args.review or private / "reviews" / "sessions" / f"{args.date}-session-review.json"
+    args.output_dir = args.output_dir or private / "context" / "updates"
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     review = load_session_review(args.review)
@@ -126,7 +133,7 @@ def main_with_args(argv: list[str] | None = None) -> dict:
 
     summary = build_summary(review, outputs, args)
     summary_output = args.summary_output or (
-        PRIVATE / "context" / "promotions" / f"{args.date}-session-context-promotion.json"
+        private / "context" / "promotions" / f"{args.date}-session-context-promotion.json"
     )
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     if summary_output.exists() and not args.force:

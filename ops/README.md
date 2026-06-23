@@ -40,6 +40,7 @@ Useful tools:
 - `context/promote_session_review.py`: promote session-review context candidates into protected context-update records.
 - `context/apply_context_updates.py`: review and optionally apply protected context updates to durable private memory.
 - `context/record_context_update.py`: record protected context updates.
+- `context/test_external_private_root.py`: verify context promotion and application can use a configured backed-up private root.
 - `directives/generate_daily_directive.py`: create protected daily directive packets.
 - `outcomes/record_outcome.py`: record protected directive outcomes.
 - `review/review_outcome.py`: convert directive outcomes into learning decisions.

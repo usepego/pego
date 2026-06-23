@@ -13,13 +13,14 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         private_root = root / "private"
-        record_context_update.PRIVATE = private_root
         output = private_root / "context" / "updates" / "test.md"
         destination = private_root / "person" / "observations.md"
         record_context_update.main_with_args(
             [
                 "--date",
                 "2026-06-23",
+                "--private-root",
+                str(private_root),
                 "--title",
                 "Synthetic Pattern",
                 "--source",
@@ -51,13 +52,14 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         private_root = root / "private"
-        record_context_update.PRIVATE = private_root
         output = private_root / "context" / "updates" / "voice.md"
         destination = private_root / "person" / "voice-and-taste.md"
         record_context_update.main_with_args(
             [
                 "--date",
                 "2026-06-23",
+                "--private-root",
+                str(private_root),
                 "--title",
                 "Synthetic Voice Rule",
                 "--source",

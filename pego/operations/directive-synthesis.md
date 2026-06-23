@@ -4,6 +4,10 @@ Directive synthesis is the process that converts agent recommendations at differ
 
 PEGO must not treat all valid directives as simultaneously executable. A person cannot cook, weed the garden, build a business, exercise, work, and rest at the same time. The Operations Agent owns synthesis, but all agents must provide recommendations in a form that can be compared, scheduled, deferred, or escalated.
 
+Use `pego/operations/recommendation-adoption.md` before treating any
+recommendation, council decision, tool result, or behavior-loop record as an
+adopted directive.
+
 ## Governance Altitudes
 
 PEGO should classify work by altitude before scheduling it.
@@ -115,6 +119,12 @@ The conversion should preserve the chain:
 
 ```text
 private fact -> inference -> agent recommendation -> council decision -> directive candidate -> queue -> command response -> outcome
+```
+
+The adoption lifecycle is:
+
+```text
+observation -> recommendation -> deliberation -> council decision -> directive candidate -> governance review -> adopted directive -> execution if authorized -> outcome review
 ```
 
 Agents must distinguish known facts from inference at each step. If the private

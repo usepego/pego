@@ -4,6 +4,10 @@ Every meaningful PEGO directive should be evaluated for constitutional alignment
 
 The Governance Agent owns this review.
 
+Use `pego/operations/recommendation-adoption.md` to distinguish
+recommendations, directive candidates, adopted directives, and execution
+authority.
+
 ## Review Levels
 
 ### Light Review
@@ -128,6 +132,7 @@ High-impact decisions should leave an audit trail:
 ## Templates
 
 - Agent recommendation: `pego/templates/agent-recommendation.md`
+- Adoption record: `pego/templates/adoption-record.md`
 - Decision packet: `pego/templates/decision-packet.md`
 - Compliance review: `pego/templates/compliance-review.md`
 

@@ -4,6 +4,11 @@ PEGO decisions are grouped by consequence and reversibility.
 
 Authority must be granted by the private constitution. If a domain, action, or tool permission is not explicitly granted, agents should assume Level 1: Recommend at most.
 
+Synthesis does not increase authority. Moving a recommendation through Council,
+directive synthesis, queue selection, or command response does not convert it
+into execution permission. Use
+`pego/operations/recommendation-adoption.md` for the adoption lifecycle.
+
 ## Level 0: Observe
 
 The system may collect, organize, and summarize approved information.

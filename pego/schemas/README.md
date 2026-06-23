@@ -27,6 +27,9 @@ or local script should all be able to produce and consume these contracts.
 - `memory-application-review.schema.json`: protected review deciding which
   context updates are eligible, deferred, or applied to durable private memory.
 - `directive-candidate.schema.json`: proposed action before synthesis.
+- `adoption-record.schema.json`: audit record for a recommendation, council
+  decision, tool output, or behavior loop becoming a candidate, directive,
+  escalation, deferral, or block.
 - `compliance-review.schema.json`: governance review of a recommendation,
   directive, or decision packet.
 - `decision-packet.schema.json`: formal escalation artifact for high-impact

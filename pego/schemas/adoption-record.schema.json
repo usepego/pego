@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/adoption-record.schema.json",
+  "title": "PEGO Adoption Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "record",
+    "date",
+    "source_artifact",
+    "source_authority",
+    "proposed_adoption",
+    "adopted_authority",
+    "governance_review",
+    "dissent_preserved",
+    "evidence_quality",
+    "privacy_classification",
+    "execution_permission",
+    "conditions",
+    "stop_conditions",
+    "outcome_review_required"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "adoption_record"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "record": {
+      "type": "string",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_authority": {
+      "$ref": "#/$defs/authority_or_unknown"
+    },
+    "proposed_adoption": {
+      "enum": [
+        "adopt_as_directive_candidate",
+        "adopt_into_queue",
+        "adopt_as_command_response",
+        "request_information",
+        "revise",
+        "defer",
+        "escalate",
+        "block"
+      ]
+    },
+    "adopted_authority": {
+      "$ref": "#/$defs/authority_or_unknown"
+    },
+    "governance_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dissent_preserved": {
+      "type": "string"
+    },
+    "evidence_quality": {
+      "enum": [
+        "direct_telemetry",
+        "financial_model_output",
+        "human_report",
+        "repeated_observed_pattern",
+        "expert_source",
+        "agent_inference",
+        "speculation",
+        "unknown"
+      ]
+    },
+    "privacy_classification": {
+      "enum": [
+        "private_only",
+        "safe_to_summarize",
+        "requires_explicit_disclosure_approval",
+        "blocked"
+      ]
+    },
+    "execution_permission": {
+      "enum": [
+        "none",
+        "manual_human_execution_only",
+        "tool_execution_permitted",
+        "escalated"
+      ]
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome_review_required": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_or_unknown": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate",
+        "unknown"
+      ]
+    }
+  }
+}

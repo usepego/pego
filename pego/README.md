@@ -45,24 +45,25 @@ Start here:
 25. `health/food-environment-spec.md`: how PEGO evaluates home food, groceries, restaurants, menus, nutrition, cost, and friction for meal directives.
 26. `governance/compliance-review.md`: the review gate before adoption or execution.
 27. `operations/attention-governance.md`: how PEGO decides whether live events, media, rest, or highlights deserve attention.
-28. `operations/daily-loop.md`: how approved strategy becomes daily directives.
-29. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
-30. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
-31. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
-32. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
-33. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
-34. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
-35. `operations/start-pego.md`: how a normal user starts PEGO through conversation while the adapter handles setup.
-36. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
-37. `operations/local-adapter.md`: why the local command tools exist and why they are not the primary user experience.
-38. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-39. `operations/private-storage-backup.md`: how private PEGO state is protected and backed up.
-40. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-41. `operations/circumstance-update.md`: how PEGO resynthesizes directives when location, environment, time, energy, or friction changes.
-42. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-43. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-44. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-45. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+28. `operations/recommendation-adoption.md`: how observations, recommendations, council decisions, and tool outputs become directives without gaining accidental authority.
+29. `operations/daily-loop.md`: how approved strategy becomes daily directives.
+30. `operations/weekly-loop.md`: how recent outcomes become weekly priorities.
+31. `operations/monthly-loop.md`: how PEGO reviews strategy, assumptions, and constitutional fit.
+32. `operations/directive-synthesis.md`: how competing directives are prioritized, scheduled, deferred, or escalated.
+33. `operations/operator-interface.md`: how the human asks for briefs, next directives, resynthesis, and review.
+34. `operations/collaboration-modes.md`: how PEGO separates Engineering, UX, and USER work.
+35. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
+36. `operations/start-pego.md`: how a normal user starts PEGO through conversation while the adapter handles setup.
+37. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
+38. `operations/local-adapter.md`: why the local command tools exist and why they are not the primary user experience.
+39. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
+40. `operations/private-storage-backup.md`: how private PEGO state is protected and backed up.
+41. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+42. `operations/circumstance-update.md`: how PEGO resynthesizes directives when location, environment, time, energy, or friction changes.
+43. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+44. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+45. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+46. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

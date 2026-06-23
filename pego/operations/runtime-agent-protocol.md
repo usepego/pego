@@ -128,6 +128,9 @@ If multiple agents need to exchange positions before synthesis, use
 preserve dissent, evidence gaps, and authority implications without implying
 execution approval.
 
+Before turning a Council output or agent recommendation into an active
+directive, apply `pego/operations/recommendation-adoption.md`.
+
 ### Governance Output
 
 Return approve, approve with constraints, request information, downgrade, escalate, or reject.

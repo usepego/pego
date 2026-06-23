@@ -77,6 +77,9 @@ Structured runtimes should preserve council decisions using `pego/schemas/counci
 
 Use `pego/templates/directive-candidate.md` when a recommendation or council decision needs to be compared, prioritized, or scheduled against other directives.
 
+Use `pego/operations/recommendation-adoption.md` to prevent council synthesis
+from increasing authority by accident.
+
 ## Agent-To-Agent Deliberation
 
 Before Council synthesizes a meaningful cross-domain decision, agents may

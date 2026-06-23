@@ -123,6 +123,13 @@
   },
   "operations": [
     {
+      "id": "local_pegoctl",
+      "runner": "pegoctl",
+      "procedure": "pego/operations/first-run.md",
+      "writes_to": "delegates to selected operation",
+      "privacy": "depends-on-delegated-operation"
+    },
+    {
       "id": "bootstrap_private_instance",
       "runner": "ops/private/bootstrap_private_instance.py",
       "procedure": "pego/operations/private-instance-workflow.md",
@@ -394,6 +401,7 @@
     "AGENTS.md",
     ".gitignore",
     ".github/workflows/pego-ci.yml",
+    "pegoctl",
     "private/README.md",
     "pego/README.md",
     "pego/principles.md",
@@ -511,6 +519,7 @@
     "ops/anticipation/test_generate_scan.py",
     "ops/attention/decide_attention.py",
     "ops/attention/test_decide_attention.py",
+    "ops/test_pegoctl.py",
     "ops/onboarding/generate_intake.py",
     "ops/onboarding/test_generate_intake.py",
     "ops/communications/generate_public_writing_brief.py",

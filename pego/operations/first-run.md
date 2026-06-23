@@ -22,7 +22,7 @@ First run should establish:
 Run:
 
 ```sh
-python3 ops/pego_doctor.py
+python3 pegoctl doctor
 ```
 
 If the doctor fails, fix repository hygiene before operating PEGO.
@@ -102,10 +102,19 @@ Return one directive unless the user asks for a plan, discussion, queue, review,
 For local operation, the reference runner is:
 
 ```sh
-python3 ops/operator/next_step.py --date YYYY-MM-DD --available 30 --energy medium --location computer
+python3 pegoctl next --date YYYY-MM-DD --available 30 --energy medium --location computer
 ```
 
 It writes the command response and governance preflight output to protected private paths.
+
+For active USER mode, prefer:
+
+```sh
+python3 pegoctl check-in "Done: prior directive. Available: 30 minutes. What's next?"
+```
+
+This appends the interaction to the protected intra-day session log as well as
+writing the command response and preflight output.
 
 ### 7. Record Session State
 

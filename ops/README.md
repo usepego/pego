@@ -17,6 +17,7 @@ Secrets and local credentials belong outside the reusable framework layer.
 
 Useful tools:
 
+- `../pegoctl`: local root wrapper for common operation commands.
 - `pego_registry.py`: inspect the public PEGO system registry without reading private data.
 - `pego_doctor.py`: verify repository hygiene and required framework files.
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.

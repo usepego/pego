@@ -20,6 +20,7 @@ REQUIRED_FILES = [
     "AGENTS.md",
     ".gitignore",
     ".github/workflows/pego-ci.yml",
+    "pegoctl",
     "private/README.md",
     "pego/principles.md",
     "pego/architecture/agent-infrastructure.md",
@@ -118,6 +119,7 @@ REQUIRED_FILES = [
     "pego/templates/attention-option.md",
     "pego/templates/attention-decision.md",
     "ops/private/bootstrap_private_instance.py",
+    "ops/test_pegoctl.py",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",
     "ops/attention/decide_attention.py",
@@ -358,6 +360,7 @@ def check_python_syntax(errors: list[str]) -> None:
         for path in (ROOT / "ops").rglob("*.py")
         if path.is_file()
     )
+    scripts.append("pegoctl")
     if not scripts:
         errors.append("no python operation scripts found under ops/")
         return

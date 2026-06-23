@@ -206,6 +206,16 @@ ops/operator/next_step.py
 
 It composes directive selection with governance preflight and writes protected private artifacts.
 
+The root local wrapper is:
+
+```sh
+python3 pegoctl next --available 30 --energy medium --location computer
+python3 pegoctl check-in "Done: prior directive. Available: 30 minutes. What's next?"
+```
+
+`check-in` should be preferred during USER mode because it preserves the
+intra-day session log as well as the command response and preflight artifact.
+
 The preflight artifact should preserve:
 
 ```text

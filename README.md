@@ -112,6 +112,21 @@ The reusable framework layer and the protected private instance are intentionall
 
 Repository access should be least-privilege and scoped only to this PEGO repository. Do not grant unrelated organization or employer access for PEGO work.
 
+## Local Operation
+
+The local reference command wrapper is:
+
+```sh
+python3 pegoctl doctor
+python3 pegoctl readiness
+python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
+```
+
+`pegoctl` is only a local adapter around the checked-in operation scripts. It is
+not the PEGO runtime. Future interfaces may be CLI, chat, mobile, watch, Slack,
+web, or another surface, but they should preserve the same agent contracts,
+schemas, governance checks, and private-instance boundary.
+
 ## Current Status
 
 PEGO is in early architecture and governance design.

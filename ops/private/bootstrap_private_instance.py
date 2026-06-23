@@ -98,6 +98,18 @@ Local private outcome review packets.
 
 Local private USER-mode session reviews.
 """,
+    "context/README.md": """# Context
+
+Local private context updates, promotions, and memory-review artifacts.
+""",
+    "context/updates/README.md": """# Context Updates
+
+Local private context update records.
+""",
+    "context/promotions/README.md": """# Context Promotions
+
+Local private summaries of promoted context-update candidates.
+""",
     "finance/README.md": """# Finance
 
 Local private financial summaries, scenario assumptions, and outputs.

@@ -111,6 +111,13 @@ It reads the protected intra-day session log and writes a protected session
 review under `private/reviews/sessions/`. Structured session reviews must
 conform to `pego/schemas/session-review.schema.json`.
 
+If the session review contains context-update candidates, promote them into
+protected context-update records with:
+
+```sh
+python3 pegoctl promote-context
+```
+
 Outcome records should feed:
 
 - `pego/operations/daily-loop.md`

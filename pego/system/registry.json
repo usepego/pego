@@ -221,6 +221,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "promote_session_review_context",
+      "runner": "ops/context/promote_session_review.py",
+      "procedure": "pego/operations/context-update.md",
+      "writes_to": "private/context/updates/; private/context/promotions/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "generate_daily_directive",
       "runner": "ops/directives/generate_daily_directive.py",
       "procedure": "pego/operations/directive-runner.md",
@@ -563,6 +570,8 @@
     "ops/operator/test_close_session.py",
     "ops/operator/user_check_in.py",
     "ops/operator/test_user_check_in.py",
+    "ops/context/promote_session_review.py",
+    "ops/context/test_promote_session_review.py",
     "ops/context/record_context_update.py",
     "ops/context/test_record_context_update.py",
     "ops/outcomes/record_outcome.py",

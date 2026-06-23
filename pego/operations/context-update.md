@@ -175,6 +175,16 @@ python3 ops/context/record_context_update.py --source Outcome --raw-observation 
 
 It writes protected private context-update records. It updates destination files only when explicitly run with `--apply`.
 
+To promote context-update candidates from a USER-mode session review, use:
+
+```sh
+python3 pegoctl promote-context
+```
+
+This records protected context-update files from `private/reviews/sessions/`
+without applying them into durable profile, goal, health, finance, or strategy
+files. Durable application remains an explicit governance-sensitive step.
+
 ## Stop Conditions
 
 Do not update durable memory if:

@@ -34,6 +34,8 @@ REQUIRED_PATHS = {
     "operator_sessions_dir": "operator/sessions",
     "directive_outcomes_dir": "outcomes/directives",
     "session_reviews_dir": "reviews/sessions",
+    "context_updates_dir": "context/updates",
+    "context_promotions_dir": "context/promotions",
     "governance_preflight_dir": "governance/preflight",
     "governance_reviews_dir": "governance/reviews",
 }

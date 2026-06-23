@@ -32,6 +32,7 @@ Useful tools:
 - `operator/close_session.py`: close a protected USER-mode session into a session review.
 - `operator/next_step.py`: select one next directive and run governance preflight.
 - `operator/user_check_in.py`: record a USER-mode check-in, select one next directive, run preflight, and update the intra-day session log.
+- `context/promote_session_review.py`: promote session-review context candidates into protected context-update records.
 - `context/record_context_update.py`: record protected context updates.
 - `directives/generate_daily_directive.py`: create protected daily directive packets.
 - `outcomes/record_outcome.py`: record protected directive outcomes.

@@ -148,6 +148,8 @@ REQUIRED_FILES = [
     "ops/operator/test_close_session.py",
     "ops/operator/user_check_in.py",
     "ops/operator/test_user_check_in.py",
+    "ops/context/promote_session_review.py",
+    "ops/context/test_promote_session_review.py",
     "ops/context/record_context_update.py",
     "ops/context/test_record_context_update.py",
     "ops/outcomes/record_outcome.py",

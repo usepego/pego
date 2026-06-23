@@ -67,6 +67,8 @@ def main() -> None:
         brief_json = root / "brief.json"
         session_review = root / "session-review.md"
         session_review_json = root / "session-review.json"
+        promotion_summary = root / "promotion-summary.json"
+        context_updates = root / "context-updates"
         response = root / "response.md"
         response_json = root / "response.json"
         preflight = root / "preflight.json"
@@ -166,6 +168,24 @@ def main() -> None:
             raise AssertionError(review_data)
         if not session_review.exists():
             raise AssertionError("expected markdown session review output")
+
+        run(
+            [
+                "promote-context",
+                "--date",
+                "2026-06-23",
+                "--review",
+                str(session_review_json),
+                "--output-dir",
+                str(context_updates),
+                "--summary-output",
+                str(promotion_summary),
+                "--force",
+            ]
+        )
+        promotion_data = json.loads(promotion_summary.read_text())
+        if promotion_data["artifact_type"] != "session_context_promotion":
+            raise AssertionError(promotion_data)
 
     print("pegoctl smoke tests passed.")
 

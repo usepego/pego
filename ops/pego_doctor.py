@@ -64,6 +64,7 @@ REQUIRED_FILES = [
     "pego/operations/runtime-agent-protocol.md",
     "pego/operations/start-pego.md",
     "pego/operations/first-run.md",
+    "pego/operations/local-adapter.md",
     "pego/operations/operating-readiness.md",
     "pego/operations/private-storage-backup.md",
     "pego/operations/intra-day-command-loop.md",

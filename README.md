@@ -112,120 +112,60 @@ The reusable framework layer and the protected private instance are intentionall
 
 Repository access should be least-privilege and scoped only to this PEGO repository. Do not grant unrelated organization or employer access for PEGO work.
 
-## Local Operation
+## How You Experience PEGO
 
-The local reference command wrapper is `pegoctl`. It is a thin adapter for
-checking and exercising PEGO artifacts during development. It is not the PEGO
-runtime.
+PEGO should not feel like a command line or a dashboard.
 
-### First Use
+The intended experience is a governed operating cadence:
 
-The intended first-use experience is not a command hunt. A human should start
-by talking to the agent:
+- PEGO learns enough about goals, constraints, environment, resources, and
+  authority to govern safely.
+- The Council reconciles finance, health, career, venture, home, relationships,
+  happiness, and governance.
+- PEGO delivers one directive at the right time.
+- The human executes, objects, reports status, or supplies missing facts.
+- Outcomes update the system so tomorrow's directives are better.
+
+A first interaction should be as simple as:
 
 ```text
 Start PEGO.
 ```
 
-or:
+But mature PEGO should not depend on the human remembering to ask. Approved
+runtime surfaces should deliver directives through the right medium: mobile,
+watch, desktop, chat, calendar, email, or another adapter.
 
-```text
-What should I do next?
-```
+Example PEGO outputs:
 
-The agent or runtime adapter should then:
+- "Spend 60 minutes filling the customer-pain evidence map. This is the
+  lowest-risk path toward business evidence. Stop before protected evening
+  time."
+- "For the next meal, choose the option that best fits the active health goal,
+  available food environment, cost, time, and likely follow-through."
+- "Do not execute the portfolio change yet. Build the account, holdings, risk,
+  and authority map first; execution remains locked."
+- "The garden is becoming a visible home-serenity risk. Do a 25-minute targeted
+  outdoor block before the problem expands."
 
-- Check the framework and protected private instance.
-- Create missing private-instance skeleton files if needed.
-- Explain only the user-facing decision, not the underlying command sequence.
-- Begin phased onboarding if core private state is missing.
-- Return one targeted question or one directive, depending on readiness.
+The local `pegoctl` commands are developer adapter mechanics, not the primary
+new-user experience. See `pego/operations/local-adapter.md` for local
+verification and command details.
 
-The human-facing start protocol is defined in
-`pego/operations/start-pego.md`.
+## Builder Notes
 
-For the current local adapter, those behind-the-scenes checks may include:
+PEGO is currently private and pre-release.
 
-```sh
-python3 pegoctl doctor
-python3 pegoctl bootstrap
-python3 pegoctl guide
-```
+The reusable framework is being designed so future users can interact with PEGO
+through normal surfaces: conversation, mobile, watch, desktop, calendar, email,
+Slack, or another approved adapter. The local command-line tools exist for early
+operators and maintainers to validate the framework, exercise operating loops,
+and protect the private-instance boundary while the user experience matures.
 
-These are adapter mechanics, not the user experience. If PEGO does not yet have
-enough queue or context to choose a real directive, it should ask one targeted
-operating question rather than issuing a generic plan.
+For those engineering details, see:
 
-### Reference Commands
-
-The broader local command surface is:
-
-```sh
-python3 pegoctl doctor
-python3 pegoctl guide
-python3 pegoctl readiness
-python3 pegoctl storage --confirm-backup
-python3 pegoctl intake --phase boundary
-python3 pegoctl daily-directive
-python3 pegoctl daily health-check-in
-python3 pegoctl weekly
-python3 pegoctl monthly
-python3 pegoctl finance-run --write-summary
-python3 pegoctl finance-review
-python3 pegoctl health-candidates
-python3 pegoctl meal --option private/health/food-options/options.json
-python3 pegoctl home-candidates
-python3 pegoctl anticipate --domain Environment
-python3 pegoctl attention --option private/attention/options/options.json
-python3 pegoctl compliance-review --directive private/directives/daily/YYYY-MM-DD.md
-python3 pegoctl public-writing
-python3 pegoctl brief
-python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
-python3 pegoctl close-session
-python3 pegoctl promote-context
-python3 pegoctl apply-context
-```
-
-Future interfaces may be CLI, chat, mobile, watch, Slack, web, or another
-surface, but they should preserve the same agent contracts, schemas, governance
-checks, and private-instance boundary.
-
-For protected operation outside the framework checkout, set `PEGO_PRIVATE_ROOT`
-or pass `--private-root` before the command:
-
-```sh
-python3 pegoctl --private-root ~/Documents/PEGO/private guide
-python3 pegoctl --private-root ~/Documents/PEGO/private check-in "Done: lunch. Available: 30 minutes. What's next?"
-```
-
-Start with `pegoctl guide` when you are unsure what PEGO needs next. It reports
-safe operating status, storage posture, and a recommended next command without
-printing private contents or absolute protected paths.
-
-## Packaging Direction
-
-The installable package name is `usepego`, and the installed command is
-`pegoctl`.
-
-PEGO should use standard Python packaging only as a distribution surface, not as
-the definition of the product runtime. The current direction is a small
-`pyproject.toml` package with a `[project.scripts]` entry point, installed
-eventually through tools such as:
-
-```sh
-uv tool install usepego
-```
-
-or:
-
-```sh
-pipx install usepego
-```
-
-Public publishing is intentionally not enabled yet. Before that happens, PEGO
-should use a public repository, clean release process, security policy, CI,
-PyPI Trusted Publishing, and package provenance/attestations. See
-`pego/architecture/distribution-installation.md`.
+- `pego/operations/local-adapter.md`
+- `pego/architecture/distribution-installation.md`
 
 ## Current Status
 

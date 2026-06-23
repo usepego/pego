@@ -121,6 +121,84 @@
       "irreversible or hard-to-reverse actions"
     ]
   },
+  "tools": [
+    {
+      "id": "calendar.availability",
+      "contract": "pego/tools/calendar.availability.md",
+      "owning_agents": [
+        "operations",
+        "relationships",
+        "governance"
+      ],
+      "operation_type": "observe",
+      "authority_required": "level_0_observe",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "food.environment.lookup",
+      "contract": "pego/tools/food.environment.lookup.md",
+      "owning_agents": [
+        "health",
+        "operations",
+        "happiness",
+        "governance"
+      ],
+      "operation_type": "observe_or_recommend",
+      "authority_required": "level_0_observe_to_level_2_direct",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "finance.scenario_model",
+      "contract": "pego/tools/finance.scenario_model.md",
+      "owning_agents": [
+        "finance",
+        "career",
+        "venture",
+        "governance",
+        "council"
+      ],
+      "operation_type": "recommend",
+      "authority_required": "level_1_recommend",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "finance.portfolio_analyze",
+      "contract": "pego/tools/finance.portfolio_analyze.md",
+      "owning_agents": [
+        "finance",
+        "governance",
+        "council"
+      ],
+      "operation_type": "observe_or_recommend",
+      "authority_required": "level_0_observe_to_level_4_escalate",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "governance.preflight",
+      "contract": "pego/tools/governance.preflight.md",
+      "owning_agents": [
+        "governance",
+        "operations",
+        "council"
+      ],
+      "operation_type": "escalate",
+      "authority_required": "level_0_observe_to_level_4_escalate",
+      "privacy": "protected-private-instance"
+    },
+    {
+      "id": "execution.financial_trade",
+      "contract": "pego/tools/execution.financial_trade.md",
+      "owning_agents": [
+        "finance",
+        "governance",
+        "council"
+      ],
+      "operation_type": "execute",
+      "authority_required": "level_3_execute_with_level_4_enablement",
+      "privacy": "protected-private-instance",
+      "default_status": "locked"
+    }
+  ],
   "operations": [
     {
       "id": "local_pegoctl",
@@ -472,6 +550,13 @@
     "pego/architecture/distribution-installation.md",
     "pego/ux/first-run-experience.md",
     "pego/ux/public-site-positioning.md",
+    "pego/tools/README.md",
+    "pego/tools/calendar.availability.md",
+    "pego/tools/food.environment.lookup.md",
+    "pego/tools/finance.scenario_model.md",
+    "pego/tools/finance.portfolio_analyze.md",
+    "pego/tools/governance.preflight.md",
+    "pego/tools/execution.financial_trade.md",
     "pego/planning/doctrine.md",
     "pego/system/README.md",
     "pego/system/registry.json",

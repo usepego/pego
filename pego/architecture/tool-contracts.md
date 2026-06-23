@@ -79,6 +79,15 @@ Structured runtimes should preserve tool contracts using:
 pego/schemas/tool-contract.schema.json
 ```
 
+Initial reusable contracts live in:
+
+```text
+pego/tools/
+```
+
+These contracts name the capability and authority semantics. They do not require
+any specific implementation language or runtime.
+
 ## Authority
 
 Tools inherit PEGO authority levels.

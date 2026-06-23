@@ -45,6 +45,18 @@ def print_operations(registry: dict[str, Any]) -> None:
         print(f"  writes_to: {writes_to}")
 
 
+def print_tools(registry: dict[str, Any]) -> None:
+    print("PEGO tools")
+    for tool in registry["tools"]:
+        print(f"- {tool['id']}: {tool['operation_type']}")
+        print(f"  contract: {tool['contract']}")
+        print(f"  authority_required: {tool['authority_required']}")
+        print(f"  privacy: {tool['privacy']}")
+        default_status = tool.get("default_status")
+        if default_status:
+            print(f"  default_status: {default_status}")
+
+
 def print_governance(registry: dict[str, Any]) -> None:
     governance = registry["governance"]
     print("PEGO governance")
@@ -72,6 +84,7 @@ def print_summary(registry: dict[str, Any]) -> None:
     print(registry["description"])
     print()
     print(f"agents: {len(registry['agents'])}")
+    print(f"tools: {len(registry['tools'])}")
     print(f"operations: {len(registry['operations'])}")
     print(f"templates: {len(registry['templates'])}")
     print(f"verified paths: {len(registry['verify_paths'])}")
@@ -90,7 +103,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "section",
-        choices=("summary", "agents", "operations", "governance", "templates", "json"),
+        choices=("summary", "agents", "tools", "operations", "governance", "templates", "json"),
         nargs="?",
         default="summary",
     )
@@ -100,6 +113,7 @@ def main() -> None:
     printers = {
         "summary": print_summary,
         "agents": print_agents,
+        "tools": print_tools,
         "operations": print_operations,
         "governance": print_governance,
         "templates": print_templates,

@@ -130,7 +130,10 @@ The voice phase should avoid asking the user to describe their entire personalit
 
 ## Interaction Cadence
 
-Initial onboarding should work through text or CLI because those are easiest to audit and version locally.
+Initial onboarding should work through conversation first. Text and CLI are
+acceptable early adapter surfaces because they are easy to audit and version
+locally, but the user should be able to start by saying `Start PEGO` or `What
+should I do next?`
 
 Future product surfaces may include:
 
@@ -144,10 +147,13 @@ Future product surfaces may include:
 PEGO should not require all surfaces. The minimal viable experience is:
 
 - Local protected private instance.
-- Text-based onboarding packets.
-- One next-directive command.
+- Natural-language onboarding handled by an agent or runtime adapter.
+- One next-directive interaction.
 - Outcome capture.
 - Weekly review.
+
+The adapter may use local commands internally, but the user experience should
+not require the human to look up setup or operation commands during USER mode.
 
 ## Acceptance Criteria
 

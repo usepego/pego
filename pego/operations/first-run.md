@@ -4,6 +4,22 @@ This procedure starts a PEGO operating session from the repository root.
 
 Use it when an agent or human opens the repository and needs to move from static files to active operation.
 
+The preferred human entry point is conversational:
+
+```text
+Start PEGO.
+```
+
+or:
+
+```text
+What should I do next?
+```
+
+The agent or runtime adapter should perform the local checks and setup steps.
+Do not require the USER-mode human to look up command syntax unless they ask for
+Engineering-mode details.
+
 ## Purpose
 
 First run should establish:
@@ -19,7 +35,7 @@ First run should establish:
 
 ### 1. Verify Repository Hygiene
 
-Run:
+Agent-side check:
 
 ```sh
 python3 pegoctl doctor
@@ -27,9 +43,22 @@ python3 pegoctl doctor
 
 If the doctor fails, fix repository hygiene before operating PEGO.
 
+Doctor passing only proves the framework structure. It does not mean the
+protected private instance is initialized.
+
+For a fresh checkout or a private instance with many missing readiness checks,
+the agent should create the private skeleton:
+
+```sh
+python3 pegoctl bootstrap
+```
+
+Bootstrap should be safe by default: it creates missing private paths and skips
+existing files unless `--force` is explicitly supplied.
+
 ### 1.5. Check Operating Readiness
 
-Start with the guided operator surface:
+Agent-side guided status:
 
 ```sh
 python3 pegoctl guide
@@ -37,6 +66,16 @@ python3 pegoctl guide
 
 It reports safe operating status and the recommended next command without
 printing private contents.
+
+If readiness reports `ready_with_assumptions`, inspect whether the missing
+checks are core state or generated operating paths:
+
+- Missing core state such as constitution, current state, person profile,
+  protected time, or operating register means PEGO should generate the relevant
+  intake packet before governing USER-mode directives.
+- Missing generated paths such as food options, meal decisions, operator
+  briefs, session reviews, context promotions, or application reviews usually
+  means `pegoctl bootstrap` should be run or rerun.
 
 Use:
 
@@ -46,7 +85,8 @@ pego/operations/operating-readiness.md
 
 If PEGO is not ready, issue the smallest setup directive that makes operation possible.
 
-For a new user without enough private operating state, generate one first-run intake packet rather than asking for the full constitution at once:
+For a new user without enough private operating state, generate one first-run
+intake packet rather than asking for the full constitution at once:
 
 ```sh
 python3 pegoctl intake --phase boundary

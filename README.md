@@ -114,7 +114,48 @@ Repository access should be least-privilege and scoped only to this PEGO reposit
 
 ## Local Operation
 
-The local reference command wrapper is:
+The local reference command wrapper is `pegoctl`. It is a thin adapter for
+checking and exercising PEGO artifacts during development. It is not the PEGO
+runtime.
+
+### First Use
+
+The intended first-use experience is not a command hunt. A human should start
+by talking to the agent:
+
+```text
+Start PEGO.
+```
+
+or:
+
+```text
+What should I do next?
+```
+
+The agent or runtime adapter should then:
+
+- Check the framework and protected private instance.
+- Create missing private-instance skeleton files if needed.
+- Explain only the user-facing decision, not the underlying command sequence.
+- Begin phased onboarding if core private state is missing.
+- Return one targeted question or one directive, depending on readiness.
+
+For the current local adapter, those behind-the-scenes checks may include:
+
+```sh
+python3 pegoctl doctor
+python3 pegoctl bootstrap
+python3 pegoctl guide
+```
+
+These are adapter mechanics, not the user experience. If PEGO does not yet have
+enough queue or context to choose a real directive, it should ask one targeted
+operating question rather than issuing a generic plan.
+
+### Reference Commands
+
+The broader local command surface is:
 
 ```sh
 python3 pegoctl doctor
@@ -142,10 +183,9 @@ python3 pegoctl promote-context
 python3 pegoctl apply-context
 ```
 
-`pegoctl` is only a local adapter around the checked-in operation scripts. It is
-not the PEGO runtime. Future interfaces may be CLI, chat, mobile, watch, Slack,
-web, or another surface, but they should preserve the same agent contracts,
-schemas, governance checks, and private-instance boundary.
+Future interfaces may be CLI, chat, mobile, watch, Slack, web, or another
+surface, but they should preserve the same agent contracts, schemas, governance
+checks, and private-instance boundary.
 
 For protected operation outside the framework checkout, set `PEGO_PRIVATE_ROOT`
 or pass `--private-root` before the command:

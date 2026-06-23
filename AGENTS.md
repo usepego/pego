@@ -29,6 +29,22 @@ Use the narrowest role that can handle the request.
 
 ## Private Operation
 
+The human should not need to know or sequence local setup commands during USER
+mode. If the user asks to start using PEGO, asks "what is next?", or reports
+status, treat that as an operating request.
+
+Agent responsibility:
+
+1. Check whether the private instance is usable.
+2. Run safe local setup/check commands if needed.
+3. Read the available private state.
+4. Ask one targeted question only if missing context prevents a directive.
+5. Return an operating response, not a command tutorial.
+
+Use `pegoctl`, readiness checks, bootstrap, guide, and storage checks as local
+adapter tools. Do not make the human copy a sequence of commands unless they are
+explicitly in Engineering mode or ask how the tooling works.
+
 For active private operation, read:
 
 1. `private/operator/sessions/session-start.md`, if present.

@@ -4,6 +4,18 @@ The operator interface defines how a PEGO agent should interact with the human d
 
 This is not a chat assistant mode. It is a command interface for delegated personal governance.
 
+The human-facing entry point is ordinary language. A user should be able to say:
+
+- `Start PEGO.`
+- `What should I do next?`
+- `I have 30 minutes.`
+- `Breakfast is done.`
+- `I am blocked.`
+
+The agent or runtime adapter is responsible for loading PEGO state, running
+local checks, and writing protected artifacts. The human should not be required
+to look up local command syntax during USER mode.
+
 ## Modes
 
 ### Brief
@@ -211,6 +223,10 @@ ops/operator/next_step.py
 ```
 
 It composes directive selection with governance preflight and writes protected private artifacts.
+
+These commands are adapter mechanics for engineers, agents, and local runtime
+surfaces. In USER mode, prefer acting on the user's natural-language check-in
+and running the local adapter behind the scenes.
 
 The root local wrapper is:
 

@@ -18,6 +18,14 @@ Constitution / Life Strategy / Program / Project / Directive / Scheduled Block.
 
 The concrete action being considered.
 
+## Target Behavior
+
+What behavior, state, or future choice is this directive trying to make more likely?
+
+## Environment Design
+
+What condition, default, friction change, exposure, timing, or social context does this directive create?
+
 ## Duration
 
 Estimated time required.

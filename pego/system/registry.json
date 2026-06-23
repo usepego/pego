@@ -151,6 +151,13 @@
       "privacy": "safe-derived-output"
     },
     {
+      "id": "check_private_storage_readiness",
+      "runner": "ops/private/check_storage.py",
+      "procedure": "pego/operations/private-storage-backup.md",
+      "writes_to": "optional private/governance/preflight/storage-readiness.json",
+      "privacy": "safe-derived-output"
+    },
+    {
       "id": "generate_first_run_intake",
       "runner": "ops/onboarding/generate_intake.py",
       "procedure": "pego/ux/first-run-experience.md",
@@ -416,6 +423,7 @@
     "pego/schemas/finance-scenario-output.schema.json",
     "pego/schemas/finance-check-in.schema.json",
     "pego/schemas/private-instance-readiness.schema.json",
+    "pego/schemas/private-storage-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
@@ -480,6 +488,7 @@
     "pego/operations/runtime-agent-protocol.md",
     "pego/operations/first-run.md",
     "pego/operations/operating-readiness.md",
+    "pego/operations/private-storage-backup.md",
     "pego/operations/intra-day-command-loop.md",
     "pego/operations/outcome-review.md",
     "pego/operations/context-update.md",
@@ -508,6 +517,7 @@
     "pego/schemas/finance-scenario-input.schema.json",
     "pego/schemas/finance-scenario-output.schema.json",
     "pego/schemas/private-instance-readiness.schema.json",
+    "pego/schemas/private-storage-readiness.schema.json",
     "pego/schemas/goal-strategy.schema.json",
     "pego/schemas/monthly-strategy-review.schema.json",
     "pego/schemas/health-baseline.schema.json",
@@ -570,6 +580,8 @@
     "ops/private/bootstrap_private_instance.py",
     "ops/private/check_readiness.py",
     "ops/private/test_check_readiness.py",
+    "ops/private/check_storage.py",
+    "ops/private/test_check_storage.py",
     "ops/cycles/daily_cycle.py",
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",

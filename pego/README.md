@@ -47,11 +47,12 @@ Start here:
 27. `operations/runtime-agent-protocol.md`: how an AI agent selects the correct PEGO role during a session.
 28. `operations/first-run.md`: how to start a PEGO operating session from the repository root.
 29. `operations/operating-readiness.md`: how to verify PEGO is ready to issue directives.
-30. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
-31. `operations/outcome-review.md`: how execution results become evidence for the next directive.
-32. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-33. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-34. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+30. `operations/private-storage-backup.md`: how private PEGO state is protected and backed up.
+31. `operations/intra-day-command-loop.md`: how PEGO answers "what is next?" during the day.
+32. `operations/outcome-review.md`: how execution results become evidence for the next directive.
+33. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
+34. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+35. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

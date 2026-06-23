@@ -78,6 +78,8 @@ Each agent recommendation that might become a directive should specify:
 - Altitude.
 - Domain.
 - Proposed action.
+- Target behavior.
+- Environment design.
 - Duration.
 - Deadline or recurrence.
 - Energy required.
@@ -92,6 +94,8 @@ Each agent recommendation that might become a directive should specify:
 - Stop condition.
 
 Use `pego/templates/directive-candidate.md`.
+
+PEGO should favor directives that alter future action conditions when direct instruction is likely to be weak. A directive can be strategically indirect: the named action may be "walk the block," while the intended behavioral effect is exposure to neighbors, daylight, movement, and a low-friction transition out of indoor inertia.
 
 Council decisions are not scheduled directly. A council decision must first be converted into a directive candidate so adoption, revision, information requests, and escalation all pass through the same prioritization and governance gates.
 
@@ -116,6 +120,7 @@ The Operations Agent should:
 8. Defer unscheduled candidates explicitly rather than silently dropping them.
 9. Preserve dissent when an important candidate is deferred.
 10. Preserve lead-time candidates when a small early action prevents a larger future interruption.
+11. Prefer environmental setup over repeated exhortation when a person has already failed to act on a rational instruction.
 
 ## Prioritization Heuristic
 

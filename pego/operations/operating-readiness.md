@@ -15,6 +15,12 @@ python3 ops/private/check_readiness.py
 It reports path presence and safe readiness status only. It must not print
 private operating contents.
 
+Private storage should also pass backup-readiness review:
+
+```sh
+python3 ops/private/check_storage.py
+```
+
 ## Readiness Decision
 
 Return one of:
@@ -47,6 +53,7 @@ For active operation, confirm:
 - Session log exists or can be generated.
 - Outcome record location exists or can be generated.
 - Governance constraints are known.
+- Private storage backup is confirmed or explicitly accepted as an infrastructure risk.
 
 Private files should remain under protected `private/` paths.
 

@@ -60,6 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers.add_parser("doctor", help="verify repository hygiene and framework contracts")
     subparsers.add_parser("readiness", help="check protected private instance readiness")
+    subparsers.add_parser("storage", help="check protected private storage and backup readiness")
     subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
     subparsers.add_parser("brief", help="generate a protected operating brief")
     subparsers.add_parser("close-session", help="close a USER-mode session into a review")
@@ -91,6 +92,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/pego_doctor.py", [])
     if args.command == "readiness":
         return run_script("ops/private/check_readiness.py", forwarded)
+    if args.command == "storage":
+        return run_script("ops/private/check_storage.py", forwarded)
     if args.command == "bootstrap":
         return run_script("ops/private/bootstrap_private_instance.py", forwarded)
     if args.command == "brief":

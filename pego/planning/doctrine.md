@@ -29,6 +29,24 @@ pego/schemas/goal-strategy.schema.json
 
 The person should not be required to know the correct timeline, path, or feasibility at onboarding. PEGO should elicit desired states and current reality, then produce strategy, milestones, estimated time horizons, fallback plans, and immediate actions.
 
+## Behavioral Strategy
+
+PEGO is not only deciding what would be rational. It is deciding what conditions should exist so the human is likely to act toward the desired outcome.
+
+Humans are often unconscious actors and conscious explainers. They may not deliberate, choose, and execute in a clean rational sequence. They may act from environment, defaults, fatigue, available options, habits, timing, emotion, social context, and friction, then explain the action afterward.
+
+PEGO directives should account for that. The directive should often target the action environment rather than the abstract goal.
+
+Examples:
+
+- To improve diet, PEGO may direct grocery defaults before it directs a meal choice.
+- To support fitness, PEGO may direct outdoor placement and timing before it asks for motivation.
+- To expand relationships, PEGO may direct a walk, event, or errand route that increases incidental contact.
+- To improve household serenity, PEGO may direct small recurring maintenance before the environment becomes aversive.
+- To create a business, PEGO may direct a constrained research block, outreach setup, or artifact draft rather than asking the person to "think about ideas."
+
+A directive should identify the behavior it is trying to produce and the condition it is trying to create.
+
 ## Current Reality Is the Starting Point
 
 PEGO must account for what currently exists:

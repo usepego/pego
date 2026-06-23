@@ -22,6 +22,7 @@ Useful tools:
 - `pego_registry.py`: inspect the public PEGO system registry without reading private data.
 - `pego_doctor.py`: verify repository hygiene and required framework files.
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.
+- `private/check_storage.py`: verify protected private storage and backup readiness without printing private contents.
 - `onboarding/generate_intake.py`: generate one protected first-run intake packet.
 - `communications/generate_public_writing_brief.py`: generate a protected public-writing brief and communications directive candidate.
 - `synthesis/synthesize_queue.py`: synthesize protected directive candidates into one active queue.

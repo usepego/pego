@@ -20,6 +20,8 @@ DEFAULT_OUTPUT = PRIVATE / "directives" / "candidates" / "home-candidates.md"
 @dataclass(frozen=True)
 class Candidate:
     name: str
+    target_behavior: str
+    environment_design: str
     duration: str
     energy: str
     location: str
@@ -97,6 +99,8 @@ def watchlist_candidates(rows: list[list[str]]) -> list[Candidate]:
         candidates.append(
             Candidate(
                 name=f"{area}: {action}",
+                target_behavior=f"Prompt visible maintenance before {area} becomes an avoidable irritation.",
+                environment_design=f"Move attention to the specific area and condition early: {condition}.",
                 duration=duration_for_action(action),
                 energy="Medium-low",
                 location="Outside" if any(word in area.lower() for word in ["yard", "garden", "exterior", "bed"]) else "Home",
@@ -124,6 +128,8 @@ def annoyance_candidates(rows: list[list[str]]) -> list[Candidate]:
         candidates.append(
             Candidate(
                 name=f"{annoyance}: {action}",
+                target_behavior=f"Interrupt the recurring annoyance loop before it becomes background stress.",
+                environment_design=f"Change the trigger condition directly: {trigger}.",
                 duration=duration_for_action(action),
                 energy="Low",
                 location="Home",
@@ -151,6 +157,8 @@ def supply_candidates(rows: list[list[str]]) -> list[Candidate]:
         candidates.append(
             Candidate(
                 name=f"{supply}: {action}",
+                target_behavior=f"Prevent a missing supply from blocking future home maintenance.",
+                environment_design=f"Move the supply decision into the next errand or purchase-list context before the need becomes urgent.",
                 duration="10 min",
                 energy="Low",
                 location="Phone/computer",
@@ -227,6 +235,8 @@ def build_json_candidates(candidates: list[Candidate]) -> list[dict]:
             "domain": "home_environment",
             "altitude": "directive",
             "proposed_action": candidate.name,
+            "target_behavior": candidate.target_behavior,
+            "environment_design": candidate.environment_design,
             "duration": candidate.duration,
             "timing": candidate.deadline,
             "energy_required": normalize_energy(candidate.energy),
@@ -254,6 +264,10 @@ def build_markdown(candidates: list[Candidate], output_date: str, source: Path) 
             "| Answer home environment question | Home and Environment | 5 min | Low | Home | Today | Level 1 | Draft | Identifies next environment friction. | PEGO may miss visible deterioration or avoidable irritation. | None |"
         ]
     dependencies = [f"- {candidate.name}: {candidate.dependency}" for candidate in candidates] or ["- No dependencies until a candidate is identified."]
+    behavioral_lines = [
+        f"- {candidate.name}: {candidate.target_behavior} Environment design: {candidate.environment_design}"
+        for candidate in candidates
+    ] or ["- No behavioral strategy until a candidate is identified."]
     return "\n".join(
         [
             f"# Home and Environment Candidates: {output_date}",
@@ -271,6 +285,10 @@ def build_markdown(candidates: list[Candidate], output_date: str, source: Path) 
             "| Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Governance Status | Expected Benefit | Consequence of Deferral | Protected-Time Impact |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             *rows,
+            "",
+            "## Behavioral Strategy",
+            "",
+            *behavioral_lines,
             "",
             "## Dependencies",
             "",

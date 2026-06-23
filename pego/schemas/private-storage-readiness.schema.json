@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://usepego.com/schemas/private-storage-readiness.schema.json",
+  "title": "Private Storage Readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "decision",
+    "private_root",
+    "storage_mode",
+    "backup_signal",
+    "manual_backup_confirmed",
+    "git_tracking",
+    "privacy",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "private_storage_readiness"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "decision": {
+      "enum": [
+        "backup_ready",
+        "backup_ready_manual",
+        "backup_not_confirmed",
+        "missing_private_root"
+      ]
+    },
+    "private_root": {
+      "type": "string"
+    },
+    "storage_mode": {
+      "enum": [
+        "in_framework_checkout",
+        "external",
+        "symlink",
+        "missing"
+      ]
+    },
+    "backup_signal": {
+      "type": "string"
+    },
+    "manual_backup_confirmed": {
+      "type": "boolean"
+    },
+    "git_tracking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checked",
+        "tracked_private_paths",
+        "passes_boundary"
+      ],
+      "properties": {
+        "checked": {
+          "type": "boolean"
+        },
+        "tracked_private_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "passes_boundary": {
+          "type": "boolean"
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prints_private_contents",
+        "safe_to_commit",
+        "absolute_path_revealed"
+      ],
+      "properties": {
+        "prints_private_contents": {
+          "type": "boolean"
+        },
+        "safe_to_commit": {
+          "type": "boolean"
+        },
+        "absolute_path_revealed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "recommended_next_action": {
+      "type": "string"
+    }
+  }
+}

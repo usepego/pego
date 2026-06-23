@@ -17,6 +17,8 @@ DEFAULT_OUTPUT = Path("private/directives/candidates/health-candidates.md")
 @dataclass(frozen=True)
 class Candidate:
     name: str
+    target_behavior: str
+    environment_design: str
     duration: str
     energy: str
     location: str
@@ -76,6 +78,8 @@ def breakfast_candidate(baseline: dict) -> Candidate:
         action = f"Eat one approved breakfast default: {default_text}"
     return Candidate(
         name="Breakfast Anchor",
+        target_behavior="Make the first food decision of the day stable instead of reactive.",
+        environment_design="Use an approved home default so hunger, choice friction, and sweet-trigger exposure are lower.",
         duration="10 min",
         energy="Low",
         location="Home",
@@ -108,6 +112,8 @@ def movement_candidate(baseline: dict) -> Candidate:
         dependency = "Clear indoor space."
     return Candidate(
         name=name,
+        target_behavior="Create a low-friction movement action before inactivity becomes the day's default.",
+        environment_design="Place the human in an outside or cleared movement context where starting requires little deliberation.",
         duration=f"{duration} min",
         energy="Low",
         location="Outside" if outside_ok else "Home",
@@ -123,6 +129,8 @@ def sweets_candidate(baseline: dict) -> Candidate:
     triggers = list_text(baseline.get("preferences", {}).get("sweet_triggers", []))
     return Candidate(
         name="Sweet Trigger Control",
+        target_behavior="Reduce automatic sweet consumption without relying on moment-of-choice willpower.",
+        environment_design="Identify and alter the trigger environment before the first snack window.",
         duration="5 min",
         energy="Low",
         location="Home",
@@ -137,6 +145,8 @@ def sweets_candidate(baseline: dict) -> Candidate:
 def sleep_candidate(baseline: dict) -> Candidate:
     return Candidate(
         name="Sleep Protection Check",
+        target_behavior="Prevent late-day drift from degrading recovery and next-day execution.",
+        environment_design="Create an evening checkpoint before protected sleep and relationship time are crowded out.",
         duration="5 min",
         energy="Low",
         location="Home",
@@ -198,6 +208,8 @@ def build_json_candidates(baseline: dict) -> list[dict]:
             "domain": "health",
             "altitude": "directive",
             "proposed_action": candidate.name,
+            "target_behavior": candidate.target_behavior,
+            "environment_design": candidate.environment_design,
             "duration": candidate.duration,
             "timing": candidate.deadline,
             "energy_required": normalize_energy(candidate.energy),
@@ -228,6 +240,10 @@ def build_markdown(baseline: dict, output_date: str) -> str:
     escalation_lines = [f"- {item}" for item in escalations] or ["- None."]
     stop_lines = [f"- {candidate.name}: {candidate.stop}" for candidate in candidates]
     dependency_lines = [f"- {candidate.name}: {candidate.dependencies}" for candidate in candidates]
+    behavioral_lines = [
+        f"- {candidate.name}: {candidate.target_behavior} Environment design: {candidate.environment_design}"
+        for candidate in candidates
+    ]
     rule = measurement_rule(baseline)
     return "\n".join(
         [
@@ -254,6 +270,10 @@ def build_markdown(baseline: dict, output_date: str) -> str:
             "| Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Governance Status | Expected Benefit | Consequence of Deferral | Protected-Time Impact |",
             "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             *rows,
+            "",
+            "## Behavioral Strategy",
+            "",
+            *behavioral_lines,
             "",
             "## Dependencies",
             "",

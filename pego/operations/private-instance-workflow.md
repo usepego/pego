@@ -32,6 +32,9 @@ private/
 
 Everything under `private/` is protected private operating state except `private/README.md`, which only documents the boundary.
 
+The private root should be covered by a real backup system. See
+`pego/operations/private-storage-backup.md`.
+
 ## Bootstrap
 
 Create or refresh the local skeleton:
@@ -53,6 +56,16 @@ python3 ops/private/check_readiness.py
 
 The readiness checker must not print private contents. It may write a protected
 private readiness report under `private/governance/preflight/`.
+
+Check whether private storage is likely backed up:
+
+```sh
+python3 ops/private/check_storage.py
+```
+
+If PEGO cannot detect a backup/sync signal, the user may confirm backup coverage
+explicitly, but that confirmation should be treated as infrastructure evidence,
+not as a substitute for durable backup.
 
 ## Operating Rule
 

@@ -4,13 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -199,6 +202,7 @@ def build_packet(phase: Phase, packet_date: str) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--phase", default="boundary")
     parser.add_argument("--output", type=Path)
@@ -209,12 +213,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
     phase_key = normalize_phase(args.phase)
     if phase_key not in PHASES:
         options = ", ".join(sorted(PHASES))
         raise SystemExit(f"unknown phase {args.phase!r}; expected one of: {options}")
 
-    output = args.output or PRIVATE / "onboarding" / "intake" / f"{args.date}-{phase_key}.md"
+    output = args.output or private / "onboarding" / "intake" / f"{args.date}-{phase_key}.md"
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists() and not args.force:
         raise SystemExit(f"refusing to overwrite existing file: {output}")

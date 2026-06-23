@@ -119,6 +119,7 @@ The local reference command wrapper is:
 ```sh
 python3 pegoctl doctor
 python3 pegoctl readiness
+python3 pegoctl intake --phase boundary
 python3 pegoctl daily health-check-in
 python3 pegoctl weekly
 python3 pegoctl monthly
@@ -129,6 +130,7 @@ python3 pegoctl meal --option private/health/food-options/options.json
 python3 pegoctl home-candidates
 python3 pegoctl anticipate --domain Environment
 python3 pegoctl attention --option private/attention/options/options.json
+python3 pegoctl compliance-review --directive private/directives/daily/YYYY-MM-DD.md
 python3 pegoctl brief
 python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
 python3 pegoctl close-session

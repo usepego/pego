@@ -49,6 +49,22 @@ def main() -> None:
     assert_contains(authority, "Which low-risk daily choices may PEGO direct by default?")
     assert_contains(authority, "Treat silence as authority.")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        generate_intake.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--phase",
+                "boundary",
+                "--force",
+            ]
+        )
+        output = private / "onboarding" / "intake" / "2026-06-23-boundary.md"
+        assert_contains(output.read_text(), "Which PEGO mode are we in right now")
+
     print("first-run intake smoke tests passed.")
 
 

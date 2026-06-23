@@ -16,6 +16,7 @@ That directory is part of the protected private instance.
 
 ```sh
 python3 ops/governance/generate_compliance_review.py --directive private/directives/daily/YYYY-MM-DD.md
+python3 pegoctl compliance-review --directive private/directives/daily/YYYY-MM-DD.md
 ```
 
 ## Privacy

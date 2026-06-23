@@ -57,6 +57,7 @@ jobs:
           python3 ops/communications/test_generate_public_writing_brief.py
           python3 ops/anticipation/test_generate_scan.py
           python3 ops/attention/test_decide_attention.py
+          python3 ops/governance/test_generate_compliance_review.py
           python3 ops/test_pegoctl.py
           python3 ops/packaging/test_package_cli.py
           python3 ops/operator/test_generate_brief.py

@@ -181,6 +181,7 @@ REQUIRED_FILES = [
     "ops/governance/directive_preflight.py",
     "ops/governance/test_directive_preflight.py",
     "ops/governance/generate_compliance_review.py",
+    "ops/governance/test_generate_compliance_review.py",
     "ops/finance/run_scenarios.py",
     "ops/finance/test_run_scenarios.py",
     "ops/finance/review_scenarios.py",

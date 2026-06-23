@@ -40,7 +40,7 @@ If PEGO is not ready, issue the smallest setup directive that makes operation po
 For a new user without enough private operating state, generate one first-run intake packet rather than asking for the full constitution at once:
 
 ```sh
-python3 ops/onboarding/generate_intake.py --phase boundary
+python3 pegoctl intake --phase boundary
 ```
 
 Use `pego/ux/first-run-experience.md` to choose the next intake phase.

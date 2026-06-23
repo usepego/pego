@@ -75,6 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("readiness", help="check protected private instance readiness")
     subparsers.add_parser("storage", help="check protected private storage and backup readiness")
     subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
+    subparsers.add_parser("intake", help="generate a protected first-run intake packet")
     subparsers.add_parser("daily", help="run daily operating-loop subcommands")
     subparsers.add_parser("weekly", help="generate a protected weekly operating plan")
     subparsers.add_parser("monthly", help="generate a protected monthly strategy review")
@@ -85,6 +86,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("home-candidates", help="generate protected home/environment directive candidates")
     subparsers.add_parser("anticipate", help="generate a protected anticipation scan")
     subparsers.add_parser("attention", help="select a protected attention directive")
+    subparsers.add_parser("compliance-review", help="generate a protected compliance review packet")
     subparsers.add_parser("brief", help="generate a protected operating brief")
     subparsers.add_parser("close-session", help="close a USER-mode session into a review")
     subparsers.add_parser(
@@ -121,6 +123,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/private/check_storage.py", with_private_root(args, forwarded))
     if args.command == "bootstrap":
         return run_script("ops/private/bootstrap_private_instance.py", with_private_root(args, forwarded))
+    if args.command == "intake":
+        return run_script("ops/onboarding/generate_intake.py", with_private_root(args, forwarded))
     if args.command == "daily":
         if not forwarded:
             parser.error("daily requires a daily-cycle subcommand, such as health-check-in, synthesize, next, outcome, review, or learn")
@@ -143,6 +147,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/anticipation/generate_scan.py", with_private_root(args, forwarded))
     if args.command == "attention":
         return run_script("ops/attention/decide_attention.py", with_private_root(args, forwarded))
+    if args.command == "compliance-review":
+        return run_script("ops/governance/generate_compliance_review.py", with_private_root(args, forwarded))
     if args.command == "brief":
         return run_script("ops/operator/generate_brief.py", with_private_root(args, forwarded))
     if args.command == "close-session":

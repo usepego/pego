@@ -9,12 +9,15 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def slugify(value: str) -> str:
@@ -150,17 +153,24 @@ Review before execution if authority is above Level 1, or at end of day for a Le
 """
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--directive", required=True, type=Path)
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--slug")
     parser.add_argument("--force", action="store_true")
-    args = parser.parse_args()
+    return parser
+
+
+def main_with_args(argv: list[str] | None = None) -> Path:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
 
     directive_path = args.directive
     slug = slugify(args.slug or directive_path.stem)
-    target = PRIVATE / "governance" / "reviews" / f"{args.date}-{slug}.md"
+    target = private / "governance" / "reviews" / f"{args.date}-{slug}.md"
     target.parent.mkdir(parents=True, exist_ok=True)
 
     if target.exists() and not args.force:
@@ -168,7 +178,8 @@ def main() -> None:
 
     target.write_text(build_review(directive_path, args.date, slug))
     print(f"wrote: {target}")
+    return target
 
 
 if __name__ == "__main__":
-    main()
+    main_with_args()

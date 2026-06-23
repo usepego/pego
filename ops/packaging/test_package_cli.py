@@ -35,6 +35,8 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "monthly" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "intake" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "finance-run" not in completed.stdout:
         raise AssertionError(completed.stdout)
     if "finance-review" not in completed.stdout:
@@ -48,6 +50,8 @@ def main() -> None:
     if "anticipate" not in completed.stdout:
         raise AssertionError(completed.stdout)
     if "attention" not in completed.stdout:
+        raise AssertionError(completed.stdout)
+    if "compliance-review" not in completed.stdout:
         raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)

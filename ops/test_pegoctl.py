@@ -158,6 +158,14 @@ ATTENTION_OPTIONS = [
 ]
 
 
+COMPLIANCE_DIRECTIVE = """# Synthetic Directive
+
+Authority level: Level 2
+
+Synthetic action requiring review.
+"""
+
+
 def run(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(PEGOCTL), *args],
@@ -526,6 +534,41 @@ def main() -> None:
             raise AssertionError("expected pegoctl attention decision under configured private root")
         if not (private_root / "directives" / "candidates" / "attention-candidate.md").exists():
             raise AssertionError("expected pegoctl attention candidate under configured private root")
+
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        directive = Path(directory) / "directive.md"
+        directive.write_text(COMPLIANCE_DIRECTIVE)
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "intake",
+                "--date",
+                "2026-06-23",
+                "--phase",
+                "boundary",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "compliance-review",
+                "--directive",
+                str(directive),
+                "--date",
+                "2026-06-23",
+                "--slug",
+                "synthetic-directive",
+                "--force",
+            ]
+        )
+        if not (private_root / "onboarding" / "intake" / "2026-06-23-boundary.md").exists():
+            raise AssertionError("expected pegoctl intake under configured private root")
+        if not (private_root / "governance" / "reviews" / "2026-06-23-synthetic-directive.md").exists():
+            raise AssertionError("expected pegoctl compliance review under configured private root")
 
     print("pegoctl smoke tests passed.")
 

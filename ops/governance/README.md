@@ -20,6 +20,7 @@ Use preflight to classify a directive before adoption:
 
 ```sh
 python3 ops/governance/generate_compliance_review.py --directive private/directives/daily/2026-06-22.md
+python3 pegoctl compliance-review --directive private/directives/daily/2026-06-22.md
 ```
 
 Optional date and slug:
@@ -32,3 +33,5 @@ python3 ops/governance/generate_compliance_review.py \
 ```
 
 By default, the script will not overwrite an existing review. Use `--force` only when intentionally regenerating a local private review.
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct script so review packets stay inside the protected private instance.

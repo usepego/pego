@@ -8,6 +8,7 @@ First-run intake packets are protected private artifacts. They gather one phase 
 
 ```sh
 python3 ops/onboarding/generate_intake.py --phase current-state
+python3 pegoctl intake --phase current-state
 ```
 
 Common phases:
@@ -21,3 +22,5 @@ Common phases:
 - `authority`
 
 The runner writes under `private/onboarding/intake/` and prints only the output path.
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct script so intake packets stay inside the protected private instance.

@@ -30,6 +30,7 @@ Useful tools:
 - `synthesis/synthesize_queue.py`: synthesize protected directive candidates into one active queue.
 - `cycles/daily_cycle.py`: run daily operating-loop commands against the protected private root.
 - `cycles/weekly_cycle.py`: generate protected weekly operating plans against the protected private root.
+- `cycles/monthly_cycle.py`: generate protected monthly strategy reviews against the protected private root.
 - `anticipation/generate_scan.py`: generate one protected anticipation scan from the operating register.
 - `attention/decide_attention.py`: select a protected attention directive for live events, media, rest, or highlights later.
 - `operator/generate_brief.py`: generate a protected operating brief from active private queue/session state.

@@ -153,6 +153,8 @@ REQUIRED_FILES = [
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",
     "ops/cycles/test_weekly_cycle.py",
+    "ops/cycles/monthly_cycle.py",
+    "ops/cycles/test_monthly_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
     "ops/operator/generate_brief.py",

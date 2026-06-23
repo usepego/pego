@@ -68,3 +68,22 @@ Each agent should answer:
 The monthly loop may recommend strategy changes, but high-impact decisions still require formal review.
 
 Constitutional amendments should be proposed only when repeated outcomes, new evidence, or changed circumstances show that the constitution no longer governs well.
+
+## Local Runner
+
+The reference monthly cycle runner lives at:
+
+```text
+ops/cycles/monthly_cycle.py
+```
+
+It writes protected private monthly strategy reviews and structured JSON under
+`private/directives/monthly/` by default. For installed or backed-up operation,
+pass `--private-root` or set `PEGO_PRIVATE_ROOT` so the review uses the
+protected private instance instead of the framework checkout.
+
+The local wrapper is:
+
+```sh
+python3 pegoctl monthly --month YYYY-MM
+```

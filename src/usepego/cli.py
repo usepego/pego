@@ -77,6 +77,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
     subparsers.add_parser("daily", help="run daily operating-loop subcommands")
     subparsers.add_parser("weekly", help="generate a protected weekly operating plan")
+    subparsers.add_parser("monthly", help="generate a protected monthly strategy review")
     subparsers.add_parser("brief", help="generate a protected operating brief")
     subparsers.add_parser("close-session", help="close a USER-mode session into a review")
     subparsers.add_parser(
@@ -119,6 +120,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/cycles/daily_cycle.py", with_private_root(args, forwarded))
     if args.command == "weekly":
         return run_script("ops/cycles/weekly_cycle.py", with_private_root(args, forwarded))
+    if args.command == "monthly":
+        return run_script("ops/cycles/monthly_cycle.py", with_private_root(args, forwarded))
     if args.command == "brief":
         return run_script("ops/operator/generate_brief.py", with_private_root(args, forwarded))
     if args.command == "close-session":

@@ -186,6 +186,13 @@
       "privacy": "protected-private-instance"
     },
     {
+      "id": "monthly_cycle",
+      "runner": "ops/cycles/monthly_cycle.py",
+      "procedure": "pego/operations/monthly-loop.md",
+      "writes_to": "private/directives/monthly/",
+      "privacy": "protected-private-instance"
+    },
+    {
       "id": "operator_next_step",
       "runner": "ops/operator/next_step.py",
       "procedure": "pego/operations/operator-interface.md",
@@ -589,6 +596,8 @@
     "ops/cycles/test_daily_cycle.py",
     "ops/cycles/weekly_cycle.py",
     "ops/cycles/test_weekly_cycle.py",
+    "ops/cycles/monthly_cycle.py",
+    "ops/cycles/test_monthly_cycle.py",
     "ops/operator/next_step.py",
     "ops/operator/test_next_step.py",
     "ops/operator/generate_brief.py",

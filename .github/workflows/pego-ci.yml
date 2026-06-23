@@ -37,6 +37,7 @@ jobs:
         run: |
           python3 ops/cycles/test_daily_cycle.py
           python3 ops/cycles/test_weekly_cycle.py
+          python3 ops/cycles/test_monthly_cycle.py
           python3 ops/council/test_synthesize_decision.py
           python3 ops/council/test_decision_to_candidate.py
           python3 ops/synthesis/test_synthesize_queue.py

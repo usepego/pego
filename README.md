@@ -121,6 +121,7 @@ python3 pegoctl doctor
 python3 pegoctl readiness
 python3 pegoctl daily health-check-in
 python3 pegoctl weekly
+python3 pegoctl monthly
 python3 pegoctl brief
 python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
 python3 pegoctl close-session

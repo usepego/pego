@@ -89,6 +89,7 @@ surface:
 ```sh
 python3 pegoctl daily health-check-in
 python3 pegoctl weekly
+python3 pegoctl monthly
 ```
 
 ### 5. Confirm Constraints

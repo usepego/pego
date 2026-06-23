@@ -33,6 +33,8 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "weekly" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "monthly" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)
 

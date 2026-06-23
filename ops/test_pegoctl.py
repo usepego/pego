@@ -268,6 +268,19 @@ def main() -> None:
         if not (private_root / "directives" / "weekly" / "2026-W26.md").exists():
             raise AssertionError("expected pegoctl weekly output under configured private root")
 
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "monthly",
+                "--month",
+                "2026-06",
+                "--force",
+            ]
+        )
+        if not (private_root / "directives" / "monthly" / "2026-06-strategy-review.json").exists():
+            raise AssertionError("expected pegoctl monthly output under configured private root")
+
     print("pegoctl smoke tests passed.")
 
 

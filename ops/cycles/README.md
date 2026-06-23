@@ -43,3 +43,11 @@ Generate a bounded weekly operating plan:
 ```sh
 python3 ops/cycles/weekly_cycle.py --week YYYY-Www
 ```
+
+## Monthly Cycle
+
+Generate a monthly strategy review:
+
+```sh
+python3 ops/cycles/monthly_cycle.py --month YYYY-MM
+```

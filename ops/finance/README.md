@@ -24,6 +24,12 @@ pego/schemas/finance-check-in.schema.json
 python3 ops/finance/run_scenarios.py
 ```
 
+or through the local wrapper:
+
+```sh
+python3 pegoctl finance-run --write-summary
+```
+
 By default, the runner writes private output files and prints only file paths. Use `--print` only when console output of private financial model results is intentional.
 
 Default input:
@@ -54,7 +60,12 @@ Review scenario output into governance-ready finance guidance:
 
 ```sh
 python3 ops/finance/review_scenarios.py
+python3 pegoctl finance-review
 ```
+
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct scripts so scenario inputs, raw outputs, summaries, and reviews stay
+inside the protected private instance.
 
 Generate a targeted finance check-in:
 

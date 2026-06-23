@@ -35,6 +35,10 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "monthly" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "finance-run" not in completed.stdout:
+        raise AssertionError(completed.stdout)
+    if "finance-review" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)
 

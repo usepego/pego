@@ -35,6 +35,43 @@ REGISTER = """# Register
 """
 
 
+FINANCE_SCENARIOS = {
+    "version": 1,
+    "as_of": "2026-01-01",
+    "currency": "USD",
+    "current_position": {
+        "liquid_savings": 120000,
+        "total_model_savings": 500000,
+    },
+    "global_assumptions": {
+        "current_age": 40,
+        "retirement_start_age": 60,
+        "age_to_live": 95,
+        "target_date": "2040-01-01",
+        "social_security_monthly_estimate": 2000,
+        "emergency_runway_months": 12,
+    },
+    "scenarios": [
+        {
+            "name": "base",
+            "monthly_burn": 7000,
+            "nominal_return": 0.07,
+            "inflation": 0.03,
+            "monthly_savings": 4000,
+            "include_social_security": False,
+        },
+        {
+            "name": "stress",
+            "monthly_burn": 9000,
+            "nominal_return": 0.03,
+            "inflation": 0.05,
+            "monthly_savings": 1000,
+            "include_social_security": False,
+        },
+    ],
+}
+
+
 def run(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(PEGOCTL), *args],
@@ -280,6 +317,34 @@ def main() -> None:
         )
         if not (private_root / "directives" / "monthly" / "2026-06-strategy-review.json").exists():
             raise AssertionError("expected pegoctl monthly output under configured private root")
+
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        finance_input = private_root / "finance" / "scenarios.json"
+        finance_input.parent.mkdir(parents=True)
+        finance_input.write_text(json.dumps(FINANCE_SCENARIOS))
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "finance-run",
+                "--write-summary",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "finance-review",
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        if not (private_root / "_local" / "finance" / "scenario-output.json").exists():
+            raise AssertionError("expected pegoctl finance-run output under configured private root")
+        if not (private_root / "finance" / "reviews" / "scenario-review.md").exists():
+            raise AssertionError("expected pegoctl finance-review output under configured private root")
 
     print("pegoctl smoke tests passed.")
 

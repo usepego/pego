@@ -118,5 +118,12 @@ ops/finance/run_scenarios.py
 ops/finance/review_scenarios.py
 ```
 
+The local wrapper commands are:
+
+```sh
+python3 pegoctl finance-run --write-summary
+python3 pegoctl finance-review
+```
+
 These scripts are local engineering/runtime adapters, not the PEGO architecture
 itself.

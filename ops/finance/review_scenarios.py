@@ -5,12 +5,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import date
 from pathlib import Path
 
 
-DEFAULT_INPUT = Path("private/_local/finance/scenario-output.json")
-DEFAULT_OUTPUT = Path("private/finance/reviews/scenario-review.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def validation_status(output: dict) -> str:
@@ -161,8 +164,9 @@ def build_review(output: dict, source: Path, review_date: str) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--input", type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
 
@@ -170,6 +174,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.input = args.input or private / "_local" / "finance" / "scenario-output.json"
+    args.output = args.output or private / "finance" / "reviews" / "scenario-review.md"
     if not args.input.is_file():
         raise SystemExit(f"missing scenario output: {args.input}")
     output = json.loads(args.input.read_text())

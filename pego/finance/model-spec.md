@@ -89,6 +89,13 @@ ops/finance/review_scenarios.py
 
 It converts scenario output into a protected finance scenario review packet for Finance, Governance, Career, Venture, Operations, and Happiness agents.
 
+The local wrapper exposes these as:
+
+```sh
+python3 pegoctl finance-run --write-summary
+python3 pegoctl finance-review
+```
+
 The reference finance check-in runner lives at:
 
 ```text

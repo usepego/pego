@@ -63,6 +63,24 @@ def main() -> None:
         assert_contains(text, "Missing required scenarios")
         assert_contains(text, "No trade, transfer, account change")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        output = private / "_local" / "finance" / "scenario-output.json"
+        output.parent.mkdir(parents=True)
+        output.write_text(json.dumps(OUTPUT))
+        review_scenarios.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        review = private / "finance" / "reviews" / "scenario-review.md"
+        if "Risk Posture" not in review.read_text():
+            raise AssertionError(review.read_text())
+
     print("finance scenario review smoke tests passed.")
 
 

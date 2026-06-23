@@ -6,13 +6,16 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import sys
 from datetime import date, timedelta
 from pathlib import Path
 
 
-DEFAULT_INPUT = Path("private/finance/scenarios.json")
-DEFAULT_OUTPUT = Path("private/_local/finance/scenario-output.json")
-DEFAULT_SUMMARY_OUTPUT = Path("private/finance/scenario-results.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
+
 REQUIRED_SCENARIOS = {"conservative", "base", "upside", "stress", "lifestyle_upgrade"}
 
 
@@ -239,9 +242,10 @@ def format_markdown_summary(output: dict) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--summary-output", type=Path, default=DEFAULT_SUMMARY_OUTPUT)
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--input", type=Path)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--summary-output", type=Path)
     parser.add_argument("--write-summary", action="store_true")
     parser.add_argument("--print", action="store_true", help="print private scenario output to stdout")
     return parser
@@ -250,6 +254,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.input = args.input or private / "finance" / "scenarios.json"
+    args.output = args.output or private / "_local" / "finance" / "scenario-output.json"
+    args.summary_output = args.summary_output or private / "finance" / "scenario-results.md"
 
     config = json.loads(args.input.read_text())
     output = run(config)

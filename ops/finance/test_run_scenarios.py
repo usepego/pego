@@ -78,6 +78,23 @@ def main() -> None:
         if not output_path.exists() or not summary_path.exists():
             raise AssertionError("expected output and summary files")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        scenario_input = private / "finance" / "scenarios.json"
+        scenario_input.parent.mkdir(parents=True)
+        scenario_input.write_text(json.dumps(CONFIG))
+        run_scenarios.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--write-summary",
+            ]
+        )
+        if not (private / "_local" / "finance" / "scenario-output.json").exists():
+            raise AssertionError("expected default scenario output under configured private root")
+        if not (private / "finance" / "scenario-results.md").exists():
+            raise AssertionError("expected default scenario summary under configured private root")
+
     print("finance scenario smoke tests passed.")
 
 

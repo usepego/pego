@@ -485,6 +485,7 @@
     "pego/finance/engine-contract.md",
     "pego/finance/model-spec.md",
     "pego/finance/account-integration-policy.md",
+    "pego/finance/portfolio-management-skill-policy.md",
     "pego/health/model-spec.md",
     "pego/health/food-environment-spec.md",
     "pego/career/model-spec.md",

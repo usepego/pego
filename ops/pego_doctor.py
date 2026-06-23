@@ -53,6 +53,7 @@ REQUIRED_FILES = [
     "pego/governance/private-data-policy.md",
     "pego/governance/repository-access-policy.md",
     "pego/finance/engine-contract.md",
+    "pego/finance/portfolio-management-skill-policy.md",
     "pego/health/food-environment-spec.md",
     "pego/operations/daily-loop.md",
     "pego/operations/weekly-loop.md",

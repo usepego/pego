@@ -136,6 +136,9 @@ The Finance Agent should classify capital into explicit buckets:
 
 The Finance Agent must follow `pego/finance/account-integration-policy.md`.
 
+Future portfolio-management skills or plugins must also follow
+`pego/finance/portfolio-management-skill-policy.md`.
+
 Default posture:
 
 - Read account data first.

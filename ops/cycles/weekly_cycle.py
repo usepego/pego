@@ -9,12 +9,15 @@ path.
 from __future__ import annotations
 
 import argparse
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def read_if_exists(path: Path) -> str:
@@ -59,8 +62,8 @@ def bullet_list(items: list[str], fallback: str) -> str:
 def build_plan(args: argparse.Namespace) -> str:
     register_text = read_if_exists(args.register)
     questions = extract_register_questions(register_text)
-    outcome_count = count_files(PRIVATE / "outcomes" / "directives")
-    context_count = count_files(PRIVATE / "context" / "updates")
+    outcome_count = count_files(args.private_root_resolved / "outcomes" / "directives")
+    context_count = count_files(args.private_root_resolved / "context" / "updates")
 
     return "\n".join(
         [
@@ -160,7 +163,8 @@ def build_plan(args: argparse.Namespace) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--week", default=date.today().isoformat())
-    parser.add_argument("--register", type=Path, default=PRIVATE / "operator" / "operating-register.md")
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--register", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--thesis", default="")
     parser.add_argument("--protected-time", default="")
@@ -177,7 +181,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
-    output = args.output or PRIVATE / "directives" / "weekly" / f"{args.week}.md"
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.private_root_resolved = private
+    args.register = args.register or private / "operator" / "operating-register.md"
+    output = args.output or private / "directives" / "weekly" / f"{args.week}.md"
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists() and not args.force:
         raise SystemExit(f"refusing to overwrite existing file: {output}")

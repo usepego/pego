@@ -99,6 +99,7 @@ def add_shared_date(parser: argparse.ArgumentParser) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     next_parser = subparsers.add_parser("next")

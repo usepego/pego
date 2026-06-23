@@ -6,12 +6,15 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def slugify(value: str) -> str:
@@ -294,6 +297,7 @@ def build_review(outcome_path: Path, review_date: str) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--outcome", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
@@ -311,10 +315,11 @@ def write_output(path: Path, content: str, force: bool) -> None:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
     if not args.outcome.is_file():
         raise SystemExit(f"missing outcome file: {args.outcome}")
     output = args.output or (
-        PRIVATE / "reviews" / "outcomes" / f"{args.date}-{slugify(args.outcome.stem)}.md"
+        private / "reviews" / "outcomes" / f"{args.date}-{slugify(args.outcome.stem)}.md"
     )
     write_output(output, build_review(args.outcome, args.date), args.force)
     if args.json_output:

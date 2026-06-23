@@ -28,8 +28,8 @@ Useful tools:
 - `onboarding/generate_intake.py`: generate one protected first-run intake packet.
 - `communications/generate_public_writing_brief.py`: generate a protected public-writing brief and communications directive candidate.
 - `synthesis/synthesize_queue.py`: synthesize protected directive candidates into one active queue.
-- `cycles/daily_cycle.py`: run daily next/outcome/learn cycle commands.
-- `cycles/weekly_cycle.py`: generate protected weekly operating plans.
+- `cycles/daily_cycle.py`: run daily operating-loop commands against the protected private root.
+- `cycles/weekly_cycle.py`: generate protected weekly operating plans against the protected private root.
 - `anticipation/generate_scan.py`: generate one protected anticipation scan from the operating register.
 - `attention/decide_attention.py`: select a protected attention directive for live events, media, rest, or highlights later.
 - `operator/generate_brief.py`: generate a protected operating brief from active private queue/session state.

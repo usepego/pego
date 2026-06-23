@@ -24,7 +24,6 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         private = root / "private"
-        weekly_cycle.PRIVATE = private
         register = private / "operator" / "operating-register.md"
         output = private / "directives" / "weekly" / "test.md"
         register.parent.mkdir(parents=True)
@@ -34,6 +33,8 @@ def main() -> None:
             [
                 "--week",
                 "2026-W26",
+                "--private-root",
+                str(private),
                 "--register",
                 str(register),
                 "--output",

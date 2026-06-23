@@ -6,13 +6,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -565,6 +568,7 @@ def build_json_queue(queue: QueueBuild) -> dict:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--candidate", type=Path, action="append", default=[])
     parser.add_argument("--available", type=int)
     parser.add_argument("--time")
@@ -584,11 +588,12 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
     if not args.candidate:
         raise SystemExit("at least one --candidate file is required")
 
     candidates = read_candidates(args.candidate)
-    output = args.output or PRIVATE / "directives" / "queues" / f"{args.date}-queue.md"
+    output = args.output or private / "directives" / "queues" / f"{args.date}-queue.md"
     queue = build_queue(candidates, args)
 
     output.parent.mkdir(parents=True, exist_ok=True)

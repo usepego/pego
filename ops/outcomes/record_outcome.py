@@ -10,12 +10,15 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import date, datetime
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 VALID_COMPLETIONS = {"completed", "partial", "not_completed", "blocked", "canceled"}
 
 
@@ -168,7 +171,7 @@ def build_outcome(args: argparse.Namespace) -> str:
 
 def append_session_event(args: argparse.Namespace, outcome_path: Path) -> Path:
     session_path = args.session_log or (
-        PRIVATE / "directives" / "sessions" / f"{args.date}-session-log.md"
+        args.private_root_resolved / "directives" / "sessions" / f"{args.date}-session-log.md"
     )
     session_path.parent.mkdir(parents=True, exist_ok=True)
     if not session_path.exists():
@@ -198,6 +201,7 @@ def append_session_event(args: argparse.Namespace, outcome_path: Path) -> Path:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--time")
     parser.add_argument("--directive", required=True)
     parser.add_argument("--completion", choices=sorted(VALID_COMPLETIONS), required=True)
@@ -229,8 +233,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.private_root_resolved = private
     output = args.output or (
-        PRIVATE
+        private
         / "outcomes"
         / "directives"
         / f"{args.date}-{slugify(args.directive)}.md"

@@ -76,3 +76,8 @@ ops/cycles/weekly_cycle.py
 ```
 
 It writes protected private weekly operating plans and keeps all priorities at Level 1 unless separately reviewed.
+
+For installed or backed-up operation, pass `--private-root` or set
+`PEGO_PRIVATE_ROOT` so the weekly plan, register reads, outcome counts, and
+context counts use the protected private instance instead of the framework
+checkout.

@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
-DEFAULT_OUTPUT = Path("private/council/decisions/council-decision.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 RISK_WORDS = {
     "financial",
     "health",
@@ -257,9 +261,10 @@ def build_markdown(artifact: dict[str, object]) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--frame", default="Council synthesis of current agent recommendations.")
     parser.add_argument("--recommendation", type=Path, action="append", default=[])
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -275,6 +280,8 @@ def write_output(path: Path, content: str, force: bool) -> None:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.output = args.output or private / "council" / "decisions" / "council-decision.md"
     if not args.recommendation:
         raise SystemExit("at least one --recommendation file is required")
     recommendations = [read_recommendation(path) for path in args.recommendation]

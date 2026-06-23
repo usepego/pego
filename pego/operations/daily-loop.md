@@ -104,10 +104,21 @@ ops/cycles/daily_cycle.py
 
 It composes the local `health-check-in`, `finance-check-in`, `writing-brief`, `council`, `council-candidate`, `synthesize`, `next`, `outcome`, `review`, and `learn` operations for active daily use.
 
+For installed or backed-up operation, pass `--private-root` before the
+subcommand or set `PEGO_PRIVATE_ROOT`. The daily runner forwards the configured
+private root to delegated operations so default inputs and outputs stay inside
+the protected private instance.
+
 To generate a targeted health check-in through the daily runner:
 
 ```sh
 python3 ops/cycles/daily_cycle.py health-check-in
+```
+
+With an external protected root:
+
+```sh
+python3 ops/cycles/daily_cycle.py --private-root ~/Documents/PEGO/private health-check-in
 ```
 
 To generate a targeted finance check-in through the daily runner:

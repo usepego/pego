@@ -6,12 +6,15 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 
-PRIVATE = Path("private")
-DEFAULT_VOICE_MODEL = PRIVATE / "person" / "voice-and-taste.md"
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 def slugify(value: str) -> str:
@@ -256,6 +259,7 @@ def default_path(root: Path, folder: str, output_date: str, artifact: str, suffi
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--artifact", default="PEGO introduction essay")
     parser.add_argument("--public-purpose", default="Introduce PEGO as a serious new category of personal executive governance software.")
     parser.add_argument("--opportunity-thesis", default="Attract serious technical, career, collaborator, customer, or business conversations around PEGO.")
@@ -272,7 +276,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--duration", default="45 min")
     parser.add_argument("--timing", default="Next focused writing block")
     parser.add_argument("--energy", choices=["low", "medium", "high"], default="medium")
-    parser.add_argument("--voice-model", type=Path, default=DEFAULT_VOICE_MODEL)
+    parser.add_argument("--voice-model", type=Path)
     parser.add_argument("--brief-output", type=Path)
     parser.add_argument("--candidate-output", type=Path)
     parser.add_argument("--json-output", type=Path)
@@ -291,8 +295,10 @@ def write_output(path: Path, content: str, force: bool) -> None:
 def main_with_args(argv: list[str] | None = None) -> tuple[Path, Path]:
     parser = build_parser()
     args = parser.parse_args(argv)
-    brief_output = args.brief_output or default_path(PRIVATE, "writing/briefs", args.date, args.artifact, ".md")
-    candidate_output = args.candidate_output or PRIVATE / "directives" / "candidates" / "communications-candidates.md"
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.voice_model = args.voice_model or private / "person" / "voice-and-taste.md"
+    brief_output = args.brief_output or default_path(private, "writing/briefs", args.date, args.artifact, ".md")
+    candidate_output = args.candidate_output or private / "directives" / "candidates" / "communications-candidates.md"
     voice = read_voice_constraints(args.voice_model)
     candidate = build_candidate(args, brief_output, voice)
 

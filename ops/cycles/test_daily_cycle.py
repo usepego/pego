@@ -393,6 +393,146 @@ def main() -> None:
         if "communications" not in writing_candidate_json.read_text():
             raise AssertionError(writing_candidate_json.read_text())
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        (private / "health").mkdir(parents=True)
+        (private / "finance").mkdir(parents=True)
+        (private / "operator").mkdir(parents=True)
+        (private / "directives" / "candidates").mkdir(parents=True)
+        (private / "person").mkdir(parents=True)
+        (private / "health" / "baseline.json").write_text(HEALTH_BASELINE)
+        (private / "finance" / "scenarios.json").write_text(FINANCE_SCENARIOS)
+        (private / "operator" / "operating-register.md").write_text(REGISTER)
+        recommendation = private / "recommendation.json"
+        seed_candidate = private / "directives" / "candidates" / "seed-candidates.md"
+        recommendation.write_text(json.dumps(AGENT_RECOMMENDATION))
+        seed_candidate.write_text(CANDIDATES)
+
+        root_args = ["--private-root", str(private)]
+        daily_cycle.main_with_args([*root_args, "health-check-in", "--date", "2026-06-23", "--force"])
+        daily_cycle.main_with_args([*root_args, "finance-check-in", "--date", "2026-06-23", "--force"])
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "council",
+                "--date",
+                "2026-06-23",
+                "--recommendation",
+                str(recommendation),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "council-candidate",
+                "--decision",
+                str(private / "council" / "decisions" / "council-decision.md"),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args([*root_args, "writing-brief", "--date", "2026-06-23", "--force"])
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "synthesize",
+                "--date",
+                "2026-06-23",
+                "--candidate",
+                str(seed_candidate),
+                "--candidate",
+                str(private / "directives" / "candidates" / "council-candidate.md"),
+                "--candidate",
+                str(private / "directives" / "candidates" / "communications-candidates.md"),
+                "--available",
+                "45",
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "next",
+                "--date",
+                "2026-06-23",
+                "--available",
+                "45",
+                "--energy",
+                "medium",
+                "--location",
+                "computer",
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "outcome",
+                "--date",
+                "2026-06-23",
+                "--directive",
+                "Venture Problem Map",
+                "--completion",
+                "completed",
+                "--what-happened",
+                "Synthetic daily-cycle outcome.",
+                "--force",
+            ]
+        )
+        outcome_path = private / "outcomes" / "directives" / "2026-06-23-venture-problem-map.md"
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "review",
+                "--date",
+                "2026-06-23",
+                "--outcome",
+                str(outcome_path),
+                "--force",
+            ]
+        )
+        daily_cycle.main_with_args(
+            [
+                *root_args,
+                "learn",
+                "--date",
+                "2026-06-23",
+                "--source",
+                "Outcome",
+                "--raw-observation",
+                "Synthetic daily-cycle learning.",
+                "--update-class",
+                "Pattern",
+                "--evidence-strength",
+                "Directive outcome",
+                "--stability",
+                "Current but changeable",
+                "--proposed-update",
+                "Synthetic daily-cycle update.",
+                "--force",
+            ]
+        )
+
+        expected_private_outputs = [
+            private / "health" / "check-ins" / "health-check-in.md",
+            private / "finance" / "check-ins" / "finance-check-in.md",
+            private / "council" / "decisions" / "council-decision.md",
+            private / "directives" / "candidates" / "council-candidate.md",
+            private / "directives" / "candidates" / "communications-candidates.md",
+            private / "directives" / "queues" / "2026-06-23-queue.md",
+            private / "directives" / "command-responses" / "2026-06-23-next.md",
+            private / "governance" / "preflight" / "2026-06-23-next.json",
+            outcome_path,
+            private / "reviews" / "outcomes" / "2026-06-23-2026-06-23-venture-problem-map.md",
+        ]
+        for path in expected_private_outputs:
+            if not path.exists():
+                raise AssertionError(f"missing private-root output: {path}")
+        if not list((private / "writing" / "briefs").glob("*.md")):
+            raise AssertionError("expected writing brief under external private root")
+        if not list((private / "context" / "updates").glob("*.md")):
+            raise AssertionError("expected context update under external private root")
+
     print("daily cycle smoke tests passed.")
 
 

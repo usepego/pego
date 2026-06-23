@@ -68,6 +68,10 @@ or local script should all be able to produce and consume these contracts.
 - `attention-decision.schema.json`: protected attention decision selecting
   watch live, multitask live, highlights later, score only, defer, skip, or
   escalate.
+- `tool-contract.schema.json`: public contract for capabilities agents may call
+  without making one implementation the PEGO runtime.
+- `behavior-loop.schema.json`: protected loop record for recurring
+  environment-driven behavior and disruption directives.
 
 ## Rules
 

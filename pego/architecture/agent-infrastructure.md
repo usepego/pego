@@ -17,6 +17,8 @@ surface choices, not PEGO itself.
 PEGO should remain portable across runtimes by defining stable contracts for:
 
 - Agent roles and mandates.
+- Agent-to-agent deliberation and dissent.
+- Tool contracts for bounded capabilities agents may call.
 - Constitutions and authority levels.
 - Directive candidates and synthesized directives.
 - Governance review and escalation.
@@ -68,6 +70,7 @@ A runtime adapter should be able to:
 
 - Load a protected private operating brief.
 - Load the relevant public agent protocols and governance rules.
+- Allow agents to call declared tools within granted authority.
 - Produce structured agent recommendations or directive candidates that conform
   to public PEGO schemas.
 - Run governance preflight before adoption or execution.
@@ -83,3 +86,5 @@ Adapters may differ in execution model, storage, UI, scheduling, and model
 provider. They should not differ in constitutional authority or privacy rules.
 
 See `pego/architecture/runtime-adapter-lifecycle.md` for the required lifecycle.
+See `pego/architecture/tool-contracts.md` for how agents call tools without
+making any one tool implementation the PEGO runtime.

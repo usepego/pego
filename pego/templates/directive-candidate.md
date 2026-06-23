@@ -26,6 +26,9 @@ What behavior, state, or future choice is this directive trying to make more lik
 
 What condition, default, friction change, exposure, timing, or social context does this directive create?
 
+If this directive disrupts a behavior loop, state the trigger it intercepts and
+the replacement frame it creates.
+
 ## Duration
 
 Estimated time required.

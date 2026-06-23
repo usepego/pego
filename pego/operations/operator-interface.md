@@ -74,6 +74,22 @@ Examples:
 
 Update the directive queue before returning the next directive.
 
+### Circumstance Update
+
+Use when the human reports that the operating environment changed.
+
+Examples:
+
+- `I am at a grocery store.`
+- `I am at a restaurant and hungry.`
+- `I am in the car with 20 minutes before the next appointment.`
+- `It is raining and the outdoor directive no longer fits.`
+
+Treat these as resynthesis triggers. Do not respond as a passive assistant with
+options. Return one directive or one targeted missing-fact question.
+
+See `pego/operations/circumstance-update.md`.
+
 ### Council Synthesis
 
 Use when agent recommendations conflict, dissent is present, handoffs are required, or cross-domain tradeoffs could change the directive.

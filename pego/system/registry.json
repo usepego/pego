@@ -415,6 +415,8 @@
     "pego/templates/meal-decision.md",
     "pego/templates/attention-option.md",
     "pego/templates/attention-decision.md",
+    "pego/templates/tool-contract.md",
+    "pego/templates/behavior-loop.md",
     "pego/templates/compliance-review.md"
   ],
   "schemas": [
@@ -446,7 +448,9 @@
     "pego/schemas/food-option.schema.json",
     "pego/schemas/meal-decision.schema.json",
     "pego/schemas/attention-option.schema.json",
-    "pego/schemas/attention-decision.schema.json"
+    "pego/schemas/attention-decision.schema.json",
+    "pego/schemas/tool-contract.schema.json",
+    "pego/schemas/behavior-loop.schema.json"
   ],
   "verify_paths": [
     "README.md",
@@ -462,6 +466,7 @@
     "pego/README.md",
     "pego/principles.md",
     "pego/architecture/agent-infrastructure.md",
+    "pego/architecture/tool-contracts.md",
     "pego/architecture/runtime-options.md",
     "pego/architecture/runtime-adapter-lifecycle.md",
     "pego/architecture/distribution-installation.md",
@@ -508,6 +513,7 @@
     "pego/operations/operating-readiness.md",
     "pego/operations/private-storage-backup.md",
     "pego/operations/intra-day-command-loop.md",
+    "pego/operations/circumstance-update.md",
     "pego/operations/outcome-review.md",
     "pego/operations/context-update.md",
     "pego/operations/anticipation-loop.md",
@@ -544,6 +550,8 @@
     "pego/schemas/meal-decision.schema.json",
     "pego/schemas/attention-option.schema.json",
     "pego/schemas/attention-decision.schema.json",
+    "pego/schemas/tool-contract.schema.json",
+    "pego/schemas/behavior-loop.schema.json",
     "pego/templates/onboarding.md",
     "pego/templates/first-run-intake.md",
     "pego/templates/active-operating-brief.md",
@@ -578,6 +586,8 @@
     "pego/templates/meal-decision.md",
     "pego/templates/attention-option.md",
     "pego/templates/attention-decision.md",
+    "pego/templates/tool-contract.md",
+    "pego/templates/behavior-loop.md",
     "pego/templates/compliance-review.md",
     "ops/anticipation/generate_scan.py",
     "ops/anticipation/test_generate_scan.py",

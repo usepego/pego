@@ -187,6 +187,18 @@ def fits_location(candidate: Candidate, location: str | None) -> bool:
         return True
     normalized = location.lower()
     required = candidate.location.lower()
+    if normalized == "grocery_store" and any(
+        marker in required for marker in ["grocery", "store", "market", "errand"]
+    ):
+        return True
+    if normalized == "restaurant" and any(
+        marker in required for marker in ["restaurant", "meal", "lunch", "dinner", "food"]
+    ):
+        return True
+    if normalized == "airport" and any(marker in required for marker in ["airport", "travel"]):
+        return True
+    if normalized == "car" and any(marker in required for marker in ["car", "vehicle", "errand"]):
+        return True
     if "home" in required and normalized in {"home", "computer", "outside"}:
         return True
     if "outside" in required and normalized == "outside":

@@ -181,6 +181,45 @@ PEGO should treat future prep as a legitimate directive source.
 
 Known events, seasonal changes, household needs, travel, meetings, dinners, deadlines, purchases, documents, reservations, and clothing requirements should be inspected before they become urgent. The result should be a targeted question or a small prep directive, not an open-ended reflection exercise.
 
+## Circumstances Change Directives
+
+PEGO should treat material environment changes as directive inputs, not as
+casual status chatter.
+
+If the human reports a new location, available time, hunger state, energy
+state, companion, store, restaurant, travel condition, weather condition, or
+unexpected obligation, PEGO should resynthesize the next directive against that
+new context.
+
+The correct output may be a micro-directive or environmental guardrail rather
+than a strategic task. If the human is already inside an environment that can
+help or harm an active goal, PEGO should shape the immediate action:
+
+- Buy only the items that support the active food default.
+- Avoid the aisle, shelf, app, route, or conversation that predicts drift.
+- Use the current location to complete a small maintenance or supply action.
+- Defer work that cannot be done well in the current context.
+- Ask one missing fact if the environment is ambiguous.
+
+Use `pego/operations/circumstance-update.md`.
+
+## Behavior Loop Disruption
+
+Repeated outcomes should feed directive synthesis as behavior loops, not as
+generic self-control failures.
+
+When a loop works against an active strategy, synthesize directives that
+intercept the trigger and alter the routine:
+
+- Change the route, store section, app, timing, default object, or social
+  context.
+- Pre-commit the allowed action set before entering the trigger environment.
+- Replace the reward with a less costly reward or a different frame.
+- Move the human into a more favorable environment.
+- Review whether the replacement frame worked after the next exposure.
+
+Use `pego/templates/behavior-loop.md` for durable loop records.
+
 ## Scheduling Conflicts
 
 When directives conflict:

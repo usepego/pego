@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/behavior-loop.schema.json",
+  "title": "PEGO Behavior Loop",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "loop",
+    "domain",
+    "trigger",
+    "routine",
+    "reward_or_relief",
+    "strategic_effect",
+    "evidence",
+    "replacement_frame",
+    "disruption_directive_candidate",
+    "guardrails",
+    "authority_level",
+    "review_rule"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "behavior_loop"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "loop": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "enum": [
+        "health",
+        "finance",
+        "career",
+        "venture",
+        "home_environment",
+        "relationships",
+        "exploration",
+        "communications",
+        "happiness",
+        "operations",
+        "governance"
+      ]
+    },
+    "trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "routine": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reward_or_relief": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategic_effect": {
+      "enum": [
+        "supports_strategy",
+        "works_against_strategy",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "evidence": {
+      "enum": [
+        "human_report",
+        "repeated_outcome",
+        "telemetry",
+        "agent_inference",
+        "unknown"
+      ]
+    },
+    "replacement_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "disruption_directive_candidate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "guardrails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority_level": {
+      "$ref": "#/$defs/authority_level"
+    },
+    "review_rule": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    }
+  }
+}

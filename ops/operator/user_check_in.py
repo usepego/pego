@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -58,11 +59,45 @@ def now_time() -> str:
     return datetime.now().strftime("%H:%M")
 
 
+def infer_location_from_input(value: str) -> str:
+    normalized = value.lower()
+    location_markers = [
+        ("grocery_store", [r"\bgrocery\b", r"\bsupermarket\b", r"\bmarket\b"]),
+        ("restaurant", [r"\brestaurant\b", r"\bcafe\b", r"\bdiner\b", r"\blunch\b", r"\bdinner\b"]),
+        ("airport", [r"\bairport\b", r"\bterminal\b", r"\bgate\b"]),
+        ("car", [r"\bcar\b", r"\bdriving\b", r"\bparking\b"]),
+        ("office", [r"\boffice\b", r"\bworkplace\b"]),
+        ("outside", [r"\boutside\b", r"\bgarden\b", r"\byard\b", r"\bwalk\b"]),
+        ("home", [r"\bhome\b", r"\bhouse\b", r"\bkitchen\b"]),
+        ("phone", [r"\bphone\b"]),
+        ("computer", [r"\bcomputer\b", r"\blaptop\b", r"\bdesk\b"]),
+    ]
+    for location, patterns in location_markers:
+        if any(re.search(pattern, normalized) for pattern in patterns):
+            return location
+    return ""
+
+
+def detect_circumstance_type(value: str, location: str) -> str:
+    normalized = value.lower()
+    if location:
+        return "location_change"
+    if any(word in normalized for word in ["hungry", "tired", "low energy", "raining", "weather"]):
+        return "state_or_environment_change"
+    if any(word in normalized for word in ["before", "minutes", "appointment", "meeting"]):
+        return "time_window_change"
+    return ""
+
+
 def state_update(args: argparse.Namespace) -> dict:
+    location = args.location or infer_location_from_input(args.input)
+    circumstance_type = detect_circumstance_type(args.input, location)
     return {
         "available_minutes": args.available,
         "energy": args.energy or "",
-        "location": args.location or "",
+        "location": location,
+        "circumstance_type": circumstance_type,
+        "circumstance_summary": args.input if circumstance_type else "",
         "completed": args.done,
         "blocked": args.blocked,
     }
@@ -154,6 +189,7 @@ def build_markdown_session(session: dict) -> str:
                 f"available={state['available_minutes']}" if state["available_minutes"] is not None else "",
                 f"energy={state['energy']}" if state["energy"] else "",
                 f"location={state['location']}" if state["location"] else "",
+                f"circumstance={state['circumstance_type']}" if state.get("circumstance_type") else "",
                 "completed=" + ", ".join(state["completed"]) if state["completed"] else "",
                 f"blocked={state['blocked']}" if state["blocked"] else "",
             ]
@@ -270,8 +306,9 @@ def run_next_step(args: argparse.Namespace) -> dict:
         forwarded.extend(["--available", str(args.available)])
     if args.energy:
         forwarded.extend(["--energy", args.energy])
-    if args.location:
-        forwarded.extend(["--location", args.location])
+    location = args.location or infer_location_from_input(args.input)
+    if location:
+        forwarded.extend(["--location", location])
     if args.force:
         forwarded.append("--force")
 

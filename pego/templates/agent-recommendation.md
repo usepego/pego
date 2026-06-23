@@ -40,6 +40,14 @@ Direct telemetry / Financial model output / Human report / Repeated observed pat
 
 What improves if this recommendation is followed?
 
+## Behavior Loop
+
+If this recommendation is responding to a recurring loop, identify the trigger,
+routine, reward or relief, strategic effect, and proposed replacement frame.
+
+Use `pego/templates/behavior-loop.md` when the loop should become durable
+operating memory.
+
 ## Costs and Tradeoffs
 
 What does this consume, delay, risk, or make harder?

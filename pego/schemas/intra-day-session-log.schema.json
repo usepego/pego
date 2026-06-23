@@ -139,6 +139,8 @@
         "available_minutes",
         "energy",
         "location",
+        "circumstance_type",
+        "circumstance_summary",
         "completed",
         "blocked"
       ],
@@ -154,6 +156,12 @@
           "type": "string"
         },
         "location": {
+          "type": "string"
+        },
+        "circumstance_type": {
+          "type": "string"
+        },
+        "circumstance_summary": {
           "type": "string"
         },
         "completed": {

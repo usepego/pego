@@ -128,6 +128,46 @@ decision may be:
 The Council should preserve strategic ambition while keeping the immediate
 directive executable.
 
+## Behavior Loop Detection
+
+The Council should identify recurring behavior loops that meaningfully affect
+active strategies.
+
+Humans often act from environment, defaults, convenience, emotion, fatigue,
+social context, and repeated rewards before they explain the action
+consciously. The Council should therefore inspect repeated outcomes and
+circumstance updates for loops:
+
+```text
+trigger -> routine -> reward or relief -> strategic effect
+```
+
+When a loop works against an active goal, the Council should not merely tell
+the human to choose better. It should create a disruption directive that changes
+the environment, timing, route, default, framing, social context, or available
+options before the routine fires.
+
+Examples:
+
+- A store visit repeatedly produces off-strategy food inventory.
+- A calendar gap repeatedly becomes passive media drift.
+- A visible household annoyance repeatedly triggers avoidance instead of a
+  small maintenance block.
+- A work context repeatedly pulls attention away from the highest-leverage
+  venture or career task.
+
+The Council should decide:
+
+- Which agent owns the loop.
+- Whether the loop supports strategy, works against strategy, is mixed, or is
+  still unknown.
+- What replacement frame is likely to work.
+- What guardrail should be issued when the trigger appears.
+- Whether the disruption directive is low-risk or needs governance review.
+
+Use `pego/templates/behavior-loop.md` for loop records. Convert approved
+disruption recommendations into directive candidates before queue synthesis.
+
 ## Output Shape
 
 Each council decision should produce:

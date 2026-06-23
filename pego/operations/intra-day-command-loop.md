@@ -42,6 +42,8 @@ The human may report:
 - Current location.
 - Current energy.
 - Weather or environmental condition.
+- Circumstance update, such as entering a store, restaurant, airport, office,
+  vehicle, garden, or other context that changes available actions.
 - New obligation.
 - New concern or objection.
 - Request for next directive.
@@ -52,8 +54,14 @@ Examples:
 - `I have 45 minutes before a meeting.`
 - `It is raining.`
 - `I am low energy.`
+- `I am at a grocery store.`
+- `I am at a restaurant and hungry.`
 - `The garden block is done.`
 - `I cannot do venture work now.`
+
+Use `pego/operations/circumstance-update.md` when the update changes the
+human's immediate environment, available actions, or temptation/friction
+profile.
 
 ## Required State
 
@@ -79,10 +87,12 @@ Before selecting the next directive, PEGO should check:
 4. Update the directive queue.
 5. Remove candidates that no longer fit the day.
 6. Re-rank remaining candidates by priority, timing, energy, location, and consequence of deferral.
-7. Select one next directive.
-8. Provide a fallback if the selected directive becomes blocked.
-9. State what is deferred.
-10. State the next check-in condition.
+7. If the update is a material circumstance change, resynthesize against the
+   new environment and consider a micro-directive or environmental guardrail.
+8. Select one next directive.
+9. Provide a fallback if the selected directive becomes blocked.
+10. State what is deferred.
+11. State the next check-in condition.
 
 ## Output Shape
 

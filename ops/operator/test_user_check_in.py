@@ -18,6 +18,7 @@ QUEUE = """# Directive Queue: test
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Breakfast Anchor | Health | 10-15 min | Low | Home | Morning | Level 1 | Ready |
 | 2 | Venture Problem Map | Venture | 45 min | Medium | Computer | Workday | Level 1 | Ready |
+| 3 | Grocery Guardrail | Health | 10 min | Low | Grocery store | Now | Level 1 | Ready |
 """
 
 
@@ -132,6 +133,50 @@ def main() -> None:
         data = json.loads(session_json.read_text())
         if len(data["blocked_or_partial_directives"]) != 1:
             raise AssertionError(data)
+
+        third = user_check_in.main_with_args(
+            [
+                "--date",
+                "2026-06-23",
+                "--time",
+                "17:30",
+                "--input",
+                "I am at a grocery store.",
+                "--queue",
+                str(queue),
+                "--register",
+                str(register),
+                "--done",
+                "Breakfast Anchor",
+                "--available",
+                "10",
+                "--energy",
+                "low",
+                "--session-output",
+                str(session),
+                "--session-json-output",
+                str(session_json),
+                "--response-output",
+                str(root / "response-3.md"),
+                "--response-json-output",
+                str(root / "response-3.json"),
+                "--preflight-output",
+                str(root / "preflight-3.json"),
+                "--force",
+            ]
+        )
+
+        if third["events"] != 3:
+            raise AssertionError(third)
+        response_data = json.loads((root / "response-3.json").read_text())
+        if response_data["next_directive"]["directive"] != "Grocery Guardrail":
+            raise AssertionError(response_data)
+        data = json.loads(session_json.read_text())
+        last_state = data["events"][-1]["state_update"]
+        if last_state["location"] != "grocery_store":
+            raise AssertionError(last_state)
+        if last_state["circumstance_type"] != "location_change":
+            raise AssertionError(last_state)
 
     print("operator user check-in smoke tests passed.")
 

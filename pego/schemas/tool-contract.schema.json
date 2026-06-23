@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/tool-contract.schema.json",
+  "title": "PEGO Tool Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "tool",
+    "purpose",
+    "owning_agents",
+    "inputs",
+    "outputs",
+    "authority_required",
+    "operation_type",
+    "private_data_used",
+    "third_party_disclosure",
+    "write_locations",
+    "governance_review",
+    "failure_mode",
+    "logging_rule",
+    "prohibited_uses"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "tool_contract"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "tool": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owning_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inputs": {
+      "type": "object"
+    },
+    "outputs": {
+      "type": "object"
+    },
+    "authority_required": {
+      "$ref": "#/$defs/authority_level"
+    },
+    "operation_type": {
+      "enum": [
+        "observe",
+        "recommend",
+        "direct",
+        "execute",
+        "escalate"
+      ]
+    },
+    "private_data_used": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "third_party_disclosure": {
+      "enum": [
+        "none",
+        "local_only",
+        "external_service",
+        "requires_explicit_approval"
+      ]
+    },
+    "write_locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "governance_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "failure_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "logging_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    }
+  }
+}

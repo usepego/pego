@@ -78,6 +78,25 @@ def main() -> None:
         if quote["governance_status"] != "reviewed":
             raise AssertionError("expected repair quote to require review")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        register = private / "operator" / "operating-register.md"
+        register.parent.mkdir(parents=True)
+        register.write_text(REGISTER)
+        generate_candidates.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--json-output",
+                str(private / "directives" / "candidates" / "home-candidates.json"),
+                "--force",
+            ]
+        )
+        if not (private / "directives" / "candidates" / "home-candidates.md").exists():
+            raise AssertionError("expected home candidates under configured private root")
+
     print("home candidate smoke tests passed.")
 
 

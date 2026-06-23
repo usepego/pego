@@ -5,13 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
-DEFAULT_INPUT = Path("private/health/baseline.json")
-DEFAULT_OUTPUT = Path("private/directives/candidates/health-candidates.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -255,7 +258,7 @@ def build_markdown(baseline: dict, output_date: str) -> str:
             "",
             "## Source",
             "",
-            "private/health/baseline.json",
+            "health/baseline.json",
             "",
             "## Evidence Inputs",
             "",
@@ -298,8 +301,9 @@ def build_markdown(baseline: dict, output_date: str) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--input", type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -308,6 +312,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.input = args.input or private / "health" / "baseline.json"
+    args.output = args.output or private / "directives" / "candidates" / "health-candidates.md"
     if not args.input.is_file():
         raise SystemExit(f"missing health baseline: {args.input}")
     baseline = json.loads(args.input.read_text())

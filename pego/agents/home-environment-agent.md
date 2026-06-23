@@ -107,4 +107,10 @@ The reference local home candidate runner lives at:
 ops/home/generate_candidates.py
 ```
 
+The local wrapper command is:
+
+```sh
+python3 pegoctl home-candidates
+```
+
 It reads the protected operating register and writes home/environment directive candidates for synthesis.

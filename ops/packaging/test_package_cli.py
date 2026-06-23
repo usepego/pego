@@ -39,6 +39,12 @@ def main() -> None:
         raise AssertionError(completed.stdout)
     if "finance-review" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "health-candidates" not in completed.stdout:
+        raise AssertionError(completed.stdout)
+    if "meal" not in completed.stdout:
+        raise AssertionError(completed.stdout)
+    if "home-candidates" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "--private-root" not in completed.stdout:
         raise AssertionError(completed.stdout)
 

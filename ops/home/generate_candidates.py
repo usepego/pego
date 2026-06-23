@@ -6,15 +6,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-PRIVATE = ROOT / "private"
-DEFAULT_REGISTER = PRIVATE / "operator" / "operating-register.md"
-DEFAULT_OUTPUT = PRIVATE / "directives" / "candidates" / "home-candidates.md"
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 
 @dataclass(frozen=True)
@@ -310,8 +311,9 @@ def build_markdown(candidates: list[Candidate], output_date: str, source: Path) 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default=date.today().isoformat())
-    parser.add_argument("--register", type=Path, default=DEFAULT_REGISTER)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--private-root", type=Path)
+    parser.add_argument("--register", type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -320,6 +322,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main_with_args(argv: list[str] | None = None) -> Path:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.register = args.register or private / "operator" / "operating-register.md"
+    args.output = args.output or private / "directives" / "candidates" / "home-candidates.md"
     register_text = args.register.read_text() if args.register.exists() else ""
     candidates = build_candidates(register_text)
     args.output.parent.mkdir(parents=True, exist_ok=True)

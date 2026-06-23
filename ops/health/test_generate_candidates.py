@@ -113,6 +113,25 @@ def main() -> None:
         if not any(candidate["candidate"] == "Walk Outside" for candidate in structured):
             raise AssertionError("expected Walk Outside structured candidate")
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        baseline = private / "health" / "baseline.json"
+        baseline.parent.mkdir(parents=True)
+        baseline.write_text(json.dumps(BASELINE))
+        generate_candidates.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--json-output",
+                str(private / "directives" / "candidates" / "health-candidates.json"),
+                "--force",
+            ]
+        )
+        if not (private / "directives" / "candidates" / "health-candidates.md").exists():
+            raise AssertionError("expected health candidates under configured private root")
+
     print("health candidate smoke tests passed.")
 
 

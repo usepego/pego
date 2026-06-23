@@ -102,6 +102,40 @@ def main() -> None:
         if candidate_data["domain"] != "health":
             raise AssertionError(candidate_data)
 
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        options = private / "health" / "food-options" / "options.json"
+        options.parent.mkdir(parents=True)
+        options.write_text(
+            json.dumps(
+                [
+                    food_option("Reactive convenience meal", 1100, 30, 2, "weak", "acceptable", 15),
+                    food_option("Protein bowl", 520, 40, 9, "strong", "strong", 12),
+                ]
+            )
+        )
+        decide_meal.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--meal",
+                "Lunch",
+                "--option",
+                str(options),
+                "--strategy",
+                "weight_loss",
+                "--candidate-json-output",
+                str(private / "directives" / "candidates" / "meal-candidate.json"),
+                "--force",
+            ]
+        )
+        if not (private / "health" / "meal-decisions" / "meal-decision.md").exists():
+            raise AssertionError("expected meal decision under configured private root")
+        if not (private / "directives" / "candidates" / "meal-candidate.md").exists():
+            raise AssertionError("expected meal candidate under configured private root")
+
     print("meal decision smoke tests passed.")
 
 

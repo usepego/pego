@@ -124,6 +124,9 @@ python3 pegoctl weekly
 python3 pegoctl monthly
 python3 pegoctl finance-run --write-summary
 python3 pegoctl finance-review
+python3 pegoctl health-candidates
+python3 pegoctl meal --option private/health/food-options/options.json
+python3 pegoctl home-candidates
 python3 pegoctl brief
 python3 pegoctl check-in "Done: breakfast. Available: 45 minutes. What's next?"
 python3 pegoctl close-session

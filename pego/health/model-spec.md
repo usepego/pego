@@ -179,6 +179,12 @@ The reference local health candidate runner lives at:
 ops/health/generate_candidates.py
 ```
 
+The local wrapper command is:
+
+```sh
+python3 pegoctl health-candidates
+```
+
 It reads a protected health baseline and writes conservative Level 1 directive candidates for food, movement, sweets control, and sleep protection.
 
 The reference local health check-in runner lives at:
@@ -193,6 +199,12 @@ The reference local meal decision runner lives at:
 
 ```text
 ops/health/decide_meal.py
+```
+
+The local wrapper command is:
+
+```sh
+python3 pegoctl meal --option private/health/food-options/options.json
 ```
 
 It reads protected food options and writes a meal decision plus a health directive candidate. It should use the current private nutrition strategy rather than assuming every person has a weight-loss goal.

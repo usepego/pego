@@ -8,6 +8,7 @@ Health candidate generation is not medical advice. It creates conservative Level
 
 ```sh
 python3 ops/health/generate_candidates.py
+python3 pegoctl health-candidates
 ```
 
 Default input:
@@ -54,6 +55,7 @@ tracking unless the measurement changes a decision.
 
 ```sh
 python3 ops/health/decide_meal.py --option private/health/food-options/options.json
+python3 pegoctl meal --option private/health/food-options/options.json
 ```
 
 Default output:
@@ -72,3 +74,7 @@ Food option inputs should follow:
 ```text
 pego/schemas/food-option.schema.json
 ```
+
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct scripts so baseline files, food options, meal decisions, and
+candidate outputs stay inside the protected private instance.

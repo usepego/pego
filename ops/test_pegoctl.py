@@ -72,6 +72,69 @@ FINANCE_SCENARIOS = {
 }
 
 
+HEALTH_BASELINE = {
+    "artifact_type": "health_baseline",
+    "schema_version": 1,
+    "evidence_policy": {"tracking_level": "minimal"},
+    "goal": {"priority": "weight_loss"},
+    "constraints": {},
+    "preferences": {
+        "food_defaults": ["synthetic eggs and fruit"],
+        "sweet_triggers": ["synthetic evening snack"],
+    },
+    "current_routine": {},
+    "availability": {"morning_minutes": 10, "midday_minutes": 15, "outside_ok": True},
+    "metrics": {},
+}
+
+
+FOOD_OPTIONS = [
+    {
+        "artifact_type": "food_option",
+        "schema_version": 1,
+        "date": "2026-06-23",
+        "source": "synthetic_estimate",
+        "source_confidence": "low",
+        "location_type": "home",
+        "provider": "Synthetic provider",
+        "item": "Protein bowl",
+        "components": ["Synthetic protein", "Synthetic vegetables"],
+        "availability": "Now",
+        "cost_estimate": {"amount": 10, "currency": "USD", "confidence": "low"},
+        "time_and_friction": {"minutes": 12, "friction_notes": ["Synthetic friction"]},
+        "nutrition_estimate": {
+            "calories": 520,
+            "protein_g": 40,
+            "fiber_g": 8,
+            "sugar_g": 5,
+            "sodium_mg": 500,
+            "confidence": "low",
+        },
+        "goal_fit": "strong",
+        "enjoyment_fit": "acceptable",
+        "satiety_estimate": "strong",
+        "tradeoffs": ["Synthetic tradeoff"],
+        "stop_condition": "Synthetic stop condition.",
+    }
+]
+
+
+HOME_REGISTER = """# Operating Register
+
+## Supply Gaps
+
+| Supply | Domain | Needed For | Consequence if Missing | Next Action | Status |
+| --- | --- | --- | --- | --- | --- |
+| Synthetic yard bags | Home | Synthetic cleanup | Cleanup stalls | Add to store list | Needed |
+
+## Home and Environment Watchlist
+
+| Area | Condition | Smallest Useful Action | Weather / Tool Dependency | Next Review |
+| --- | --- | --- | --- | --- |
+| Synthetic garden | Weeds visible | Weed 20 minutes | Dry weather | This week |
+"""
+
+
 def run(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(PEGOCTL), *args],
@@ -345,6 +408,62 @@ def main() -> None:
             raise AssertionError("expected pegoctl finance-run output under configured private root")
         if not (private_root / "finance" / "reviews" / "scenario-review.md").exists():
             raise AssertionError("expected pegoctl finance-review output under configured private root")
+
+    with tempfile.TemporaryDirectory() as directory:
+        private_root = Path(directory) / "pego-private"
+        baseline = private_root / "health" / "baseline.json"
+        food_options = private_root / "health" / "food-options" / "options.json"
+        register = private_root / "operator" / "operating-register.md"
+        baseline.parent.mkdir(parents=True)
+        food_options.parent.mkdir(parents=True)
+        register.parent.mkdir(parents=True)
+        baseline.write_text(json.dumps(HEALTH_BASELINE))
+        food_options.write_text(json.dumps(FOOD_OPTIONS))
+        register.write_text(HOME_REGISTER)
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "health-candidates",
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "meal",
+                "--date",
+                "2026-06-23",
+                "--meal",
+                "Lunch",
+                "--option",
+                str(food_options),
+                "--strategy",
+                "weight_loss",
+                "--force",
+            ]
+        )
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "home-candidates",
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        if not (private_root / "directives" / "candidates" / "health-candidates.md").exists():
+            raise AssertionError("expected pegoctl health candidates under configured private root")
+        if not (private_root / "health" / "meal-decisions" / "meal-decision.md").exists():
+            raise AssertionError("expected pegoctl meal decision under configured private root")
+        if not (private_root / "directives" / "candidates" / "meal-candidate.md").exists():
+            raise AssertionError("expected pegoctl meal candidate under configured private root")
+        if not (private_root / "directives" / "candidates" / "home-candidates.md").exists():
+            raise AssertionError("expected pegoctl home candidates under configured private root")
 
     print("pegoctl smoke tests passed.")
 

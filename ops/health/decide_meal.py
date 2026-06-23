@@ -6,13 +6,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
 
-DEFAULT_OUTPUT = Path("private/health/meal-decisions/meal-decision.md")
-DEFAULT_CANDIDATE_OUTPUT = Path("private/directives/candidates/meal-candidate.md")
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "ops"))
+
+import private_root as private_root_config  # noqa: E402
 
 FIT_SCORE = {
     "strong": 0,
@@ -347,6 +350,7 @@ def candidate_markdown(candidate: dict[str, object]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--private-root", type=Path)
     parser.add_argument("--date", default=date.today().isoformat())
     parser.add_argument("--meal", default="Next meal")
     parser.add_argument("--option", type=Path, action="append", default=[])
@@ -372,9 +376,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--goal-context", default="Support the current nutrition strategy with a satisfying, lower-friction meal.")
     parser.add_argument("--follow-up", default="Record whether hunger, satisfaction, energy, or cravings changed.")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--json-output", type=Path)
-    parser.add_argument("--candidate-output", type=Path, default=DEFAULT_CANDIDATE_OUTPUT)
+    parser.add_argument("--candidate-output", type=Path)
     parser.add_argument("--candidate-json-output", type=Path)
     parser.add_argument("--force", action="store_true")
     return parser
@@ -391,6 +395,9 @@ def write_output(path: Path, content: str, force: bool) -> None:
 def main_with_args(argv: list[str] | None = None) -> dict[str, object]:
     parser = build_parser()
     args = parser.parse_args(argv)
+    private = private_root_config.resolve_private_root(args.private_root)
+    args.output = args.output or private / "health" / "meal-decisions" / "meal-decision.md"
+    args.candidate_output = args.candidate_output or private / "directives" / "candidates" / "meal-candidate.md"
     if not args.option:
         raise SystemExit("at least one --option food option file is required")
     options = read_options(args.option)

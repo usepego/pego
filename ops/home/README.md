@@ -8,6 +8,7 @@ Home candidates preserve physical environment quality: yard, garden, repairs, su
 
 ```sh
 python3 ops/home/generate_candidates.py
+python3 pegoctl home-candidates
 ```
 
 Default input:
@@ -27,3 +28,7 @@ The output can be passed into daily synthesis:
 ```sh
 python3 ops/cycles/daily_cycle.py synthesize --candidate private/directives/candidates/home-candidates.md
 ```
+
+For installed or backed-up operation, pass `--private-root` to `pegoctl` or to
+the direct script so the operating register and generated candidates stay inside
+the protected private instance.

@@ -201,6 +201,8 @@ def main() -> None:
     help_result = run(["--help"])
     if "check-in" not in help_result.stdout:
         raise AssertionError(help_result.stdout)
+    if "guide" not in help_result.stdout:
+        raise AssertionError(help_result.stdout)
 
     doctor = run(["doctor"])
     if "PEGO doctor passed" not in doctor.stdout:
@@ -238,6 +240,18 @@ def main() -> None:
         readiness_data = json.loads(readiness.read_text())
         if readiness_data["artifact_type"] != "private_instance_readiness":
             raise AssertionError(readiness_data)
+
+        guide = run(
+            [
+                "guide",
+                "--private-root",
+                str(private_root),
+            ]
+        )
+        if "PEGO operating guide" not in guide.stdout:
+            raise AssertionError(guide.stdout)
+        if str(private_root) in guide.stdout:
+            raise AssertionError(guide.stdout)
 
         run(
             [

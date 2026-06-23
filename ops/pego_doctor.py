@@ -133,6 +133,8 @@ REQUIRED_FILES = [
     "ops/packaging/test_package_cli.py",
     "ops/private/test_private_root.py",
     "ops/private/test_bootstrap_private_instance.py",
+    "ops/private/guide_operation.py",
+    "ops/private/test_guide_operation.py",
     "ops/private/check_storage.py",
     "ops/private/test_check_storage.py",
     "ops/anticipation/generate_scan.py",
@@ -199,6 +201,8 @@ REQUIRED_FILES = [
     "ops/home/test_generate_candidates.py",
     "ops/private/check_readiness.py",
     "ops/private/test_check_readiness.py",
+    "ops/private/guide_operation.py",
+    "ops/private/test_guide_operation.py",
     "ops/pego_registry.py",
 ]
 

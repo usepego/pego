@@ -27,6 +27,8 @@ def main() -> None:
     )
     if "pegoctl" not in completed.stdout:
         raise AssertionError(completed.stdout)
+    if "guide" not in completed.stdout:
+        raise AssertionError(completed.stdout)
     if "apply-context" not in completed.stdout:
         raise AssertionError(completed.stdout)
     if "daily" not in completed.stdout:

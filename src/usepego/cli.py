@@ -72,6 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     subparsers.add_parser("doctor", help="verify repository hygiene and framework contracts")
+    subparsers.add_parser("guide", help="show safe operating status and recommended next command")
     subparsers.add_parser("readiness", help="check protected private instance readiness")
     subparsers.add_parser("storage", help="check protected private storage and backup readiness")
     subparsers.add_parser("bootstrap", help="create or refresh private instance skeleton")
@@ -119,6 +120,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.private_root:
             parser.error("doctor does not use --private-root")
         return run_script("ops/pego_doctor.py", [])
+    if args.command == "guide":
+        return run_script("ops/private/guide_operation.py", with_private_root(args, forwarded))
     if args.command == "readiness":
         return run_script("ops/private/check_readiness.py", with_private_root(args, forwarded))
     if args.command == "storage":

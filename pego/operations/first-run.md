@@ -29,6 +29,15 @@ If the doctor fails, fix repository hygiene before operating PEGO.
 
 ### 1.5. Check Operating Readiness
 
+Start with the guided operator surface:
+
+```sh
+python3 pegoctl guide
+```
+
+It reports safe operating status and the recommended next command without
+printing private contents.
+
 Use:
 
 ```text

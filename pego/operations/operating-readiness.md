@@ -6,6 +6,15 @@ Use it to determine whether the system has enough current state, queue state, go
 
 ## Local Checker
 
+Guided status and next-command selection:
+
+```sh
+python3 pegoctl guide
+```
+
+This is the preferred first command when the operator does not know whether to
+bootstrap, run intake, check storage, or enter USER mode.
+
 Reference local checker:
 
 ```sh

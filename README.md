@@ -118,6 +118,7 @@ The local reference command wrapper is:
 
 ```sh
 python3 pegoctl doctor
+python3 pegoctl guide
 python3 pegoctl readiness
 python3 pegoctl intake --phase boundary
 python3 pegoctl daily-directive
@@ -149,8 +150,13 @@ For protected operation outside the framework checkout, set `PEGO_PRIVATE_ROOT`
 or pass `--private-root` before the command:
 
 ```sh
+python3 pegoctl --private-root ~/Documents/PEGO/private guide
 python3 pegoctl --private-root ~/Documents/PEGO/private check-in "Done: lunch. Available: 30 minutes. What's next?"
 ```
+
+Start with `pegoctl guide` when you are unsure what PEGO needs next. It reports
+safe operating status, storage posture, and a recommended next command without
+printing private contents or absolute protected paths.
 
 ## Packaging Direction
 

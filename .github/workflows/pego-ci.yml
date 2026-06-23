@@ -52,6 +52,7 @@ jobs:
           python3 ops/private/test_private_root.py
           python3 ops/private/test_bootstrap_private_instance.py
           python3 ops/private/test_check_readiness.py
+          python3 ops/private/test_guide_operation.py
           python3 ops/private/test_check_storage.py
           python3 ops/onboarding/test_generate_intake.py
           python3 ops/communications/test_generate_public_writing_brief.py

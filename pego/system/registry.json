@@ -151,6 +151,13 @@
       "privacy": "safe-derived-output"
     },
     {
+      "id": "guide_private_operation",
+      "runner": "ops/private/guide_operation.py",
+      "procedure": "pego/operations/first-run.md",
+      "writes_to": "optional private/governance/preflight/operating-guide.json",
+      "privacy": "safe-derived-output"
+    },
+    {
       "id": "check_private_storage_readiness",
       "runner": "ops/private/check_storage.py",
       "procedure": "pego/operations/private-storage-backup.md",
@@ -588,8 +595,10 @@
     "ops/council/test_decision_to_candidate.py",
     "ops/private/bootstrap_private_instance.py",
     "ops/private/check_readiness.py",
+    "ops/private/guide_operation.py",
     "ops/private/test_bootstrap_private_instance.py",
     "ops/private/test_check_readiness.py",
+    "ops/private/test_guide_operation.py",
     "ops/private/check_storage.py",
     "ops/private/test_check_storage.py",
     "ops/cycles/daily_cycle.py",

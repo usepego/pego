@@ -2,6 +2,10 @@
 
 Use this template to convert new information into private PEGO operating memory.
 
+Use `pego/templates/memory-lifecycle-review.md` when deciding whether the update
+should become working memory, durable private memory, quarantined memory,
+expired memory, or rejected.
+
 ## Date
 
 Date.

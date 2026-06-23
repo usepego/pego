@@ -4,6 +4,10 @@ Context update is how PEGO converts new information into durable operating memor
 
 New context may come from conversation, outcomes, telemetry, documents, external events, or repeated directive results. PEGO should update private state deliberately instead of letting important information disappear into chat history.
 
+Use `pego/operations/operating-memory.md` for the broader lifecycle governing
+session memory, working memory, durable private memory, quarantine, expiry, and
+correction.
+
 ## Purpose
 
 Context update should determine:
@@ -195,6 +199,9 @@ This writes a protected memory-application review. It does not change durable
 private memory unless run with `--apply`; even then, only eligible updates are
 applied. Structured memory-application reviews must conform to
 `pego/schemas/memory-application-review.schema.json`.
+
+When reviewing whether context should be promoted, quarantined, expired, or
+corrected before application, use `pego/templates/memory-lifecycle-review.md`.
 
 ## Stop Conditions
 

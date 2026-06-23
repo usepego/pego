@@ -26,6 +26,9 @@ or local script should all be able to produce and consume these contracts.
   inputs.
 - `memory-application-review.schema.json`: protected review deciding which
   context updates are eligible, deferred, or applied to durable private memory.
+- `memory-lifecycle-review.schema.json`: protected review deciding whether
+  session, outcome, tool, or context evidence should be promoted, quarantined,
+  expired, corrected, or rejected.
 - `directive-candidate.schema.json`: proposed action before synthesis.
 - `adoption-record.schema.json`: audit record for a recommendation, council
   decision, tool output, or behavior loop becoming a candidate, directive,

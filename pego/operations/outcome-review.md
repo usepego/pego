@@ -4,6 +4,9 @@ Outcome review is how PEGO learns from execution.
 
 A directive that is not reviewed is only a suggestion with no feedback loop. PEGO should treat outcomes as operating evidence and use them to adjust future directives, priorities, authority levels, and strategy.
 
+Use `pego/operations/operating-memory.md` before promoting outcome evidence
+into durable private memory.
+
 ## Purpose
 
 Outcome review should answer:
@@ -127,4 +130,5 @@ Outcome records should feed:
 - `pego/operations/weekly-loop.md`
 - `pego/operations/monthly-loop.md`
 - `pego/operations/context-update.md`
+- `pego/operations/operating-memory.md`
 - Relevant agent files and model specs.

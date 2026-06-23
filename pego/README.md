@@ -62,8 +62,9 @@ Start here:
 42. `operations/circumstance-update.md`: how PEGO resynthesizes directives when location, environment, time, energy, or friction changes.
 43. `operations/outcome-review.md`: how execution results become evidence for the next directive.
 44. `operations/context-update.md`: how conversation, outcomes, and telemetry update private operating memory.
-45. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
-46. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
+45. `operations/operating-memory.md`: how PEGO promotes, quarantines, expires, corrects, or rejects memory.
+46. `operations/anticipation-loop.md`: how PEGO detects future friction and asks targeted operational questions early.
+47. `templates/operating-register.md`: the durable inventory of events, annoyances, supply gaps, prep needs, and strategic dependencies.
 
 ## Non-Scope
 

@@ -243,7 +243,7 @@ main {
 }
 
 .hero-subhead {
-  max-width: 36rem;
+  max-width: 40rem;
   margin: var(--space-md) 0 0;
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.8vw, 1.85rem);
@@ -338,10 +338,51 @@ main {
   opacity: 0.85;
 }
 
+.triad-item h2 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--walnut);
+}
+
 .triad-item p {
   margin: 0;
   font-size: 0.975rem;
   color: var(--walnut-soft);
+}
+
+/* Example directive */
+
+.example-panel {
+  max-width: 44rem;
+  margin-top: var(--space-lg);
+  border: 1px solid var(--line);
+  background: var(--cream-deep);
+}
+
+.example-line {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--line);
+}
+
+.example-line:last-child {
+  border-bottom: none;
+}
+
+.example-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.example-line p {
+  margin: 0;
+  color: var(--walnut);
 }
 
 /* Category breakdown */

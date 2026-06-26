@@ -9,6 +9,9 @@
     "schema_version",
     "date",
     "decision_frame",
+    "goal_reconciliation_status",
+    "goal_reconciliation_sources",
+    "priority_assumption",
     "source_recommendations",
     "proposed_directive",
     "council_outcome",
@@ -37,6 +40,23 @@
     "decision_frame": {
       "type": "string",
       "minLength": 1
+    },
+    "goal_reconciliation_status": {
+      "enum": [
+        "current_goal_reconciliation_supplied",
+        "temporary_priority_assumption",
+        "missing_goal_reconciliation"
+      ]
+    },
+    "goal_reconciliation_sources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "priority_assumption": {
+      "type": "string"
     },
     "source_recommendations": {
       "type": "array",

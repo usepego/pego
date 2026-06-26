@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/council-synthesis-review.schema.json",
+  "title": "PEGO Council Synthesis Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_council_decision",
+    "source_recommendations",
+    "decision_frame",
+    "selected_outcome",
+    "selected_directive_or_question",
+    "deferrals",
+    "outcome_summary",
+    "selection_quality",
+    "dissent_handling",
+    "information_timing",
+    "human_burden",
+    "governance_fit",
+    "review_outcome",
+    "future_adjustment",
+    "durable_memory_candidate",
+    "next_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "council_synthesis_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_council_decision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "related_command_response": {
+      "type": "string"
+    },
+    "related_outcome": {
+      "type": "string"
+    },
+    "decision_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_outcome": {
+      "enum": [
+        "adopt",
+        "revise",
+        "request_more_information",
+        "escalate",
+        "block"
+      ]
+    },
+    "selected_directive_or_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deferrals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selection_quality": {
+      "$ref": "#/$defs/assessment"
+    },
+    "dissent_handling": {
+      "$ref": "#/$defs/assessment"
+    },
+    "information_timing": {
+      "$ref": "#/$defs/assessment"
+    },
+    "human_burden": {
+      "$ref": "#/$defs/assessment"
+    },
+    "governance_fit": {
+      "$ref": "#/$defs/assessment"
+    },
+    "review_outcome": {
+      "$ref": "#/$defs/review_outcome"
+    },
+    "future_adjustment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "durable_memory_candidate": {
+      "type": "string"
+    },
+    "next_review": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rating",
+        "notes"
+      ],
+      "properties": {
+        "rating": {
+          "enum": [
+            "strong",
+            "adequate",
+            "weak",
+            "missing",
+            "not_applicable"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "review_outcome": {
+      "enum": [
+        "improve",
+        "keep",
+        "downgrade",
+        "quarantine",
+        "escalate"
+      ]
+    }
+  }
+}

@@ -66,6 +66,9 @@
         },
         "environment_design": {
           "type": "string"
+        },
+        "execution_instruction": {
+          "type": "string"
         }
       }
     },
@@ -80,6 +83,9 @@
     "why_this_now": {
       "type": "string",
       "minLength": 1
+    },
+    "execution_instruction": {
+      "type": "string"
     },
     "targeted_question": {
       "type": "string"

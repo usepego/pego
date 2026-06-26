@@ -132,6 +132,11 @@ A first interaction should be as simple as:
 Start PEGO.
 ```
 
+The response should feel like PEGO is operating, not like a developer console.
+The user should see a question about current circumstance, one directive, a
+fallback, or a stop condition. Setup checks, local commands, private-file
+updates, diffs, and agent scratch planning belong behind the surface.
+
 But mature PEGO should not depend on the human remembering to ask. Approved
 runtime surfaces should deliver directives through the right medium: mobile,
 watch, desktop, chat, calendar, email, or another adapter.

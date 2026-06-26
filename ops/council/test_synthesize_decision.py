@@ -68,6 +68,8 @@ def main() -> None:
                 str(recommend),
                 "--recommendation",
                 str(dissent),
+                "--priority-assumption",
+                "Protect relationship constraints over optional venture work during protected time.",
                 "--output",
                 str(output),
                 "--json-output",
@@ -89,6 +91,38 @@ def main() -> None:
             raise AssertionError("expected dissent to force revision")
         if "time" not in structured["key_risks"]:
             raise AssertionError("expected risk preservation")
+        if structured["goal_reconciliation_status"] != "temporary_priority_assumption":
+            raise AssertionError("expected explicit priority assumption")
+        if "relationship constraints" not in structured["priority_assumption"]:
+            raise AssertionError("expected priority assumption preservation")
+
+    with tempfile.TemporaryDirectory() as directory:
+        private = Path(directory) / "pego-private"
+        private.mkdir()
+        recommendation = private / "recommend.json"
+        json_output = private / "council" / "decisions" / "council-decision.json"
+        recommendation.write_text(json.dumps(RECOMMEND))
+
+        synthesize_decision.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-25",
+                "--frame",
+                "Choose next directive with private goal reconciliation.",
+                "--recommendation",
+                str(recommendation),
+                "--json-output",
+                str(json_output),
+            ]
+        )
+
+        if not (private / "goals" / "goal-reconciliation.json").exists():
+            raise AssertionError("expected council to build goal reconciliation")
+        structured = json.loads(json_output.read_text())
+        if structured["goal_reconciliation_status"] != "current_goal_reconciliation_supplied":
+            raise AssertionError("expected council to use generated goal reconciliation")
 
     print("council decision smoke tests passed.")
 

@@ -4,6 +4,11 @@ Operating readiness is the preflight check before PEGO issues directives.
 
 Use it to determine whether the system has enough current state, queue state, governance context, and outcome destination to operate safely.
 
+Readiness is not the same as onboarding completeness. A private instance may be
+ready to operate safely while still lacking decision-grade domain baselines.
+When that happens, PEGO should issue a targeted baseline question or safe
+low-risk directive rather than pretending the domain model is complete.
+
 ## Local Checker
 
 Guided status and next-command selection:
@@ -65,6 +70,30 @@ For active operation, confirm:
 - Private storage backup is confirmed or explicitly accepted as an infrastructure risk.
 
 Private files should remain under protected `private/` paths.
+
+## Domain Baseline Checks
+
+For robust operation, inspect whether active domains have enough baseline state
+for the relevant agent to recommend, dissent, or ask one decision-grade
+question.
+
+Use:
+
+```text
+pego/operations/domain-baseline-bootstrap.md
+```
+
+Baseline gaps should produce targeted intake, not broad onboarding homework.
+Examples:
+
+- Missing finance baseline: ask for income, rough burn, asset/debt buckets,
+  major future costs, or forbidden financial actions.
+- Missing health baseline: ask for current food defaults, movement aversions,
+  sleep, medical constraints, or acceptable metrics.
+- Missing career baseline: ask for current role, income dependency, leverage,
+  dissatisfaction, and career-risk boundaries.
+- Missing home baseline: ask for the most happiness-relevant environment
+  condition or disturbance constraint.
 
 ## Queue Checks
 

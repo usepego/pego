@@ -7,6 +7,10 @@ A directive that is not reviewed is only a suggestion with no feedback loop. PEG
 Use `pego/operations/operating-memory.md` before promoting outcome evidence
 into durable private memory.
 
+Use `pego/operations/recommendation-quality-loop.md` when the outcome should
+evaluate whether agent recommendations, council synthesis, or human questions
+improved the directive.
+
 ## Purpose
 
 Outcome review should answer:
@@ -36,10 +40,19 @@ Outcome review should answer:
 2. Separate facts from interpretation.
 3. Identify friction.
 4. Identify benefit.
-5. Identify cost.
-6. Determine whether the directive should repeat, change, stop, or escalate.
-7. Update directive candidates.
-8. Feed relevant evidence into the weekly loop.
+5. Identify outcome progress and contentment signal.
+6. Identify cost.
+7. Review decision quality: actionability, goal fit, constraint fit, burden,
+   timeliness, risk control, explanation quality, follow-through probability,
+   outcome quality, and learning value.
+8. Determine whether the directive should repeat, change, stop, or escalate.
+9. Review agent recommendations if the directive came from a domain-agent
+   recommendation.
+10. Review council synthesis if the directive came from a council decision or
+   cross-domain deferral.
+11. Review information-value assessments if PEGO asked the human a question.
+12. Update directive candidates.
+13. Feed relevant evidence into the weekly loop.
 
 ## Outcome Classes
 
@@ -106,6 +119,19 @@ python3 ops/review/review_outcome.py --outcome private/outcomes/directives/YYYY-
 Structured review artifacts must conform to
 `pego/schemas/outcome-review.schema.json`.
 
+Outcome reviews include a nested decision quality review. The decision quality
+review should conform to:
+
+```text
+pego/schemas/decision-quality-review.schema.json
+```
+
+Use:
+
+```text
+pego/templates/decision-quality-review.md
+```
+
 To close a USER-mode session into a session-level learning review, use:
 
 ```sh
@@ -125,6 +151,7 @@ python3 pegoctl promote-context
 
 Outcome records should feed:
 
+- `pego/operations/recommendation-quality-loop.md`
 - `pego/operations/daily-loop.md`
 - `pego/operations/intra-day-command-loop.md`
 - `pego/operations/weekly-loop.md`

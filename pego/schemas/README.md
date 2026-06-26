@@ -10,6 +10,8 @@ or local script should all be able to produce and consume these contracts.
 ## Core Artifacts
 
 - `agent-recommendation.schema.json`: structured output from a domain agent.
+- `agent-recommendation-review.schema.json`: review of whether an agent
+  recommendation fit the outcome, friction, evidence, and human burden.
 - `agent-message.schema.json`: structured message from one agent to another
   during deliberation.
 - `deliberation-thread.schema.json`: preserved sequence of agent-to-agent
@@ -39,10 +41,17 @@ or local script should all be able to produce and consume these contracts.
   Level 4 decisions.
 - `council-decision.schema.json`: cross-agent synthesis decision preserving
   outcome, dissent, handoffs, governance status, and next action.
+- `council-synthesis-review.schema.json`: review of whether council selected,
+  deferred, escalated, or requested information well.
+- `information-value-assessment.schema.json`: assessment of whether a proposed
+  human question is worth asking before directive selection.
 - `directive-outcome.schema.json`: evidence captured after a directive is
   attempted.
 - `outcome-review.schema.json`: learning decision produced from directive
   outcome evidence.
+- `decision-quality-review.schema.json`: evaluation of whether the directive
+  was a good decision, including actionability, goal fit, burden, risk control,
+  explanation quality, outcome quality, and learning value.
 - `directive-preflight.schema.json`: lightweight governance classification for
   a proposed directive before adoption.
 - `directive-queue.schema.json`: live intra-day queue for active, deferred,
@@ -61,6 +70,8 @@ or local script should all be able to produce and consume these contracts.
 - `private-instance-readiness.schema.json`: safe readiness status for a
   protected private PEGO instance.
 - `goal-strategy.schema.json`: structured strategy for a long-range goal.
+- `goal-reconciliation.schema.json`: structured council priority model
+  reconciling active domain goals and conflict rules.
 - `monthly-strategy-review.schema.json`: structured review of goals,
   assumptions, agent assessments, and next-month priorities.
 - `health-baseline.schema.json`: protected private health baseline with

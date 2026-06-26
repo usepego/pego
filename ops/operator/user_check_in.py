@@ -78,6 +78,34 @@ def infer_location_from_input(value: str) -> str:
     return ""
 
 
+def infer_available_from_input(value: str) -> int | None:
+    normalized = value.lower()
+    patterns = [
+        r"\bavailable\s*:\s*(\d+)\s*(?:min|mins|minutes)?\b",
+        r"\bi have\s+(\d+)\s*(?:min|mins|minutes)\b",
+        r"\b(\d+)\s*(?:min|mins|minutes)\s+(?:available|free)\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, normalized)
+        if match:
+            return int(match.group(1))
+    return None
+
+
+def infer_energy_from_input(value: str) -> str:
+    normalized = value.lower()
+    match = re.search(r"\benergy\s*:\s*(low|medium|high)\b", normalized)
+    if match:
+        return match.group(1)
+    if re.search(r"\blow[- ]energy\b|\btired\b|\bdrained\b", normalized):
+        return "low"
+    if re.search(r"\bhigh[- ]energy\b|\benergized\b", normalized):
+        return "high"
+    if re.search(r"\bmedium[- ]energy\b", normalized):
+        return "medium"
+    return ""
+
+
 def detect_circumstance_type(value: str, location: str) -> str:
     normalized = value.lower()
     if location:
@@ -91,10 +119,14 @@ def detect_circumstance_type(value: str, location: str) -> str:
 
 def state_update(args: argparse.Namespace) -> dict:
     location = args.location or infer_location_from_input(args.input)
+    available = args.available
+    if available is None:
+        available = infer_available_from_input(args.input)
+    energy = args.energy or infer_energy_from_input(args.input)
     circumstance_type = detect_circumstance_type(args.input, location)
     return {
-        "available_minutes": args.available,
-        "energy": args.energy or "",
+        "available_minutes": available,
+        "energy": energy,
         "location": location,
         "circumstance_type": circumstance_type,
         "circumstance_summary": args.input if circumstance_type else "",
@@ -304,8 +336,13 @@ def run_next_step(args: argparse.Namespace) -> dict:
         forwarded.extend(["--blocked", args.blocked])
     if args.available is not None:
         forwarded.extend(["--available", str(args.available)])
-    if args.energy:
-        forwarded.extend(["--energy", args.energy])
+    else:
+        inferred_available = infer_available_from_input(args.input)
+        if inferred_available is not None:
+            forwarded.extend(["--available", str(inferred_available)])
+    energy = args.energy or infer_energy_from_input(args.input)
+    if energy:
+        forwarded.extend(["--energy", energy])
     location = args.location or infer_location_from_input(args.input)
     if location:
         forwarded.extend(["--location", location])

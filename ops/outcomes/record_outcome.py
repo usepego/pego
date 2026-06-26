@@ -85,6 +85,8 @@ def build_json_outcome(args: argparse.Namespace) -> dict:
         "evidence": evidence_values(args.evidence),
         "friction": split_lines(args.friction),
         "benefit": args.benefit or "",
+        "outcome_progress": args.outcome_progress or "",
+        "contentment_signal": args.contentment_signal,
         "cost": args.cost or "",
         "protected_time_impact": normalize_impact(args.protected_time_impact),
         "stakeholder_impact": args.stakeholder_impact or "",
@@ -132,6 +134,14 @@ def build_outcome(args: argparse.Namespace) -> str:
             "## Benefit",
             "",
             args.benefit or "None recorded.",
+            "",
+            "## Outcome Progress",
+            "",
+            args.outcome_progress or "None recorded.",
+            "",
+            "## Contentment Signal",
+            "",
+            args.contentment_signal,
             "",
             "## Cost",
             "",
@@ -210,6 +220,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--evidence", default="")
     parser.add_argument("--friction", default="")
     parser.add_argument("--benefit", default="")
+    parser.add_argument("--outcome-progress", default="")
+    parser.add_argument(
+        "--contentment-signal",
+        default="Unknown",
+        choices=["More contentment", "Less contentment", "No material change", "Unknown"],
+    )
     parser.add_argument("--cost", default="")
     parser.add_argument(
         "--protected-time-impact",

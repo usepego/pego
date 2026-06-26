@@ -20,6 +20,11 @@ The agent or runtime adapter should perform the local checks and setup steps.
 Do not require the USER-mode human to look up command syntax unless they ask for
 Engineering-mode details.
 
+The agent or runtime adapter must not expose the setup steps as the experience.
+Repository hygiene checks, readiness checks, bootstrap actions, private-file
+updates, diffs, and internal plans are adapter work. The user-facing result must
+be one operating response.
+
 Use `pego/operations/start-pego.md` as the human-facing entry protocol.
 
 ## Purpose
@@ -96,6 +101,39 @@ python3 pegoctl intake --phase boundary
 
 Use `pego/ux/first-run-experience.md` to choose the next intake phase.
 
+For net-new users or domains that lack enough context for agent
+recommendations, use:
+
+```text
+pego/operations/domain-baseline-bootstrap.md
+```
+
+Generate the smallest relevant baseline intake packet, such as:
+
+```sh
+python3 pegoctl intake --phase finance-baseline
+python3 pegoctl intake --phase career-baseline
+python3 pegoctl intake --phase health
+python3 pegoctl intake --phase home-baseline
+```
+
+After enough domain baselines exist, reconcile the active goals before Council
+claims it has selected the best cross-domain directive:
+
+```sh
+python3 pegoctl reconcile-goals
+```
+
+Use `pego/operations/goal-reconciliation.md` to decide whether Council has
+enough priority context, should ask one targeted priority question, or must use
+a conservative temporary priority assumption.
+
+If the generated reconciliation reports missing baselines, ask the smallest
+listed targeted question or generate the relevant `goal-reconciliation` intake
+packet. Do not ask the human to rank every life goal.
+
+Do not treat readiness as proof that onboarding is complete.
+
 ### 2. Select Runtime Role
 
 Read:
@@ -164,6 +202,20 @@ pego/templates/command-response.md
 ```
 
 Return one directive unless the user asks for a plan, discussion, queue, review, or strategy.
+
+If the first run needs setup or resynthesis, do that before responding. Then
+return only the operating response:
+
+- A brief state update.
+- One next directive or one targeted missing-fact question.
+- Time box and start condition when applicable.
+- Reason selected.
+- Fallback.
+- Stop condition.
+- Next check-in.
+
+Do not include patch output, file changes, command transcripts, or agent
+planning text in the USER-mode reply.
 
 For local operation, the reference runner is:
 

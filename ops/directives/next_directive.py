@@ -56,6 +56,7 @@ class CommandResponse:
     governance_status: str
     target_behavior: str = ""
     environment_design: str = ""
+    execution_instruction: str = ""
     targeted_question: str = ""
 
 
@@ -347,9 +348,14 @@ def build_response_model(
             governance_status=normalize_governance_status(candidate.status),
             target_behavior=candidate.target_behavior,
             environment_design=candidate.environment_design,
+            execution_instruction="Do only the selected directive as scoped. Do not expand it into deferred work.",
         )
 
-    question = register_question or "What changed that PEGO should account for before selecting the next directive?"
+    question = register_question or (
+        "What is the most important active pressure right now: health/energy, "
+        "money/runway, career/work, venture creation, home, relationships, or "
+        "exploration? Include available time, energy, location, and next hard stop."
+    )
     return CommandResponse(
         date=args.date,
         state_update=state_update,
@@ -357,7 +363,7 @@ def build_response_model(
         duration="5 minutes.",
         start_condition="Use this when no active queue candidate cleanly fits the supplied constraints.",
         why_this_now="No viable directive was selected from the active queue. PEGO needs one decision-grade fact before resynthesis.",
-        fallback="If the question is not relevant, report current time, location, energy, and one constraint.",
+        fallback="If no domain pressure stands out, report current time, location, energy, and one constraint.",
         deferred="All active directives remain deferred until PEGO can select one that fits.",
         stop_condition="Stop if answering would expose unnecessary private information or affect protected time.",
         next_check_in="Return with the answer and available time.",
@@ -366,6 +372,7 @@ def build_response_model(
         governance_status="ready",
         target_behavior="Create the missing condition for PEGO to select a directive.",
         environment_design="Ask one targeted operational question instead of issuing a broad reflection prompt.",
+        execution_instruction="Answer the targeted question with only the facts needed for PEGO to select the next directive.",
         targeted_question=question,
     )
 
@@ -382,7 +389,7 @@ def build_markdown_response(response: CommandResponse) -> str:
         "",
         response.next_directive,
         "",
-        "## Duration",
+        "## Time Box",
         "",
         response.duration,
         "",
@@ -390,7 +397,11 @@ def build_markdown_response(response: CommandResponse) -> str:
         "",
         response.start_condition,
         "",
-        "## Why This Now",
+        "## Do This",
+        "",
+        response.execution_instruction,
+        "",
+        "## Reason",
         "",
         response.why_this_now,
         "",
@@ -437,9 +448,11 @@ def build_json_response(response: CommandResponse) -> dict:
             "governance_status": response.governance_status,
             "target_behavior": response.target_behavior,
             "environment_design": response.environment_design,
+            "execution_instruction": response.execution_instruction,
         },
         "duration": response.duration,
         "start_condition": response.start_condition,
+        "execution_instruction": response.execution_instruction,
         "why_this_now": response.why_this_now,
         "fallback": response.fallback,
         "deferred": response.deferred,

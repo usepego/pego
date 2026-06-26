@@ -203,6 +203,8 @@ def main() -> None:
         raise AssertionError(help_result.stdout)
     if "guide" not in help_result.stdout:
         raise AssertionError(help_result.stdout)
+    if "reconcile-goals" not in help_result.stdout:
+        raise AssertionError(help_result.stdout)
 
     doctor = run(["doctor"])
     if "PEGO doctor passed" not in doctor.stdout:
@@ -445,6 +447,19 @@ def main() -> None:
         )
         if not (private_root / "directives" / "monthly" / "2026-06-strategy-review.json").exists():
             raise AssertionError("expected pegoctl monthly output under configured private root")
+
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "reconcile-goals",
+                "--date",
+                "2026-06-23",
+                "--force",
+            ]
+        )
+        if not (private_root / "goals" / "goal-reconciliation.json").exists():
+            raise AssertionError("expected pegoctl goal reconciliation under configured private root")
 
     with tempfile.TemporaryDirectory() as directory:
         private_root = Path(directory) / "pego-private"

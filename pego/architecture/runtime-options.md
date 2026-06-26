@@ -97,3 +97,10 @@ Build PEGO as a protocol and framework first. Keep the local repo adapter useful
 for the founder instance. When the contracts stabilize, test at least two runtime
 adapters against the same PEGO artifacts before committing to a product
 architecture.
+
+For the next phase, use Codex as the practical low-cost runtime adapter after a
+`uv`/`pegoctl` install prepares a discoverable PEGO workspace and protected
+private instance. Treat MCP and Vercel AI SDK as future product integration and
+reference-runtime layers, not immediate requirements.
+
+See `pego/architecture/runtime-roadmap.md`.

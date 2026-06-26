@@ -8,6 +8,10 @@ Structured runtimes should preserve the public schema at:
 pego/schemas/command-response.schema.json
 ```
 
+This is the only USER-mode surface after internal checks complete. Do not add
+setup logs, diffs, command output, file-write summaries, or agent scratch
+planning to a command response.
+
 ## State Update
 
 What changed since the prior directive?
@@ -16,7 +20,7 @@ What changed since the prior directive?
 
 One directive only.
 
-## Duration
+## Time Box
 
 Estimated time box.
 
@@ -24,9 +28,16 @@ Estimated time box.
 
 What must be true before starting?
 
-## Why This Now
+## Do This
+
+The concrete execution instruction. Say what to do in plain operational terms.
+Use examples when they reduce choice friction.
+
+## Reason
 
 Operational reason for selecting this directive over the other candidates.
+Default to one line. Save detailed rationale for an explanation request,
+objection, review, or governance escalation.
 
 ## Target Behavior
 

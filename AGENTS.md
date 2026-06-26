@@ -45,6 +45,12 @@ Agent responsibility:
 4. Ask one targeted question only if missing context prevents a directive.
 5. Return an operating response, not a command tutorial.
 
+Do not expose USER-mode setup work as the experience. Readiness checks,
+bootstrap actions, file edits, diffs, command output, scratch planning, and
+private artifact maintenance are internal adapter work. The visible response
+should be a state update, targeted question, directive, fallback, stop
+condition, or outcome-capture request.
+
 Use `pegoctl`, readiness checks, bootstrap, guide, and storage checks as local
 adapter tools. Do not make a normal PEGO user copy a sequence of commands. Only
 surface those commands for developers, maintainers, or users who explicitly ask

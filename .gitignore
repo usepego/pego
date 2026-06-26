@@ -15,3 +15,6 @@ private/**
 !private/README.md
 *.numbers
 *.numbers/
+
+# Local Codex handoff prompts and session restart notes.
+.codex/handoff/

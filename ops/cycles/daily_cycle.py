@@ -144,6 +144,12 @@ def build_parser() -> argparse.ArgumentParser:
     outcome_parser.add_argument("--evidence", default="")
     outcome_parser.add_argument("--friction", default="")
     outcome_parser.add_argument("--benefit", default="")
+    outcome_parser.add_argument("--outcome-progress", default="")
+    outcome_parser.add_argument(
+        "--contentment-signal",
+        default="Unknown",
+        choices=["More contentment", "Less contentment", "No material change", "Unknown"],
+    )
     outcome_parser.add_argument("--cost", default="")
     outcome_parser.add_argument(
         "--protected-time-impact",
@@ -215,6 +221,8 @@ def build_parser() -> argparse.ArgumentParser:
     add_shared_date(council_parser)
     council_parser.add_argument("--frame", default="Council synthesis of current agent recommendations.")
     council_parser.add_argument("--recommendation", type=Path, action="append", default=[])
+    council_parser.add_argument("--goal-reconciliation", type=Path, action="append", default=[])
+    council_parser.add_argument("--priority-assumption", default="")
     council_parser.add_argument("--output", type=Path)
     council_parser.add_argument("--json-output", type=Path)
     council_parser.add_argument("--force", action="store_true")

@@ -12,6 +12,19 @@ Date.
 
 The concrete decision or directive being reconciled.
 
+## Goal Reconciliation Status
+
+Current goal reconciliation supplied / Temporary priority assumption / Missing goal reconciliation.
+
+## Goal Reconciliation Sources
+
+Which goal reconciliation artifacts were consulted, if any.
+
+## Priority Assumption
+
+The council priority model or temporary conservative assumption used when
+selecting, deferring, escalating, or requesting information.
+
 ## Source Recommendations
 
 Which agent recommendations were considered.

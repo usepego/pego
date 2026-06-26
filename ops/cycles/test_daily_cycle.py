@@ -227,6 +227,8 @@ def main() -> None:
                 "Choose next work directive.",
                 "--recommendation",
                 str(recommendation),
+                "--priority-assumption",
+                "Synthetic test assumption: preserve low-risk reversible work only.",
                 "--output",
                 str(council_decision),
                 "--json-output",
@@ -422,6 +424,8 @@ def main() -> None:
                 "--force",
             ]
         )
+        if not (private / "goals" / "goal-reconciliation.json").exists():
+            raise AssertionError("expected daily council to build goal reconciliation")
         daily_cycle.main_with_args(
             [
                 *root_args,

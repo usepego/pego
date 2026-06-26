@@ -8,6 +8,14 @@ Use `pego/operations/recommendation-adoption.md` before treating any
 recommendation, council decision, tool result, or behavior-loop record as an
 adopted directive.
 
+For cross-domain directive selection, use
+`pego/operations/goal-reconciliation.md` before claiming the selected directive
+is best overall. If no current reconciliation exists, build one from protected
+private state first. If the generated model is still too thin, synthesize only
+a low-risk directive, ask the smallest priority question that would change the
+choice, or state the conservative temporary priority assumption Council is
+using.
+
 ## Governance Altitudes
 
 PEGO should classify work by altitude before scheduling it.

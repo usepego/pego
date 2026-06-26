@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/decision-quality-review.schema.json",
+  "title": "PEGO Decision Quality Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_outcome",
+    "directive",
+    "completion_class",
+    "baseline_comparison",
+    "dimensions",
+    "human_burden",
+    "overall_assessment",
+    "next_architecture_adjustment",
+    "review_notes"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "decision_quality_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "directive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "completion_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "baseline_comparison": {
+      "enum": [
+        "unmanaged_prioritization",
+        "generic_assistant_advice",
+        "todo_list_plan",
+        "single_domain_recommendation",
+        "council_without_goal_reconciliation",
+        "council_with_goal_reconciliation",
+        "unknown"
+      ]
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actionability",
+        "goal_fit",
+        "constraint_fit",
+        "burden",
+        "timeliness",
+        "risk_control",
+        "explanation_quality",
+        "follow_through_probability",
+        "outcome_quality",
+        "learning_value"
+      ],
+      "properties": {
+        "actionability": {
+          "$ref": "#/$defs/dimension"
+        },
+        "goal_fit": {
+          "$ref": "#/$defs/dimension"
+        },
+        "constraint_fit": {
+          "$ref": "#/$defs/dimension"
+        },
+        "burden": {
+          "$ref": "#/$defs/dimension"
+        },
+        "timeliness": {
+          "$ref": "#/$defs/dimension"
+        },
+        "risk_control": {
+          "$ref": "#/$defs/dimension"
+        },
+        "explanation_quality": {
+          "$ref": "#/$defs/dimension"
+        },
+        "follow_through_probability": {
+          "$ref": "#/$defs/dimension"
+        },
+        "outcome_quality": {
+          "$ref": "#/$defs/dimension"
+        },
+        "learning_value": {
+          "$ref": "#/$defs/dimension"
+        }
+      }
+    },
+    "human_burden": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "questions_asked",
+        "answer_burden",
+        "burden_notes"
+      ],
+      "properties": {
+        "questions_asked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "answer_burden": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "burden_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "overall_assessment": {
+      "enum": [
+        "improved_decision_quality",
+        "mixed",
+        "poor_fit",
+        "insufficient_evidence"
+      ]
+    },
+    "next_architecture_adjustment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_notes": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rating",
+        "evidence",
+        "implication"
+      ],
+      "properties": {
+        "rating": {
+          "enum": [
+            "strong",
+            "adequate",
+            "weak",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "implication": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

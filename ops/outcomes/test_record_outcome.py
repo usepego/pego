@@ -30,6 +30,10 @@ def main() -> None:
                 "Synthetic outcome.",
                 "--evidence",
                 "Synthetic report.",
+                "--outcome-progress",
+                "Breakfast default became easier tomorrow.",
+                "--contentment-signal",
+                "More contentment",
                 "--output",
                 str(output),
                 "--json-output",
@@ -49,6 +53,10 @@ def main() -> None:
             raise AssertionError("expected normalized completion")
         if structured["evidence"] != ["human_report"]:
             raise AssertionError("expected human_report evidence")
+        if structured["outcome_progress"] != "Breakfast default became easier tomorrow.":
+            raise AssertionError("expected outcome progress evidence")
+        if structured["contentment_signal"] != "More contentment":
+            raise AssertionError("expected contentment signal")
         session_text = session.read_text()
         if "Outcome recorded" not in session_text:
             raise AssertionError(session_text)

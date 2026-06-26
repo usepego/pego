@@ -67,6 +67,8 @@ def sections_from_json_outcome(data: dict[str, object]) -> dict[str, str]:
         "Evidence": list_field("evidence"),
         "Friction": list_field("friction"),
         "Benefit": text_field("benefit", "None recorded."),
+        "Outcome Progress": text_field("outcome_progress", "None recorded."),
+        "Contentment Signal": text_field("contentment_signal", "Unknown"),
         "Cost": text_field("cost", "None recorded."),
         "Protected-Time Impact": text_field("protected_time_impact", "none").title(),
         "Stakeholder Impact": text_field("stakeholder_impact", "None recorded."),
@@ -201,6 +203,190 @@ def governance_status(sections: dict[str, str]) -> str:
     return "Level 1 learning review; no authority increase approved."
 
 
+def dimension(rating: str, evidence: str, implication: str) -> dict[str, str]:
+    return {
+        "rating": rating,
+        "evidence": evidence,
+        "implication": implication,
+    }
+
+
+def fallback_section(sections: dict[str, str], name: str, fallback: str = "None recorded.") -> str:
+    return sections.get(name, fallback) or fallback
+
+
+def baseline_comparison(sections: dict[str, str]) -> str:
+    governance = sections.get("Governance Notes", "").lower()
+    evidence = sections.get("Evidence", "").lower()
+    if "goal reconciliation" in governance or "goal reconciliation" in evidence:
+        return "council_with_goal_reconciliation"
+    if "council" in governance or "council" in evidence:
+        return "council_without_goal_reconciliation"
+    return "unknown"
+
+
+def decision_quality_review(
+    outcome_path: Path,
+    review_date: str,
+    sections: dict[str, str],
+    decision: str,
+    directive: str,
+    completion: str,
+) -> dict[str, object]:
+    key = completion_key(completion)
+    friction = has_real_content(sections.get("Friction", ""))
+    benefit = has_real_content(sections.get("Benefit", ""))
+    outcome_progress = has_real_content(sections.get("Outcome Progress", ""))
+    contentment = sections.get("Contentment Signal", "Unknown")
+    cost = has_real_content(sections.get("Cost", ""))
+    governance = governance_status(sections)
+    protected = first_line(sections.get("Protected-Time Impact", "None"), "None")
+    happened = first_line(sections.get("What Happened", ""), "Not supplied.")
+    evidence = first_line(sections.get("Evidence", ""), "Human report.")
+
+    completed = key == "completed"
+    partial_or_blocked = key in {"partial", "blocked", "not_completed"}
+    escalated = decision == "Escalate"
+    low_governance_concern = "Needs governance review" not in governance
+    useful_outcome_evidence = benefit or outcome_progress
+
+    dimensions = {
+        "actionability": dimension(
+            "strong" if completed else "adequate" if key == "partial" else "weak",
+            f"Completion class: {completion}.",
+            "Directive was executable as written."
+            if completed
+            else "Directive size, timing, or dependency should be revised.",
+        ),
+        "goal_fit": dimension(
+            "strong" if useful_outcome_evidence else "unknown",
+            (
+                f"Benefit: {fallback_section(sections, 'Benefit')} "
+                f"Outcome progress: {fallback_section(sections, 'Outcome Progress')}"
+            ),
+            "Benefit or outcome progress was visible enough to preserve the pattern."
+            if useful_outcome_evidence
+            else "Outcome did not prove goal fit; ask or inspect next evidence.",
+        ),
+        "constraint_fit": dimension(
+            "strong" if low_governance_concern else "weak",
+            governance,
+            "Constraints fit the directive."
+            if low_governance_concern
+            else "Governance or protected-time constraints should dominate future synthesis.",
+        ),
+        "burden": dimension(
+            "strong" if not cost and not friction else "adequate" if friction and not cost else "weak",
+            f"Friction: {fallback_section(sections, 'Friction')} Cost: {fallback_section(sections, 'Cost')}",
+            "Human burden appears acceptable."
+            if not cost
+            else "Reduce question load, scope, timing, or emotional cost.",
+        ),
+        "timeliness": dimension(
+            "adequate" if key != "unknown" else "unknown",
+            happened,
+            "Timing produced reviewable evidence." if key != "unknown" else "Timing quality is unclear.",
+        ),
+        "risk_control": dimension(
+            "strong" if low_governance_concern else "weak",
+            f"Protected-time impact: {protected}. {governance}",
+            "Risk controls were sufficient for repetition."
+            if low_governance_concern
+            else "Escalate or lower authority before repetition.",
+        ),
+        "explanation_quality": dimension(
+            "unknown",
+            "Directive outcome does not yet capture whether the reason helped.",
+            "Add lightweight outcome prompt when explanation quality would change future directives.",
+        ),
+        "follow_through_probability": dimension(
+            "strong" if completed and not friction else "adequate" if completed else "weak" if partial_or_blocked else "unknown",
+            f"Completion: {completion}. Friction: {fallback_section(sections, 'Friction')}",
+            "Similar directives are likely viable."
+            if completed and not friction
+            else "Future directives should reduce friction or change conditions.",
+        ),
+        "outcome_quality": dimension(
+            "strong"
+            if completed and useful_outcome_evidence and not escalated
+            else "adequate"
+            if completed or useful_outcome_evidence
+            else "weak"
+            if partial_or_blocked
+            else "unknown",
+            (
+                f"Benefit: {fallback_section(sections, 'Benefit')} "
+                f"Outcome progress: {fallback_section(sections, 'Outcome Progress')} "
+                f"Contentment signal: {contentment}."
+            ),
+            "Decision produced useful outcome evidence."
+            if completed or useful_outcome_evidence
+            else "Decision did not yet produce enough progress.",
+        ),
+        "learning_value": dimension(
+            "strong" if friction or useful_outcome_evidence or escalated else "adequate",
+            f"Evidence: {evidence}",
+            "Outcome should update agent recommendations or synthesis."
+            if friction or useful_outcome_evidence or escalated
+            else "Preserve as light evidence only.",
+        ),
+    }
+
+    weak_count = sum(1 for item in dimensions.values() if item["rating"] == "weak")
+    strong_count = sum(1 for item in dimensions.values() if item["rating"] == "strong")
+    if weak_count >= 3 or escalated:
+        overall = "poor_fit" if weak_count >= 3 else "mixed"
+    elif strong_count >= 4 and completed:
+        overall = "improved_decision_quality"
+    elif key == "unknown":
+        overall = "insufficient_evidence"
+    else:
+        overall = "mixed"
+
+    if overall == "improved_decision_quality":
+        adjustment = "Preserve the directive pattern and compare future repetitions against this outcome."
+    elif escalated:
+        adjustment = "Route future similar directives through governance before adoption."
+    elif friction:
+        adjustment = "Reduce scope, alter conditions, or ask the one missing fact that would remove friction."
+    else:
+        adjustment = "Collect better evidence on explanation quality, goal fit, and user burden before changing architecture."
+
+    return {
+        "artifact_type": "decision_quality_review",
+        "schema_version": 1,
+        "date": review_date,
+        "source_outcome": str(outcome_path),
+        "directive": directive,
+        "completion_class": completion,
+        "baseline_comparison": baseline_comparison(sections),
+        "dimensions": dimensions,
+        "human_burden": {
+            "questions_asked": 0,
+            "answer_burden": "unknown",
+            "burden_notes": "Outcome capture does not yet track question count or answer burden directly.",
+        },
+        "overall_assessment": overall,
+        "next_architecture_adjustment": adjustment,
+        "review_notes": f"Decision quality inferred from outcome evidence. What happened: {happened}",
+    }
+
+
+def decision_quality_rows(review: dict[str, object]) -> list[str]:
+    dimensions = review.get("dimensions", {})
+    if not isinstance(dimensions, dict):
+        return ["| Unknown | Unknown | No dimensions recorded. | No implication recorded. |"]
+    rows = []
+    for name, value in dimensions.items():
+        if not isinstance(value, dict):
+            continue
+        label = name.replace("_", " ").title()
+        rows.append(
+            f"| {label} | {value.get('rating', 'unknown')} | {value.get('evidence', '')} | {value.get('implication', '')} |"
+        )
+    return rows or ["| Unknown | Unknown | No dimensions recorded. | No implication recorded. |"]
+
+
 def build_review_artifact(outcome_path: Path, review_date: str) -> dict[str, object]:
     sections = read_outcome_sections(outcome_path)
     directive = first_line(sections.get("Directive Summary", ""), outcome_path.stem)
@@ -208,6 +394,14 @@ def build_review_artifact(outcome_path: Path, review_date: str) -> dict[str, obj
     decision = learning_decision(sections)
     evidence = first_line(sections.get("Evidence", ""), "Human report.")
     happened = first_line(sections.get("What Happened", ""), "Not supplied.")
+    quality = decision_quality_review(
+        outcome_path,
+        review_date,
+        sections,
+        decision,
+        directive,
+        completion,
+    )
     return {
         "artifact_type": "outcome_review",
         "schema_version": 1,
@@ -218,12 +412,15 @@ def build_review_artifact(outcome_path: Path, review_date: str) -> dict[str, obj
         "evidence_summary": f"{happened} Evidence: {evidence}",
         "friction_summary": sections.get("Friction", "None recorded.") or "None recorded.",
         "benefit_summary": sections.get("Benefit", "None recorded.") or "None recorded.",
+        "outcome_progress": sections.get("Outcome Progress", "None recorded.") or "None recorded.",
+        "contentment_signal": first_line(sections.get("Contentment Signal", ""), "Unknown"),
         "cost_summary": sections.get("Cost", "None recorded.") or "None recorded.",
         "learning_decision": decision,
         "queue_implication": queue_implication(decision),
         "context_update_recommendation": context_recommendation(decision, sections),
         "agent_routing": agent_routing(sections),
         "governance_status": governance_status(sections),
+        "decision_quality_review": quality,
         "next_review": first_line(sections.get("Next Review", ""), "Next weekly review."),
     }
 
@@ -262,6 +459,14 @@ def build_review(outcome_path: Path, review_date: str) -> str:
             "",
             str(artifact["benefit_summary"]),
             "",
+            "## Outcome Progress",
+            "",
+            str(artifact["outcome_progress"]),
+            "",
+            "## Contentment Signal",
+            "",
+            str(artifact["contentment_signal"]),
+            "",
             "## Cost Summary",
             "",
             str(artifact["cost_summary"]),
@@ -285,6 +490,35 @@ def build_review(outcome_path: Path, review_date: str) -> str:
             "## Governance Status",
             "",
             str(artifact["governance_status"]),
+            "",
+            "## Decision Quality Review",
+            "",
+            "Baseline comparison: "
+            + str(artifact["decision_quality_review"]["baseline_comparison"]),
+            "",
+            "| Dimension | Rating | Evidence | Implication |",
+            "| --- | --- | --- | --- |",
+            *decision_quality_rows(artifact["decision_quality_review"]),
+            "",
+            "## Human Burden",
+            "",
+            (
+                f"Questions asked: {artifact['decision_quality_review']['human_burden']['questions_asked']}. "
+                f"Answer burden: {artifact['decision_quality_review']['human_burden']['answer_burden']}. "
+                f"{artifact['decision_quality_review']['human_burden']['burden_notes']}"
+            ),
+            "",
+            "## Decision Quality Assessment",
+            "",
+            str(artifact["decision_quality_review"]["overall_assessment"]),
+            "",
+            "## Next Architecture Adjustment",
+            "",
+            str(artifact["decision_quality_review"]["next_architecture_adjustment"]),
+            "",
+            "## Decision Quality Notes",
+            "",
+            str(artifact["decision_quality_review"]["review_notes"]),
             "",
             "## Next Review",
             "",

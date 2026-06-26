@@ -14,12 +14,15 @@
     "evidence_summary",
     "friction_summary",
     "benefit_summary",
+    "outcome_progress",
+    "contentment_signal",
     "cost_summary",
     "learning_decision",
     "queue_implication",
     "context_update_recommendation",
     "agent_routing",
     "governance_status",
+    "decision_quality_review",
     "next_review"
   ],
   "properties": {
@@ -56,6 +59,17 @@
     "benefit_summary": {
       "type": "string"
     },
+    "outcome_progress": {
+      "type": "string"
+    },
+    "contentment_signal": {
+      "enum": [
+        "More contentment",
+        "Less contentment",
+        "No material change",
+        "Unknown"
+      ]
+    },
     "cost_summary": {
       "type": "string"
     },
@@ -86,6 +100,32 @@
     "governance_status": {
       "type": "string",
       "minLength": 1
+    },
+    "decision_quality_review": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "artifact_type",
+        "overall_assessment",
+        "dimensions",
+        "next_architecture_adjustment"
+      ],
+      "properties": {
+        "artifact_type": {
+          "const": "decision_quality_review"
+        },
+        "overall_assessment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dimensions": {
+          "type": "object"
+        },
+        "next_architecture_adjustment": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "next_review": {
       "type": "string",

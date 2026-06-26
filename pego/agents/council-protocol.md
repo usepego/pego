@@ -15,6 +15,7 @@ The council is the default deliberation layer for meaningful PEGO decisions. It 
 - Recent directives and outcomes.
 - New human concerns or objections.
 - Domain-agent recommendations.
+- Goal reconciliation or stated temporary priority assumptions.
 - Governance review outcomes, if any.
 
 ## Domain Agents
@@ -75,6 +76,10 @@ Use `pego/templates/council-decision.md` when multiple agent recommendations mus
 
 Structured runtimes should preserve council decisions using `pego/schemas/council-decision.schema.json`.
 
+Use `pego/operations/recommendation-quality-loop.md` after outcomes to review
+whether the council selected, deferred, escalated, or requested information
+well.
+
 Use `pego/templates/directive-candidate.md` when a recommendation or council decision needs to be compared, prioritized, or scheduled against other directives.
 
 Use `pego/operations/recommendation-adoption.md` to prevent council synthesis
@@ -122,15 +127,23 @@ execution authority.
 Default order:
 
 1. Operations frames the concrete decision or directive needed.
-2. Relevant domain agents make recommendations.
-3. Operations classifies candidate directives by altitude using `pego/operations/directive-synthesis.md`.
-4. Happiness checks whether the proposal serves the actual life objective.
-5. Relationships checks protected stakeholder and household impact.
-6. Finance checks capital, runway, and downside.
-7. Governance checks authority, privacy, risk, evidence, and constraints.
-8. Council produces a single directive, revision request, or escalation.
+2. Council checks or builds goal reconciliation using `pego/operations/goal-reconciliation.md`.
+3. Relevant domain agents make recommendations.
+4. Operations classifies candidate directives by altitude using `pego/operations/directive-synthesis.md`.
+5. Happiness checks whether the proposal serves the actual life objective.
+6. Relationships checks protected stakeholder and household impact.
+7. Finance checks capital, runway, and downside.
+8. Governance checks authority, privacy, risk, evidence, and constraints.
+9. Council produces a single directive, revision request, or escalation.
 
 The order may change when the issue clearly belongs to a specific domain, but Governance should remain the final gate for high-impact actions.
+
+If no goal reconciliation exists, Council must first try to build one from
+protected private state. If the result is still too thin for the decision,
+Council must either ask the smallest priority question that changes the
+directive, make a conservative temporary priority assumption, select only
+low-risk information gathering, or escalate/block when the tradeoff is
+high-impact.
 
 ## Operating Portfolio Decisions
 
@@ -244,6 +257,11 @@ It converts adopted decisions, revision requests, information requests, and esca
 Council decisions do not become directives until they pass the required governance/compliance review for their authority level and risk class.
 
 When domain agents disagree, use `pego/governance/conflict-resolution.md` before producing the final council output.
+
+Council decisions should later be reviewable against actual outcomes using
+`pego/templates/council-synthesis-review.md`. A confident council decision that
+produces repeated friction, stress, or poor fit should be revised even if the
+original rationale was coherent.
 
 ## Council Must Not
 

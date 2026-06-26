@@ -45,6 +45,24 @@ def main() -> None:
     assert_contains(health, "without requiring new tracking")
     assert_contains(health, "Ask the user to start measuring biomarkers")
 
+    finance = run_intake("finance-baseline")
+    assert_contains(finance, "rough monthly take-home pay")
+    assert_contains(finance, "rough monthly burn")
+    assert_contains(finance, "Require a spreadsheet before creating a useful baseline.")
+
+    career = run_intake("career-baseline")
+    assert_contains(career, "current role, compensation dependency")
+    assert_contains(career, "Ask the user to decide whether to quit.")
+
+    happiness = run_intake("happiness-baseline")
+    assert_contains(happiness, "Which impressive goals could become traps")
+    assert_contains(happiness, "Treat happiness as a mood score.")
+
+    reconciliation = run_intake("goal-reconciliation")
+    assert_contains(reconciliation, "Which goals must PEGO protect")
+    assert_contains(reconciliation, "When finance, health, work, home, relationships")
+    assert_contains(reconciliation, "Ask the user to rank every life goal.")
+
     authority = run_intake("authority")
     assert_contains(authority, "Which low-risk daily choices may PEGO direct by default?")
     assert_contains(authority, "Treat silence as authority.")

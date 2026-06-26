@@ -23,13 +23,14 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 2. Compare outcomes against active goals and leading indicators.
 3. Identify where PEGO created progress, friction, drift, or harm.
 4. Reassess goal strategy using `pego/templates/goal-strategy.md`.
-5. Reassess the happiness model and protected-time fit.
-6. Review financial runway, health trend, career capital, relationship impact, and exploration portfolio.
-7. Run a 30-90 day anticipation scan using `pego/operations/anticipation-loop.md`.
-8. Update strategic priorities for the next month.
-9. Identify decisions requiring formal review.
-10. Propose amendments only if the constitution no longer fits reality.
-11. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
+5. Reconcile active goals using `pego/operations/goal-reconciliation.md`.
+6. Reassess the happiness model and protected-time fit.
+7. Review financial runway, health trend, career capital, relationship impact, and exploration portfolio.
+8. Run a 30-90 day anticipation scan using `pego/operations/anticipation-loop.md`.
+9. Update strategic priorities for the next month.
+10. Identify decisions requiring formal review.
+11. Propose amendments only if the constitution no longer fits reality.
+12. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
 
 Structured runtimes should preserve monthly strategy reviews using:
 
@@ -51,6 +52,8 @@ pego/schemas/monthly-strategy-review.schema.json
 - Did PEGO anticipate events, seasonal needs, prep work, and recurring annoyances early enough?
 - Which register entries reveal a strategy, goal, or constitution change?
 - Which strategy should change next month?
+- Which goal conflicts need explicit priority rules before Council selects
+  cross-domain directives?
 
 ## Agent Review
 

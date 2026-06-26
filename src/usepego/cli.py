@@ -81,6 +81,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("daily", help="run daily operating-loop subcommands")
     subparsers.add_parser("weekly", help="generate a protected weekly operating plan")
     subparsers.add_parser("monthly", help="generate a protected monthly strategy review")
+    subparsers.add_parser("reconcile-goals", help="build a protected goal reconciliation model")
     subparsers.add_parser("finance-run", help="run protected finance scenarios")
     subparsers.add_parser("finance-review", help="review protected finance scenario output")
     subparsers.add_parser("health-candidates", help="generate protected health directive candidates")
@@ -140,6 +141,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/cycles/weekly_cycle.py", with_private_root(args, forwarded))
     if args.command == "monthly":
         return run_script("ops/cycles/monthly_cycle.py", with_private_root(args, forwarded))
+    if args.command == "reconcile-goals":
+        return run_script("ops/goals/reconcile_goals.py", with_private_root(args, forwarded))
     if args.command == "finance-run":
         return run_script("ops/finance/run_scenarios.py", with_private_root(args, forwarded))
     if args.command == "finance-review":

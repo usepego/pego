@@ -36,6 +36,14 @@ None recorded.
 
 Reduced snacking.
 
+## Outcome Progress
+
+Breakfast default became easier tomorrow.
+
+## Contentment Signal
+
+More contentment
+
 ## Cost
 
 None recorded.
@@ -180,6 +188,8 @@ def run_review_from_json_outcome() -> tuple[str, dict[str, object]]:
                     "evidence": ["human_report"],
                     "friction": ["weather"],
                     "benefit": "None recorded.",
+                    "outcome_progress": "None recorded.",
+                    "contentment_signal": "Unknown",
                     "cost": "None recorded.",
                     "protected_time_impact": "none",
                     "stakeholder_impact": "None recorded.",
@@ -216,12 +226,27 @@ def main() -> None:
     completed = run_review(COMPLETED)
     assert_contains(completed, "Repeat")
     assert_contains(completed, "Health")
+    assert_contains(completed, "Decision Quality Review")
+    assert_contains(completed, "Outcome Progress")
+    assert_contains(completed, "Human Burden")
+    assert_contains(completed, "improved_decision_quality")
 
     completed_json = run_json_review(COMPLETED)
     if completed_json["artifact_type"] != "outcome_review":
         raise AssertionError("json review must declare outcome_review artifact_type")
     if completed_json["learning_decision"] != "Repeat":
         raise AssertionError("completed low-friction outcome should repeat")
+    if completed_json["outcome_progress"] != "Breakfast default became easier tomorrow.":
+        raise AssertionError("review should preserve outcome progress")
+    if completed_json["contentment_signal"] != "More contentment":
+        raise AssertionError("review should preserve contentment signal")
+    quality = completed_json["decision_quality_review"]
+    if quality["artifact_type"] != "decision_quality_review":
+        raise AssertionError("expected nested decision quality review")
+    if quality["dimensions"]["actionability"]["rating"] != "strong":
+        raise AssertionError("completed directive should be strongly actionable")
+    if quality["overall_assessment"] != "improved_decision_quality":
+        raise AssertionError("completed low-friction benefit should improve decision quality")
 
     blocked = run_review(BLOCKED)
     assert_contains(blocked, "Block pending dependency")
@@ -237,6 +262,7 @@ def main() -> None:
     escalated = run_review(ESCALATE)
     assert_contains(escalated, "Escalate")
     assert_contains(escalated, "Needs governance review")
+    assert_contains(escalated, "Risk Control")
 
     print("outcome review smoke tests passed.")
 

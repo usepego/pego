@@ -75,6 +75,10 @@ Operating initiation should produce one of:
 It should not produce a command tutorial, broad onboarding questionnaire, or
 self-help reflection prompt.
 
+It also should not expose internal setup, planning, file edits, diffs, command
+output, or maintenance reasoning. Those may happen inside the adapter, but they
+are not part of the USER-mode experience.
+
 ## Agent Responsibilities
 
 Use this protocol when:
@@ -109,6 +113,29 @@ When operation begins:
    destination.
 7. Preserve outputs under the protected private instance.
 8. Return a short operating response.
+
+The visible response to `Start PEGO.` should be shaped like this:
+
+```text
+State update: PEGO has enough state to begin, or one required fact is missing.
+Next directive: [single directive] or [single targeted question].
+Time box: [duration, if a directive].
+Start condition: [condition, if a directive].
+Reason: [one operational reason].
+Fallback: [blocked path].
+Next check-in: [when to return].
+```
+
+If private state is stale and PEGO cannot safely select a domain directive, ask
+for current circumstance first:
+
+```text
+Where are you, how much time is available, what is your current energy, and
+what is the next hard stop?
+```
+
+Do not show the user the readiness report, queue patch, session-file update, or
+the agent's working plan.
 
 Local commands such as `pegoctl doctor`, `pegoctl bootstrap`, `pegoctl guide`,
 `pegoctl readiness`, and `pegoctl check-in` are adapter mechanics. Use them when

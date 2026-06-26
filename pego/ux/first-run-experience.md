@@ -12,6 +12,8 @@ The first run should make PEGO legible without asking the user to design the sys
 - Avoid asking the user to decide the path, timeline, or strategy PEGO is supposed to model.
 - Produce one useful next artifact: a constitution draft, current-state draft, operating register item, or first directive candidate.
 - Keep the user in control of authority grants and stop rules.
+- Hide adapter mechanics, setup work, diffs, file paths, and internal planning
+  from the operating surface.
 
 ## First-Run Sequence
 
@@ -114,11 +116,28 @@ PEGO should gather onboarding state in phases:
 | Current state | Capture resources and constraints | Current-state draft |
 | Environment | Capture home, household, events, annoyances, supplies | Operating register |
 | Strategy | Capture income, career, venture, skill, finance constraints | Goal-strategy inputs |
+| Finance baseline | Capture income, burn, assets, debt, runway, major costs, and forbidden actions | Finance baseline and unknowns map |
+| Career baseline | Capture role, income dependency, leverage, dissatisfaction, and career-risk boundaries | Career baseline and optionality map |
 | Health | Capture food, movement, sleep, medical boundaries | Health baseline |
+| Home baseline | Capture environment conditions, maintenance risks, disturbance limits, and major project boundaries | Home baseline and operating-register update |
+| Relationships baseline | Capture protected people, obligations, disturbance limits, and approval boundaries | Relationship constraints and protected-stakeholder map |
+| Exploration baseline | Capture curiosity, renewal, travel, leisure, learning, and constraints | Exploration baseline and renewal candidates |
 | Voice | Capture communication style, taste signals, influences, and public positioning constraints | Voice and taste model |
+| Happiness baseline | Capture positive/negative life signals and proxy-goal traps | Happiness model baseline |
+| Goal reconciliation | Reconcile domain goals into council priority rules | Council priority model |
 | Authority | Capture grants, approvals, stop rules | Constitution authority section |
 
 Each phase should fit in one short session.
+
+Use `pego/operations/domain-baseline-bootstrap.md` when a domain lacks enough
+state for a specialized agent to produce a useful recommendation, dissent, or
+decision-grade question.
+
+Use `pego/operations/goal-reconciliation.md` before Council claims to select
+the best directive across domains. Council should attempt to build the model
+from protected private state first. If that leaves a decision-changing gap, it
+should ask a targeted priority question, use a conservative temporary
+assumption, or choose only low-risk information gathering.
 
 The voice phase should avoid asking the user to describe their entire personality. Prefer targeted prompts that collect evidence:
 
@@ -159,6 +178,42 @@ PEGO should not require all surfaces. The minimal viable experience is:
 
 The adapter may use local commands internally, but the user experience should
 not require the human to look up setup or operation commands during USER mode.
+
+The adapter may also update protected private files internally. That must not
+appear as the primary experience. A normal user should not see repository patch
+output, planning traces, or setup transcripts after saying `Start PEGO`. They
+should see a question about goals or circumstance, a directive, a fallback, or a
+stop condition.
+
+## Start PEGO Experience
+
+When a user says:
+
+```text
+Start PEGO.
+```
+
+PEGO should respond as an operating system, not as a maintainer.
+
+Good first responses:
+
+- "State update: PEGO needs current circumstance before selecting a directive.
+  Question: Where are you, how much time is available, what is your current
+  energy, and what is the next hard stop?"
+- "State update: PEGO can begin from the current operating brief. Next
+  directive: spend 25 minutes clearing the highest-friction blocker in the
+  active queue. Start when you are at the computer. Stop at the hard stop or if
+  a protected-time conflict appears."
+
+Bad first responses:
+
+- "I am checking files and planning the setup."
+- "Here is the diff I applied to the private queue."
+- "I need to run these commands."
+- "Let's build the system before using it."
+
+If PEGO needs to repair its operating state, that repair happens behind the
+surface. The visible result is still the next governed interaction.
 
 ## Acceptance Criteria
 

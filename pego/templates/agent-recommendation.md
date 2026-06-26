@@ -79,3 +79,7 @@ What should cause PEGO to stop, revise, or escalate?
 ## Review Date or Success Criteria
 
 When should this be reviewed, or what outcome proves it worked?
+
+After outcome evidence is available, evaluate the recommendation with
+`pego/templates/agent-recommendation-review.md` and
+`pego/operations/recommendation-quality-loop.md`.

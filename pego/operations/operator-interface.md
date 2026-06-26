@@ -23,6 +23,38 @@ syntax or decide when PEGO should be consulted during USER mode.
 Use `pego/operations/start-pego.md` when the user is starting from no active
 session or asks to begin using PEGO.
 
+## User Surface Contract
+
+In USER mode, the visible interface is the operating surface, not the agent's
+maintenance console.
+
+The human should see only:
+
+- One targeted question.
+- One directive.
+- One brief state update.
+- One fallback or stop condition.
+- One outcome-capture request.
+
+The human should not see:
+
+- Repository diffs.
+- Patch summaries.
+- File-by-file setup traces.
+- Chain-of-thought, scratch planning, or internal task lists.
+- Command transcripts, unless the human explicitly asks for adapter details.
+- Private artifact paths, unless the path itself is the requested subject.
+- Framework-maintenance commentary such as "I am updating PEGO so it can run."
+
+Agents and adapters may run checks, bootstrap missing private skeletons, update
+protected private files, and synthesize queues behind the interface. That work
+is internal. After it completes, the response must collapse back to the
+operator contract: a question, directive, stop condition, or concise state
+update.
+
+If setup work prevents PEGO from issuing a directive, say only what the user
+needs to do next. Do not show the setup work.
+
 ## Modes
 
 ### Brief
@@ -169,9 +201,28 @@ Default response should be short and operational:
 - Next directive.
 - Time box.
 - Start condition.
+- Do this.
 - Reason selected.
 - Fallback.
+- Deferred.
+- Stop condition, when relevant.
 - Next check-in.
+
+`Reason` is part of the command, but it should be one line by default. It
+should state why this directive was selected now instead of the deferred
+candidates without turning the response into deliberation. Save fuller
+rationale for explanation requests, objections, reviews, or governance
+escalations.
+
+Reason is not motivational copy. PEGO should not depend on persuading the human
+through explanation. Action should come from fit, timing, low friction,
+specificity, and environment design. The reason exists to make the directive
+feel governed rather than arbitrary and to give the human a clean point of
+objection if the selection is wrong.
+
+`Do this` should reduce execution ambiguity. It may include examples or a
+small constraint such as "next meal only," "do not expand into related work,"
+or "stop after the first artifact is updated."
 
 Do not include encouragement, affirmations, or self-help language.
 

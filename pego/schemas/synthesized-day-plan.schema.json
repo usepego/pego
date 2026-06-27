@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/synthesized-day-plan.schema.json",
+  "title": "PEGO Synthesized Day Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "day_thesis",
+    "capacity_assumption",
+    "protected_time",
+    "selected_directives",
+    "schedule",
+    "deferred_directives",
+    "conflicts_resolved",
+    "errands_or_supplies",
+    "end_of_day_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "synthesized_day_plan"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "day_thesis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capacity_assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available_time",
+        "energy",
+        "location",
+        "hard_commitments",
+        "constraints"
+      ],
+      "properties": {
+        "available_time": {
+          "type": "string"
+        },
+        "energy": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "hard_commitments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "protected_time": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/protected_time_block"
+      }
+    },
+    "selected_directives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/selected_directive"
+      }
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/schedule_block"
+      }
+    },
+    "deferred_directives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deferred_directive"
+      }
+    },
+    "conflicts_resolved": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict_resolution"
+      }
+    },
+    "errands_or_supplies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/errand_or_supply"
+      }
+    },
+    "end_of_day_review": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "conflict_resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict",
+        "resolution",
+        "rationale",
+        "dissent_preserved"
+      ],
+      "properties": {
+        "conflict": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dissent_preserved": {
+          "type": "string"
+        }
+      }
+    },
+    "deferred_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directive",
+        "reason_deferred",
+        "next_review",
+        "consequence_of_deferral"
+      ],
+      "properties": {
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_deferred": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_review": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence_of_deferral": {
+          "type": "string"
+        }
+      }
+    },
+    "errand_or_supply": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item",
+        "purpose",
+        "deadline"
+      ],
+      "properties": {
+        "item": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deadline": {
+          "type": "string"
+        }
+      }
+    },
+    "governance_status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_light_review",
+        "needs_standard_review",
+        "needs_formal_review",
+        "blocked",
+        "rejected"
+      ]
+    },
+    "protected_time_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "window",
+        "protection_level"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protection_level": {
+          "enum": [
+            "soft",
+            "hard",
+            "constitutional"
+          ]
+        }
+      }
+    },
+    "schedule_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "block",
+        "directive",
+        "notes"
+      ],
+      "properties": {
+        "time": {
+          "type": "string",
+          "minLength": 1
+        },
+        "block": {
+          "type": "string",
+          "minLength": 1
+        },
+        "directive": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "selected_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "action",
+        "duration",
+        "suggested_block",
+        "authority_level",
+        "governance_status",
+        "stop_condition"
+      ],
+      "properties": {
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "suggested_block": {
+          "type": "string"
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "governance_status": {
+          "$ref": "#/$defs/governance_status"
+        },
+        "stop_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/memory-lifecycle-review.schema.json",
+  "title": "PEGO Memory Lifecycle Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "review",
+    "date",
+    "source_artifacts",
+    "candidate_memory",
+    "memory_tier",
+    "proposed_action",
+    "evidence_strength",
+    "stability",
+    "destination",
+    "affected_agents",
+    "governance_impact",
+    "expiry_or_review_rule",
+    "decision",
+    "reasons"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "memory_lifecycle_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_memory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "memory_tier": {
+      "enum": [
+        "session",
+        "working",
+        "durable_private",
+        "quarantined",
+        "expired"
+      ]
+    },
+    "proposed_action": {
+      "enum": [
+        "record_only",
+        "promote_to_working_memory",
+        "promote_to_durable_private_memory",
+        "quarantine",
+        "expire",
+        "correct_or_supersede",
+        "reject"
+      ]
+    },
+    "evidence_strength": {
+      "enum": [
+        "direct_statement",
+        "repeated_statement",
+        "observed_behavior",
+        "directive_outcome",
+        "telemetry",
+        "model_output",
+        "professional_input",
+        "agent_inference",
+        "speculation",
+        "unknown"
+      ]
+    },
+    "stability": {
+      "enum": [
+        "stable",
+        "current_but_changeable",
+        "provisional",
+        "needs_confirmation",
+        "stale"
+      ]
+    },
+    "destination": {
+      "type": "string"
+    },
+    "affected_agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "governance_impact": {
+      "type": "string"
+    },
+    "expiry_or_review_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "enum": [
+        "apply",
+        "defer",
+        "quarantine",
+        "expire",
+        "correct",
+        "reject"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

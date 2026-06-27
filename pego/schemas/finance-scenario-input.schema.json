@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/finance-scenario-input.schema.json",
+  "title": "PEGO Finance Scenario Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "version",
+    "as_of",
+    "currency",
+    "current_position",
+    "global_assumptions",
+    "scenarios"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "finance_scenario_input"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    },
+    "current_position": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "liquid_savings",
+        "total_model_savings"
+      ],
+      "properties": {
+        "liquid_savings": {
+          "type": "number",
+          "minimum": 0
+        },
+        "total_model_savings": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "global_assumptions": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "current_age",
+        "age_to_live",
+        "target_date"
+      ],
+      "properties": {
+        "current_age": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retirement_start_age": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "age_to_live": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "target_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "social_security_monthly_estimate": {
+          "type": "number",
+          "minimum": 0
+        },
+        "emergency_runway_months": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "monthly_burn",
+          "nominal_return",
+          "inflation",
+          "monthly_savings"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "conservative",
+              "base",
+              "upside",
+              "stress",
+              "lifestyle_upgrade"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "monthly_burn": {
+            "type": "number",
+            "minimum": 0
+          },
+          "annual_extra_burn": {
+            "type": "number",
+            "minimum": 0
+          },
+          "nominal_return": {
+            "type": "number"
+          },
+          "inflation": {
+            "type": "number"
+          },
+          "monthly_savings": {
+            "type": "number"
+          },
+          "include_social_security": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

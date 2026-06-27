@@ -1,0 +1,82 @@
+{
+  "artifact_type": "health_baseline",
+  "schema_version": 1,
+  "as_of": "YYYY-MM-DD",
+  "evidence_policy": {
+    "tracking_level": "minimal",
+    "burden_limit": "Use the least tracking that produces better directives.",
+    "medical_interpretation": "agent_may_use_as_context_only",
+    "measurement_rule": "Ask for new metrics only when they change a directive, risk classification, escalation, or strategy review."
+  },
+  "goal": {
+    "current_weight_kg": null,
+    "target_weight_kg": null,
+    "priority": "weight_loss / energy / maintenance / recovery"
+  },
+  "constraints": {
+    "medical_constraints": [],
+    "injuries": [],
+    "forbidden_directives": [],
+    "protected_time": ""
+  },
+  "preferences": {
+    "food_defaults": [],
+    "food_aversions": [],
+    "sweet_triggers": [],
+    "movement_preferences": [],
+    "movement_aversions": [],
+    "available_equipment": []
+  },
+  "current_routine": {
+    "breakfast": "",
+    "lunch": "",
+    "dinner": "",
+    "snacks": "",
+    "movement": "",
+    "sleep": ""
+  },
+  "availability": {
+    "morning_minutes": 0,
+    "midday_minutes": 0,
+    "evening_minutes": 0,
+    "outside_ok": true
+  },
+  "metrics": {
+    "body": {
+      "waist_cm": null,
+      "body_fat_percent": null
+    },
+    "vitals": {
+      "blood_pressure": "",
+      "resting_heart_rate": null
+    },
+    "glucose": {
+      "fasting_glucose_mg_dl": null,
+      "a1c_percent": null,
+      "postprandial_glucose_mg_dl": null,
+      "cgm_available": false,
+      "clinician_glucose_target": ""
+    },
+    "lipids_metabolic": {
+      "total_cholesterol": null,
+      "ldl": null,
+      "hdl": null,
+      "triglycerides": null
+    },
+    "fitness": {
+      "steps_baseline": null,
+      "vo2max_estimate": null,
+      "strength_baseline": ""
+    },
+    "sleep_recovery": {
+      "sleep_duration": "",
+      "sleep_quality": "",
+      "hrv": null
+    },
+    "clinical_context": {
+      "medications": "",
+      "supplements": "",
+      "clinician_notes": ""
+    }
+  }
+}

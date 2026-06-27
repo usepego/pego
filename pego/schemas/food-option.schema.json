@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/food-option.schema.json",
+  "title": "PEGO Food Option",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source",
+    "source_confidence",
+    "location_type",
+    "provider",
+    "item",
+    "components",
+    "availability",
+    "cost_estimate",
+    "time_and_friction",
+    "nutrition_estimate",
+    "goal_fit",
+    "enjoyment_fit",
+    "satiety_estimate",
+    "tradeoffs",
+    "stop_condition"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "food_option"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "manual_report",
+        "home_inventory",
+        "grocery_source",
+        "restaurant_source",
+        "menu_source",
+        "nutrition_database",
+        "map_service",
+        "delivery_app",
+        "agent_estimate",
+        "other"
+      ]
+    },
+    "source_confidence": {
+      "$ref": "#/$defs/confidence"
+    },
+    "location_type": {
+      "enum": [
+        "home",
+        "grocery",
+        "restaurant",
+        "delivery",
+        "workplace",
+        "travel",
+        "other"
+      ]
+    },
+    "provider": {
+      "type": "string"
+    },
+    "item": {
+      "type": "string",
+      "minLength": 1
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "availability": {
+      "type": "string"
+    },
+    "cost_estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount",
+        "currency",
+        "confidence"
+      ],
+      "properties": {
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "time_and_friction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minutes",
+        "friction_notes"
+      ],
+      "properties": {
+        "minutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "friction_notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "nutrition_estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calories",
+        "protein_g",
+        "fiber_g",
+        "sugar_g",
+        "sodium_mg",
+        "confidence"
+      ],
+      "properties": {
+        "calories": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "protein_g": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "fiber_g": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "sugar_g": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "sodium_mg": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    },
+    "goal_fit": {
+      "$ref": "#/$defs/fit"
+    },
+    "enjoyment_fit": {
+      "$ref": "#/$defs/fit"
+    },
+    "satiety_estimate": {
+      "$ref": "#/$defs/fit"
+    },
+    "tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "fit": {
+      "enum": [
+        "strong",
+        "acceptable",
+        "weak",
+        "poor",
+        "unknown"
+      ]
+    }
+  }
+}

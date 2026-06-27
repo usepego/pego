@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/directive-candidate.schema.json",
+  "title": "PEGO Directive Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "candidate",
+    "domain",
+    "altitude",
+    "proposed_action",
+    "duration",
+    "timing",
+    "energy_required",
+    "location_required",
+    "dependencies",
+    "expected_benefit",
+    "consequence_of_deferral",
+    "protected_time_impact",
+    "authority_level",
+    "governance_status",
+    "conflicts",
+    "stop_condition"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "directive_candidate"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "candidate": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "enum": [
+        "finance",
+        "health",
+        "career",
+        "venture",
+        "home_environment",
+        "relationships",
+        "exploration",
+        "communications",
+        "happiness",
+        "operations",
+        "governance"
+      ]
+    },
+    "altitude": {
+      "enum": [
+        "constitution",
+        "life_strategy",
+        "program",
+        "project",
+        "directive",
+        "scheduled_block"
+      ]
+    },
+    "proposed_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_behavior": {
+      "type": "string"
+    },
+    "environment_design": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timing": {
+      "type": "string"
+    },
+    "energy_required": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "location_required": {
+      "enum": [
+        "home",
+        "office",
+        "outside",
+        "errand",
+        "phone",
+        "computer",
+        "other"
+      ]
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_benefit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consequence_of_deferral": {
+      "type": "string"
+    },
+    "protected_time_impact": {
+      "$ref": "#/$defs/impact"
+    },
+    "authority_level": {
+      "$ref": "#/$defs/authority_level"
+    },
+    "governance_status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "approved_with_constraints",
+        "escalated",
+        "blocked"
+      ]
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "impact": {
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  }
+}

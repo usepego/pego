@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/meal-decision.schema.json",
+  "title": "PEGO Meal Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "meal_window",
+    "current_context",
+    "goal_context",
+    "nutrition_strategy",
+    "available_options",
+    "selected_directive",
+    "rationale",
+    "tradeoffs",
+    "rejected_options",
+    "follow_up",
+    "governance_status",
+    "stop_condition",
+    "review_question"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "meal_decision"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string"
+    },
+    "meal_window": {
+      "type": "string",
+      "minLength": 1
+    },
+    "current_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hunger",
+        "energy",
+        "location",
+        "schedule",
+        "recent_food",
+        "constraints"
+      ],
+      "properties": {
+        "hunger": {
+          "type": "string"
+        },
+        "energy": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "schedule": {
+          "type": "string"
+        },
+        "recent_food": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "goal_context": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nutrition_strategy": {
+      "enum": [
+        "weight_loss",
+        "weight_gain",
+        "maintenance",
+        "muscle_gain",
+        "performance",
+        "metabolic_stability",
+        "appetite_recovery",
+        "balanced"
+      ]
+    },
+    "available_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "selected_directive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rejected_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "follow_up": {
+      "type": "string"
+    },
+    "governance_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_question": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

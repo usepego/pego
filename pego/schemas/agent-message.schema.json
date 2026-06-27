@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/agent-message.schema.json",
+  "title": "PEGO Agent Message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "message",
+    "from_agent",
+    "to_agent",
+    "message_type",
+    "decision_frame",
+    "claim",
+    "evidence",
+    "confidence",
+    "authority_implication",
+    "privacy_impact",
+    "requested_response",
+    "stop_or_escalation_condition"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "agent_message"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "message": {
+      "type": "string",
+      "minLength": 1
+    },
+    "from_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "to_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "message_type": {
+      "enum": [
+        "request_position",
+        "provide_position",
+        "challenge_assumption",
+        "request_evidence",
+        "request_governance_review",
+        "handoff",
+        "dissent",
+        "tool_result_summary",
+        "final_position"
+      ]
+    },
+    "decision_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unknown"
+      ]
+    },
+    "authority_implication": {
+      "$ref": "#/$defs/authority_level_or_unknown"
+    },
+    "privacy_impact": {
+      "enum": [
+        "private_only",
+        "safe_to_summarize",
+        "requires_explicit_disclosure_approval"
+      ]
+    },
+    "requested_response": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_or_escalation_condition": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_level_or_unknown": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate",
+        "unknown"
+      ]
+    }
+  }
+}

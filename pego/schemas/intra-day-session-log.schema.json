@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/intra-day-session-log.schema.json",
+  "title": "PEGO Intra-Day Session Log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "active_queue",
+    "operating_frame",
+    "events",
+    "completed_directives",
+    "blocked_or_partial_directives",
+    "queue_adjustments",
+    "deferrals",
+    "governance_notes",
+    "end_of_day_transfer"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "intra_day_session_log"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_queue": {
+      "type": "string"
+    },
+    "operating_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/session_event"
+      }
+    },
+    "completed_directives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/completed_directive"
+      }
+    },
+    "blocked_or_partial_directives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blocked_directive"
+      }
+    },
+    "queue_adjustments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "deferrals": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/governance_note"
+      }
+    },
+    "end_of_day_transfer": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "$defs": {
+    "session_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "human_input",
+        "state_update",
+        "command_response_path",
+        "command_response_json_path",
+        "preflight_path",
+        "preflight_outcome",
+        "review_level",
+        "required_next_step"
+      ],
+      "properties": {
+        "time": {
+          "type": "string",
+          "minLength": 1
+        },
+        "human_input": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state_update": {
+          "$ref": "#/$defs/state_update"
+        },
+        "command_response_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command_response_json_path": {
+          "type": "string"
+        },
+        "preflight_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preflight_outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_level": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_next_step": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "state_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available_minutes",
+        "energy",
+        "location",
+        "circumstance_type",
+        "circumstance_summary",
+        "completed",
+        "blocked"
+      ],
+      "properties": {
+        "available_minutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "energy": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "circumstance_type": {
+          "type": "string"
+        },
+        "circumstance_summary": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocked": {
+          "type": "string"
+        }
+      }
+    },
+    "completed_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "directive",
+        "evidence",
+        "notes"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "blocked_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "directive",
+        "status",
+        "reason",
+        "next_handling"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "partial",
+            "blocked",
+            "canceled"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_handling": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "governance_note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "note",
+        "review_level"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_level": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

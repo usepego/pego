@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/information-value-assessment.schema.json",
+  "title": "PEGO Information Value Assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "decision_frame",
+    "proposed_question",
+    "requesting_agent",
+    "needed_by",
+    "current_known_state",
+    "missing_information",
+    "decision_impact",
+    "inference_option",
+    "human_burden",
+    "risk_of_not_asking",
+    "risk_of_asking",
+    "assessment_outcome",
+    "final_user_facing_question",
+    "fallback_if_unanswered",
+    "review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "information_value_assessment"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "decision_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposed_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requesting_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "needed_by": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "current_known_state": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_information": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_impact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "inference_option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "can_infer",
+        "assumption"
+      ],
+      "properties": {
+        "can_infer": {
+          "type": "boolean"
+        },
+        "assumption": {
+          "type": "string"
+        }
+      }
+    },
+    "human_burden": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "notes"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "risk_of_not_asking": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_of_asking": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assessment_outcome": {
+      "enum": [
+        "ask_now",
+        "infer_and_proceed",
+        "defer_question",
+        "escalate",
+        "block"
+      ]
+    },
+    "final_user_facing_question": {
+      "type": "string"
+    },
+    "fallback_if_unanswered": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/command-response.schema.json",
+  "title": "PEGO Command Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "state_update",
+    "next_directive",
+    "duration",
+    "start_condition",
+    "why_this_now",
+    "fallback",
+    "deferred",
+    "stop_condition",
+    "next_check_in"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "command_response"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_update": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directive",
+        "candidate_rank",
+        "authority_level",
+        "governance_status"
+      ],
+      "properties": {
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_rank": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "governance_status": {
+          "$ref": "#/$defs/governance_status"
+        },
+        "target_behavior": {
+          "type": "string"
+        },
+        "environment_design": {
+          "type": "string"
+        },
+        "execution_instruction": {
+          "type": "string"
+        }
+      }
+    },
+    "duration": {
+      "type": "string",
+      "minLength": 1
+    },
+    "start_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why_this_now": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_instruction": {
+      "type": "string"
+    },
+    "targeted_question": {
+      "type": "string"
+    },
+    "fallback": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deferred": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_check_in": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "governance_status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_light_review",
+        "needs_standard_review",
+        "needs_formal_review",
+        "blocked",
+        "rejected"
+      ]
+    }
+  }
+}

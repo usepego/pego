@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/goal-reconciliation.schema.json",
+  "title": "PEGO Goal Reconciliation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_inputs",
+    "active_goals",
+    "protected_goals",
+    "upside_goals",
+    "downside_protection_goals",
+    "current_priority_thesis",
+    "conflict_rules",
+    "directive_selection_rules",
+    "information_gaps",
+    "targeted_questions",
+    "temporary_assumptions",
+    "governance_notes",
+    "review_cadence",
+    "stop_conditions"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "goal_reconciliation"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "active_goals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/goal"
+      }
+    },
+    "protected_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "upside_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "downside_protection_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "current_priority_thesis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conflict_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict_rule"
+      }
+    },
+    "directive_selection_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "information_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "targeted_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/targeted_question"
+      }
+    },
+    "temporary_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_cadence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "conflict_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict",
+        "default_priority",
+        "why",
+        "exception",
+        "review_or_escalation"
+      ],
+      "properties": {
+        "conflict": {
+          "type": "string",
+          "minLength": 1
+        },
+        "default_priority": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exception": {
+          "type": "string"
+        },
+        "review_or_escalation": {
+          "type": "string"
+        }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "goal",
+        "domain",
+        "class",
+        "current_priority",
+        "why_it_matters",
+        "status"
+      ],
+      "properties": {
+        "goal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "enum": [
+            "finance",
+            "health",
+            "career",
+            "venture",
+            "home",
+            "relationships",
+            "exploration",
+            "happiness",
+            "operations",
+            "governance",
+            "communications"
+          ]
+        },
+        "class": {
+          "enum": [
+            "constitutional",
+            "strategic",
+            "operational",
+            "experimental"
+          ]
+        },
+        "current_priority": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "dormant"
+          ]
+        },
+        "why_it_matters": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "active",
+            "needs_baseline",
+            "deferred",
+            "blocked"
+          ]
+        }
+      }
+    },
+    "targeted_question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "decision_use"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_use": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

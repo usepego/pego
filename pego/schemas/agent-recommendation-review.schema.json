@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/agent-recommendation-review.schema.json",
+  "title": "PEGO Agent Recommendation Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "reviewed_agent",
+    "source_recommendation",
+    "recommendation_summary",
+    "outcome_summary",
+    "fit_assessment",
+    "friction_prediction",
+    "information_request_quality",
+    "stress_impact",
+    "evidence_quality_review",
+    "dissent_quality",
+    "review_outcome",
+    "future_adjustment",
+    "durable_memory_candidate",
+    "next_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "agent_recommendation_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "reviewed_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related_council_decision": {
+      "type": "string"
+    },
+    "related_directive_outcome": {
+      "type": "string"
+    },
+    "recommendation_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fit_assessment": {
+      "$ref": "#/$defs/assessment"
+    },
+    "friction_prediction": {
+      "$ref": "#/$defs/assessment"
+    },
+    "information_request_quality": {
+      "$ref": "#/$defs/assessment"
+    },
+    "stress_impact": {
+      "$ref": "#/$defs/stress_impact"
+    },
+    "evidence_quality_review": {
+      "$ref": "#/$defs/assessment"
+    },
+    "dissent_quality": {
+      "$ref": "#/$defs/assessment"
+    },
+    "review_outcome": {
+      "$ref": "#/$defs/review_outcome"
+    },
+    "future_adjustment": {
+      "type": "string",
+      "minLength": 1
+    },
+    "durable_memory_candidate": {
+      "type": "string"
+    },
+    "next_review": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rating",
+        "notes"
+      ],
+      "properties": {
+        "rating": {
+          "enum": [
+            "strong",
+            "adequate",
+            "weak",
+            "missing",
+            "not_applicable"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "review_outcome": {
+      "enum": [
+        "improve",
+        "keep",
+        "downgrade",
+        "quarantine",
+        "escalate"
+      ]
+    },
+    "stress_impact": {
+      "enum": [
+        "reduced",
+        "preserved",
+        "increased",
+        "unknown"
+      ]
+    }
+  }
+}

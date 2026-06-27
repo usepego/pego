@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/voice-and-taste-model.schema.json",
+  "title": "PEGO Voice And Taste Model",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "as_of",
+    "evidence_policy",
+    "writing_voice",
+    "humor",
+    "intellectual_posture",
+    "vocabulary",
+    "taste_signals",
+    "influences",
+    "public_positioning",
+    "drafting_preferences",
+    "current_public_artifacts",
+    "private_source_material",
+    "agent_instructions",
+    "open_questions",
+    "review_rule"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "voice_and_taste_model"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date"
+    },
+    "evidence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_sources",
+        "confirmation_required_for",
+        "single_example_rule",
+        "review_cadence"
+      ],
+      "properties": {
+        "allowed_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confirmation_required_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "single_example_rule": {
+          "type": "string"
+        },
+        "review_cadence": {
+          "type": "string"
+        }
+      }
+    },
+    "writing_voice": {
+      "$ref": "#/$defs/voice_section"
+    },
+    "humor": {
+      "$ref": "#/$defs/voice_section"
+    },
+    "intellectual_posture": {
+      "$ref": "#/$defs/voice_section"
+    },
+    "vocabulary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "use",
+        "avoid"
+      ],
+      "properties": {
+        "use": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "taste_signals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/taste_signal"
+      }
+    },
+    "influences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/influence"
+      }
+    },
+    "public_positioning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "desired_perception",
+        "perceptions_to_avoid",
+        "status_signals_to_avoid",
+        "opportunity_goals",
+        "privacy_boundaries"
+      ],
+      "properties": {
+        "desired_perception": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "perceptions_to_avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status_signals_to_avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "opportunity_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "privacy_boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "drafting_preferences": {
+      "$ref": "#/$defs/voice_section"
+    },
+    "current_public_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "private_source_material": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "agent_instructions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_rule": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "voice_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "rules",
+        "evidence"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "taste_signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "category",
+        "what_it_signals",
+        "public_use"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "enum": [
+            "book",
+            "essay",
+            "film",
+            "show",
+            "music",
+            "software",
+            "tool",
+            "place",
+            "person",
+            "object",
+            "experience",
+            "idea",
+            "other"
+          ]
+        },
+        "what_it_signals": {
+          "type": "string"
+        },
+        "public_use": {
+          "enum": [
+            "public_ok",
+            "background_only",
+            "private_only",
+            "needs_review"
+          ]
+        }
+      }
+    },
+    "influence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "why_it_mattered",
+        "pego_learning",
+        "public_use"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why_it_mattered": {
+          "type": "string"
+        },
+        "pego_learning": {
+          "type": "string"
+        },
+        "public_use": {
+          "enum": [
+            "public_ok",
+            "background_only",
+            "private_only",
+            "needs_review"
+          ]
+        }
+      }
+    }
+  }
+}

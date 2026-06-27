@@ -1,0 +1,346 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/directive-queue.schema.json",
+  "title": "PEGO Directive Queue",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "session",
+    "operating_frame",
+    "protected_time",
+    "current_state",
+    "completed",
+    "active_candidates",
+    "deferred",
+    "blocked",
+    "next_directive",
+    "next_check_in"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "directive_queue"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "session": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operating_frame": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protected_time": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/protected_time_block"
+      }
+    },
+    "current_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "location",
+        "energy",
+        "environment",
+        "active_obligations",
+        "known_constraints"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "energy": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "environment": {
+          "type": "string"
+        },
+        "active_obligations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "known_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "completed": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/completed_directive"
+      }
+    },
+    "active_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/queued_candidate"
+      }
+    },
+    "deferred": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deferred_candidate"
+      }
+    },
+    "blocked": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blocked_candidate"
+      }
+    },
+    "next_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "directive",
+        "selection_rationale",
+        "authority_level",
+        "governance_status"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string"
+        },
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selection_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "governance_status": {
+          "$ref": "#/$defs/governance_status"
+        },
+        "target_behavior": {
+          "type": "string"
+        },
+        "environment_design": {
+          "type": "string"
+        }
+      }
+    },
+    "next_check_in": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "blocked_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "candidate",
+        "blocker",
+        "required_change"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocker": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_change": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "completed_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "directive",
+        "outcome"
+      ],
+      "properties": {
+        "time": {
+          "type": "string"
+        },
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "deferred_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "candidate",
+        "reason_deferred",
+        "next_review",
+        "consequence_of_deferral"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason_deferred": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_review": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consequence_of_deferral": {
+          "type": "string"
+        }
+      }
+    },
+    "governance_status": {
+      "enum": [
+        "draft",
+        "ready",
+        "needs_light_review",
+        "needs_standard_review",
+        "needs_formal_review",
+        "blocked",
+        "rejected"
+      ]
+    },
+    "protected_time_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "window",
+        "protection_level"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protection_level": {
+          "enum": [
+            "soft",
+            "hard",
+            "constitutional"
+          ]
+        }
+      }
+    },
+    "queued_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rank",
+        "candidate_id",
+        "candidate",
+        "domain",
+        "duration",
+        "energy",
+        "location",
+        "deadline",
+        "authority_level",
+        "governance_status",
+        "source"
+      ],
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "energy": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "deadline": {
+          "type": "string"
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "governance_status": {
+          "$ref": "#/$defs/governance_status"
+        },
+        "target_behavior": {
+          "type": "string"
+        },
+        "environment_design": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

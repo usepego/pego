@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/health-check-in.schema.json",
+  "title": "PEGO Health Check-In",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "purpose",
+    "measurement_rule",
+    "questions",
+    "privacy_status",
+    "next_step"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "health_check_in"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "measurement_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question",
+          "signal",
+          "decision_use",
+          "required"
+        ],
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "signal": {
+            "enum": [
+              "sleep",
+              "food",
+              "hunger",
+              "movement",
+              "symptom",
+              "metric",
+              "constraint",
+              "environment"
+            ]
+          },
+          "decision_use": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "privacy_status": {
+      "const": "protected_private_instance"
+    },
+    "next_step": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/session-review.schema.json",
+  "title": "PEGO Session Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "source_session",
+    "event_count",
+    "completed_count",
+    "blocked_or_partial_count",
+    "completed_directives",
+    "blockers",
+    "governance_notes",
+    "learning_decision",
+    "context_update_candidates",
+    "next_day_inputs",
+    "next_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "session_review"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_session": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "completed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "blocked_or_partial_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "completed_directives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/completed_directive"
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blocker"
+      }
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/governance_note"
+      }
+    },
+    "learning_decision": {
+      "enum": [
+        "ask_targeted_question",
+        "carry_forward_completed_evidence",
+        "governance_review",
+        "resynthesize_with_blockers"
+      ]
+    },
+    "context_update_candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/context_update_candidate"
+      }
+    },
+    "next_day_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_review": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "completed_directive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directive",
+        "evidence",
+        "notes"
+      ],
+      "properties": {
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "blocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "directive",
+        "reason",
+        "next_handling",
+        "context_update_candidate"
+      ],
+      "properties": {
+        "directive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string"
+        },
+        "next_handling": {
+          "type": "string"
+        },
+        "context_update_candidate": {
+          "type": "boolean"
+        }
+      }
+    },
+    "governance_note": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "note",
+        "review_level"
+      ],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "review_level": {
+          "type": "string"
+        }
+      }
+    },
+    "context_update_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "update_class",
+        "evidence_strength",
+        "stability",
+        "proposed_update",
+        "affected_agents",
+        "action"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "update_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_strength": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposed_update": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affected_agents": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

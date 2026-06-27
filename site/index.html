@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PEGO — Personal Executive Governance OS</title>
+    <meta
+      name="description"
+      content="Tell it what matters, what is off-limits, and what is happening now. You get one next directive, why it matters, and better decisions over time."
+    />
+    <meta name="theme-color" content="#f4ede4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <meta property="og:title" content="PEGO — Personal Executive Governance OS" />
+    <meta
+      property="og:description"
+      content="Tell it what matters, what is off-limits, and what is happening now. You get one next directive, why it matters, and better decisions over time."
+    />
+    <meta property="og:url" content="https://usepego.com" />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-logo" href="/">PEGO</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#premise">Premise</a>
+        <a href="#strategy">Strategy</a>
+        <a href="#how">How it works</a>
+        <a href="#trust">Privacy</a>
+        <a href="https://github.com/usepego/pego" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-pattern" aria-hidden="true"></div>
+        <div class="hero-horizon" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <p class="hero-eyebrow">Personal Executive Governance OS</p>
+          <h1 class="hero-title" id="hero-title">PEGO</h1>
+          <p class="hero-subhead">
+            Tell it what matters, what is off-limits, and what is happening
+            now. You get one next directive, why it matters, and better
+            decisions over time.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="https://github.com/usepego/pego"
+              rel="noopener noreferrer"
+              >Preview the framework</a
+            >
+            <a class="btn btn-secondary" href="#how">See how governance works</a>
+          </div>
+
+          <div class="triad reveal">
+            <article class="triad-item">
+              <span class="triad-num" aria-hidden="true">I</span>
+              <h2>Say what matters</h2>
+              <p>
+                Goals, constraints, protected time, risk boundaries, and current
+                circumstance become the operating context.
+              </p>
+            </article>
+            <article class="triad-item">
+              <span class="triad-num" aria-hidden="true">II</span>
+              <h2>Get one directive</h2>
+              <p>
+                One action small enough to do now, with the reason, fallback,
+                stop condition, and deferrals made explicit.
+              </p>
+            </article>
+            <article class="triad-item">
+              <span class="triad-num" aria-hidden="true">III</span>
+              <h2>Improve the next call</h2>
+              <p>
+                PEGO records what happened, reviews friction, and uses outcomes
+                to make the next directive better.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="premise">
+        <div class="section-inner reveal">
+          <span class="section-label">Premise</span>
+          <h2 class="section-title">Why delegate decisions at all?</h2>
+          <div class="section-copy">
+            <p>
+              Decision anxiety, ambiguity, and competing priorities can cap a
+              life quietly. The cost is not missed productivity alone. It can be
+              years of under-commitment, stale work, neglected health, or
+              choices optimized for short-term comfort instead of long-term
+              flourishing.
+            </p>
+            <p>
+              PEGO asks a different question: what if you did not have to
+              arbitrate every tradeoff from scratch? What if specialized agents
+              could reason from your goals, current state, and constraints, then
+              return not advice, but a directive you can act on now?
+            </p>
+            <p>
+              Most tools give you more lists, dashboards, summaries, or advice.
+              PEGO is built for the harder moment: when several things matter,
+              tradeoffs are real, energy is limited, and you need one clear next
+              action.
+            </p>
+            <p>
+              You define the goals, limits, private context, and authority
+              boundaries. PEGO weighs the competing domains, chooses a
+              directive, explains the reason, and keeps learning from what
+              happened after you tried it.
+            </p>
+          </div>
+
+          <div class="example-panel" aria-label="Example PEGO directive">
+            <div class="example-line">
+              <span class="example-label">You</span>
+              <p>
+                I have 45 minutes, medium energy, and I am at home. I keep
+                saying financial independence, but my runway is blurry.
+              </p>
+            </div>
+            <div class="example-line">
+              <span class="example-label">PEGO</span>
+              <p>
+                Next directive: find the last 30 days of checking and
+                credit-card activity. Write the three recurring outflows that
+                actually move the number. Do not move money. Do not open a new
+                account.
+              </p>
+            </div>
+            <div class="example-line">
+              <span class="example-label">Why</span>
+              <p>
+                Reason: before the council can choose save more, earn more, or
+                build venture income, finance needs ground truth. Fallback:
+                estimate the three from memory and mark them uncertain.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="strategy" style="background: var(--cream-deep)">
+        <div class="section-inner reveal">
+          <span class="section-label">Behavioral strategy</span>
+          <h2 class="section-title">Guide conditions, not just intentions</h2>
+          <div class="section-copy">
+            <p>
+              Humans often act first and explain later. People move from
+              environment, defaults, fatigue, timing, friction, and social context
+              — then make sense of it afterward. Conscious reasoning matters, but
+              it is not the only control surface for behavior.
+            </p>
+            <p>
+              PEGO is built for that. Rather than stop at rational advice, it
+              reasons from long-range outcomes through strategy and constraints
+              into directives that shape the conditions where action becomes
+              likely — grocery defaults before meal choices, maintenance before an
+              environment turns aversive, a walk timed for daylight and incidental
+              contact.
+            </p>
+            <p>
+              A directive is judged by the behavior it is likely to produce, not
+              only the task it names. Strategy stays ambitious; the next action
+              must be executable from where you actually are.
+            </p>
+          </div>
+          <div class="strategy-grid">
+            <article class="strategy-card">
+              <h3>Groceries before meals</h3>
+              <p>
+                Change tomorrow's default options before asking for today's
+                willpower.
+              </p>
+            </article>
+            <article class="strategy-card">
+              <h3>Maintenance before stress</h3>
+              <p>
+                Small recurring upkeep before visual clutter becomes background
+                irritation.
+              </p>
+            </article>
+            <article class="strategy-card">
+              <h3>Walk as intervention</h3>
+              <p>
+                Movement, daylight, and neighborhood contact — one directive,
+                several outcomes.
+              </p>
+            </article>
+            <article class="strategy-card">
+              <h3>Prep before the event</h3>
+              <p>
+                Clothing, supplies, or documents handled early to prevent
+                day-of scrambling.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="section-inner reveal">
+          <span class="section-label">How it works</span>
+          <h2 class="section-title">Agents, council, directives, outcomes</h2>
+          <p class="section-lead">
+            You bring goals, constraints, and where things actually stand.
+            Specialist agents — finance, health, career, home, and the rest —
+            each argue their own case. The council reconciles them into one next
+            directive; governance checks the call before you act; outcomes feed
+            back in.
+          </p>
+
+          <div class="lifecycle" role="list" aria-label="Directive lifecycle">
+            <span class="lifecycle-step" role="listitem">Environment &amp; goals</span>
+            <span class="lifecycle-arrow" aria-hidden="true">→</span>
+            <span class="lifecycle-step" role="listitem">Domain recommendations</span>
+            <span class="lifecycle-arrow" aria-hidden="true">→</span>
+            <span class="lifecycle-step" role="listitem">Council decision</span>
+            <span class="lifecycle-arrow" aria-hidden="true">→</span>
+            <span class="lifecycle-step" role="listitem">Next directive</span>
+            <span class="lifecycle-arrow" aria-hidden="true">→</span>
+            <span class="lifecycle-step" role="listitem">Governance check</span>
+            <span class="lifecycle-arrow" aria-hidden="true">→</span>
+            <span class="lifecycle-step" role="listitem">Outcomes feed back</span>
+            <span class="lifecycle-arrow lifecycle-arrow--return" aria-hidden="true">↩</span>
+          </div>
+
+          <div class="section-copy">
+            <p>
+              <strong>Environment and state</strong> are ongoing inputs, not a
+              one-time setup step. Anticipation scans inspect upcoming events,
+              seasonal maintenance, supplies, schedule conflicts, and recurring
+              irritants before they become urgent. During the day, a weather
+              change, completed directive, available time, or new concern can
+              trigger fresh domain recommendations — and send the council back to work —
+              without waiting for tomorrow's plan.
+            </p>
+            <p>
+              <strong>Council</strong> is where the agents meet — finance against
+              health, career against exploration, what matters now against what can
+              wait. It picks one directive worth acting on, not a pile of equal
+              options. Disagreement isn't a bug to smooth over — it's an input the
+              system records.
+            </p>
+            <p>
+              <strong>Governance check</strong> runs on the proposed directive
+              before you act on it — not after. Low-risk actions can proceed within
+              the authority you delegated. If risk, privacy, protected time, or
+              impact crosses your limits, PEGO escalates: ask for your review, require
+              explicit approval, or open a formal decision packet. A directive is not
+              a blind order.
+            </p>
+          </div>
+
+          <ul class="agent-list">
+            <li><strong>Finance</strong> Resilience, runway, allocation</li>
+            <li><strong>Health</strong> Food, movement, sleep, recovery</li>
+            <li><strong>Career</strong> Leverage, skill, autonomy, exit</li>
+            <li><strong>Relationships</strong> Partner time, household, connection</li>
+            <li><strong>Exploration</strong> Curiosity, craft, optionality</li>
+            <li><strong>Operations</strong> Daily and weekly directives</li>
+            <li><strong>Governance</strong> Authority, privacy, dissent</li>
+            <li><strong>Council</strong> Cross-domain reconciliation</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="differentiation" style="background: var(--cream-deep)">
+        <div class="section-inner reveal">
+          <span class="section-label">Difference</span>
+          <h2 class="section-title">A new category</h2>
+          <div class="compare-wrap">
+            <table class="compare">
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Typical promise</th>
+                  <th scope="col">PEGO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Personal assistant</td>
+                  <td>Helps when asked</td>
+                  <td>Decides what should happen next within delegated authority</td>
+                </tr>
+                <tr>
+                  <td>Habit tracker</td>
+                  <td>Records repeated behavior</td>
+                  <td>Chooses which behaviors should exist and why</td>
+                </tr>
+                <tr>
+                  <td>Quantified self</td>
+                  <td>Measures telemetry</td>
+                  <td>Uses telemetry only when it improves governance</td>
+                </tr>
+                <tr>
+                  <td>Goal planner</td>
+                  <td>Goals and milestones</td>
+                  <td>Owns tradeoffs, fallbacks, and immediate action synthesis</td>
+                </tr>
+                <tr>
+                  <td>Automation</td>
+                  <td>Executes workflows</td>
+                  <td>Preserves authority, dissent, privacy, and review</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="trust">
+        <div class="section-inner reveal">
+          <span class="section-label">Privacy &amp; authority</span>
+          <h2 class="section-title">Private context, explicit authority</h2>
+          <div class="trust-grid">
+            <article class="trust-card">
+              <h3>Your life data stays private</h3>
+              <p>
+                The reusable framework is separate from the private instance.
+                Goals, finances, health, relationships, journals, directives,
+                and outcomes belong in protected private storage.
+              </p>
+            </article>
+            <article class="trust-card">
+              <h3>You set the authority</h3>
+              <p>
+                PEGO can recommend or direct only within the authority you
+                grant. High-impact financial, medical, legal, career, housing,
+                or relationship decisions require explicit review.
+              </p>
+            </article>
+            <article class="trust-card">
+              <h3>Decisions stay reviewable</h3>
+              <p>
+                Directives carry a reason, fallback, deferrals, stop condition,
+                and next check-in. Outcomes are reviewed before the system
+                treats a pattern as trusted.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <aside class="status-band">
+        <div class="status-band-inner reveal">
+          <div>
+            <span class="status-label">Framework status</span>
+            <p>
+              Early architecture and governance design. Open framework, reference
+              tooling, and future interfaces for Codex, web, mobile, or other
+              agent runtimes. The first product experience should establish a
+              private instance and return one useful directive or one
+              decision-grade question.
+            </p>
+          </div>
+          <a
+            class="btn btn-primary"
+            href="https://github.com/usepego/pego"
+            rel="noopener noreferrer"
+            >Preview on GitHub</a
+          >
+        </div>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <span>© 2026 PEGO · Personal Executive Governance OS</span>
+        <span>
+          <a href="https://usepego.com">usepego.com</a>
+          ·
+          <a href="https://github.com/usepego/pego" rel="noopener noreferrer">GitHub</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced) {
+        const reveals = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        );
+        reveals.forEach((el) => observer.observe(el));
+      } else {
+        document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

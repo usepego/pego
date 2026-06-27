@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/goal-strategy.schema.json",
+  "title": "PEGO Goal Strategy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "goal_id",
+    "outcome",
+    "why_it_matters",
+    "time_horizon",
+    "current_baseline",
+    "strategic_thesis",
+    "milestones",
+    "required_capabilities",
+    "current_resources",
+    "first_projects",
+    "immediate_actions",
+    "fallback_plans",
+    "alternative_paths",
+    "risks",
+    "review_cadence"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "goal_strategy"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "goal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why_it_matters": {
+      "type": "string",
+      "minLength": 1
+    },
+    "time_horizon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "estimated_horizon",
+        "review_dates",
+        "timeframe_confidence"
+      ],
+      "properties": {
+        "estimated_horizon": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_dates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeframe_confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      }
+    },
+    "current_baseline": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategic_thesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thesis",
+        "confidence",
+        "key_assumptions"
+      ],
+      "properties": {
+        "thesis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "key_assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/milestone"
+      }
+    },
+    "required_capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "current_resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "first_projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/project"
+      }
+    },
+    "immediate_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "fallback_plans": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path"
+      }
+    },
+    "alternative_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/risk"
+      }
+    },
+    "review_cadence": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "time_box",
+        "authority_level",
+        "success_condition"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time_box": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "success_condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "authority_level": {
+      "enum": [
+        "level_0_observe",
+        "level_1_recommend",
+        "level_2_direct",
+        "level_3_execute",
+        "level_4_escalate"
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "status",
+        "acquisition_path"
+      ],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "present",
+            "partial",
+            "missing"
+          ]
+        },
+        "acquisition_path": {
+          "type": "string"
+        }
+      }
+    },
+    "milestone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "milestone",
+        "evidence",
+        "target_window"
+      ],
+      "properties": {
+        "milestone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_window": {
+          "type": "string"
+        }
+      }
+    },
+    "path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "trigger",
+        "first_action"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "first_action": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project",
+        "purpose",
+        "first_directive_candidate"
+      ],
+      "properties": {
+        "project": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "first_directive_candidate": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource",
+        "leverage"
+      ],
+      "properties": {
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "leverage": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk",
+        "severity",
+        "mitigation"
+      ],
+      "properties": {
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "mitigation": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

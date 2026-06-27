@@ -18,3 +18,8 @@ private/**
 
 # Local Codex handoff prompts and session restart notes.
 .codex/handoff/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

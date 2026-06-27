@@ -4,6 +4,8 @@ Personal Executive Governance OS.
 
 **AI governance for your own behavior.**
 
+[Product page](https://usepego.com)
+
 PEGO is an experiment in turning personal decision-making over to a governed
 council of AI agents.
 

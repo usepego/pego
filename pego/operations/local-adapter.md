@@ -85,9 +85,9 @@ python3 pegoctl --private-root ~/Documents/PEGO/private check-in "Done: lunch. A
 `pegoctl` is a local adapter around checked-in operation scripts. It is not the
 PEGO runtime.
 
-Future interfaces may be CLI, chat, mobile, watch, messaging, web, email,
-calendar, or another surface, but they should preserve the same agent contracts,
-schemas, governance checks, and private-instance boundary.
+Future interfaces may be CLI, chat, mobile, watch, messaging, Slack, web,
+email, calendar, or another surface, but they should preserve the same agent
+contracts, schemas, governance checks, and private-instance boundary.
 
 ## Python Tooling Boundary
 

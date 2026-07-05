@@ -40,6 +40,10 @@ A stateful agent orchestrator is a plausible runtime category for PEGO because
 PEGO needs long-running agent work, persistence, human-in-the-loop flows,
 durable execution, and resumability.
 
+LangGraph is one plausible example in this category because it is designed for
+long-running, stateful agents, persistence, human-in-the-loop flows, durable
+execution, and streaming.
+
 Potential fit:
 
 - Stateful multi-agent orchestration.
@@ -59,6 +63,10 @@ Potential concerns:
 A hosted product interface layer is a plausible surface for PEGO, especially
 for web, mobile-web, streaming responses, model/provider routing, tool calls,
 and polished user experiences.
+
+Vercel AI SDK and AI Cloud are plausible examples in this category for web and
+mobile-web product surfaces, model/provider routing, tool calling, and polished
+streaming experiences.
 
 Potential fit:
 
@@ -103,9 +111,10 @@ for the founder instance. When the contracts stabilize, test at least two runtim
 adapters against the same PEGO artifacts before committing to a product
 architecture.
 
-For the next phase, use a practical low-cost agent workspace after a
-`uv`/`pegoctl` install prepares a discoverable PEGO workspace and protected
-private instance. Treat tool servers and hosted product interfaces as future
-integration and reference-runtime layers, not immediate requirements.
+For the next phase, use Codex or another practical low-cost agent workspace
+after a `uv`/`pegoctl` install prepares a discoverable PEGO workspace and
+protected private instance. Treat MCP, tool servers, and hosted product
+interfaces as future product integration and reference-runtime layers, not
+immediate requirements.
 
 See `pego/architecture/runtime-roadmap.md`.

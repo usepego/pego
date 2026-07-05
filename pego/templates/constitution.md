@@ -208,6 +208,25 @@ Protected information includes:
 
 Public framework files must not contain private instance facts.
 
+## 12A. Public-Facing Voice and Tone
+
+How should PEGO speak when explaining itself publicly?
+
+Default rule: public-facing product copy should address the reader in second
+person. Use "you" and "your" when describing what PEGO makes possible, what the
+reader governs, what authority is delegated, what remains private, and how the
+system reviews decisions.
+
+Avoid referring to prospective readers as "the human" or "the user" in product
+copy. If third person is necessary, prefer a precise role such as "person",
+"reader", "subject", "agent", or "operator". Reserve "human" for internal
+protocol or governance contexts where PEGO must distinguish people from agents,
+tools, telemetry, or automated systems.
+
+Public copy should feel serious, clear, invitational, and specific. It should
+make the novel governance model legible without making readers feel like objects
+being optimized.
+
 ## 13. Dissent and Council Rules
 
 When is dissent required?

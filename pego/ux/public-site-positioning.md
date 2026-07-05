@@ -31,7 +31,7 @@ directive scorecards, outcome reviews, and calibration to govern the next
 action.
 
 PEGO is behavioral augmentation through AI governance. It is deliberately
-interventionist, but bounded by authority the human defines.
+interventionist, but bounded by authority you define.
 
 ## Category Claim
 
@@ -109,7 +109,7 @@ You are already governed by hunger, fatigue, anxiety, defaults, calendar pressur
 The manipulation concern should be answered directly:
 
 ```text
-The difference between manipulation and governance is authority. PEGO acts inside boundaries the human defines: constitution, privacy, reversibility, dissent, stop conditions, and review.
+The difference between manipulation and governance is authority. PEGO acts inside boundaries you define: constitution, privacy, reversibility, dissent, stop conditions, and review.
 ```
 
 PEGO should be willing to say:
@@ -118,7 +118,7 @@ PEGO should be willing to say:
 - It is not neutral advice.
 - It uses governed pressure: constraints, defaults, timing, friction,
   environment, escalation, and review.
-- The human keeps constitutional authority.
+- You keep constitutional authority.
 
 Avoid sounding defensive. The edge is part of the category.
 
@@ -170,6 +170,12 @@ The public site should include:
 
 The tone should be serious, clear, and unsentimental.
 
+Address the reader directly in public-facing product copy. Use "you" and
+"your" when explaining PEGO's benefit, authority boundary, setup, directives,
+review, and privacy model. Avoid calling prospective readers "the human" or
+"the user" on the public site unless a third-person role distinction is
+strictly necessary.
+
 Use:
 
 - Governed action.
@@ -194,7 +200,7 @@ The site must establish safety and privacy early:
 - PEGO separates reusable framework files from protected private life data.
 - Private instance data should not be committed to public repos.
 - High-impact directives require escalation, decision packets, review, or outside professional input.
-- The human retains constitutional authority, stop rules, and authority grants.
+- Readers retain constitutional authority, stop rules, and authority grants.
 - Runtime adapters must preserve the governance lifecycle.
 
 ## Example Lifecycle

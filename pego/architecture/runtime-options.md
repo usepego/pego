@@ -29,11 +29,11 @@ local developer utilities. The constraint is conceptual, not anti-Python: PEGO's
 runtime model should not be defined as "a Python app" unless a future runtime
 decision explicitly says so.
 
-## LangGraph
+## Stateful Agent Orchestrator
 
-LangGraph is a plausible orchestration runtime for PEGO because it is designed
-for long-running, stateful agents, persistence, human-in-the-loop flows, durable
-execution, and streaming.
+A stateful agent orchestrator is a plausible runtime category for PEGO because
+PEGO needs long-running agent work, persistence, human-in-the-loop flows,
+durable execution, and resumability.
 
 Potential fit:
 
@@ -45,15 +45,15 @@ Potential fit:
 Potential concerns:
 
 - Added framework complexity.
-- Possible language and ecosystem gravity.
+- Possible language, vendor, or ecosystem gravity.
 - Need to verify privacy, deployment, and local-first options before using it
   for sensitive personal data.
 
-## Vercel AI SDK And AI Cloud
+## Hosted Product Interface Layer
 
-Vercel's AI stack is a plausible product and interface layer for PEGO,
-especially for web, mobile-web, streaming responses, model/provider routing,
-tool calls, and polished user experiences.
+A hosted product interface layer is a plausible surface for PEGO, especially
+for web, mobile-web, streaming responses, model/provider routing, tool calls,
+and polished user experiences.
 
 Potential fit:
 
@@ -98,9 +98,9 @@ for the founder instance. When the contracts stabilize, test at least two runtim
 adapters against the same PEGO artifacts before committing to a product
 architecture.
 
-For the next phase, use Codex as the practical low-cost runtime adapter after a
+For the next phase, use a practical low-cost agent workspace after a
 `uv`/`pegoctl` install prepares a discoverable PEGO workspace and protected
-private instance. Treat MCP and Vercel AI SDK as future product integration and
-reference-runtime layers, not immediate requirements.
+private instance. Treat tool servers and hosted product interfaces as future
+integration and reference-runtime layers, not immediate requirements.
 
 See `pego/architecture/runtime-roadmap.md`.

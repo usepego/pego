@@ -10,9 +10,9 @@ directives, protect privacy, and learn from outcomes.
 
 ## Runtime Boundary
 
-The runtime can later be LangGraph, Vercel AI SDK, a custom service, a mobile
-app, a Slack bot, a local CLI, or another environment. Those are hosting and
-surface choices, not PEGO itself.
+The runtime can later be a graph orchestrator, hosted agent service, custom
+service, mobile app, messaging surface, local CLI, or another environment.
+Those are hosting and surface choices, not PEGO itself.
 
 PEGO should remain portable across runtimes by defining stable contracts for:
 

@@ -501,6 +501,35 @@ main {
   color: var(--walnut);
 }
 
+/* Measurable governance loop */
+
+.governance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-md);
+}
+
+.governance-card {
+  min-height: 12rem;
+  padding: var(--space-md);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--cherokee);
+}
+
+.governance-card h3 {
+  margin: 0 0 var(--space-xs);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--walnut);
+}
+
+.governance-card p {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
 /* Comparison table */
 
 .compare-wrap {

@@ -19,11 +19,19 @@ Personal Executive Governance OS
 
 ## One-Line Positioning
 
-PEGO is agent infrastructure for governing human action toward a better life.
+AI governance for your own behavior.
 
 ## Short Pitch
 
-PEGO turns goals, constraints, current state, and personal values into governed directives. Instead of asking a person to arbitrate every tradeoff alone, PEGO uses specialized agents, a council protocol, authority levels, privacy rules, and outcome reviews to decide what should happen next.
+PEGO turns current state, goals, constraints, and outcome evidence into one
+governed directive, then reviews what happened so future decisions improve.
+Instead of asking a person to arbitrate every tradeoff alone, PEGO uses
+specialized agents, a council protocol, authority levels, privacy rules,
+directive scorecards, outcome reviews, and calibration to govern the next
+action.
+
+PEGO is behavioral augmentation through AI governance. It is deliberately
+interventionist, but bounded by authority the human defines.
 
 ## Category Claim
 
@@ -34,7 +42,7 @@ The category should be introduced plainly:
 - Personal: operates on one person's real life, environment, goals, limits, and feedback.
 - Executive: produces decisions and directives, not only notes or suggestions.
 - Governance: decisions pass through authority, risk, privacy, dissent, and review controls.
-- OS: provides runtime-neutral agent infrastructure that can later surface through CLI, web, mobile, watch, Slack, SMS, or other adapters.
+- OS: provides runtime-neutral agent infrastructure that can later surface through CLI, web, mobile, watch, messaging, ambient, or other adapters.
 
 ## What The First Screen Must Communicate
 
@@ -55,13 +63,13 @@ PEGO
 Subhead:
 
 ```text
-Personal Executive Governance OS for agent-directed life decisions.
+AI governance for your own behavior.
 ```
 
 Supporting copy:
 
 ```text
-PEGO turns goals, constraints, current state, and feedback into governed directives: what to do next, what to defer, what to escalate, and what to review.
+PEGO turns current state, goals, constraints, and outcome evidence into one governed directive, then reviews what happened so future decisions improve.
 ```
 
 Primary action:
@@ -88,12 +96,71 @@ PEGO should be positioned against adjacent categories without sounding dismissiv
 | Goal planner | Helps define goals and milestones | Owns strategy modeling, tradeoffs, fallback paths, and immediate action synthesis |
 | Automation platform | Executes workflows | Preserves constitutional authority, dissent, privacy, reversibility, and review |
 
+## Uncomfortable Premise
+
+PEGO should not hide the fact that it is intentionally steering behavior.
+
+Use this frame:
+
+```text
+You are already governed by hunger, fatigue, anxiety, defaults, calendar pressure, social context, screens, environment, and whatever is loudest now. PEGO makes that steering explicit, constitutional, reviewable, and aimed at the life you say you want.
+```
+
+The manipulation concern should be answered directly:
+
+```text
+The difference between manipulation and governance is authority. PEGO acts inside boundaries the human defines: constitution, privacy, reversibility, dissent, stop conditions, and review.
+```
+
+PEGO should be willing to say:
+
+- It is behavioral augmentation.
+- It is not neutral advice.
+- It uses governed pressure: constraints, defaults, timing, friction,
+  environment, escalation, and review.
+- The human keeps constitutional authority.
+
+Avoid sounding defensive. The edge is part of the category.
+
+## Measurable Governance Loop
+
+The public site should include a section that makes PEGO's maturity legible:
+
+```text
+state evidence
+-> goal progress
+-> agent recommendations
+-> council decision
+-> directive scorecard
+-> next directive
+-> outcome review
+-> agent calibration
+-> behavior-loop detection
+-> strategy review
+```
+
+Suggested card titles:
+
+- Current-state evidence.
+- Goal progress.
+- Council deliberation.
+- Directive scorecards.
+- Outcome attribution.
+- Agent calibration.
+- Behavior-loop detection.
+- Strategy review.
+
+The section should communicate that PEGO decisions are inspectable,
+attributable, revisable, and bounded by authority.
+
 ## Required Sections
 
 The public site should include:
 
 - Premise: why decision delegation matters.
 - How it works: agents, council, governance, directives, outcomes.
+- Measurable governance loop: state evidence, goal progress, scorecards,
+  outcome attribution, calibration, behavior loops, and strategy review.
 - Privacy boundary: reusable framework versus private instance.
 - Runtime neutrality: PEGO core is agent infrastructure, not one app or vendor.
 - Example directive lifecycle: goal to candidate to council to directive to outcome review.

@@ -32,6 +32,7 @@ SOURCE_GROUPS = [
             "constitution/constitution.md",
             "governance/constraints.md",
             "governance/reviews",
+            "goals/progress/governance.json",
         ),
     ),
     SourceGroup(
@@ -41,6 +42,7 @@ SOURCE_GROUPS = [
             "happiness/model.md",
             "person/happiness-model.md",
             "goals/life-aim.md",
+            "goals/progress/happiness.json",
         ),
     ),
     SourceGroup(
@@ -52,6 +54,7 @@ SOURCE_GROUPS = [
             "finance/capital-buckets.md",
             "finance/scenarios.json",
             "goals/financial-freedom.md",
+            "goals/progress/finance.json",
         ),
     ),
     SourceGroup(
@@ -61,6 +64,7 @@ SOURCE_GROUPS = [
             "career/baseline.md",
             "career/career-capital.md",
             "goals/strategy.md",
+            "goals/progress/career.json",
         ),
     ),
     SourceGroup(
@@ -70,6 +74,7 @@ SOURCE_GROUPS = [
             "venture",
             "goals/strategy.md",
             "writing/positioning.md",
+            "goals/progress/venture.json",
         ),
     ),
     SourceGroup(
@@ -79,15 +84,18 @@ SOURCE_GROUPS = [
             "health/baseline.json",
             "health/baseline.md",
             "health/check-ins",
+            "goals/progress/health.json",
         ),
     ),
     SourceGroup(
-        "home",
+        "home_environment",
         "Home environment and maintenance baseline",
         (
             "goals/home-serenity.md",
             "home/maintenance-system.md",
             "operator/operating-register.md",
+            "goals/progress/home_environment.json",
+            "goals/progress/home.json",
         ),
     ),
     SourceGroup(
@@ -97,6 +105,7 @@ SOURCE_GROUPS = [
             "time/protected-time.md",
             "current-state/current-state.md",
             "operator/operating-register.md",
+            "goals/progress/relationships.json",
         ),
     ),
     SourceGroup(
@@ -106,6 +115,7 @@ SOURCE_GROUPS = [
             "goals/lifestyle-and-taste.md",
             "person/voice-and-taste.md",
             "operator/operating-register.md",
+            "goals/progress/exploration.json",
         ),
     ),
     SourceGroup(
@@ -116,6 +126,8 @@ SOURCE_GROUPS = [
             "reviews/outcomes",
             "reviews/sessions",
             "context/updates",
+            "telemetry/signals",
+            "goals/progress/operations.json",
         ),
     ),
 ]
@@ -127,7 +139,7 @@ DOMAIN_GOAL_TEXT = {
     "career": "Protect income and career optionality.",
     "venture": "Create independent-income evidence without reckless risk.",
     "health": "Improve health through low-friction defaults and safe constraints.",
-    "home": "Preserve home serenity through small maintenance and environment design.",
+    "home_environment": "Preserve home serenity through small maintenance and environment design.",
     "relationships": "Protect important relationships, stakeholder impact, and protected time.",
     "exploration": "Keep curiosity, renewal, and life richness active within constraints.",
     "operations": "Convert goals into small directives and learn from outcomes.",
@@ -140,15 +152,22 @@ DOMAIN_CLASS = {
     "career": "strategic",
     "venture": "experimental",
     "health": "operational",
-    "home": "operational",
+    "home_environment": "operational",
     "relationships": "constitutional",
     "exploration": "experimental",
     "operations": "operational",
 }
 
 PROTECTED_DOMAINS = {"governance", "happiness", "health", "relationships"}
-UPSIDE_DOMAINS = {"finance", "career", "venture", "exploration", "home"}
-DOWNSIDE_DOMAINS = {"governance", "finance", "health", "home", "relationships", "career"}
+UPSIDE_DOMAINS = {"finance", "career", "venture", "exploration", "home_environment"}
+DOWNSIDE_DOMAINS = {
+    "governance",
+    "finance",
+    "health",
+    "home_environment",
+    "relationships",
+    "career",
+}
 
 
 def text_exists(path: Path) -> bool:
@@ -177,6 +196,34 @@ def assess_sources(private: Path) -> dict[str, list[str]]:
     }
 
 
+def read_goal_progress(private: Path, domain: str) -> dict[str, str]:
+    paths = [private / "goals" / "progress" / f"{domain}.json"]
+    if domain == "home_environment":
+        paths.append(private / "goals" / "progress" / "home.json")
+    path = next((candidate for candidate in paths if candidate.is_file()), None)
+    if path is None:
+        return {}
+    try:
+        data = json.loads(path.read_text())
+    except json.JSONDecodeError:
+        return {}
+    if data.get("artifact_type") != "goal_progress":
+        return {}
+    return {
+        "trajectory": str(data.get("trajectory", "unknown")),
+        "confidence": str(data.get("confidence", "low")),
+        "progress_status": str(data.get("progress_status", "unknown")),
+        "current_state_summary": str(data.get("current_state_summary", "")),
+    }
+
+
+def progress_by_domain(private: Path) -> dict[str, dict[str, str]]:
+    return {
+        group.domain: read_goal_progress(private, group.domain)
+        for group in SOURCE_GROUPS
+    }
+
+
 def priority_for(domain: str, sources: list[str]) -> str:
     if not sources:
         return "low"
@@ -187,25 +234,35 @@ def priority_for(domain: str, sources: list[str]) -> str:
     return "medium"
 
 
-def active_goals(source_map: dict[str, list[str]]) -> list[dict[str, str]]:
+def active_goals(
+    source_map: dict[str, list[str]],
+    progress_map: dict[str, dict[str, str]],
+) -> list[dict[str, str]]:
     goals = []
     for domain in [group.domain for group in SOURCE_GROUPS]:
         sources = source_map[domain]
+        progress = progress_map.get(domain, {})
         status = "active" if sources else "needs_baseline"
-        goals.append(
-            {
-                "goal": DOMAIN_GOAL_TEXT[domain],
-                "domain": domain,
-                "class": DOMAIN_CLASS[domain],
-                "current_priority": priority_for(domain, sources),
-                "why_it_matters": (
+        goal = {
+            "goal": DOMAIN_GOAL_TEXT[domain],
+            "domain": domain,
+            "class": DOMAIN_CLASS[domain],
+            "current_priority": priority_for(domain, sources),
+            "why_it_matters": (
+                progress.get("current_state_summary")
+                or (
                     "Existing protected private state is available for this domain."
                     if sources
                     else "Council lacks enough private baseline evidence for this domain."
-                ),
-                "status": status,
-            }
-        )
+                )
+            ),
+            "status": status,
+        }
+        if progress:
+            goal["trajectory"] = progress.get("trajectory", "unknown")
+            goal["confidence"] = progress.get("confidence", "low")
+            goal["progress_status"] = progress.get("progress_status", "unknown")
+        goals.append(goal)
     return goals
 
 
@@ -232,8 +289,9 @@ def targeted_questions(missing: list[str]) -> list[dict[str, str]]:
 
 def build_artifact(private: Path, reconciliation_date: str) -> dict[str, object]:
     source_map = assess_sources(private)
+    progress_map = progress_by_domain(private)
     missing = missing_domains(source_map)
-    goals = active_goals(source_map)
+    goals = active_goals(source_map, progress_map)
     source_inputs = sorted(source for sources in source_map.values() for source in sources)
 
     return {
@@ -285,7 +343,7 @@ def priority_thesis(missing: list[str]) -> str:
         )
     return (
         "Use a balanced council model: protect constitutional goals first, keep finance, health, "
-        "career, relationships, and home constraints visible, and select the smallest directive that "
+        "career, relationships, and home/environment constraints visible, and select the smallest directive that "
         "creates progress or evidence without increasing anxiety."
     )
 
@@ -350,16 +408,19 @@ def build_markdown(artifact: dict[str, object]) -> str:
             if not isinstance(goal, dict):
                 continue
             rows.append(
-                "| {goal} | {domain} | {klass} | {priority} | {why} | {status} |".format(
+                "| {goal} | {domain} | {klass} | {priority} | {trajectory} | {confidence} | {progress_status} | {why} | {status} |".format(
                     goal=goal.get("goal", ""),
                     domain=goal.get("domain", ""),
                     klass=goal.get("class", ""),
                     priority=goal.get("current_priority", ""),
+                    trajectory=goal.get("trajectory", "unknown"),
+                    confidence=goal.get("confidence", "low"),
+                    progress_status=goal.get("progress_status", "unknown"),
                     why=goal.get("why_it_matters", ""),
                     status=goal.get("status", ""),
                 )
             )
-        return rows or ["| None | n/a | n/a | n/a | n/a | n/a |"]
+        return rows or ["| None | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |"]
 
     def conflict_rows(rules: object) -> list[str]:
         rows = []
@@ -399,8 +460,8 @@ def build_markdown(artifact: dict[str, object]) -> str:
             "",
             "## Active Goals",
             "",
-            "| Goal | Domain | Class | Current Priority | Why It Matters | Status |",
-            "| --- | --- | --- | --- | --- | --- |",
+            "| Goal | Domain | Class | Current Priority | Trajectory | Confidence | Progress Status | Why It Matters | Status |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             *goal_rows(artifact["active_goals"]),
             "",
             "## Protected Goals",

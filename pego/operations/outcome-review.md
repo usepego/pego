@@ -132,6 +132,43 @@ Use:
 pego/templates/decision-quality-review.md
 ```
 
+To attribute the outcome back to the council decision and source
+recommendations, pass the protected source artifacts explicitly:
+
+```sh
+python3 ops/review/review_outcome.py \
+  --outcome private/outcomes/directives/YYYY-MM-DD-directive.json \
+  --council-decision private/council/decisions/council-decision.json \
+  --recommendation private/recommendations/health.json \
+  --json-output private/reviews/outcomes/YYYY-MM-DD-directive-review.json
+```
+
+When a council decision is supplied, the runner can also discover its
+`source_recommendations` if those paths are available. Missing source artifacts
+must not fail outcome review; they should produce missing-source review records
+so repository hygiene can be fixed later.
+
+To write bounded private agent calibration records from attribution:
+
+```sh
+python3 ops/review/review_outcome.py \
+  --outcome private/outcomes/directives/YYYY-MM-DD-directive.json \
+  --council-decision private/council/decisions/council-decision.json \
+  --json-output private/reviews/outcomes/YYYY-MM-DD-directive-review.json \
+  --write-calibration
+```
+
+Calibration records write under:
+
+```text
+private/agents/calibration/
+```
+
+Use `pego/templates/agent-calibration-record.md` and
+`pego/schemas/agent-calibration-record.schema.json`. These records are private
+operating memory. They should inform future council weighting, but they do not
+authorize higher authority or public disclosure.
+
 To close a USER-mode session into a session-level learning review, use:
 
 ```sh

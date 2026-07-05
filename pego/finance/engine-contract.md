@@ -11,9 +11,8 @@ decisions remain governed actions.
 ## Runtime Neutrality
 
 The finance engine may be implemented by a local script, spreadsheet importer,
-LangGraph node, Vercel-hosted service, custom backend, or another runtime
-adapter. The runtime must preserve the same input, output, privacy, and
-governance semantics.
+graph node, hosted service, custom backend, or another runtime adapter. The
+runtime must preserve the same input, output, privacy, and governance semantics.
 
 ## Inputs
 

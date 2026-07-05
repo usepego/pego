@@ -5,6 +5,10 @@ that either supports or works against an active strategy.
 
 Structured implementations should emit `pego/schemas/behavior-loop.schema.json`.
 
+## Date
+
+Date detected or updated.
+
 ## Loop
 
 Short name.
@@ -13,6 +17,23 @@ Short name.
 
 Health / Finance / Career / Venture / Home and Environment / Relationships /
 Exploration / Communications / Happiness / Operations.
+
+## Status
+
+Proposed / Active / Retired.
+
+## Confidence
+
+Provisional / Supported / Strong.
+
+## Occurrence Count
+
+How many source events support this loop record.
+
+## Source Events
+
+Outcome reviews, state signals, telemetry summaries, or other protected
+evidence used to detect the loop.
 
 ## Trigger
 

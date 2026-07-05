@@ -67,7 +67,7 @@ PEGO should drive toward long-range outcomes using the person's current location
 
 PEGO core should remain runtime-neutral agent infrastructure.
 
-The framework defines agent roles, constitutions, authority levels, directive schemas, governance checks, privacy rules, memory protocols, and operating loops. Runtimes such as LangGraph, Vercel AI SDK, custom services, mobile apps, Slack bots, local CLIs, or future agent platforms are adapters and surfaces.
+The framework defines agent roles, constitutions, authority levels, directive schemas, governance checks, privacy rules, memory protocols, and operating loops. Runtimes such as graph orchestrators, hosted interfaces, custom services, mobile apps, messaging surfaces, local CLIs, or future agent platforms are adapters and surfaces.
 
 PEGO may use Python, TypeScript, shell, or other tools for validation, CI, scaffolding, migration, privacy checks, reference adapters, and developer workflows. Those tools must not make the PEGO framework depend on one runtime, programming language, vendor, or user interface.
 

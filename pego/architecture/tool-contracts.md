@@ -24,9 +24,8 @@ Examples:
 - Document generation.
 - Trade execution, only under explicit authority and governance.
 
-The implementation may be Python, TypeScript, hosted API, MCP server,
-LangGraph node, EVE capability, Vercel AI SDK tool, mobile integration, local
-CLI, or another adapter.
+The implementation may be Python, TypeScript, a hosted API, a tool server, a
+graph node, a mobile integration, a local CLI, or another adapter.
 
 The conceptual contract should stay the same.
 

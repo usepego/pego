@@ -7,8 +7,13 @@
   "required": [
     "artifact_type",
     "schema_version",
+    "date",
     "loop",
     "domain",
+    "status",
+    "confidence",
+    "occurrence_count",
+    "source_events",
     "trigger",
     "routine",
     "reward_or_relief",
@@ -28,6 +33,10 @@
       "type": "integer",
       "minimum": 1
     },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
     "loop": {
       "type": "string",
       "minLength": 1
@@ -46,6 +55,31 @@
         "operations",
         "governance"
       ]
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "active",
+        "retired"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "provisional",
+        "supported",
+        "strong"
+      ]
+    },
+    "occurrence_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "trigger": {
       "type": "string",

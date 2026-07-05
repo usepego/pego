@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/goal-progress.schema.json",
+  "title": "PEGO Goal Progress",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "domain",
+    "owning_agent",
+    "goal",
+    "goal_id",
+    "source_signals",
+    "current_state_summary",
+    "leading_indicators",
+    "lagging_indicators",
+    "trajectory",
+    "confidence",
+    "progress_status",
+    "directive_attribution",
+    "next_measurement_need",
+    "governance_notes",
+    "review_after"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "goal_progress"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "domain": {
+      "$ref": "#/$defs/domain"
+    },
+    "owning_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_signals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "current_state_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "leading_indicators": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/indicator"
+      }
+    },
+    "lagging_indicators": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/indicator"
+      }
+    },
+    "trajectory": {
+      "enum": [
+        "improving",
+        "stable",
+        "worsening",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "progress_status": {
+      "enum": [
+        "on_track",
+        "at_risk",
+        "stalled",
+        "unknown"
+      ]
+    },
+    "directive_attribution": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_measurement_need": {
+      "type": "string"
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_after": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "domain": {
+      "enum": [
+        "finance",
+        "health",
+        "career",
+        "venture",
+        "home_environment",
+        "relationships",
+        "exploration",
+        "happiness",
+        "operations",
+        "governance",
+        "communications"
+      ]
+    },
+    "indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value",
+        "unit",
+        "indicator_type",
+        "source_signal",
+        "confidence",
+        "updated_at"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string"
+        },
+        "indicator_type": {
+          "enum": [
+            "leading",
+            "lagging"
+          ]
+        },
+        "source_signal": {
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "updated_at": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

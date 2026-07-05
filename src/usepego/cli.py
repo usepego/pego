@@ -82,6 +82,11 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("weekly", help="generate a protected weekly operating plan")
     subparsers.add_parser("monthly", help="generate a protected monthly strategy review")
     subparsers.add_parser("reconcile-goals", help="build a protected goal reconciliation model")
+    subparsers.add_parser("state-signal", help="record a protected current-state signal")
+    subparsers.add_parser("goal-progress", help="update a protected domain goal progress model")
+    subparsers.add_parser("behavior-loops", help="detect protected behavior loops and disruption candidates")
+    subparsers.add_parser("review-outcome", help="review a protected directive outcome")
+    subparsers.add_parser("scenario-benchmarks", help="run public-safe synthetic scenario benchmarks")
     subparsers.add_parser("finance-run", help="run protected finance scenarios")
     subparsers.add_parser("finance-review", help="review protected finance scenario output")
     subparsers.add_parser("health-candidates", help="generate protected health directive candidates")
@@ -143,6 +148,18 @@ def main(argv: list[str] | None = None) -> int:
         return run_script("ops/cycles/monthly_cycle.py", with_private_root(args, forwarded))
     if args.command == "reconcile-goals":
         return run_script("ops/goals/reconcile_goals.py", with_private_root(args, forwarded))
+    if args.command == "state-signal":
+        return run_script("ops/state/record_state_signal.py", with_private_root(args, forwarded))
+    if args.command == "goal-progress":
+        return run_script("ops/goals/update_goal_progress.py", with_private_root(args, forwarded))
+    if args.command == "behavior-loops":
+        return run_script("ops/loops/detect_behavior_loops.py", with_private_root(args, forwarded))
+    if args.command == "review-outcome":
+        return run_script("ops/review/review_outcome.py", with_private_root(args, forwarded))
+    if args.command == "scenario-benchmarks":
+        if args.private_root:
+            parser.error("scenario-benchmarks does not use --private-root")
+        return run_script("ops/evaluation/run_scenario_benchmarks.py", forwarded)
     if args.command == "finance-run":
         return run_script("ops/finance/run_scenarios.py", with_private_root(args, forwarded))
     if args.command == "finance-review":

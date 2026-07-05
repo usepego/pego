@@ -8,8 +8,8 @@ schemas that are safe to publish with the framework.
 
 The `tools` section lists capabilities agents may call. These are contracts,
 not implementations. A runtime may implement a listed tool through Python,
-TypeScript, MCP, EVE, LangGraph, Vercel AI SDK, a mobile integration, or another
-adapter while preserving the same authority and privacy rules.
+TypeScript, a tool server, graph node, mobile integration, hosted service, or
+another adapter while preserving the same authority and privacy rules.
 
 Private facts, goals, balances, health details, relationship context, and local
 directive outputs belong in the protected private instance under `private/`.

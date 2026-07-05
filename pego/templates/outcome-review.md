@@ -105,6 +105,33 @@ reconciliation, information requests, directive phrasing, or outcome capture?
 
 Facts and interpretation that explain the quality assessment.
 
+## Council Synthesis Review
+
+If the outcome came from a council decision, preserve whether Council selected,
+deferred, escalated, blocked, or requested information well.
+
+Minimum dimensions:
+
+- Selection quality.
+- Dissent handling.
+- Information timing.
+- Human burden.
+- Governance fit.
+
+## Agent Recommendation Reviews
+
+If source agent recommendations are available, preserve one review per relevant
+agent. Include fit assessment, friction prediction, information request
+quality, stress impact, evidence quality, dissent quality, review outcome, and
+future adjustment.
+
+## Agent Calibration Records
+
+If attribution is strong enough, generate bounded private calibration evidence
+using `pego/templates/agent-calibration-record.md`. One outcome may move an
+agent only slightly; durable weighting changes should require repeated evidence
+unless safety, privacy, authority, or protected-time risk appears.
+
 ## Next Review
 
 When this evidence should be reviewed again.

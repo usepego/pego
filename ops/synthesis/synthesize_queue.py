@@ -37,9 +37,32 @@ class Candidate:
 
 
 @dataclass(frozen=True)
+class ScoreDimension:
+    dimension: str
+    weight: int
+    score: int
+    weighted_score: int
+    rationale: str
+
+
+@dataclass(frozen=True)
+class Scorecard:
+    score_total: int
+    score_dimensions: tuple[ScoreDimension, ...]
+    selection_rationale: str
+    tie_breaker: str
+
+
+@dataclass(frozen=True)
+class ScoredCandidate:
+    candidate: Candidate
+    scorecard: Scorecard
+
+
+@dataclass(frozen=True)
 class QueueBuild:
-    active: list[Candidate]
-    deferred: list[tuple[Candidate, str]]
+    active: list[ScoredCandidate]
+    deferred: list[tuple[ScoredCandidate, str]]
     args: argparse.Namespace
 
 
@@ -283,6 +306,410 @@ def minutes_from_duration(duration: str) -> int:
     return min(numbers)
 
 
+SCORING_MODEL = "directive-scoring-v1"
+SCORE_WEIGHTS = {
+    "goal_contribution": 3,
+    "urgency": 3,
+    "consequence_of_deferral": 3,
+    "energy_fit": 1,
+    "reversibility": 2,
+    "downside_protection": 2,
+    "anxiety_reduction": 2,
+    "evidence_value": 2,
+    "environment_leverage": 1,
+}
+SCORE_DESCRIPTIONS = {
+    "goal_contribution": "Contribution to a stated domain goal, non-negotiable, or operating priority.",
+    "urgency": "Timing pressure from deadline, lead time, or current operating window.",
+    "consequence_of_deferral": "Expected downside if the candidate waits until a later synthesis.",
+    "energy_fit": "Fit between required energy and supplied or assumed current energy.",
+    "reversibility": "Preference for low-commitment, reversible actions.",
+    "downside_protection": "Protection against avoidable deterioration, friction, or future interruption.",
+    "anxiety_reduction": "Reduction of ambiguity, cognitive load, open loops, or future scrambling.",
+    "evidence_value": "Value of producing decision-grade information when evidence is weak.",
+    "environment_leverage": "Ability to reshape future behavior through context or setup.",
+}
+
+
+def scoring_model_dict() -> dict:
+    return {
+        "model": SCORING_MODEL,
+        "score_range": "0-3 per dimension before weighting",
+        "dimensions": [
+            {
+                "dimension": dimension,
+                "weight": weight,
+                "description": SCORE_DESCRIPTIONS[dimension],
+            }
+            for dimension, weight in SCORE_WEIGHTS.items()
+        ],
+        "selection_rule": (
+            "Score all candidates, defer governance-gated or over-window candidates, "
+            "rank active candidates by score_total descending, and resolve ties with "
+            "the safe tie-break order."
+        ),
+        "safe_tie_break_order": [
+            "lower authority",
+            "lower protected-time impact",
+            "lower required energy",
+            "shorter duration",
+            "information-gathering or environment-shaping work when evidence is weak",
+            "candidate name",
+        ],
+    }
+
+
+def contains_any(text: str, keywords: list[str]) -> bool:
+    return any(keyword in text for keyword in keywords)
+
+
+def candidate_text(candidate: Candidate) -> str:
+    return " ".join(
+        [
+            candidate.name,
+            candidate.domain,
+            candidate.deadline,
+            candidate.authority,
+            candidate.status,
+            candidate.benefit,
+            candidate.deferral,
+            candidate.target_behavior,
+            candidate.environment_design,
+            candidate.protected_time,
+        ]
+    ).lower()
+
+
+def authority_rank(value: str) -> int:
+    normalized = value.strip().lower().replace("-", " ")
+    for level in range(5):
+        if f"level {level}" in normalized:
+            return level
+    return 1
+
+
+def protected_time_rank(value: str) -> int:
+    normalized = value.strip().lower()
+    if "high" in normalized:
+        return 3
+    if "medium" in normalized:
+        return 2
+    if "low" in normalized:
+        return 1
+    return 0
+
+
+def energy_rank(value: str) -> int:
+    normalized = normalize_energy(value)
+    return {"low": 0, "medium": 1, "high": 2, "unknown": 1}.get(normalized, 1)
+
+
+def is_weak_evidence(candidate: Candidate) -> bool:
+    evidence_fields = [
+        candidate.benefit,
+        candidate.deferral,
+        candidate.target_behavior,
+        candidate.environment_design,
+    ]
+    return sum(1 for field in evidence_fields if field.strip()) < 2
+
+
+def is_information_or_environment_work(candidate: Candidate) -> bool:
+    text = candidate_text(candidate)
+    return contains_any(
+        text,
+        [
+            "ask",
+            "question",
+            "review",
+            "map",
+            "list",
+            "quote",
+            "scan",
+            "draft",
+            "prepare",
+            "clarify",
+            "scope",
+            "environment",
+            "setup",
+            "default",
+            "route",
+            "context",
+        ],
+    )
+
+
+def clamp_score(score: int) -> int:
+    return max(0, min(3, score))
+
+
+def make_dimension(dimension: str, score: int, rationale: str) -> ScoreDimension:
+    normalized = clamp_score(score)
+    weight = SCORE_WEIGHTS[dimension]
+    return ScoreDimension(
+        dimension=dimension,
+        weight=weight,
+        score=normalized,
+        weighted_score=normalized * weight,
+        rationale=rationale,
+    )
+
+
+def score_goal_contribution(candidate: Candidate) -> ScoreDimension:
+    text = candidate_text(candidate)
+    if contains_any(text, ["health", "safety", "privacy", "income", "relationship"]):
+        return make_dimension("goal_contribution", 3, "Protects a high-priority operating domain.")
+    if contains_any(
+        text,
+        [
+            "strategic",
+            "strategy",
+            "stabilize",
+            "preserve",
+            "clarify",
+            "maintenance",
+            "venture",
+            "career",
+            "finance",
+            "home",
+            "goal",
+        ],
+    ):
+        return make_dimension("goal_contribution", 2, "Advances a named domain or strategy.")
+    if candidate.benefit.strip() or candidate.target_behavior.strip():
+        return make_dimension("goal_contribution", 2, "Has an explicit benefit or behavior target.")
+    return make_dimension("goal_contribution", 1, "Goal contribution is present but weakly evidenced.")
+
+
+def score_urgency(candidate: Candidate) -> ScoreDimension:
+    text = f"{candidate.deadline} {candidate.deferral}".lower()
+    if contains_any(
+        text,
+        ["now", "today", "morning", "before", "evening", "urgent", "scrambling", "friction"],
+    ):
+        return make_dimension("urgency", 3, "Timing or deferral language indicates same-window pressure.")
+    if contains_any(text, ["this week", "week", "this month", "month", "days", "lead time"]):
+        return make_dimension("urgency", 2, "Timing has near-term pressure but not immediate pressure.")
+    if candidate.deadline.strip() and candidate.deadline.strip().lower() not in {"unknown", "tbd"}:
+        return make_dimension("urgency", 1, "Timing exists but is not strongly urgent.")
+    return make_dimension("urgency", 0, "No usable urgency signal.")
+
+
+def score_consequence_of_deferral(candidate: Candidate) -> ScoreDimension:
+    consequence = candidate.deferral.lower()
+    if contains_any(
+        consequence,
+        [
+            "visible",
+            "friction",
+            "deteriorat",
+            "scrambling",
+            "delay",
+            "cost",
+            "risk",
+            "unsafe",
+            "miss",
+        ],
+    ):
+        return make_dimension("consequence_of_deferral", 3, "Deferral predicts concrete deterioration or cost.")
+    if consequence.strip():
+        return make_dimension("consequence_of_deferral", 2, "Deferral has a stated downside.")
+    return make_dimension("consequence_of_deferral", 0, "No consequence of deferral supplied.")
+
+
+def score_energy_fit(candidate: Candidate, args: argparse.Namespace) -> ScoreDimension:
+    required = normalize_energy(candidate.energy)
+    current = normalize_energy(getattr(args, "energy", "") or "")
+    if current == "unknown":
+        score = {"low": 3, "medium": 2, "high": 1, "unknown": 1}.get(required, 1)
+        return make_dimension("energy_fit", score, f"Required energy is {required}; current energy is unknown.")
+    if required == "unknown":
+        return make_dimension("energy_fit", 1, "Required energy is unknown.")
+    if energy_rank(candidate.energy) <= energy_rank(current):
+        return make_dimension("energy_fit", 3, f"Required energy {required} fits current energy {current}.")
+    if energy_rank(candidate.energy) == energy_rank(current) + 1:
+        return make_dimension("energy_fit", 1, f"Required energy {required} may exceed current energy {current}.")
+    return make_dimension("energy_fit", 0, f"Required energy {required} exceeds current energy {current}.")
+
+
+def score_reversibility(candidate: Candidate) -> ScoreDimension:
+    text = candidate_text(candidate)
+    if risk_flags(candidate):
+        return make_dimension("reversibility", 0, "Governance or authority flags make the action non-routine.")
+    if contains_any(
+        text,
+        ["quit", "purchase", "buy", "hire", "fire", "sign", "submit", "send", "publish", "relocation"],
+    ):
+        return make_dimension("reversibility", 1, "Action language may create commitment or external impact.")
+    if contains_any(text, ["quote", "review", "map", "list", "ask", "scan", "draft", "prepare", "walk"]):
+        return make_dimension("reversibility", 3, "Action is information-gathering, preparatory, or easy to stop.")
+    return make_dimension("reversibility", 2, "Action appears bounded and reversible.")
+
+
+def score_downside_protection(candidate: Candidate) -> ScoreDimension:
+    text = candidate_text(candidate)
+    if risk_flags(candidate):
+        return make_dimension("downside_protection", 1, "Potential downside is governed by deferral rather than rank.")
+    if contains_any(
+        text,
+        [
+            "preserve",
+            "protect",
+            "stabilize",
+            "clarify",
+            "reduce",
+            "friction",
+            "guardrail",
+            "maintenance",
+            "repair",
+            "hunger",
+            "baseline",
+            "serenity",
+            "prevent",
+        ],
+    ):
+        return make_dimension("downside_protection", 3, "Candidate prevents avoidable friction or deterioration.")
+    if candidate.benefit.strip() or candidate.deferral.strip():
+        return make_dimension("downside_protection", 2, "Candidate has a stated protective benefit or downside.")
+    return make_dimension("downside_protection", 1, "Downside protection is weakly evidenced.")
+
+
+def score_anxiety_reduction(candidate: Candidate) -> ScoreDimension:
+    text = candidate_text(candidate)
+    if risk_flags(candidate):
+        return make_dimension(
+            "anxiety_reduction",
+            1,
+            "Potential anxiety reduction is gated by unresolved governance or authority risk.",
+        )
+    if contains_any(
+        text,
+        [
+            "anxiety",
+            "stress",
+            "worry",
+            "overwhelm",
+            "scrambling",
+            "clarify",
+            "scope",
+            "quote",
+            "decision",
+            "uncertain",
+            "ambiguous",
+            "friction",
+            "visible",
+            "open loop",
+        ],
+    ):
+        return make_dimension(
+            "anxiety_reduction",
+            3,
+            "Candidate reduces ambiguity, future scrambling, or a visible open loop.",
+        )
+    if is_information_or_environment_work(candidate):
+        return make_dimension(
+            "anxiety_reduction",
+            2,
+            "Information or environment work can lower cognitive load before the next decision.",
+        )
+    if candidate.deferral.strip():
+        return make_dimension(
+            "anxiety_reduction",
+            2,
+            "Deferral has a stated downside that this candidate may reduce.",
+        )
+    return make_dimension("anxiety_reduction", 1, "Anxiety reduction is weakly evidenced.")
+
+
+def score_evidence_value(candidate: Candidate) -> ScoreDimension:
+    if is_information_or_environment_work(candidate):
+        return make_dimension("evidence_value", 3, "Candidate can create decision-grade information or setup.")
+    if candidate.target_behavior.strip() and candidate.environment_design.strip():
+        return make_dimension("evidence_value", 2, "Behavior and environment assumptions are explicit.")
+    if candidate.benefit.strip() or candidate.deferral.strip():
+        return make_dimension("evidence_value", 2, "Candidate has enough stated evidence for comparison.")
+    return make_dimension("evidence_value", 1, "Evidence is weak; safe tie-breaks should prefer smaller reversible work.")
+
+
+def score_environment_leverage(candidate: Candidate) -> ScoreDimension:
+    text = candidate_text(candidate)
+    if candidate.environment_design.strip():
+        return make_dimension("environment_leverage", 3, "Environment design is explicit.")
+    if contains_any(text, ["outside", "home", "errand", "phone", "computer", "default", "route", "setup"]):
+        return make_dimension("environment_leverage", 2, "Candidate uses a concrete context or default.")
+    return make_dimension("environment_leverage", 1, "Environment leverage is weakly specified.")
+
+
+def safe_tie_break_key(candidate: Candidate) -> tuple:
+    weak_evidence_safety = 0
+    if is_weak_evidence(candidate) and not is_information_or_environment_work(candidate):
+        weak_evidence_safety = 1
+    return (
+        authority_rank(candidate.authority),
+        protected_time_rank(candidate.protected_time),
+        energy_rank(candidate.energy),
+        minutes_from_duration(candidate.duration),
+        weak_evidence_safety,
+        candidate.name.lower(),
+    )
+
+
+def build_scorecard(candidate: Candidate, args: argparse.Namespace) -> Scorecard:
+    dimensions = (
+        score_goal_contribution(candidate),
+        score_urgency(candidate),
+        score_consequence_of_deferral(candidate),
+        score_energy_fit(candidate, args),
+        score_reversibility(candidate),
+        score_downside_protection(candidate),
+        score_anxiety_reduction(candidate),
+        score_evidence_value(candidate),
+        score_environment_leverage(candidate),
+    )
+    total = sum(dimension.weighted_score for dimension in dimensions)
+    strongest = sorted(
+        dimensions,
+        key=lambda dimension: (dimension.weighted_score, dimension.weight),
+        reverse=True,
+    )[:2]
+    strongest_text = ", ".join(dimension.dimension.replace("_", " ") for dimension in strongest)
+    tie_breaker = (
+        "Safe tie-break prefers lower authority/protected-time impact, lower energy, "
+        "shorter duration, then information or environment-shaping work when evidence is weak."
+    )
+    evidence_note = " Evidence is weak." if is_weak_evidence(candidate) else ""
+    return Scorecard(
+        score_total=total,
+        score_dimensions=dimensions,
+        selection_rationale=(
+            f"Score {total}; strongest dimensions: {strongest_text}.{evidence_note} {tie_breaker}"
+        ).strip(),
+        tie_breaker=tie_breaker,
+    )
+
+
+def scorecard_to_dict(scorecard: Scorecard) -> dict:
+    return {
+        "score_total": scorecard.score_total,
+        "score_dimensions": [
+            {
+                "dimension": dimension.dimension,
+                "weight": dimension.weight,
+                "score": dimension.score,
+                "weighted_score": dimension.weighted_score,
+                "rationale": dimension.rationale,
+            }
+            for dimension in scorecard.score_dimensions
+        ],
+        "selection_rationale": scorecard.selection_rationale,
+        "tie_breaker": scorecard.tie_breaker,
+    }
+
+
+def scored_candidate_sort_key(scored: ScoredCandidate) -> tuple:
+    return (-scored.scorecard.score_total, *safe_tie_break_key(scored.candidate))
+
+
 def risk_flags(candidate: Candidate) -> list[str]:
     flags: list[str] = []
     text = " ".join(
@@ -294,9 +721,24 @@ def risk_flags(candidate: Candidate) -> list[str]:
             candidate.protected_time,
         ]
     ).lower()
-    if "level 2" in text or "level 3" in text or "level 4" in text:
+    normalized = text.replace("_", " ").replace("-", " ")
+    if "level 2" in normalized or "level 3" in normalized or "level 4" in normalized:
         flags.append("authority")
-    if "escalat" in text or "blocked" in text:
+    if any(
+        marker in normalized
+        for marker in [
+            "escalat",
+            "blocked",
+            "needs review",
+            "needs light review",
+            "needs standard review",
+            "needs formal review",
+            "formal review",
+            "review required",
+            "requires review",
+            "pending review",
+        ]
+    ):
         flags.append("governance")
     if "medium" in candidate.protected_time.lower() or "high" in candidate.protected_time.lower():
         flags.append("protected time")
@@ -305,26 +747,10 @@ def risk_flags(candidate: Candidate) -> list[str]:
     return flags
 
 
-def candidate_score(candidate: Candidate) -> tuple[int, int, int]:
-    flags = risk_flags(candidate)
-    if flags:
-        return (9, minutes_from_duration(candidate.duration), len(flags))
-    domain_order = {
-        "Health": 0,
-        "Relationships": 1,
-        "Home and Environment": 2,
-        "Home": 2,
-        "Venture": 3,
-        "Career": 4,
-        "Finance": 5,
-        "Communications": 6,
-        "Operations": 7,
-        "Exploration": 8,
-        "Happiness": 9,
-    }
-    consequence = candidate.deferral.lower()
-    urgency = 0 if any(word in consequence for word in ["urgent", "scrambling", "delay", "friction"]) else 1
-    return (urgency, domain_order.get(candidate.domain, 6), minutes_from_duration(candidate.duration))
+def candidate_score(candidate: Candidate) -> tuple:
+    """Compatibility sort key for callers that compare raw candidates."""
+    args = argparse.Namespace(energy=None)
+    return scored_candidate_sort_key(ScoredCandidate(candidate, build_scorecard(candidate, args)))
 
 
 def is_active(candidate: Candidate, available_minutes: int | None) -> bool:
@@ -339,18 +765,23 @@ def build_queue(
     candidates: list[Candidate],
     args: argparse.Namespace,
 ) -> QueueBuild:
-    active: list[Candidate] = []
-    deferred: list[tuple[Candidate, str]] = []
+    active: list[ScoredCandidate] = []
+    deferred: list[tuple[ScoredCandidate, str]] = []
+    scored_candidates = [
+        ScoredCandidate(candidate=candidate, scorecard=build_scorecard(candidate, args))
+        for candidate in candidates
+    ]
 
-    for candidate in sorted(candidates, key=candidate_score):
+    for scored in sorted(scored_candidates, key=scored_candidate_sort_key):
+        candidate = scored.candidate
         flags = risk_flags(candidate)
         if flags:
-            deferred.append((candidate, "Needs governance review: " + ", ".join(flags)))
+            deferred.append((scored, "Needs governance review: " + ", ".join(flags)))
             continue
         if args.available is not None and minutes_from_duration(candidate.duration) > args.available:
-            deferred.append((candidate, f"Does not fit available window of {args.available} minutes"))
+            deferred.append((scored, f"Does not fit available window of {args.available} minutes"))
             continue
-        active.append(candidate)
+        active.append(scored)
 
     return QueueBuild(active=active, deferred=deferred, args=args)
 
@@ -358,21 +789,43 @@ def build_queue(
 def build_markdown_queue(queue: QueueBuild) -> str:
     args = queue.args
     active_rows = []
-    for rank, candidate in enumerate(queue.active, start=1):
+    for rank, scored in enumerate(queue.active, start=1):
+        candidate = scored.candidate
         active_rows.append(
-            f"| {rank} | {candidate.name} | {candidate.domain} | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | {candidate.authority} | Ready |"
+            f"| {rank} | {candidate.name} | {candidate.domain} | {candidate.duration} | {candidate.energy} | {candidate.location} | {candidate.deadline} | {candidate.authority} | Ready | {scored.scorecard.score_total} |"
         )
     if not active_rows:
-        active_rows.append("| 1 | Answer targeted operating question | Operations | 5 min | Low | Home | Now | Level 1 | Ready |")
+        active_rows.append("| 1 | Answer targeted operating question | Operations | 5 min | Low | Home | Now | Level 1 | Ready | 0 |")
 
     deferred_rows = [
-        f"| {candidate.name} | {reason} | Next synthesis |" for candidate, reason in queue.deferred
+        f"| {scored.candidate.name} | {reason} | Next synthesis |"
+        for scored, reason in queue.deferred
     ]
     if not deferred_rows:
         deferred_rows.append("| None | No deferred candidates | Next synthesis |")
 
+    scoring_model_rows = [
+        f"| {dimension.replace('_', ' ')} | {weight} | {SCORE_DESCRIPTIONS[dimension]} |"
+        for dimension, weight in SCORE_WEIGHTS.items()
+    ]
+
+    scorecard_rows = []
+    for scope, items in (
+        ("Active", [(scored, "") for scored in queue.active]),
+        ("Deferred", queue.deferred),
+    ):
+        for scored, deferral_reason in items:
+            candidate = scored.candidate
+            reason = deferral_reason or "None"
+            scorecard_rows.append(
+                f"| {scope} | {candidate.name} | {scored.scorecard.score_total} | {scored.scorecard.selection_rationale} | {reason} |"
+            )
+    if not scorecard_rows:
+        scorecard_rows.append("| Fallback | Answer targeted operating question | 0 | No active candidate fit the queue constraints. | Ask one targeted operating question. |")
+
     strategy_rows = []
-    for rank, candidate in enumerate(queue.active, start=1):
+    for rank, scored in enumerate(queue.active, start=1):
+        candidate = scored.candidate
         target = candidate.target_behavior or "Not specified."
         environment = candidate.environment_design or "Not specified."
         strategy_rows.append(f"| {rank} | {candidate.name} | {target} | {environment} |")
@@ -416,9 +869,25 @@ def build_markdown_queue(queue: QueueBuild) -> str:
             "",
             "## Active Candidates",
             "",
-            "| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status | Score |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
             *active_rows,
+            "",
+            "## Scoring Model",
+            "",
+            f"Model: `{SCORING_MODEL}`. Score range is 0-3 per dimension before weighting. Governance deferral remains a hard gate before selection.",
+            "",
+            "| Dimension | Weight | Description |",
+            "| --- | --- | --- |",
+            *scoring_model_rows,
+            "",
+            "Safe tie-break order: lower authority, lower protected-time impact, lower required energy, shorter duration, then information-gathering or environment-shaping work when evidence is weak.",
+            "",
+            "## Scorecards",
+            "",
+            "| Scope | Candidate | Score | Selection Rationale | Deferral Reason |",
+            "| --- | --- | --- | --- | --- |",
+            *scorecard_rows,
             "",
             "## Behavioral Strategy",
             "",
@@ -476,6 +945,34 @@ def normalize_authority(value: str) -> str:
     return "level_1_recommend"
 
 
+def normalize_governance_status(value: str) -> str:
+    normalized = value.strip().lower()
+    if "blocked" in normalized:
+        return "blocked"
+    if "reject" in normalized:
+        return "rejected"
+    if "formal" in normalized or "escalat" in normalized or "level 4" in normalized:
+        return "needs_formal_review"
+    if "standard" in normalized or "needs review" in normalized:
+        return "needs_standard_review"
+    if "light" in normalized:
+        return "needs_light_review"
+    if "ready" in normalized or "reviewed" in normalized or "conditional" in normalized:
+        return "ready"
+    return "draft"
+
+
+def deferred_governance_status(candidate: Candidate, reason: str) -> str:
+    normalized_reason = reason.lower()
+    if "blocked" in normalized_reason or "blocked" in candidate.status.lower():
+        return "blocked"
+    if any(flag in normalized_reason for flag in ["authority", "governance", "high impact"]):
+        return "needs_formal_review"
+    if "protected time" in normalized_reason:
+        return "needs_standard_review"
+    return normalize_governance_status(candidate.status)
+
+
 def split_arg_list(value: str | None) -> list[str]:
     if not value:
         return []
@@ -488,14 +985,17 @@ def build_json_queue(queue: QueueBuild) -> dict:
     deferred = queue.deferred
     if active:
         selected = active[0]
+        candidate = selected.candidate
         next_directive = {
             "candidate_id": "candidate-1",
-            "directive": selected.name,
-            "selection_rationale": "Selected as the highest-ranked active candidate that fits supplied constraints.",
-            "authority_level": normalize_authority(selected.authority),
+            "directive": candidate.name,
+            "selection_rationale": selected.scorecard.selection_rationale,
+            "authority_level": normalize_authority(candidate.authority),
             "governance_status": "ready",
-            "target_behavior": selected.target_behavior,
-            "environment_design": selected.environment_design,
+            "target_behavior": candidate.target_behavior,
+            "environment_design": candidate.environment_design,
+            "score_total": selected.scorecard.score_total,
+            "scorecard": scorecard_to_dict(selected.scorecard),
         }
     else:
         next_directive = {
@@ -506,6 +1006,13 @@ def build_json_queue(queue: QueueBuild) -> dict:
             "governance_status": "ready",
             "target_behavior": "Create the missing condition for PEGO to select a directive.",
             "environment_design": "Ask one targeted operational question instead of issuing a broad reflection prompt.",
+            "score_total": 0,
+            "scorecard": {
+                "score_total": 0,
+                "score_dimensions": [],
+                "selection_rationale": "No active candidate fit the current queue constraints.",
+                "tie_breaker": "Fallback asks one targeted question instead of expanding scope.",
+            },
         }
 
     return {
@@ -513,6 +1020,7 @@ def build_json_queue(queue: QueueBuild) -> dict:
         "schema_version": 1,
         "session": args.date,
         "operating_frame": args.frame,
+        "scoring_model": scoring_model_dict(),
         "protected_time": [
             {
                 "label": "Protected time",
@@ -535,29 +1043,38 @@ def build_json_queue(queue: QueueBuild) -> dict:
             {
                 "rank": rank,
                 "candidate_id": f"candidate-{rank}",
-                "candidate": candidate.name,
-                "domain": candidate.domain,
-                "duration": candidate.duration,
-                "energy": normalize_energy(candidate.energy),
-                "location": candidate.location,
-                "deadline": candidate.deadline,
-                "authority_level": normalize_authority(candidate.authority),
+                "candidate": scored.candidate.name,
+                "domain": scored.candidate.domain,
+                "duration": scored.candidate.duration,
+                "energy": normalize_energy(scored.candidate.energy),
+                "location": scored.candidate.location,
+                "deadline": scored.candidate.deadline,
+                "authority_level": normalize_authority(scored.candidate.authority),
                 "governance_status": "ready",
-                "target_behavior": candidate.target_behavior,
-                "environment_design": candidate.environment_design,
-                "source": candidate.source,
+                "target_behavior": scored.candidate.target_behavior,
+                "environment_design": scored.candidate.environment_design,
+                "source": scored.candidate.source,
+                "score_total": scored.scorecard.score_total,
+                "scorecard": scorecard_to_dict(scored.scorecard),
+                "selection_rationale": scored.scorecard.selection_rationale,
             }
-            for rank, candidate in enumerate(active, start=1)
+            for rank, scored in enumerate(active, start=1)
         ],
         "deferred": [
             {
                 "candidate_id": f"deferred-{index}",
-                "candidate": candidate.name,
+                "candidate": scored.candidate.name,
                 "reason_deferred": reason,
+                "deferral_reason": reason,
                 "next_review": "Next synthesis",
-                "consequence_of_deferral": candidate.deferral,
+                "consequence_of_deferral": scored.candidate.deferral,
+                "authority_level": normalize_authority(scored.candidate.authority),
+                "governance_status": deferred_governance_status(scored.candidate, reason),
+                "score_total": scored.scorecard.score_total,
+                "scorecard": scorecard_to_dict(scored.scorecard),
+                "selection_rationale": scored.scorecard.selection_rationale,
             }
-            for index, (candidate, reason) in enumerate(deferred, start=1)
+            for index, (scored, reason) in enumerate(deferred, start=1)
         ],
         "blocked": [],
         "next_directive": next_directive,

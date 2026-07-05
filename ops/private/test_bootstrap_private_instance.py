@@ -36,6 +36,8 @@ def main() -> None:
             "active-operating-brief.md",
             "constitution/constitution.md",
             "operator/operating-register.md",
+            "agents/calibration/README.md",
+            "behavior-loops/README.md",
             "_local/finance",
         ]:
             if not (private_root / relative).exists():

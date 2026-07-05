@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/scenario-benchmark.schema.json",
+  "title": "PEGO Scenario Benchmark",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "benchmark_suite",
+    "summary",
+    "scenarios",
+    "public_safe",
+    "public_export_review",
+    "failure_modes"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "scenario_benchmark"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "benchmark_suite": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_count",
+        "pego_wins",
+        "baseline_wins",
+        "ties"
+      ],
+      "properties": {
+        "scenario_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pego_wins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "baseline_wins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ties": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scenario_result"
+      }
+    },
+    "public_safe": {
+      "type": "boolean"
+    },
+    "public_export_review": {
+      "$ref": "#/$defs/public_export_review"
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/failure_mode"
+      }
+    }
+  },
+  "$defs": {
+    "scenario_result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "scenario_input",
+        "baseline_outputs",
+        "pego_output",
+        "scoring_criteria",
+        "result",
+        "failure_modes",
+        "public_safe",
+        "public_export_review"
+      ],
+      "properties": {
+        "scenario_input": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "baseline_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "pego_output": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "scoring_criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/criterion_result"
+          }
+        },
+        "result": {
+          "$ref": "#/$defs/result"
+        },
+        "failure_modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/failure_mode"
+          }
+        },
+        "public_safe": {
+          "type": "boolean"
+        },
+        "public_export_review": {
+          "$ref": "#/$defs/public_export_review"
+        }
+      }
+    },
+    "criterion_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion",
+        "weight",
+        "description",
+        "pego_score",
+        "baseline_scores",
+        "rationale"
+      ],
+      "properties": {
+        "criterion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string"
+        },
+        "pego_score": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "baseline_scores": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "winner",
+        "pego_score_total",
+        "best_baseline_score_total",
+        "comparison_summary"
+      ],
+      "properties": {
+        "winner": {
+          "enum": [
+            "pego",
+            "baseline",
+            "tie"
+          ]
+        },
+        "pego_score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "best_baseline_score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "comparison_summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "failure_mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system",
+        "failure_mode",
+        "severity",
+        "preserved"
+      ],
+      "properties": {
+        "system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "failure_mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "preserved": {
+          "type": "boolean"
+        }
+      }
+    },
+    "public_export_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "checked_marker_count",
+        "matches",
+        "notes"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "checked_marker_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

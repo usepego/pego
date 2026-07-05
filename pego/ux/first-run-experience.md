@@ -160,7 +160,7 @@ Future product surfaces may include:
 - Mobile app for next directive and outcome capture.
 - Watch for brief directive prompts, timers, and completion.
 - Calendar integration for anticipation.
-- Slack or SMS for command-response interaction.
+- Messaging for command-response interaction.
 - Email for weekly review packets.
 
 The primary UX should be PEGO-initiated directive delivery, not a passive chat

@@ -175,6 +175,35 @@ The Operations Agent should:
 10. Preserve lead-time candidates when a small early action prevents a larger future interruption.
 11. Prefer environmental setup over repeated exhortation when a person has already failed to act on a rational instruction.
 
+## Directive Scoring Model v1
+
+The reference queue synthesizer scores every directive candidate before final
+queue placement. Scoring explains ranking; it does not grant authority.
+Governance deferral remains a hard gate: candidates with higher authority,
+unresolved governance status, meaningful protected-time impact, or high-impact
+action language must be deferred or escalated even when their score is high.
+
+Score each dimension from 0 to 3, then multiply by weight:
+
+| Dimension | Weight | Meaning |
+| --- | --- | --- |
+| Goal contribution | 3 | Contribution to a stated domain goal, non-negotiable, or operating priority. |
+| Urgency | 3 | Timing pressure from deadline, lead time, or current operating window. |
+| Consequence of deferral | 3 | Expected downside if the candidate waits until a later synthesis. |
+| Energy fit | 1 | Fit between required energy and supplied or assumed current energy. |
+| Reversibility | 2 | Preference for low-commitment, reversible actions. |
+| Downside protection | 2 | Protection against avoidable deterioration, friction, or future interruption. |
+| Anxiety reduction | 2 | Reduction of ambiguity, cognitive load, open loops, or future scrambling. |
+| Evidence value | 2 | Value of producing decision-grade information when evidence is weak. |
+| Environment leverage | 1 | Ability to reshape future behavior through context or setup. |
+
+Active candidates rank by `score_total` descending after governance and time
+window gates are applied. If candidates tie, or evidence is weak, prefer lower
+authority, lower protected-time impact, lower required energy, shorter duration,
+then information-gathering or environment-shaping work. Use this tie-break to
+select a smaller reversible directive instead of over-committing from thin
+evidence.
+
 ## Prioritization Heuristic
 
 Use this order unless the constitution or governance review says otherwise:
@@ -237,6 +266,20 @@ intercept the trigger and alter the routine:
 - Review whether the replacement frame worked after the next exposure.
 
 Use `pego/templates/behavior-loop.md` for durable loop records.
+
+For local operation, repeated outcome reviews or state signals can be converted
+into protected behavior-loop records and disruption candidates with:
+
+```sh
+python3 ops/loops/detect_behavior_loops.py \
+  --outcome-review private/reviews/outcomes/review-a.json \
+  --outcome-review private/reviews/outcomes/review-b.json
+```
+
+One matching event creates a provisional loop. Two or more matching events
+create an active loop and emit a low-authority disruption directive candidate
+by default. The disruption should change trigger, environment, timing, route,
+default, or replacement frame before the old routine starts.
 
 ## Scheduling Conflicts
 

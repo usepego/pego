@@ -6,17 +6,57 @@ Personal Executive Governance OS.
 
 [Product page](https://usepego.com)
 
-PEGO is an experiment in turning personal decision-making over to a governed
-council of AI agents.
+PEGO is behavioral augmentation through AI governance.
+
+You are already governed by hunger, fatigue, anxiety, defaults, calendar
+pressure, social context, screens, environment, and whatever is loudest now.
+PEGO makes that steering explicit, constitutional, reviewable, and aimed at
+the life you say you want.
 
 The system is built around a specific handoff: the human defines the
 constitution, goals, constraints, private context, authority boundaries, and
 objections. PEGO makes the next decision within those boundaries, issues one
 directive, and learns from what happened after the human tried it.
 
-This is not an assistant waiting for delegated tasks. PEGO is intended to
-govern the next call before the human has to arbitrate every tradeoff from
-scratch.
+This is not an assistant waiting for delegated tasks. PEGO is deliberately
+interventionist: it shapes conditions, defaults, timing, friction, attention,
+and escalation so the next action serves stated goals instead of the nearest
+impulse.
+
+The difference between manipulation and governance is authority. PEGO acts
+inside boundaries the human defines: constitution, privacy, reversibility,
+dissent, stop conditions, and review.
+
+## Measurable Governance Loop
+
+PEGO turns current state, goals, constraints, and outcome evidence into one
+governed directive, then reviews what happened so future decisions improve.
+
+```text
+state evidence
+  -> goal progress
+  -> agent recommendations
+  -> council decision
+  -> directive scorecard
+  -> next directive
+  -> outcome review
+  -> agent calibration
+  -> behavior-loop detection
+  -> strategy review
+```
+
+The loop matters because PEGO is not neutral advice. It is governed behavioral
+infrastructure. Decisions should be inspectable, attributable, revisable, and
+bounded by authority.
+
+Public PEGO should make these governance surfaces legible:
+
+- what evidence shaped the decision
+- which goals and constraints mattered
+- what agents argued and what dissent survived
+- why one directive was selected and what was deferred
+- what happened after the directive
+- what should change before the next decision
 
 ## What This Repository Contains
 
@@ -28,6 +68,7 @@ defines:
 - governance, authority levels, privacy rules, and compliance review
 - directive, outcome, memory, and decision packet templates
 - JSON schemas for runtime-neutral artifacts
+- public positioning for measurable governance-loop concepts
 - private-instance boundaries
 - local `pegoctl` tooling for early operation and verification
 
@@ -35,10 +76,10 @@ The product idea is larger than this local adapter. The repository exists so a
 human or LLM runtime can inspect the framework, operate a protected private
 instance, and eventually implement PEGO through other runtimes.
 
-## Core Loop
+## Operating Loop
 
 PEGO converts current life context into one bounded directive, then reviews
-whether the decision was good.
+whether the decision was good enough to trust, revise, repeat, or downgrade.
 
 ```text
 constitution + goals + private state + current context
@@ -179,8 +220,7 @@ python3 pegoctl bootstrap
 python3 pegoctl guide
 ```
 
-Then open the repository in Codex or another capable LLM agent environment and
-say:
+Then open the repository in a capable LLM agent environment and say:
 
 ```text
 Start PEGO.
@@ -258,12 +298,11 @@ validating, and reviewing portable PEGO artifacts.
 
 Future adapters may use:
 
-- Codex or another agent workspace
-- MCP servers
-- LangGraph
-- Vercel AI SDK / web and mobile interfaces
-- Slack, email, calendar, watch, or ambient interfaces
-- a custom runtime if PEGO-specific governance concepts require it
+- local or hosted agent workspaces
+- tool-capability servers
+- web and mobile interfaces
+- messaging, email, calendar, watch, or ambient interfaces
+- a custom governed runtime if PEGO-specific concepts require it
 
 Any adapter should preserve the same lifecycle:
 
@@ -333,14 +372,14 @@ private/README.md
 
 ## Current Status
 
-PEGO is early and experimental.
+PEGO is an early but operating framework.
 
-The current focus is making the loop real:
+The current focus is making private-instance operation real:
 
 ```text
 onboarding -> domain baselines -> goal reconciliation -> agent recommendations
   -> council synthesis -> directive -> outcome -> decision-quality review
 ```
 
-The public site explains the idea. This repository is where the framework,
-contracts, and reference implementation live.
+The public site explains the product idea. This repository is where the
+framework, contracts, and reference implementation live.

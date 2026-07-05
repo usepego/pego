@@ -97,6 +97,35 @@ Structured runtimes should preserve reviews using:
 pego/schemas/agent-recommendation-review.schema.json
 ```
 
+## Agent Calibration Records
+
+Agent recommendation reviews may produce bounded private calibration records.
+These records are not personality judgments. They are operating evidence about
+when a specialist's future recommendation should be weighted higher, kept the
+same, downgraded, quarantined, or escalated.
+
+Calibration should track:
+
+- Recommendation usefulness.
+- Friction prediction accuracy.
+- Evidence quality and overconfidence.
+- Stress impact.
+- Missed risks.
+- Cautions for future council weighting.
+- One compact council-readable summary.
+
+Use `pego/templates/agent-calibration-record.md`.
+
+Structured runtimes should preserve records using:
+
+```text
+pego/schemas/agent-calibration-record.schema.json
+```
+
+A single routine outcome should normally move calibration only slightly. Larger
+or immediate changes require safety, privacy, authority, protected-time, or
+stakeholder risk.
+
 ## Council Synthesis Review
 
 Review council decisions separately from individual agent quality.
@@ -188,6 +217,7 @@ The quality loop may produce:
 - Context update candidates.
 - Operating-register updates.
 - Agent assumption changes.
+- Agent calibration records.
 - Council weighting notes.
 - Better intake questions.
 - Stop conditions.

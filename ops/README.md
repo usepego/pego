@@ -6,8 +6,8 @@ operating machinery for PEGO.
 These tools are local runtime adapters. They are not the PEGO architecture
 itself. PEGO should remain defined by agent contracts, governance contracts,
 directive schemas, privacy boundaries, and operating protocols that can later
-run through LangGraph, Vercel AI SDK, a custom service, a mobile app, a Slack
-bot, a local CLI, or another runtime.
+run through a graph orchestrator, hosted interface, custom service, mobile app,
+messaging surface, local CLI, or another runtime.
 
 Python is welcome here as engineering infrastructure: tests, CI checks,
 repository validation, scaffolding, privacy scans, migrations, and local
@@ -22,6 +22,7 @@ Useful tools:
 - `private_root.py`: resolve the protected private-instance root from defaults, explicit paths, or `PEGO_PRIVATE_ROOT`.
 - `pego_registry.py`: inspect the public PEGO system registry without reading private data.
 - `pego_doctor.py`: verify repository hygiene and required framework files.
+- `release/public_release_plan.py`: deterministically plan, check, and apply public release files from an allowlisted source diff.
 - `private/bootstrap_private_instance.py`: create a protected private instance skeleton.
 - `private/test_bootstrap_private_instance.py`: verify bootstrap against an explicit external private root.
 - `private/check_storage.py`: verify protected private storage and backup readiness without printing private contents.

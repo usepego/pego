@@ -4,14 +4,17 @@ Runtime-neutral JSON Schema contracts for PEGO artifacts.
 
 These schemas define the shape future runtimes should preserve when moving from
 markdown templates to structured data. They are not a runtime choice. A
-LangGraph adapter, Vercel interface, custom service, mobile app, Slack bot, CLI,
-or local script should all be able to produce and consume these contracts.
+graph orchestrator, hosted interface, custom service, mobile app, messaging
+surface, CLI, or local script should all be able to produce and consume these
+contracts.
 
 ## Core Artifacts
 
 - `agent-recommendation.schema.json`: structured output from a domain agent.
 - `agent-recommendation-review.schema.json`: review of whether an agent
   recommendation fit the outcome, friction, evidence, and human burden.
+- `agent-calibration-record.schema.json`: bounded private calibration evidence
+  for future agent weighting, cautions, friction prediction, and stress impact.
 - `agent-message.schema.json`: structured message from one agent to another
   during deliberation.
 - `deliberation-thread.schema.json`: preserved sequence of agent-to-agent
@@ -72,8 +75,15 @@ or local script should all be able to produce and consume these contracts.
 - `goal-strategy.schema.json`: structured strategy for a long-range goal.
 - `goal-reconciliation.schema.json`: structured council priority model
   reconciling active domain goals and conflict rules.
-- `monthly-strategy-review.schema.json`: structured review of goals,
-  assumptions, agent assessments, and next-month priorities.
+- `state-signal.schema.json`: protected private signal from text, outcomes,
+  wearable activity, calendar, bank account activity, device sensors, external
+  APIs, or agent observations.
+- `goal-progress.schema.json`: protected private domain progress model with
+  source signals, leading indicators, lagging indicators, trajectory,
+  confidence, status, and directive attribution.
+- `monthly-strategy-review.schema.json`: structured monthly review of decision
+  quality, agent calibration, goal progress, behavior loops, benchmark evidence,
+  governance items, evidence needs, and next-month priorities.
 - `health-baseline.schema.json`: protected private health baseline with
   optional evidence tiers and biomarker fields.
 - `health-check-in.schema.json`: targeted protected health questions used to
@@ -92,7 +102,11 @@ or local script should all be able to produce and consume these contracts.
 - `tool-contract.schema.json`: public contract for capabilities agents may call
   without making one implementation the PEGO runtime.
 - `behavior-loop.schema.json`: protected loop record for recurring
-  environment-driven behavior and disruption directives.
+  environment-driven behavior, confidence, source events, and disruption
+  directives.
+- `scenario-benchmark.schema.json`: public-safe synthetic benchmark result
+  comparing PEGO council governance against baseline approaches while
+  preserving assumptions and failure modes.
 
 ## Rules
 

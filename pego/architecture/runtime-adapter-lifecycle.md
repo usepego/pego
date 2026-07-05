@@ -2,10 +2,10 @@
 
 This file defines the minimum lifecycle a PEGO runtime adapter must support.
 
-PEGO core remains runtime-neutral. A runtime adapter may be a local CLI, Codex
-session, LangGraph deployment, Vercel interface, mobile app, Slack bot, custom
-service, or another execution surface. The adapter's job is to preserve PEGO's
-governance semantics while providing a concrete user experience.
+PEGO core remains runtime-neutral. A runtime adapter may be a local CLI, agent
+workspace, graph orchestrator, hosted interface, mobile app, messaging surface,
+custom service, or another execution surface. The adapter's job is to preserve
+PEGO's governance semantics while providing a concrete user experience.
 
 ## Lifecycle States
 

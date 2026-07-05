@@ -55,7 +55,7 @@ Primary concerns:
 - User trust.
 - Cognitive load.
 - Interaction cadence.
-- Medium selection: CLI, text, web, Slack, mobile app, watch, email, calendar, or other surfaces.
+- Medium selection: CLI, text, web, messaging, mobile app, watch, email, calendar, or other surfaces.
 - Device context: desktop, phone, watch, home devices, or ambient interfaces.
 - How PEGO asks targeted operational questions without becoming self-help or quantified-self software.
 

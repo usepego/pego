@@ -6,8 +6,8 @@ operating machinery for PEGO.
 These tools are local runtime adapters. They are not the PEGO architecture
 itself. PEGO should remain defined by agent contracts, governance contracts,
 directive schemas, privacy boundaries, and operating protocols that can later
-run through LangGraph, Vercel AI SDK, a custom service, a mobile app, a Slack
-bot, a local CLI, or another runtime.
+run through a graph orchestrator, hosted interface, custom service, mobile app,
+messaging surface, local CLI, or another runtime.
 
 Python is welcome here as engineering infrastructure: tests, CI checks,
 repository validation, scaffolding, privacy scans, migrations, and local

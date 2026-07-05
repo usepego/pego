@@ -53,6 +53,31 @@ Financial / Health / Relationship / Career / Legal / Tax / Privacy / Reputation 
 
 Preserve the strongest opposing agent views.
 
+## Deliberation Summary
+
+Claims, objections, concessions, evidence gaps, vetoes, and unresolved dissent.
+Keep this compact enough for outcome review.
+
+## Tradeoff Rationale
+
+Why Council selected, revised, escalated, blocked, or requested information
+instead of the other available recommendations.
+
+## Tradeoff Scorecard
+
+One deterministic row per source recommendation: agent, selection status,
+directive, authority, risks, evidence quality, and calibration adjustment.
+
+## Agent Calibration Context
+
+Agent calibration records consulted for recommendation weighting, including
+score deltas, calibration actions, cautions, and future weighting notes.
+
+## Deferrals
+
+Recommendations or benefits preserved for later review because Council selected
+a different next action, requested information, escalated, revised, or blocked.
+
 ## Required Handoffs
 
 Agents, governance reviews, decision packets, or context updates required before adoption.

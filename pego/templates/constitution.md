@@ -55,6 +55,27 @@ This section should distinguish:
 
 The person should not be required to solve the strategy before PEGO can govern. If the person supplies a desired state, PEGO owns the work of assessing paths, timelines, milestones, fallback plans, and immediate actions.
 
+## 4A. Operating Model and Tooling Boundary
+
+How should this PEGO instance distinguish agent governance from support
+tooling?
+
+Default rule: PEGO's core behavior is prompt/protocol-based agent governance.
+Domain agents, council deliberation, governance review, directive synthesis,
+outcome review, memory promotion, and strategic review should drive the
+operating system.
+
+Python scripts, CLIs, automation, scheduled jobs, and other tools may support
+PEGO as adapter or maintenance infrastructure. They may validate artifacts,
+bootstrap local files, normalize state, run smoke tests, migrate data, or
+provide deterministic reference implementations.
+
+They should not become hidden authority, the only usable runtime, or the
+conceptual source of PEGO decisions. If a script encodes reusable PEGO behavior,
+the behavior should also be documented in protocols, templates, schemas, or
+tool contracts so other prompt-agent runtimes and product surfaces can implement
+the same contract.
+
 ## 5. Values
 
 What matters even when inconvenient?

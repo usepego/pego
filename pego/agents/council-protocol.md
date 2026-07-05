@@ -76,6 +76,21 @@ Use `pego/templates/council-decision.md` when multiple agent recommendations mus
 
 Structured runtimes should preserve council decisions using `pego/schemas/council-decision.schema.json`.
 
+Council decisions should preserve reviewable deliberation fields when available:
+
+- Claims.
+- Objections.
+- Concessions.
+- Evidence gaps.
+- Vetoes.
+- Unresolved dissent.
+- Tradeoff rationale.
+- Tradeoff scorecard.
+- Deferrals.
+
+These fields explain the synthesis. They do not create execution authority or
+override the governance gate.
+
 Use `pego/operations/recommendation-quality-loop.md` after outcomes to review
 whether the council selected, deferred, escalated, or requested information
 well.
@@ -227,6 +242,9 @@ Each council decision should produce:
 
 - Directive or escalation.
 - Rationale.
+- Reviewable deliberation summary.
+- Tradeoff rationale and scorecard.
+- Deferrals.
 - Expected benefit.
 - Key risks.
 - Dissenting views.

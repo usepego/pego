@@ -18,9 +18,34 @@ def main() -> None:
         (private / "health").mkdir(parents=True)
         (private / "happiness").mkdir(parents=True)
         (private / "time").mkdir(parents=True)
+        (private / "goals" / "progress").mkdir(parents=True)
         (private / "constitution" / "constitution.md").write_text("Synthetic privacy and authority boundary.")
         (private / "finance" / "financial-position.md").write_text("Synthetic income and burn baseline.")
         (private / "health" / "baseline.json").write_text(json.dumps({"goal": {"priority": "synthetic health"}}))
+        (private / "goals" / "progress" / "health.json").write_text(
+            json.dumps(
+                {
+                    "artifact_type": "goal_progress",
+                    "schema_version": 1,
+                    "date": "2026-06-25",
+                    "domain": "health",
+                    "owning_agent": "Health Agent",
+                    "goal": "Synthetic movement baseline",
+                    "goal_id": "health.synthetic-movement",
+                    "source_signals": ["external_private_root/telemetry/signals/health.json"],
+                    "current_state_summary": "Synthetic health trajectory is improving from wearable activity.",
+                    "leading_indicators": [],
+                    "lagging_indicators": [],
+                    "trajectory": "improving",
+                    "confidence": "medium",
+                    "progress_status": "on_track",
+                    "directive_attribution": [],
+                    "next_measurement_need": "Next synthetic wearable summary.",
+                    "governance_notes": [],
+                    "review_after": "Next weekly review.",
+                }
+            )
+        )
         (private / "happiness" / "model.md").write_text("Synthetic lived-fit model.")
         (private / "time" / "protected-time.md").write_text("Synthetic protected time.")
 
@@ -54,6 +79,11 @@ def main() -> None:
         finance = next(goal for goal in structured["active_goals"] if goal["domain"] == "finance")
         if finance["status"] != "active":
             raise AssertionError(finance)
+        health = next(goal for goal in structured["active_goals"] if goal["domain"] == "health")
+        if health["trajectory"] != "improving" or health["confidence"] != "medium":
+            raise AssertionError(health)
+        if "Synthetic health trajectory" not in health["why_it_matters"]:
+            raise AssertionError(health)
         career = next(goal for goal in structured["active_goals"] if goal["domain"] == "career")
         if career["status"] != "needs_baseline":
             raise AssertionError(career)

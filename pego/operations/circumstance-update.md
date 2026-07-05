@@ -112,6 +112,9 @@ context.
 
 Use `pego/templates/behavior-loop.md`.
 
+For local operation, use `pegoctl behavior-loops` with protected outcome-review
+or state-signal inputs to create loop records and active disruption candidates.
+
 ## Environmental Guardrails
 
 PEGO may use environmental guardrails when they are within granted authority:

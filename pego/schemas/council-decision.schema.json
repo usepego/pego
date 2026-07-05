@@ -111,6 +111,247 @@
         "type": "string"
       }
     },
+    "deliberation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claims",
+        "objections",
+        "concessions",
+        "evidence_gaps",
+        "vetoes",
+        "unresolved_dissent"
+      ],
+      "properties": {
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "objections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "concessions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vetoes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_dissent": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "vetoes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unresolved_dissent": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tradeoff_rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tradeoff_scorecard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent",
+          "recommendation_type",
+          "proposed_directive",
+          "selection_status",
+          "authority_level",
+          "expected_benefit",
+          "tradeoffs",
+          "risks",
+          "evidence_quality",
+          "reversibility",
+          "privacy_impact",
+          "required_handoffs"
+        ],
+        "properties": {
+          "agent": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recommendation_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "proposed_directive": {
+            "type": "string"
+          },
+          "selection_status": {
+            "enum": [
+              "selected",
+              "deferred",
+              "proposed_for_revision",
+              "held_for_information",
+              "held_for_governance",
+              "information_request",
+              "unresolved_dissent",
+              "escalated",
+              "blocked",
+              "proposed"
+            ]
+          },
+          "authority_level": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_benefit": {
+            "type": "string"
+          },
+          "tradeoffs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "financial",
+                "health",
+                "relationship",
+                "career",
+                "legal",
+                "tax",
+                "privacy",
+                "reputation",
+                "time",
+                "energy",
+                "psychological",
+                "opportunity_cost"
+              ]
+            }
+          },
+          "evidence_quality": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reversibility": {
+            "type": "string"
+          },
+          "privacy_impact": {
+            "type": "string"
+          },
+          "required_handoffs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "calibration_score_delta": {
+            "type": "integer"
+          },
+          "calibration_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "calibration_adjustment": {
+            "type": "integer"
+          },
+          "calibration_note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "agent_calibration_context": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent",
+          "record_count",
+          "score_delta_total",
+          "calibration_actions",
+          "cautions",
+          "future_weighting_notes",
+          "selection_adjustment"
+        ],
+        "properties": {
+          "agent": {
+            "type": "string",
+            "minLength": 1
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "score_delta_total": {
+            "type": "integer"
+          },
+          "calibration_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cautions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "future_weighting_notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "selection_adjustment": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "deferrals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "required_handoffs": {
       "type": "array",
       "items": {

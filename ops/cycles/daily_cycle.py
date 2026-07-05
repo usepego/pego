@@ -170,7 +170,12 @@ def build_parser() -> argparse.ArgumentParser:
     review_parser = subparsers.add_parser("review")
     add_shared_date(review_parser)
     review_parser.add_argument("--outcome", type=Path, required=True)
+    review_parser.add_argument("--council-decision", type=Path)
+    review_parser.add_argument("--recommendation", action="append", type=Path, default=[])
     review_parser.add_argument("--output", type=Path)
+    review_parser.add_argument("--json-output", type=Path)
+    review_parser.add_argument("--write-calibration", action="store_true")
+    review_parser.add_argument("--calibration-dir", type=Path)
     review_parser.add_argument("--force", action="store_true")
 
     learn_parser = subparsers.add_parser("learn")

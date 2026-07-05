@@ -217,6 +217,158 @@ def run_review_from_json_outcome() -> tuple[str, dict[str, object]]:
         return output.read_text(), json.loads(json_output.read_text())
 
 
+def write_json(path: Path, data: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
+def synthetic_recommendation(agent: str = "Health Agent") -> dict[str, object]:
+    return {
+        "artifact_type": "agent_recommendation",
+        "schema_version": 1,
+        "agent": agent,
+        "recommendation_type": "recommend",
+        "proposed_directive": "Breakfast Anchor",
+        "authority_level": "level_1_recommend",
+        "relevant_facts": ["Synthetic morning food friction is low."],
+        "assumptions": [{"statement": "The morning window is available.", "certainty": "medium"}],
+        "evidence_quality": ["human_report"],
+        "expected_benefit": "Reduced snacking.",
+        "costs_and_tradeoffs": [],
+        "risks": ["energy"],
+        "reversibility": "easy_to_reverse",
+        "privacy_impact": "private_only",
+        "required_handoffs": [],
+        "dissent": "",
+        "stop_conditions": ["Stop if it creates protected-time conflict."],
+        "review": {"review_date_or_success_criteria": "After next breakfast outcome."},
+    }
+
+
+def synthetic_council_decision(recommendation_path: Path) -> dict[str, object]:
+    return {
+        "artifact_type": "council_decision",
+        "schema_version": 2,
+        "date": "2026-06-23",
+        "decision_frame": "Select a low-friction morning health directive.",
+        "goal_reconciliation_status": "temporary_priority_assumption",
+        "goal_reconciliation_sources": [],
+        "priority_assumption": "Synthetic conservative priority assumption.",
+        "source_recommendations": [str(recommendation_path)],
+        "proposed_directive": "Breakfast Anchor",
+        "council_outcome": "adopt",
+        "rationale": "Synthetic council selected the lowest-friction action.",
+        "expected_benefit": "Reduced snacking.",
+        "key_risks": ["energy"],
+        "dissent": [],
+        "evidence_gaps": [],
+        "vetoes": [],
+        "unresolved_dissent": [],
+        "tradeoff_rationale": "Synthetic tradeoff rationale.",
+        "tradeoff_scorecard": [],
+        "deferrals": ["Operations Agent: defer longer planning until breakfast is stable."],
+        "required_handoffs": [],
+        "governance_status": "Level 1 council synthesis; no authority increase approved.",
+        "stop_conditions": ["Stop if protected time is affected."],
+        "next_action": "Breakfast Anchor",
+        "review": "After next outcome.",
+    }
+
+
+def run_attributed_review() -> dict[str, object]:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        private = root / "private"
+        outcome = root / "outcome.md"
+        recommendation = root / "recommendation.json"
+        council = root / "council.json"
+        output = root / "review.md"
+        json_output = root / "review.json"
+        calibration_dir = private / "agents" / "calibration"
+        outcome.write_text(COMPLETED)
+        write_json(recommendation, synthetic_recommendation())
+        write_json(council, synthetic_council_decision(recommendation))
+        review_outcome.main_with_args(
+            [
+                "--private-root",
+                str(private),
+                "--date",
+                "2026-06-23",
+                "--outcome",
+                str(outcome),
+                "--council-decision",
+                str(council),
+                "--output",
+                str(output),
+                "--json-output",
+                str(json_output),
+                "--write-calibration",
+                "--calibration-dir",
+                str(calibration_dir),
+                "--force",
+            ]
+        )
+        data = json.loads(json_output.read_text())
+        calibration_files = sorted(calibration_dir.glob("*.json"))
+        if not calibration_files:
+            raise AssertionError("expected calibration record output")
+        data["written_calibration"] = json.loads(calibration_files[0].read_text())
+        data["markdown"] = output.read_text()
+        return data
+
+
+def run_missed_friction_review() -> dict[str, object]:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        outcome = root / "outcome.md"
+        output = root / "review.md"
+        recommendation = root / "recommendation.json"
+        json_output = root / "review.json"
+        outcome.write_text(BLOCKED)
+        write_json(recommendation, synthetic_recommendation("Home and Environment Agent"))
+        review_outcome.main_with_args(
+            [
+                "--date",
+                "2026-06-23",
+                "--outcome",
+                str(outcome),
+                "--recommendation",
+                str(recommendation),
+                "--output",
+                str(output),
+                "--json-output",
+                str(json_output),
+                "--force",
+            ]
+        )
+        return json.loads(json_output.read_text())
+
+
+def run_missing_source_review() -> dict[str, object]:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        outcome = root / "outcome.md"
+        output = root / "review.md"
+        json_output = root / "review.json"
+        outcome.write_text(COMPLETED)
+        review_outcome.main_with_args(
+            [
+                "--date",
+                "2026-06-23",
+                "--outcome",
+                str(outcome),
+                "--recommendation",
+                str(root / "missing-recommendation.json"),
+                "--output",
+                str(output),
+                "--json-output",
+                str(json_output),
+                "--force",
+            ]
+        )
+        return json.loads(json_output.read_text())
+
+
 def assert_contains(text: str, expected: str) -> None:
     if expected not in text:
         raise AssertionError(f"expected {expected!r} in output:\n{text}")
@@ -258,6 +410,42 @@ def main() -> None:
         raise AssertionError("json outcome directive was not reviewed")
     if blocked_json["learning_decision"] != "Block pending dependency":
         raise AssertionError("blocked json outcome should become a blocker")
+
+    attributed = run_attributed_review()
+    if attributed["council_synthesis_review"]["artifact_type"] != "council_synthesis_review":
+        raise AssertionError("expected nested council synthesis review")
+    if attributed["council_synthesis_review"]["selection_quality"]["rating"] != "strong":
+        raise AssertionError(attributed["council_synthesis_review"])
+    if not attributed["agent_recommendation_reviews"]:
+        raise AssertionError("expected nested agent recommendation review")
+    agent_review = attributed["agent_recommendation_reviews"][0]
+    if agent_review["reviewed_agent"] != "Health Agent":
+        raise AssertionError(agent_review)
+    if agent_review["review_outcome"] != "improve":
+        raise AssertionError(agent_review)
+    calibration = attributed["agent_calibration_records"][0]
+    if calibration["artifact_type"] != "agent_calibration_record":
+        raise AssertionError(calibration)
+    if calibration["calibration_action"] != "increase_weight":
+        raise AssertionError(calibration)
+    if attributed["written_calibration"]["agent"] != "Health Agent":
+        raise AssertionError("written calibration should match nested record")
+    assert_contains(attributed["markdown"], "Council Synthesis Review")
+    assert_contains(attributed["markdown"], "Agent Calibration Records")
+
+    missed = run_missed_friction_review()
+    caution = " ".join(missed["agent_calibration_records"][0]["cautions"])
+    if "Missed execution friction" not in caution:
+        raise AssertionError(missed["agent_calibration_records"][0])
+    if missed["agent_calibration_records"][0]["calibration_action"] != "decrease_weight":
+        raise AssertionError(missed["agent_calibration_records"][0])
+
+    missing = run_missing_source_review()
+    missing_review = missing["agent_recommendation_reviews"][0]
+    if missing_review["review_outcome"] != "quarantine":
+        raise AssertionError(missing_review)
+    if missing_review["fit_assessment"]["rating"] != "missing":
+        raise AssertionError(missing_review)
 
     escalated = run_review(ESCALATE)
     assert_contains(escalated, "Escalate")

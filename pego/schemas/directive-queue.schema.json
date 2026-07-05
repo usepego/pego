@@ -34,6 +34,9 @@
       "type": "string",
       "minLength": 1
     },
+    "scoring_model": {
+      "$ref": "#/$defs/scoring_model"
+    },
     "protected_time": {
       "type": "array",
       "items": {
@@ -140,6 +143,13 @@
         },
         "environment_design": {
           "type": "string"
+        },
+        "score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorecard": {
+          "$ref": "#/$defs/scorecard"
         }
       }
     },
@@ -235,6 +245,27 @@
         },
         "consequence_of_deferral": {
           "type": "string"
+        },
+        "deferral_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "governance_status": {
+          "$ref": "#/$defs/governance_status"
+        },
+        "score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorecard": {
+          "$ref": "#/$defs/scorecard"
+        },
+        "selection_rationale": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -272,6 +303,130 @@
             "hard",
             "constitutional"
           ]
+        }
+      }
+    },
+    "score_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "weight",
+        "score",
+        "weighted_score",
+        "rationale"
+      ],
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "weighted_score": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scorecard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score_total",
+        "score_dimensions",
+        "selection_rationale",
+        "tie_breaker"
+      ],
+      "properties": {
+        "score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "score_dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/score_dimension"
+          }
+        },
+        "selection_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tie_breaker": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scoring_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "score_range",
+        "dimensions",
+        "selection_rule",
+        "safe_tie_break_order"
+      ],
+      "properties": {
+        "model": {
+          "const": "directive-scoring-v1"
+        },
+        "score_range": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scoring_model_dimension"
+          }
+        },
+        "selection_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "safe_tie_break_order": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "scoring_model_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "weight",
+        "description"
+      ],
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "minLength": 1
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -339,6 +494,17 @@
         },
         "source": {
           "type": "string"
+        },
+        "score_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scorecard": {
+          "$ref": "#/$defs/scorecard"
+        },
+        "selection_rationale": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }

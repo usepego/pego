@@ -127,6 +127,31 @@
         }
       }
     },
+    "council_synthesis_review": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "agent_recommendation_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "agent_calibration_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
     "next_review": {
       "type": "string",
       "minLength": 1

@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/state-signal.schema.json",
+  "title": "PEGO State Signal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "observed_at",
+    "source_type",
+    "ingestion_mode",
+    "domain",
+    "owning_agent",
+    "signal_type",
+    "summary",
+    "measurements",
+    "affected_goals",
+    "evidence_strength",
+    "confidence",
+    "privacy_class",
+    "raw_source_reference",
+    "raw_data_retention",
+    "governance_notes",
+    "review_after",
+    "expires_after"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "state_signal"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "enum": [
+        "manual_text",
+        "directive_outcome",
+        "wearable_activity",
+        "calendar",
+        "bank_account_activity",
+        "device_sensor",
+        "app_usage",
+        "location",
+        "document",
+        "agent_observation",
+        "external_api",
+        "other"
+      ]
+    },
+    "ingestion_mode": {
+      "enum": [
+        "manual",
+        "import",
+        "polling",
+        "webhook",
+        "adapter",
+        "agent_inference"
+      ]
+    },
+    "domain": {
+      "$ref": "#/$defs/domain"
+    },
+    "owning_agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signal_type": {
+      "enum": [
+        "current_state",
+        "behavior_observed",
+        "activity",
+        "sleep",
+        "recovery",
+        "nutrition",
+        "spending",
+        "income",
+        "account_balance",
+        "transaction_pattern",
+        "calendar_availability",
+        "location_context",
+        "environment",
+        "mood",
+        "energy",
+        "goal_progress",
+        "risk",
+        "blocker",
+        "other"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measurement"
+      }
+    },
+    "affected_goals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_strength": {
+      "enum": [
+        "direct_telemetry",
+        "bank_account_activity",
+        "human_report",
+        "observed_behavior",
+        "directive_outcome",
+        "external_api",
+        "agent_inference",
+        "speculation"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "privacy_class": {
+      "enum": [
+        "protected_private",
+        "sensitive_financial",
+        "sensitive_health",
+        "safe_to_summarize"
+      ]
+    },
+    "raw_source_reference": {
+      "type": "string"
+    },
+    "raw_data_retention": {
+      "enum": [
+        "not_stored",
+        "private_local",
+        "external_provider",
+        "unknown"
+      ]
+    },
+    "governance_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_after": {
+      "type": "string"
+    },
+    "expires_after": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "domain": {
+      "enum": [
+        "finance",
+        "health",
+        "career",
+        "venture",
+        "home_environment",
+        "relationships",
+        "exploration",
+        "happiness",
+        "operations",
+        "governance",
+        "communications"
+      ]
+    },
+    "measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value",
+        "unit",
+        "window",
+        "directionality"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string"
+        },
+        "window": {
+          "type": "string"
+        },
+        "directionality": {
+          "enum": [
+            "higher_is_better",
+            "lower_is_better",
+            "target_range",
+            "context_only",
+            "unknown"
+          ]
+        }
+      }
+    }
+  }
+}

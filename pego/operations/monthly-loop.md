@@ -10,7 +10,14 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 - Active goals and goal strategies.
 - Current state.
 - Monthly outcome summaries.
-- Financial, health, career, relationship, exploration, happiness, and operations agent assessments.
+- Outcome reviews and nested decision-quality reviews.
+- Agent calibration records.
+- Durable goal progress records.
+- Behavior loop records and disruption candidates.
+- Synthetic scenario benchmark summaries.
+- Financial, health, career, venture, home/environment, relationship,
+  exploration, communications, happiness, operations, and governance agent
+  assessments.
 - Governance reviews and escalations.
 - New human concerns or objections.
 - Significant life changes.
@@ -21,16 +28,22 @@ Daily and weekly loops optimize execution. The monthly loop reviews strategy, go
 
 1. Review the prior month's outcomes.
 2. Compare outcomes against active goals and leading indicators.
-3. Identify where PEGO created progress, friction, drift, or harm.
-4. Reassess goal strategy using `pego/templates/goal-strategy.md`.
-5. Reconcile active goals using `pego/operations/goal-reconciliation.md`.
-6. Reassess the happiness model and protected-time fit.
-7. Review financial runway, health trend, career capital, relationship impact, and exploration portfolio.
-8. Run a 30-90 day anticipation scan using `pego/operations/anticipation-loop.md`.
-9. Update strategic priorities for the next month.
-10. Identify decisions requiring formal review.
-11. Propose amendments only if the constitution no longer fits reality.
-12. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
+3. Summarize decision quality, council synthesis quality, and learning decisions.
+4. Summarize agent calibration records and identify weighting cautions.
+5. Compare goal progress records against active goals and leading indicators.
+6. Review active behavior loops before increasing directive recurrence.
+7. Review synthetic scenario benchmark results before expanding public or research-facing claims.
+8. Identify where PEGO created progress, friction, drift, or harm.
+9. Reassess goal strategy using `pego/templates/goal-strategy.md`.
+10. Reconcile active goals using `pego/operations/goal-reconciliation.md`.
+11. Reassess the happiness model and protected-time fit.
+12. Review financial runway, health trend, career capital, relationship impact, and exploration portfolio.
+13. Run a 30-90 day anticipation scan using `pego/operations/anticipation-loop.md`.
+14. Update strategic priorities for the next month only when evidence supports the change.
+15. If evidence is thin, produce targeted evidence-gathering directives instead of broad strategy changes.
+16. Identify decisions requiring formal review.
+17. Propose amendments only if the constitution no longer fits reality.
+18. Produce the monthly strategy review using `pego/templates/monthly-strategy-review.md`.
 
 Structured runtimes should preserve monthly strategy reviews using:
 
@@ -54,6 +67,12 @@ pego/schemas/monthly-strategy-review.schema.json
 - Which strategy should change next month?
 - Which goal conflicts need explicit priority rules before Council selects
   cross-domain directives?
+- Which agents should carry more or less weight after outcome evidence?
+- Which behavior loops should be disrupted before repeating directives?
+- Is evidence strong enough for a strategy change, or should PEGO gather
+  targeted evidence first?
+- Did synthetic benchmarks reveal a failure mode that should change council
+  governance before public claims expand?
 
 ## Agent Review
 
@@ -71,6 +90,10 @@ Each agent should answer:
 The monthly loop may recommend strategy changes, but high-impact decisions still require formal review.
 
 Constitutional amendments should be proposed only when repeated outcomes, new evidence, or changed circumstances show that the constitution no longer governs well.
+
+Monthly governance review items should include authority, privacy,
+protected-time, constitutional, calibration, behavior-loop, and benchmark
+concerns that should affect next-month strategy or public claims.
 
 ## Local Runner
 

@@ -29,6 +29,11 @@ local developer utilities. The constraint is conceptual, not anti-Python: PEGO's
 runtime model should not be defined as "a Python app" unless a future runtime
 decision explicitly says so.
 
+Core PEGO behavior should remain prompt/protocol-based agent governance. Python
+may provide reference runners and local adapters, but the governing behavior
+must be expressible through public-safe agent protocols, templates, schemas, and
+tool contracts so another runtime can implement the same PEGO lifecycle.
+
 ## Stateful Agent Orchestrator
 
 A stateful agent orchestrator is a plausible runtime category for PEGO because

@@ -205,6 +205,12 @@ def main() -> None:
         raise AssertionError(help_result.stdout)
     if "reconcile-goals" not in help_result.stdout:
         raise AssertionError(help_result.stdout)
+    if "review-outcome" not in help_result.stdout:
+        raise AssertionError(help_result.stdout)
+    if "behavior-loops" not in help_result.stdout:
+        raise AssertionError(help_result.stdout)
+    if "scenario-benchmarks" not in help_result.stdout:
+        raise AssertionError(help_result.stdout)
 
     doctor = run(["doctor"])
     if "PEGO doctor passed" not in doctor.stdout:
@@ -461,6 +467,79 @@ def main() -> None:
         if not (private_root / "goals" / "goal-reconciliation.json").exists():
             raise AssertionError("expected pegoctl goal reconciliation under configured private root")
 
+        state_signal = private_root / "telemetry" / "signals" / "synthetic-health.json"
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "state-signal",
+                "--date",
+                "2026-06-23",
+                "--observed-at",
+                "2026-06-23T09:15:00",
+                "--source-type",
+                "wearable_activity",
+                "--ingestion-mode",
+                "import",
+                "--domain",
+                "health",
+                "--signal-type",
+                "activity",
+                "--summary",
+                "Synthetic activity summary for CLI routing.",
+                "--measurement",
+                "active_minutes=20,minutes,today,higher_is_better",
+                "--affected-goal",
+                "Synthetic health consistency",
+                "--output",
+                str(state_signal),
+                "--force",
+            ]
+        )
+        if not state_signal.exists():
+            raise AssertionError("expected pegoctl state-signal output under configured private root")
+        state_signal_data = json.loads(state_signal.read_text())
+        if state_signal_data["privacy_class"] != "sensitive_health":
+            raise AssertionError(state_signal_data)
+
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "goal-progress",
+                "--date",
+                "2026-06-23",
+                "--signal",
+                str(state_signal),
+                "--force",
+            ]
+        )
+        goal_progress = private_root / "goals" / "progress" / "health.json"
+        if not goal_progress.exists():
+            raise AssertionError("expected pegoctl goal-progress output under configured private root")
+        goal_progress_data = json.loads(goal_progress.read_text())
+        if goal_progress_data["artifact_type"] != "goal_progress":
+            raise AssertionError(goal_progress_data)
+
+        run(
+            [
+                "--private-root",
+                str(private_root),
+                "behavior-loops",
+                "--date",
+                "2026-06-23",
+                "--state-signal",
+                str(state_signal),
+                "--force",
+            ]
+        )
+        behavior_summary = private_root / "behavior-loops" / "detection-summary.json"
+        if not behavior_summary.exists():
+            raise AssertionError("expected pegoctl behavior-loop detection summary")
+        behavior_data = json.loads(behavior_summary.read_text())
+        if behavior_data["artifact_type"] != "behavior_loop_detection_summary":
+            raise AssertionError(behavior_data)
+
     with tempfile.TemporaryDirectory() as directory:
         private_root = Path(directory) / "pego-private"
         finance_input = private_root / "finance" / "scenarios.json"
@@ -488,6 +567,28 @@ def main() -> None:
             raise AssertionError("expected pegoctl finance-run output under configured private root")
         if not (private_root / "finance" / "reviews" / "scenario-review.md").exists():
             raise AssertionError("expected pegoctl finance-review output under configured private root")
+
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        benchmark_md = root / "scenario-benchmark.md"
+        benchmark_json = root / "scenario-benchmark.json"
+        run(
+            [
+                "scenario-benchmarks",
+                "--date",
+                "2026-06-23",
+                "--output",
+                str(benchmark_md),
+                "--json-output",
+                str(benchmark_json),
+                "--force",
+            ]
+        )
+        if not benchmark_json.exists():
+            raise AssertionError("expected pegoctl scenario benchmark output")
+        benchmark_data = json.loads(benchmark_json.read_text())
+        if benchmark_data["artifact_type"] != "scenario_benchmark":
+            raise AssertionError(benchmark_data)
 
     with tempfile.TemporaryDirectory() as directory:
         private_root = Path(directory) / "pego-private"

@@ -4,8 +4,8 @@ Goal reconciliation turns separate domain goals into a council-usable priority
 model.
 
 Without reconciliation, PEGO may have many true goals but no governed way to
-decide what wins when finance, health, career, home, relationships, exploration,
-and happiness point in different directions.
+decide what wins when finance, health, career, home/environment, relationships,
+exploration, and happiness point in different directions.
 
 Goal reconciliation is a dependency for Council directive selection. Council
 cannot claim it selected the best directive across domains unless it has either
@@ -40,7 +40,7 @@ Goal reconciliation should answer:
 - Goal strategy artifacts.
 - Current state.
 - Protected time.
-- Financial, health, career, home, relationship, exploration, venture, and
+- Financial, health, career, home/environment, relationship, exploration, venture, and
   operations baselines.
 - Recent outcomes.
 - Human objections.

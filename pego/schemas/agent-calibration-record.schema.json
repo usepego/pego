@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pego.local/schemas/agent-calibration-record.schema.json",
+  "title": "PEGO Agent Calibration Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "schema_version",
+    "date",
+    "agent",
+    "source_reviews",
+    "recommendation_usefulness",
+    "score_delta",
+    "calibration_action",
+    "friction_prediction",
+    "evidence_quality",
+    "stress_impact",
+    "missed_risks",
+    "cautions",
+    "council_summary",
+    "future_weighting_note",
+    "next_review"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "agent_calibration_record"
+    },
+    "schema_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_reviews": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendation_usefulness": {
+      "enum": [
+        "strong",
+        "adequate",
+        "weak",
+        "missing",
+        "not_applicable",
+        "unknown"
+      ]
+    },
+    "score_delta": {
+      "type": "integer",
+      "minimum": -2,
+      "maximum": 2
+    },
+    "calibration_action": {
+      "enum": [
+        "increase_weight",
+        "keep_weight",
+        "decrease_weight",
+        "quarantine",
+        "escalate"
+      ]
+    },
+    "friction_prediction": {
+      "enum": [
+        "strong",
+        "adequate",
+        "weak",
+        "missing",
+        "not_applicable",
+        "unknown"
+      ]
+    },
+    "evidence_quality": {
+      "enum": [
+        "strong",
+        "adequate",
+        "weak",
+        "missing",
+        "not_applicable",
+        "unknown"
+      ]
+    },
+    "stress_impact": {
+      "enum": [
+        "reduced",
+        "preserved",
+        "increased",
+        "unknown"
+      ]
+    },
+    "missed_risks": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "friction",
+          "stress",
+          "fit",
+          "risk",
+          "authority",
+          "privacy",
+          "protected_time"
+        ]
+      }
+    },
+    "cautions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "council_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "future_weighting_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "next_review": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

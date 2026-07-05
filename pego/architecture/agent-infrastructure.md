@@ -51,6 +51,12 @@ scheduled, ambient, mobile, or CLI-based, but the core experience is the same:
 Framework files should describe PEGO in runtime-neutral language. Runtime-specific
 code belongs in adapter layers and must not define the conceptual architecture.
 
+PEGO's core behavior should remain prompt/protocol-based agent governance:
+domain agents deliberate, governance constrains authority, operations synthesize
+directives, reviews learn from outcomes, and strategic reviews adjust future
+behavior. Code may support that lifecycle, but it should not replace the
+agent-governance model as the source of product behavior.
+
 Python and other scripts are appropriate for CI, repository validation,
 scaffolding, linting, migration, privacy checks, template generation, and local
 developer workflows. They can help build and maintain PEGO.
@@ -63,6 +69,10 @@ Reference scripts under `ops/` are allowed when they make the framework usable
 locally, but they are support tooling or examples of one runtime adapter. They
 should not imply that PEGO is a Python application or that future users must
 operate PEGO through the same tooling.
+
+When a script encodes reusable PEGO behavior, the behavior should also be
+captured in public-safe protocols, templates, schemas, or tool contracts so a
+pure prompt-agent runtime or another adapter can implement the same contract.
 
 ## Adapter Contract
 

@@ -173,7 +173,7 @@
             "health",
             "career",
             "venture",
-            "home",
+            "home_environment",
             "relationships",
             "exploration",
             "happiness",
@@ -208,6 +208,30 @@
             "needs_baseline",
             "deferred",
             "blocked"
+          ]
+        },
+        "trajectory": {
+          "enum": [
+            "improving",
+            "stable",
+            "worsening",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "progress_status": {
+          "enum": [
+            "on_track",
+            "at_risk",
+            "stalled",
+            "unknown"
           ]
         }
       }

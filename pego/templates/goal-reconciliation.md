@@ -14,9 +14,9 @@ outcomes, objections, and governance reviews considered.
 
 ## Active Goals
 
-| Goal | Domain | Class | Current Priority | Why It Matters | Status |
-| --- | --- | --- | --- | --- | --- |
-| TBD | Finance / Health / Career / Venture / Home / Relationships / Exploration / Happiness / Operations | Constitutional / Strategic / Operational / Experimental | High / Medium / Low / Dormant | TBD | Active / Needs baseline / Deferred / Blocked |
+| Goal | Domain | Class | Current Priority | Trajectory | Confidence | Progress Status | Why It Matters | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TBD | Finance / Health / Career / Venture / Home / Relationships / Exploration / Happiness / Operations | Constitutional / Strategic / Operational / Experimental | High / Medium / Low / Dormant | Improving / Stable / Worsening / Mixed / Unknown | High / Medium / Low | On track / At risk / Stalled / Unknown | TBD | Active / Needs baseline / Deferred / Blocked |
 
 ## Protected Goals
 

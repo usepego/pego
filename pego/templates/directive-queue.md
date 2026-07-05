@@ -39,9 +39,33 @@ Time and commitments unavailable for directives.
 
 ## Active Candidates
 
-| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+| Rank | Candidate | Domain | Duration | Energy | Location | Deadline | Authority | Status | Score |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+
+## Scoring Model
+
+Model: `directive-scoring-v1`. Score range is 0-3 per dimension before weighting. Governance deferral remains a hard gate before selection.
+
+| Dimension | Weight | Description |
+| --- | --- | --- |
+| goal contribution | 3 | Contribution to a stated domain goal, non-negotiable, or operating priority. |
+| urgency | 3 | Timing pressure from deadline, lead time, or current operating window. |
+| consequence of deferral | 3 | Expected downside if the candidate waits until a later synthesis. |
+| energy fit | 1 | Fit between required energy and supplied or assumed current energy. |
+| reversibility | 2 | Preference for low-commitment, reversible actions. |
+| downside protection | 2 | Protection against avoidable deterioration, friction, or future interruption. |
+| anxiety reduction | 2 | Reduction of ambiguity, cognitive load, open loops, or future scrambling. |
+| evidence value | 2 | Value of producing decision-grade information when evidence is weak. |
+| environment leverage | 1 | Ability to reshape future behavior through context or setup. |
+
+Safe tie-break order: lower authority, lower protected-time impact, lower required energy, shorter duration, then information-gathering or environment-shaping work when evidence is weak.
+
+## Scorecards
+
+| Scope | Candidate | Score | Selection Rationale | Deferral Reason |
+| --- | --- | --- | --- | --- |
+| TBD | TBD | TBD | TBD | TBD |
 
 ## Behavioral Strategy
 

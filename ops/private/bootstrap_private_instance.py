@@ -46,6 +46,14 @@ Do not commit private instance files.
 
 Local private goals and goal strategies.
 """,
+    "goals/progress/README.md": """# Goal Progress
+
+Local private domain goal progress models built from state signals, outcomes, and agent observations.
+""",
+    "behavior-loops/README.md": """# Behavior Loops
+
+Local private behavior-loop records built from repeated outcomes, state signals, telemetry, and agent observations.
+""",
     "directives/README.md": """# Directives
 
 Local private PEGO directives.
@@ -102,6 +110,14 @@ Local private outcome review packets.
 
 Local private USER-mode session reviews.
 """,
+    "agents/README.md": """# Agents
+
+Local private agent review and calibration memory.
+""",
+    "agents/calibration/README.md": """# Agent Calibration
+
+Local private calibration records derived from outcome review attribution.
+""",
     "context/README.md": """# Context
 
 Local private context updates, promotions, and memory-review artifacts.
@@ -143,6 +159,10 @@ Local private meal decisions and food directives.
     "telemetry/README.md": """# Telemetry
 
 Local private telemetry sources and summaries.
+""",
+    "telemetry/signals/README.md": """# State Signals
+
+Local private normalized state signals from text, outcomes, wearable activity, bank account activity, sensors, adapters, and agent observations.
 """,
     "writing/README.md": """# Writing
 

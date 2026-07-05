@@ -3,8 +3,8 @@
 Runtime-neutral tool contracts for capabilities PEGO agents may call.
 
 This directory does not define a runtime. A tool listed here may later be
-implemented as Python, TypeScript, MCP, EVE capability, LangGraph node, Vercel
-AI SDK tool, mobile integration, hosted service, or another adapter.
+implemented as Python, TypeScript, a tool server, graph node, mobile
+integration, hosted service, or another adapter.
 
 Agents call tools only when the call supports a directive, council decision,
 governance review, evidence update, or outcome review.
